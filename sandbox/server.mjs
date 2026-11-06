@@ -510,6 +510,11 @@ function applyActionRaw(g, a) {
       g.log.push(`投资 ${i.name}`);
       return 'ok';
     }
+    case 'estimateScale': {
+      // 扩张测算（组合式）：供小组端「扩张测算器」使用
+      const n = Math.max(0, Math.min(20, Number(a.n) || 0));
+      return G.estimateScale(g, n);
+    }
     case 'setReturnFlight': {
       // ★ 回程由**学员自行设定**：回程起飞时刻须 ≥ 过站时间结束（到达 + 下客/清洁/上客）
       const idx = Number(a.index);
