@@ -17,6 +17,10 @@ const KH = (seat) => ({ 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : (KE
 const KHdr = (seat) => ({ 'Content-Type': 'application/json', ...KH(seat) });
 
 const R = [];
+/* ★ 用法：node paneltest.mjs player | node paneltest.mjs teacher
+   两个页面**分进程**运行：player.html 与 teacher.html 若在同一 JS 全局里先后渲染，
+   前者的异步回调会落到后者的文档上（真实浏览器每页独立上下文，不存在此问题） */
+const ONLY = process.argv[2] || '';
 const step = async (name, fn) => {
   try { const r = await fn(); R.push({ name, ok: true, note: typeof r === 'string' ? r : '' }); }
   catch (e) { R.push({ name, ok: false, note: e.message }); }
@@ -64,7 +68,7 @@ await step('服务端可达', async () => {
 
 /* ─────────── 玩家面板 ─────────── */
 let P = null;
-await step('player.html 渲染无异常', async () => {
+if (!ONLY || ONLY === 'player') await step('player.html 渲染无异常', async () => {
   P = await render('player.html', BASE + '/player.html?seat=CA&key=' + KEYS.seats.CA);
   ok(P.errors.length === 0, 'JS 错误: ' + P.errors.join(' | '));
   return '0 错误';
@@ -143,7 +147,7 @@ await step('玩家面板 提交后出现历史报告页签', async () => {
 
 /* ─────────── 裁判面板 ─────────── */
 let T = null;
-await step('teacher.html 渲染无异常', async () => {
+if (!ONLY || ONLY === 'teacher') await step('teacher.html 渲染无异常', async () => {
   T = await render('teacher.html', BASE + '/teacher.html?key=' + KEYS.teacher);
   ok(T.errors.length === 0, 'JS 错误: ' + T.errors.join(' | '));
   return '0 错误';
