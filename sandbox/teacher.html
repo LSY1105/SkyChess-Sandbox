@@ -950,12 +950,20 @@ async function renderStyleAndHack() {
   const hacked = [];
   for (const s of (gm.seats || [])) {
     const d = await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
-    if (d && d.game && d.game.hacked && !d.game.hacked.resolved) hacked.push({ s, h: d.game.hacked });
+    if (d && d.game && d.game.hacked && !d.game.hacked.resolved) hacked.push({ s, h: d.game.hacked, d: d });
   }
   if (!hacked.length) { hp.appendChild(el('div', 'small', '当前无处于被攻击状态的航司。')); return; }
   for (const x of hacked) {
     const row = el('div', 'row');
     row.appendChild(el('span', null, x.s + ' 面板被勒索覆盖，无法操作'));
+    const _cash = Math.round(((x.d && x.d.game && x.d.game.cash) || 0));
+    const _svc = (GM.cyber_service_price || 250000);
+    const _cs = el('span', 'small');
+    _cs.style.color = _cash >= _svc ? '#1a7f37' : '#cf222e';
+    _cs.textContent = '　该组现金 $' + _cash.toLocaleString() + '，'
+      + (_cash >= _svc ? '可自行购买网络安全服务 $' + _svc.toLocaleString() + '/季 解封'
+                   : '不足以购买 $' + _svc.toLocaleString() + ' 服务 → 需裁判降价或给予融资');
+    row.appendChild(_cs);
     const inp = el('input'); inp.type = 'number'; inp.style.width = '120px'; inp.placeholder = '赎金 $';
     inp.value = x.h.ransom || '';
     const b1 = el('button', null, '报价赎金');

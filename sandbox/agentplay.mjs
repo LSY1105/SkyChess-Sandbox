@@ -69,7 +69,7 @@ const ROLE = `你是 SkyChess 航空运营沙盘里某家航司的经营决策�
 可用动作 type：setFare{code,fare} / addFlight{acId,code,departure} / removeFlight{index}
  / invest{id} / buyAircraft{acType:"APT100"} / lease{acType:"APT100"} / propose{kind}
  / openRoute{code} / setFareBands{code,peak,offPeak} / buyIntel{code} / borrow{amount}
- / sellBack{acId} / payEtops{code} / acceptHedgeQuote{quoteId}
+ / sellBack{acId} / payEtops{code} / acceptHedgeQuote{quoteId} / **buyCyberService**(被攻击时购买网络安全服务解封) / payRansom(付赎金)
 （一次最多 12 个动作，按优先级排序；不确定的动作不要写）`;
 
 function buildPrompt(seat, g, turn, state) {
@@ -263,6 +263,13 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
   for (const s of SEATS) {
     const g = (await seatGet(s)).game;
     prompts[s] = buildPrompt(s, g, turn, state);
+    // ★ 若该组正处于被攻击状态 → 明确指示其第一步执行 buyCyberService（对应小组端遮罩上的按钮）
+    if (g.hacked && !g.hacked.resolved) {
+      prompts[s] += `
+★★ 你当前所在小组的面板正被网络攻击覆盖，无法进行任何经营操作。`
+        + `你的**第一个且必须**的动作是 buyCyberService（购买网络安全服务 $${((D.GM.cyber_service_price || 250000)).toLocaleString()}/季）来解封面板；`
+        + '在解封之前不要提交其他动作。';
+    }
   }
   // ★ 串行执行：并发 3 个 LLM 调用会触发 provider 限流 → 后续请求 stdout 为空 → 演练冻结
   const results = [];

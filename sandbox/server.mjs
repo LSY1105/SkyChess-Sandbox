@@ -346,6 +346,8 @@ function serialize(g) {
     rejects: g.rejects || [],            // ★ 最近被拒操作及原因（教学反馈闭环）
     seat: g.seat,                    // ★ 席位标识（前端/测试读取）
     routeFlags: g.routeFlags || {},   // ★ 联程设置（可作中转点 / 提供联程）
+    bankrupt: !!g.bankrupt,           // ★ 破产状态
+    bankruptTurn: g.bankruptTurn != null ? g.bankruptTurn : null,
     cargoPolicy: (gm && gm.cargoPolicy) || {},   // ★ 裁判载货开关（开放/关闭载货）
     negRequests: g.negRequests || [], // ★ 谈判申报单（含状态机与流转历史）
     negStates: NEG_STATES, negLabels: NEG_LABEL,
@@ -693,6 +695,13 @@ function applyActionRaw(g, a) {
       if (!g.schedules.length) return 'no flights scheduled';   // ★ 空排班提交 → 拒绝，避免必然破产的巨额亏损
       g.submittedTurn = g.turn; g.submittedAt = Date.now(); g.turnDeadline = null;
       const rep = G.advanceTurn(g);
+      // ★ 经营失败收口：负现金 → 强制削减；资不抵债 → 破产清算
+      const health = G.applyFinancialHealth(g);
+      if (health.reduced.length) g.log.push('现金为负 → 强制削减：' + health.reduced.join('、'));
+      if (health.bankrupt) {
+        g.log.push('★ 资不抵债（现金 $' + Math.round(g.cash).toLocaleString() + '）→ 破产清算，本届退出');
+        gm.log.push(`${g.seat} 破产清算（现金 $${Math.round(g.cash).toLocaleString()}）`);
+      }
       g.lastDetail = rep.detail;
       g.lastConnByRoute = {};
       for (const [k, d] of Object.entries(rep.detail)) g.lastConnByRoute[k] = d.connected_pax;

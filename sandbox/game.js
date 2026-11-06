@@ -787,6 +787,36 @@ export function dropGroundedSchedules(g) {
   return drop;
 }
 
+/**
+ * 经营失败收口（方案 C）：① 现金为负 → 强制退租赁（可退不罚，退还押金）② 仍资不抵债 → 破产清算
+ * 返回 { reduced: [...], bankrupt: bool }
+ */
+export function applyFinancialHealth(g) {
+  const res = { reduced: [], bankrupt: false };
+  if (g.bankrupt) return res;
+  if (g.cash >= 0) return res;
+  // ① 强制削减：退最贵租金的租赁（押金退还）
+  let guard = 0;
+  while (g.cash < 0 && (g.leases || []).length && guard++ < 12) {
+    let idx = 0;
+    for (let i = 1; i < g.leases.length; i++) if ((g.leases[i].quarterlyRent || 0) > (g.leases[idx].quarterlyRent || 0)) idx = i;
+    const l = g.leases[idx];
+    g.leases.splice(idx, 1);
+    g.aircraft = (g.aircraft || []).filter(a => a.id !== l.acId);
+    g.schedules = (g.schedules || []).filter(s => s.acId !== l.acId);
+    g.cash += l.deposit || 0;                      // 可退不罚 → 押金退还
+    res.reduced.push(`${l.type}（季租 $${Math.round(l.quarterlyRent || 0).toLocaleString()}，押金 $${Math.round(l.deposit || 0).toLocaleString()} 已退）`);
+  }
+  // ② 仍资不抵债 → 破产清算
+  if (g.cash < (GM.bankrupt_cash || -5000000)) {
+    g.bankrupt = true;
+    g.bankruptTurn = g.turn;
+    g.schedules = [];
+    res.bankrupt = true;
+  }
+  return res;
+}
+
 export function advanceTurn(g) {
   const per = currentPeriod(g);
   // ★ 燃油套保：剩余季度递减
