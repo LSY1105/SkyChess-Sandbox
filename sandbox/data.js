@@ -105,6 +105,12 @@ export const GM = {
      ① 现金为负 → 强制削减：退租赁（可退不罚，退还押金）+ 停飞该机
      ② 仍资不抵债（现金 < bankrupt_cash）→ 破产清算：全部停飞、退出本届 */
   bankrupt_cash: -5000000,
+  /* ── P0-2：GDP / 人口增长驱动市场需求自然增长（课堂笔记：「预期需求水平将随 GDP 以及人口增长而变化」）──
+     口径：growth(turn) = (1+gdpGrowth%)^turn × (1+popGrowth%)^(turn×popElas)
+       · 首季（turn=0）= 1 → **不改变既有 DEMAND_K 标定**
+       · gdpGrowth / popElas 取自 data.js 各市场属性；pop_growth_quarterly 为人口季度增速默认值
+       · 【推断·待验证】人口季度增速 1.0% 系按行业常识设定，原版一手数值待查 */
+  pop_growth_quarterly: 1.0,
   /* ★ 中转（联程）旅客的**续程结算比例**：转机旅客买的是全程票，承运人之间按航段结算
      → 接续方只按接续段票价的一部分收款，余额归原承运人。
      缺此机制会产生套利：把票价拉高 + 承接中转 = 巨额收入（实测均价 \$3533/客） */
@@ -115,21 +121,22 @@ export const GM = {
   buyback_max_multiple: 0.5,   // 网络安全服务（解网络攻击状态）
   taxi_out_min: 12,
   taxi_in_min: 12,
-  /* ★ 裁定（2026-11-03）：过站时间按经营风格设定**基线**，且为强约束
-     LCC 廉价航空 理论可到 30 分钟｜Hybrid 混合型 最低 40 分钟｜FSC 全服务 最低 60 分钟
-     → 低于基线一律无效（谈判只能在各自允许档位中选择） */
-  style_turnaround: { LCC: 36, Hybrid: 60, FSC: 90 },
-  /* ★ 过站时长按经营定位分档，含三项（下客 + 清洁 + 上客），各项可单独调整
-     LCC 12+12+12=36 ｜ Hybrid 20+20+20=60 ｜ FSC 30+30+30=90 */
+  /* ★ 裁定（2026-11-03 更新）：过站时间**基线统一 60 分钟**
+     依据：一手课堂观察「短程航班过站时间为 60 分钟，长航线航班为 120 分钟（适用目的地与枢纽过站飞机）」
+     → 原实现 LCC 36 / FSC 90 系助手臆测（无一手依据），已作废
+     → 经营风格差异（廉价型更快 / 全服务更从容）改为**裁判可谈定的教学参数**，不作为硬编码基线 */
+  style_turnaround: { LCC: 60, Hybrid: 60, FSC: 60 },
+  /* 过站时长构成三项（下客 + 清洁 + 上客），基准 20+20+20=60，可单独调整 */
   style_turnaround_parts: {
-    LCC:    { deplane: 12, clean: 12, board: 12 },
+    LCC:    { deplane: 20, clean: 20, board: 20 },
     Hybrid: { deplane: 20, clean: 20, board: 20 },
-    FSC:    { deplane: 30, clean: 30, board: 30 },
+    FSC:    { deplane: 20, clean: 20, board: 20 },
   },
+  /* 裁判可谈定的档位（基准 60；允许低于基准需裁判特批，谈判时逐组差异化） */
   style_turnaround_options: {
-    LCC:    [30, 45, 60, 75],
-    Hybrid: [40, 45, 60, 75],
-    FSC:    [60, 75, 90],
+    LCC:    [45, 60, 75, 90],
+    Hybrid: [45, 60, 75, 90],
+    FSC:    [45, 60, 75, 90],
   },
   lh_turnaround: 120,
   /* ── 油价分层（系统派生 + 裁判可覆盖）──

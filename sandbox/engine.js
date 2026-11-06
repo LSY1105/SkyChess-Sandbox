@@ -47,12 +47,26 @@ export function priceFactor(fare, eps) {
 /** 潜在需求 (人/季) —— **单一航司服务时的**需求（单 firm 口径）
  *  freq —— 该航线当季总班次（真实报表 Frequencies 列的口径，典型 180/360/540）
  */
+/* ── P0-2：GDP / 人口增长 → 市场需求随回合自然增长 ──
+   采用「当前回合」上下文（由 game.js 在结算前 setDemandTurn 设置），避免给所有函数签名加参数
+   growth(turn) = (1 + gdpGrowth/100)^turn × (1 + popGrowth/100)^(turn × popElas)
+   首季 turn=0 → growth = 1 → 完全不改变既有 DEMAND_K 标定 */
+let CUR_TURN = 0;
+export function setDemandTurn(t) { CUR_TURN = Math.max(0, t || 0); }
+export function demandGrowth(marketName) {
+  const m = MARKETS[marketName] || {};
+  const gdp = (m.gdpGrowth != null ? m.gdpGrowth : 1.5) / 100;
+  const popG = (GM.pop_growth_quarterly != null ? GM.pop_growth_quarterly : 1.0) / 100;
+  const elas = (m.popElas != null ? m.popElas : 1.0);
+  return Math.pow(1 + gdp, CUR_TURN) * Math.pow(1 + popG, CUR_TURN * elas);
+}
+
 export function demand(marketName, fare, freq, mult = 1) {
   const m = MARKETS[marketName] || {};
   const K = DEMAND_K[marketName];
   if (!K) return 0;
   const eps = 1 + 0.05 * (m.elasticity || 1);
-  return K * priceFactor(fare, eps) * freqFactor(freq) * mult;
+  return K * priceFactor(fare, eps) * freqFactor(freq) * demandGrowth(marketName) * mult;
 }
 
 /* ============================================================
