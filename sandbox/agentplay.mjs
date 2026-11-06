@@ -115,35 +115,53 @@ function ruleStrategy(seat, g, prev) {
   // ★ 裁定 A（双口径）：允许「战略性亏损扩张」——
   //   若某航线现金口径可打平（LF 较高）且我方份额仍低 → 增 1 架（优先融资买机，现金压力最小）
   const detail = (prev && prev.detail) || {};
-  /* ★ 排班目标：按**边际贡献**决定飞哪条航线、飞几班
-     —— 旧逻辑用 LF 门槛(LF≥40%) 筛选 → 首季 LF 仅 16% → 一班不飞 → 零收入 → 必死（死结另一半）
-     —— 正确逻辑：单班边际贡献（旅客×运价 − 每班次运营成本）> 0 就飞 */
-  const wanted = [];
-  let fallback = null;
-  for (const [code, x] of Object.entries(detail)) {
-    const r = g.routes.find(q => q.code === code); if (!r) continue;
-    const freq = x.freq || 0;
-    const perOps = freq > 0
-      ? ((x.cost['Fuel'] || 0) + (x.cost['Maintenance'] || 0) + (x.cost['Flight Crew'] || 0)) / freq : 0;
-    const paxPerFlight = freq > 0 ? (x.pax || 0) / freq : 0;
-    const margin = paxPerFlight * r.fare - perOps;
-    if (!fallback || margin > fallback.margin) fallback = { code, margin, perDay: 2 };
-    if (margin > 0) wanted.push([code, 2]);
-  }
-  if (!wanted.length && fallback) wanted.push([fallback.code, fallback.perDay]);   // 至少飞最不亏的一条
-
-  // ★ 组合式扩张判据（scale economy）：候选规模 N → 沙盘侧 estimateScale 选净收益最大者
-  let bestN = 0, bestNet = 0, bestEst = null;
+  /* ★ 组合式扩张判据（规模经济）
+     旧判据：单条航线 LF≥40% 且份额<60% → 扩 1 架 → 结构性死锁（单机增量恒为负→不扩→固定成本不摊薄）
+     新判据：候选 N=1..4 架 → 沙盘侧 estimateScale 取**净收益最大**者 → 融资买 N 架
+     （estimateScale 与小组端「扩张测算器」共用同一逻辑，口径一致） */
+  let bestN = 0, bestNet = 0, bestCode = null;
   for (let N = 1; N <= 4; N++) {
     const est = G.estimateScale(g, N);
-    if (est.net > bestNet) { bestNet = est.net; bestN = N; bestEst = est; }
+    if (!est || !est.rows || !est.rows.length) continue;
+    if (est.net > bestNet) {
+      bestNet = est.net; bestN = N;
+      bestCode = est.rows.slice().sort((a, b) => b.revenue - a.revenue)[0].code;
+    }
   }
   if (bestN > 0 && g.cash > 0) {
     const buys = [];
     for (let i = 0; i < bestN; i++) buys.push({ type: 'buyAircraft', acType: 'APT100', financed: true });
-    return { actions: buys, removeIdx: removeIdx,
-             note: '组合测算：扩 ' + bestN + ' 架 → 季度净 ' + Math.round(bestNet).toLocaleString() + '（含利息与折旧）' };
+    expanded = expanded.concat([bestCode]);
+    return { actions: buys, removeIdx: removeIdx, expandCodes: expanded,
+             note: '组合测算：扩 ' + bestN + ' 架（投 ' + bestCode + '）→ 季度净增 ' + Math.round(bestNet).toLocaleString() + '（含利息与折旧）' };
   }
+  const styleK = { LCC: 0.85, FSC: 1.20, Hybrid: 1.00 }[g.style] || 1;
+  const actions = [];
+  for (const r of g.routes) { const m = D.MARKETS[r.code]; if (!m) continue;
+    actions.push({ type: "setFare", code: r.code, fare: Math.round((m.guide_fare || 200) * styleK) }); }
+  const EXTRA = (expanded || []);
+  const plan = { CA: [["SIM",6],["ETN",4],["JOP",3],["LEW",2],["ARM",1]],
+                 AB: [["ETN",4],["PKR",4],["CHA",2],["BZY",1]],
+                 VA: [["ETN",3],["FTZ",3],["GEE",1],["ARM",1]] }[seat] || [];
+  const opened = g.routes.map(r => r.code);
+  const wanted = plan.map(([c, k]) => [c, k + (EXTRA.includes(c) ? 2 : 0)]).filter(([c]) => opened.includes(c));
+    /* ★ 时刻占用对齐：先删除不再需要的时刻（= 释放该时刻，可被对手抢占），再补新增时刻 */
+    {
+      const keep = new Set();
+      for (const [code2, perDay] of wanted) {
+        const bh2 = D.MARKETS[code2] ? D.MARKETS[code2].bh : 1.5;
+        const gapH2 = Math.ceil(2 * bh2 + 0.6);
+        let t0b = 6, done2 = 0, ai2 = 0; const pool2 = g.aircraft.slice();
+        while (done2 < perDay && ai2 < pool2.length) {
+          const acx = pool2[ai2]; const maxA = acx.long ? 1 : 2;
+          for (let k = 0; k < maxA && done2 < perDay; k++) { keep.add(code2 + "@" + String((t0b + k * gapH2) % 24).padStart(2, "0") + ":00"); done2++; }
+          t0b += gapH2 * maxA; ai2++;
+        }
+      }
+      const idxs = [];
+      (g.schedules || []).forEach((s2, i2) => { if (!keep.has(s2.code + "@" + s2.departure)) idxs.push(i2); });
+      removeIdx = idxs.reverse();
+    }
 
   const acPool = g.aircraft.slice(); let ci = 0;
   for (const [code, perDay] of wanted) {
