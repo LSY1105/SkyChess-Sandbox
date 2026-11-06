@@ -936,12 +936,13 @@ export function allocateCabin(seats, fares, pax, coef) {
   const order = [ { c: 'J', s: seats.J || 0, p: F(fares.J) }, { c: 'W', s: seats.W || 0, p: F(fares.W) }, { c: 'Y', s: seats.Y || 0, p: F(fares.Y) } ];
   let left = Math.max(0, pax || 0), rev = 0;
   const mix = { Y: 0, W: 0, J: 0 };
+  const revBy = { Y: 0, W: 0, J: 0 };
   for (const o of order) {
     if (left <= 0) break;
     const take = Math.min(o.s, left);
-    mix[o.c] = take; rev += o.p * take; left -= take;   // o.p 已含分时倍率，不重复乘
+    mix[o.c] = take; revBy[o.c] += o.p * take; rev += o.p * take; left -= take;   // o.p 已含分时倍率，不重复乘
   }
-  return { mix, rev, leftover: left };
+  return { mix, rev, revBy, leftover: left };
 }
 
 export function applyFinancialHealth(g) {
@@ -1245,9 +1246,10 @@ export function computeTurn(g, per) {
                                    { Y: fY, W: fW, J: fJ }, f.served, k);
         let rev = E.F01(1, al2.rev);            // F01 含客运收入系数 0.926228
         const mix = al2.mix;
+        const revBy = { Y: E.F01(1, al2.revBy.Y), W: E.F01(1, al2.revBy.W), J: E.F01(1, al2.revBy.J) };
         let left = al2.leftover;
         if (left > 0) { rev += E.F01(slotFare, left); mix.Y += left; }   // 兜底（无舱位结构时）
-        rows.push({ mix, rev });
+        rows.push({ mix, rev, revBy });
       }
       paxRevFinal = rows.reduce((a, r) => a + r.rev, 0);
       cabinMix = rows;
@@ -1348,6 +1350,14 @@ export function computeTurn(g, per) {
       connected_spill: Math.max(0, connWant - connPax),
       rev: { 'Passenger Revenue': paxRev, 'Cargo Revenue': cargoRev,
              'Ancillary Revenue': ancRev, 'Total Revenue': totRev },
+      /* ★ S5 舱位收入拆分（仅在设置了分舱位票价时有值；未设置则为空对象） */
+      cabin: (p.cabinMix || []).length ? (() => {
+        const cs = { Y: { pax: 0, rev: 0 }, W: { pax: 0, rev: 0 }, J: { pax: 0, rev: 0 } };
+        for (const r of p.cabinMix) {
+          for (const k of ['Y', 'W', 'J']) { cs[k].pax += r.mix[k]; cs[k].rev += (r.revBy || {})[k] || 0; }
+        }
+        return cs;
+      })() : {},
       cost: c, dco, ind, operating_profit: op,
     };
     revenue += totRev; cost += dco + ind;
