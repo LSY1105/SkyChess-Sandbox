@@ -279,12 +279,11 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
   for (const s of SEATS) {
     const g = (await seatGet(s)).game;
     prompts[s] = buildPrompt(s, g, turn, state);
-    /* ★ 把沙盘测算器（联合测算）结果注入 LLM 的 prompt
-       —— 此前 Agent 走 LLM 分支，规则型兜底里的组合判据从未执行 → Agent 看不到「提价后扩机转正」这个事实 */
     try {
       const joint = G.estimateScaleJoint(g, 4);
       if (joint && joint.best) {
-        const b = joint.best, c = joint.bestAtCurrentFare || b;
+        const b = joint.best;
+        const c = joint.bestAtCurrentFare || b;
         const f2 = v => (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString();
         const NL = String.fromCharCode(10);
         prompts[s] += NL + NL
@@ -295,7 +294,7 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
           + ' 架 → 季度净影响 ' + f2(b.net || 0) + NL
           + '（提价会压低客座率，弹性较弱；是否提价、提多少、扩几架，由你判断）';
       }
-    } 
+    } catch (e) { /* 测算不可用则不注入 */ }
     // ★ 若该组正处于被攻击状态 → 明确指示其第一步执行 buyCyberService（对应小组端遮罩上的按钮）
     if (g.hacked && !g.hacked.resolved) {
       prompts[s] += `
