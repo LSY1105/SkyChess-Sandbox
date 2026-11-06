@@ -803,7 +803,7 @@ export function estimateScale(g, n, price = 40000000, fareRatio = 1) {
   const codes = Object.keys(d);
   const seats = 100, perDay = 2, days = 90;
   const detailRows = [];
-  let rev = 0, varCost = 0;
+  let rev = 0, varCost = 0, servedTotal = 0;
   for (const code of codes) {
     const x = d[code];
     const r = (g.routes || []).find(q => q.code === code); if (!r) continue;
@@ -826,16 +826,20 @@ export function estimateScale(g, n, price = 40000000, fareRatio = 1) {
       ? ((x.cost['Fuel'] || 0) + (x.cost['Maintenance'] || 0) + (x.cost['Flight Crew'] || 0)) / freq
       : 0;
     const vc = extraFlights * perFlightOps;
-    rev += revenue; varCost += vc;
+    rev += revenue; varCost += vc; servedTotal += served;
     detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: Math.round(r.fare * fareRatio), lf: +(lf * demAdj).toFixed(4), fareBase: r.fare,
       extraFlights: Math.round(extraFlights), served: Math.round(served), revenue: Math.round(revenue) });
   }
   const interest = n * price * (g.interestRate || 5) / 100 / 4;
   const dep = n * price / (GM.depreciation_years || 25) / 4;
   const total = rev - varCost - interest - dep;
-  // 盈亏平衡 LF：在该规模下达到 total=0 所需客座率
+  /* 盈亏平衡 LF：在该规模下达到 total=0 所需客座率
+     收入随 LF 线性上升 → 平衡 LF = (变动成本+利息+折旧) ÷ (总座位 × 每承运人平均票价)
+     —— 旧式用 routes[0].fare 混算不同航线票价 → 会得出 >100% 的荒谬值 */
   const capSeats = n / Math.max(1, codes.length) * perDay * days * seats;
-  const beLF = capSeats > 0 ? Math.max(0, (varCost + interest + dep) / (capSeats * ((g.routes[0] || {}).fare || 200))) : null;
+  const avgFare = servedTotal > 0 ? rev / servedTotal : 0;
+  const beLF = (capSeats > 0 && avgFare > 0)
+    ? Math.max(0, (varCost + interest + dep) / (capSeats * avgFare)) : null;
   return { n, revenue: Math.round(rev), variableCost: Math.round(varCost), interest: Math.round(interest),
            depreciation: Math.round(dep), net: Math.round(total), breakEvenLF: beLF != null ? +beLF.toFixed(3) : null,
            rows: detailRows };
