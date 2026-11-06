@@ -224,7 +224,8 @@ async function applyActions(seat, actions) {
     if (!a || !ALLOWED.has(a.type)) { rejected.push({ ...a, why: '未知动作' }); continue; }
     const body = { ...a }; delete body.type;
     const r = await seatPost(seat, { type: a.type, ...body });
-    if (r.result === 'ok' || (r.result && r.result.indexOf('ok') === 0)) applied.push({ type: a.type, ...body });
+    const rres = r.result;
+    if (rres === 'ok' || (typeof rres === 'string' && rres.indexOf('ok') === 0)) applied.push({ type: a.type, ...body });
     else rejected.push({ type: a.type, ...body, why: String(r.result) });
   }
   return { applied, rejected };
@@ -377,6 +378,8 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
       ask: h.askTotal != null ? Math.round(h.askTotal) : null,
       share: h.market_share != null ? +h.market_share.toFixed(4) : null,
       routes: g.routes.map(r => r.code), schedules: g.schedules.length,
+      bankrupt: !!g.bankrupt,
+      reduced: ((g.financialHealth && g.financialHealth.reduced) || []).join('、'),
       fleet: g.aircraft.length, loans: Math.round(g.loan_balance || 0),
       investments: (g.investments || []).map(i => i.id),
       detail: Object.fromEntries(Object.entries(d).map(([c, v]) => [c, { pax: Math.round(v.pax), lf: +v.lf.toFixed(3), rev: Math.round(v.rev['Total Revenue']), op: Math.round(v.operating_profit), share: +(+v.share).toFixed(3) }])),
@@ -388,7 +391,7 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
   console.log(`\n【第 ${turn} 季】`);
   for (const s of SEATS) {
     const v = season.seats[s];
-    console.log(`  ${s}(${STYLE[s]}) 现金 $${v.cash.toLocaleString()}｜收入 ${v.revenue ?? '—'}｜利润 ${v.operating_profit ?? '—'}｜LF ${v.load_factor ?? '—'}｜份额 ${v.share ?? '—'}｜航线 ${v.routes.join('+')}`);
+    console.log(`  ${s}(${STYLE[s]}) 现金 $${v.cash.toLocaleString()}｜收入 ${v.revenue ?? '—'}｜利润 ${v.operating_profit ?? '—'}｜LF ${v.load_factor ?? '—'}｜份额 ${v.share ?? '—'}｜航线 ${v.routes.join('+')}` + (v.bankrupt ? '｜*** 破产清算（资不抵债，已退出本届）***' : '') + (v.reduced ? '｜强制削减：' + v.reduced : ''));
   }
   for (const d of decisionLog) console.log(`   ${d.seat}: ${d.note || ''}${d.error ? ' [解析失败]' : ''} 动作 ${(d.applied || []).length} 拒绝 ${(d.rejected || []).length}`);
 }
