@@ -925,6 +925,25 @@ export function estimateScaleJoint(g, nMax = 4, ratios = [0.8, 1.0, 1.2, 1.4, 1.
   return { best, bestAtCurrentFare: bestNow, rows };
 }
 
+/**
+ * 舱位分配（S3）：给定各舱位座位与票价，把承运量按**票价从高到低**分配（高价舱位先坐满）
+ *   seats: { Y, W, J } 票价: { Y, W, J } pax: 该班次承运旅客数
+ *   → 返回 { mix:{Y,W,J}, rev, leftover }（leftover>0 表示座位口径不足）
+ * 纯函数，可独立测试；默认三舱同价时结果与「pax × 单一票价」完全一致
+ */
+export function allocateCabin(seats, fares, pax, coef) {
+  const F = (v) => (coef == null ? v : v * coef);
+  const order = [ { c: 'J', s: seats.J || 0, p: F(fares.J) }, { c: 'W', s: seats.W || 0, p: F(fares.W) }, { c: 'Y', s: seats.Y || 0, p: F(fares.Y) } ];
+  let left = Math.max(0, pax || 0), rev = 0;
+  const mix = { Y: 0, W: 0, J: 0 };
+  for (const o of order) {
+    if (left <= 0) break;
+    const take = Math.min(o.s, left);
+    mix[o.c] = take; rev += o.p * take; left -= take;   // o.p 已含分时倍率，不重复乘
+  }
+  return { mix, rev, leftover: left };
+}
+
 export function applyFinancialHealth(g) {
   const res = { reduced: [], bankrupt: false };
   if (g.bankrupt) return res;
@@ -1203,8 +1222,38 @@ export function computeTurn(g, per) {
     pax = Math.min(pax, seatsOffered);
     /* 分时定价下的客运收入：各班次有效票价 × 该班承运量（第一段算好，第二段取用） */
     const paxRevSlot = flights.reduce((a, f, i) => a + E.F01(slotFares[i] || route.fare, f.served), 0);
+    /* ★ S3 舱位分级收入：按各舱位票价**从高到低**先售（高价舱位优先坐满），
+       余量由低价舱位承接 —— 符合航空实际（先卖贵的）。
+       默认（未设分舱位票价）→ 各舱同价 → 收入与原实现**完全一致**（不破坏既有标定） */
+    const cf = route.cabinFare || {};
+    const fY = route.fare;
+    const fW = cf.prem != null ? cf.prem : route.fare;
+    const fJ = cf.biz != null ? cf.biz : route.fare;
+    let paxRevFinal = paxRevSlot;
+    let cabinMix = null;
+    if (fW !== fY || fJ !== fY) {
+      const rows = [];
+      for (let i = 0; i < flights.length; i++) {
+        const f = flights[i];
+        const ac = (g.aircraft || []).find(x => x.id === f.acId) || {};
+        const seatsY = (ac.eco != null ? ac.eco : ac.seats) || 0;
+        const seatsW = ac.prem || 0;
+        const seatsJ = ac.biz || 0;
+        const slotFare = slotFares[i] || route.fare;
+        const k = route.fare > 0 ? slotFare / route.fare : 1;      // 分时倍率对各舱位一视同仁
+        const al2 = allocateCabin({ Y: seatsY, W: seatsW, J: seatsJ },
+                                   { Y: fY, W: fW, J: fJ }, f.served, k);
+        let rev = E.F01(1, al2.rev);            // F01 含客运收入系数 0.926228
+        const mix = al2.mix;
+        let left = al2.leftover;
+        if (left > 0) { rev += E.F01(slotFare, left); mix.Y += left; }   // 兜底（无舱位结构时）
+        rows.push({ mix, rev });
+      }
+      paxRevFinal = rows.reduce((a, r) => a + r.rev, 0);
+      cabinMix = rows;
+    }
     prelim.push({ route, m, fl, freq, seatsOffered, bh, D, pax, al, fuelPx, flights,
-                  slotFares, paxRev: paxRevSlot });
+                  slotFares, paxRev: paxRevFinal, cabinMix });
   }
 
   // ══ 中转结算 ══
