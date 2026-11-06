@@ -305,7 +305,7 @@ const SEAT_KEY = (() => {
   return LS.getItem('sbx-key-' + seat) || '';
 })();
 let g = null, gmState = null, invTab = 'airline', histSel = 0;
-const $ = s => document.querySelector(s);
+const $ = s => (typeof window !== 'undefined' && window.document ? window.document : document).querySelector(s);   // 绑定本页文档，避免多页面共存时串扰
 const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
@@ -347,9 +347,12 @@ async function load() {
 }
 
 function head() {
-  $('#seatBadge').textContent = seat + ' 席位';
-  $('#seatBadge').style.background = ({CA:'#dfbf0c',AB:'#0270b6',VA:'#3d0f7b'})[seat] || '#333';
-  $('#seatBadge').style.color = '#000';
+  /* ★ 容错：页头元素可能已被移除（如连接失败提示改写）→ 静默跳过，不打断后续渲染 */
+  const sb = $('#seatBadge');
+  if (!sb) return;
+  sb.textContent = seat + ' 席位';
+  sb.style.background = ({CA:'#dfbf0c',AB:'#0270b6',VA:'#3d0f7b'})[seat] || '#333';
+  sb.style.color = '#000';
   $('#hPeriod').textContent = g.period.label;
   $('#hCash').textContent = money(g.cash);
   $('#hCash').className = g.cash < 0 ? 'bad' : (g.cash < 500000 ? 'warn' : '');

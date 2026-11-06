@@ -293,6 +293,11 @@ export const MARKET_LIST = Object.keys(MARKETS);
 export const AIRCRAFT = [
   { name:'APT100',   type:'SR', seats:100, eco:100, prem:0,  biz:0,  price:40.00,  cab_min:2, cab_extra:1, cargo:2.6, sp:12.6, mtow:45, fuel:1565, dmc_c:220, dmc_fh:260, long:false },
   { name:'APT100 P', type:'SR', seats:100, eco:76,  prem:12, biz:0,  price:41.00,  cab_min:2, cab_extra:2, cargo:3.8, sp:12.6, mtow:45, fuel:1565, dmc_c:220, dmc_fh:260, long:false },
+  /* ★ 公务舱机型（2026-11-03 新增）：原版目录中所有机型 biz=0 → 商务舱定价无处落地，
+     但投资目录已存在「配餐（公务舱与超经舱）」项 → 说明原版应有公务舱运力。
+     目录价按同型 + 商务舱溢价 25% 估算 → 【推断·待验证】（原版目录价一手数值待查） */
+  { name:'APT100 J',  type:'SR', seats:100, eco:84,  prem:0,  biz:16, price:50.00, cab_min:2, cab_extra:2, cargo:2.6, sp:12.6, mtow:45, fuel:1565, dmc_c:220, dmc_fh:260, long:false },
+  { name:'G130 J',    type:'SR', seats:132, eco:108, prem:0,  biz:24, price:105.30, cab_min:3, cab_extra:2, cargo:3.7, sp:16.9, mtow:63, fuel:2020, dmc_c:355, dmc_fh:288, long:false },
   { name:'G130',     type:'SR', seats:132, eco:132, prem:0,  biz:0,  price:84.24,  cab_min:3, cab_extra:1, cargo:3.7, sp:16.9, mtow:63, fuel:2020, dmc_c:355, dmc_fh:288, long:false },
   { name:'G130 P1',  type:'SR', seats:132, eco:96,  prem:16, biz:0,  price:86.00,  cab_min:3, cab_extra:2, cargo:5.2, sp:16.9, mtow:63, fuel:2020, dmc_c:355, dmc_fh:288, long:false },
   { name:'G130 P2',  type:'SR', seats:132, eco:102, prem:12, biz:0,  price:86.00,  cab_min:3, cab_extra:2, cargo:5.0, sp:16.9, mtow:63, fuel:2020, dmc_c:355, dmc_fh:288, long:false },
