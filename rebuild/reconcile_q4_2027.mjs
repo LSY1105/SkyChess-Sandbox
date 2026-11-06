@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-const G = await import('./game.js'); const E = await import('./engine.js'); const D = await import('./data.js');
+const G = await import('../sandbox/game.js'); const E = await import('../sandbox/engine.js'); const D = await import('../sandbox/data.js');
 const g = G.newGame(20261021); g.cash = 2_000_000; g.noCashSweep = true;
 const apt = g.aircraft.find(a=>a.type==='APT100'), g160 = g.aircraft.find(a=>a.type==='G160');
 g.routes = [{code:'SIM',fare:120,openedTurn:0,etopsPaid:false},{code:'ETN',fare:250,openedTurn:0,etopsPaid:false}];
@@ -18,7 +18,8 @@ for (const code of Object.keys(rep.detail)) {
   for (const [k,v] of Object.entries(d.rev)) agg['REV:'+k]=(agg['REV:'+k]||0)+v;
   for (const [k,v] of Object.entries(d.cost)) agg['C:'+k]=(agg['C:'+k]||0)+v;
 }
-const B = JSON.parse(readFileSync('../rebuild/baseline_real.json','utf8')).global_baseline_q4_2027.operating_costs_statement;
+const HERE = new URL('.', import.meta.url);
+const B = JSON.parse(readFileSync(new URL('baseline_real.json', HERE),'utf8')).global_baseline_q4_2027.operating_costs_statement;
 const rows=[]; const push=(n,r,s)=>rows.push([n,r,s]);
 push('客运收入', B.revenues['Passenger Revenue'], agg['REV:Passenger Revenue']);
 push('货邮收入', B.revenues['Cargo Revenue'], agg['REV:Cargo Revenue']);
