@@ -115,6 +115,23 @@ function ruleStrategy(seat, g, prev) {
   // ★ 裁定 A（双口径）：允许「战略性亏损扩张」——
   //   若某航线现金口径可打平（LF 较高）且我方份额仍低 → 增 1 架（优先融资买机，现金压力最小）
   const detail = (prev && prev.detail) || {};
+  /* ★ 排班目标：按**边际贡献**决定飞哪条航线、飞几班
+     —— 旧逻辑用 LF 门槛(LF≥40%) 筛选 → 首季 LF 仅 16% → 一班不飞 → 零收入 → 必死（死结另一半）
+     —— 正确逻辑：单班边际贡献（旅客×运价 − 每班次运营成本）> 0 就飞 */
+  const wanted = [];
+  let fallback = null;
+  for (const [code, x] of Object.entries(detail)) {
+    const r = g.routes.find(q => q.code === code); if (!r) continue;
+    const freq = x.freq || 0;
+    const perOps = freq > 0
+      ? ((x.cost['Fuel'] || 0) + (x.cost['Maintenance'] || 0) + (x.cost['Flight Crew'] || 0)) / freq : 0;
+    const paxPerFlight = freq > 0 ? (x.pax || 0) / freq : 0;
+    const margin = paxPerFlight * r.fare - perOps;
+    if (!fallback || margin > fallback.margin) fallback = { code, margin, perDay: 2 };
+    if (margin > 0) wanted.push([code, 2]);
+  }
+  if (!wanted.length && fallback) wanted.push([fallback.code, fallback.perDay]);   // 至少飞最不亏的一条
+
   // ★ 组合式扩张判据（scale economy）：候选规模 N → 沙盘侧 estimateScale 选净收益最大者
   let bestN = 0, bestNet = 0, bestEst = null;
   for (let N = 1; N <= 4; N++) {
