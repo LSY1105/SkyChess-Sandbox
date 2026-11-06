@@ -238,7 +238,7 @@ import { PROPOSAL_KINDS } from './game.js';
 import * as R from './reports.js';
 window.__PK__ = PROPOSAL_KINDS;
 
-const $ = s => document.querySelector(s);
+const $ = s => (typeof window !== 'undefined' && window.document ? window.document : document).querySelector(s);   // 绑定本页文档，避免多页面共存时串扰
 /* localStorage 兜底：无 localStorage 环境（测试/隐私模式）不崩 */
 const LS = (() => {
   try {
