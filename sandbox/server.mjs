@@ -412,6 +412,35 @@ function applyActionRaw(g, a) {
       g.log.push(`设定 ${code} 分时定价：高峰 ×${g.fareBands[code].peak} / 低谷 ×${g.fareBands[code].offPeak}`);
       return 'ok';
     }
+    case 'setCabinFare': {
+      /* ★ S2 设置该航线的超经舱 / 公务舱票价
+         规则：① 不得低于该航线基准票价 ② 该航线在营飞机须有对应舱位座位 ③ 仍受指导价×上限约束 */
+      const r = g.routes.find(x => x.code === a.code); if (!r) return '航线不存在';
+      r.cabinFare = r.cabinFare || { prem: null, biz: null };
+      const seatsOn = { prem: 0, biz: 0 };
+      for (const s of (g.schedules || [])) {
+        if (s.code !== a.code) continue;
+        const ac = (g.aircraft || []).find(x => x.id === s.acId); if (!ac) continue;
+        seatsOn.prem += ac.prem || 0; seatsOn.biz += ac.biz || 0;
+      }
+      const guide = D.MARKETS[a.code] && D.MARKETS[a.code].guide_fare;
+      const maxK = D.GM.max_fare_multiple || 0;
+      for (const k of ['prem', 'biz']) {
+        if (!(k in a)) continue;
+        const v = a[k];
+        if (v === null || v === undefined || v === '') { r.cabinFare[k] = null; continue; }
+        const f = +v;
+        if (!(f > 0)) return '舱位票价必须为正';
+        if (f < r.fare) return `舱位票价不得低于基准票价 $${r.fare}（${k === 'prem' ? '超经舱' : '公务舱'}）`;
+        if (maxK > 0 && guide && f > guide * maxK)
+          return `票价超出上限（指导价 $${guide} × ${maxK} = $${Math.round(guide * maxK)}）`;
+        if (k === 'prem' && seatsOn.prem <= 0) return '该航线在营飞机没有超经舱座位';
+        if (k === 'biz' && seatsOn.biz <= 0) return '该航线在营飞机没有公务舱座位';
+        r.cabinFare[k] = f;
+      }
+      g.log.push(`设置 ${a.code} 舱位票价：超经 $${r.cabinFare.prem ?? '（同基准）'}｜公务 $${r.cabinFare.biz ?? '（同基准）'}`);
+      return 'ok';
+    }
     case 'setFare': {
       const r = g.routes.find(x => x.code === a.code); if (r) {
         const maxK = D.GM.max_fare_multiple || 0;

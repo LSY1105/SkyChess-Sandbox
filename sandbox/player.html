@@ -374,7 +374,7 @@ function head() {
 function routes() {
   const t = $('#tblRoutes'); t.innerHTML = '';
   const tr = el('tr');
-  ['市场', '运价', '指导价', '市场总需求', '我方份额', '对手份额', '市场情报', '中转', '客座率', '操作']
+  ['市场', '运价', '超经舱', '公务舱', '指导价', '市场总需求', '我方份额', '对手份额', '市场情报', '中转', '客座率', '操作']
     .forEach(h => tr.appendChild(el('th', null, h)));
   t.appendChild(tr);
   const alloc = G.allocateMarkets(g);          // ★ 竞争分配：市场需求切分给各航司
@@ -395,6 +395,19 @@ function routes() {
     const inp = el('input'); inp.type = 'number'; inp.value = r.fare; inp.step = '5';
     inp.onchange = () => act('setFare', { code: r.code, fare: +inp.value });
     tdF.appendChild(inp); row.appendChild(tdF);
+    /* ★ S2 舱位分级：超经舱 / 公务舱票价（留空 = 按基准价；仅当在营飞机有对应座位才可设置） */
+    for (const k of ['prem', 'biz']) {
+      const tdC = el('td');
+      const cur = (r.cabinFare || {})[k];
+      const ci = el('input');
+      ci.type = 'number'; ci.min = 0; ci.step = 1;
+      ci.style.width = '74px';
+      ci.placeholder = cur != null ? String(cur) : '同基准';
+      ci.title = k === 'prem' ? '超经舱票价（不得低于基准价）' : '公务舱票价（不得低于基准价）';
+      ci.onchange = () => act('setCabinFare', { code: r.code, [k]: ci.value === '' ? null : +ci.value });
+      tdC.appendChild(ci);
+      row.appendChild(tdC);
+    }
     row.appendChild(el('td', null, m.guide_fare ? money(m.guide_fare) : '—'));
     row.appendChild(el('td', null, al ? Math.round(al.totalDemand).toLocaleString() : (seats ? Math.round(D).toLocaleString() : '—')));
     const shc = el('td', null, al ? (al.shares.player * 100).toFixed(1) + '%' : '—');
