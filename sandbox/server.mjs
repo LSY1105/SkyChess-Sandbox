@@ -510,6 +510,10 @@ function applyActionRaw(g, a) {
       g.log.push(`投资 ${i.name}`);
       return 'ok';
     }
+    case 'fleetEconomics': {
+      // 航线经济性速览：开局即可用（不依赖历史结算）
+      return G.fleetEconomicsBrief(g);
+    }
     case 'estimateScaleJoint': {
       // 定价 × 运力 联合测算：候选机队规模 × 运价倍率 → 净收益最大组合
       return G.estimateScaleJoint(g, 4);

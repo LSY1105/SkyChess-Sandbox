@@ -175,6 +175,11 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
+      <h2>⓬ 航线经济性速览（每班次成本 · 盈亏平衡 LF）</h2>
+      <div id="econBox"><div class="small">加载中…</div></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
       <h2>⓫ 扩张测算器（拟增几架 → 收入/成本/盈亏平衡 LF）</h2>
       <div class="row" style="margin-bottom:6px">
         <label>拟增飞机</label><input id="scN" type="number" min="0" max="20" value="2" style="width:80px"> 架
@@ -1026,6 +1031,33 @@ async function renderScaleBox() {
     box.appendChild(t3);
   }
 }
+/* 航线经济性速览：每班次变动成本、满座收入、单班次盈亏平衡 LF、市场季度需求 */
+async function renderEconBox() {
+  const box = $('#econBox'); if (!box) return;
+  const b = await act('fleetEconomics', {}).catch(() => null);
+  box.innerHTML = '';
+  if (!b || !b.rows || !b.rows.length) { box.appendChild(el('div', 'small', '暂无已开航线。')); return; }
+  const tb = el('table');
+  const h = el('tr');
+  ['航线', '运价', '单程BH', '每班次变动成本', '每班次满座收入', '单班次盈亏平衡LF', '市场季度需求'].forEach(x => h.appendChild(el('th', null, x)));
+  tb.appendChild(h);
+  for (const r of b.rows) {
+    const tr2 = el('tr');
+    const be = r.breakEvenLF;
+    tr2.appendChild(el('td', null, r.name));
+    tr2.appendChild(el('td', null, '$' + r.fare));
+    tr2.appendChild(el('td', null, r.bh + ' h'));
+    tr2.appendChild(el('td', null, '$' + r.opsPerFlight.toLocaleString()));
+    tr2.appendChild(el('td', null, '$' + r.fullRevPerFlight.toLocaleString()));
+    const beCell = el('td', be != null && be > 0.5 ? 'bad' : 'ok', be != null ? (be * 100).toFixed(1) + '%' : '-');
+    beCell.title = '客座率低于此值时，每飞一班都在亏';
+    tr2.appendChild(beCell);
+    tr2.appendChild(el('td', null, r.marketDemandQ != null ? r.marketDemandQ.toLocaleString() : '-'));
+    tb.appendChild(tr2);
+  }
+  box.appendChild(tb);
+  box.appendChild(el('div', 'small', '油价 $' + b.fuelPrice + '/加仑｜变动成本 = 燃油 + 机组 + 维护；LF 低于该航线盈亏平衡 LF 时，每飞一班都在亏。'));
+}
 function renderTarget() {
   const box = $('#targetBox'); if (!box) return;
   box.innerHTML = '';
@@ -1145,7 +1177,7 @@ function render() {
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
   else R.renderReports($('#repBody'), g);
   R.renderOpsViews($('#opsBody'), g);
-  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
+  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
   R.renderRouteDemand($('#routeDemandBox'), { [g.seat]: g });

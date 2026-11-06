@@ -798,6 +798,58 @@ export function dropGroundedSchedules(g) {
  *   · 固定成本：利息（自有）+ 折旧（自有）
  * 用途：小组端「扩张测算器」与回测 Agent 的扩张判据共用同一逻辑
  */
+/**
+ * 每班次变动成本（燃油 + 机组 + 维护）
+ *   = (F06_VAR系数 + F07_VAR系数 + F08_VAR系数×油价×BH调整) × 单程 Block Hours
+ * 口径已用原版首季与演练结算数据交叉验证：SIM 预测 $2,612 vs 实际 $2,613；ETN $4,346 vs $4,347（误差 <0.1%）
+ *   F06 机组 221.7×BH｜F07 维护 591.6×BH｜F08 燃油 478.5×油价×BH×1.305
+ *   （1.305 由原版首季 Fuel 与加仑数反推；见 engine.js 注释）
+ */
+export const FUEL_BH_FACTOR = 1.305;
+export function perFlightOpsCost(bhOneWay, fuelPrice) {
+  const bh = Math.max(0.1, bhOneWay || 1.5);
+  return (221.7 + 591.6 + 478.5 * (fuelPrice || 2.4) * FUEL_BH_FACTOR) * bh;
+}
+
+/**
+ * 航线经济性速览：**开局即可用**（不依赖历史结算）→ 学员与 Agent 在 T0 就有判断依据
+ * 输出每条已开航线的：运价 / 每班次变动成本 / 每班次满座收入 / 单班次盈亏平衡 LF / 市场季度需求
+ */
+export function fleetEconomicsBrief(g) {
+  const rows = [];
+  const seats = 100;
+  for (const r of (g.routes || [])) {
+    const m = MARKETS[r.code] || {};
+    const bh = m.bh || 1.5;
+    const fare = r.fare || m.guide_fare || 200;
+    const ops = perFlightOpsCost(bh, g.fuelPrice || 2.4);
+    const fullRev = seats * fare;
+    const beLF = fullRev > 0 ? ops / fullRev : null;
+    let demandQ = null;
+    try { demandQ = Math.round(E.demand(r.code, fare, 90)); } catch (e) { demandQ = null; }
+    rows.push({ code: r.code, name: m.name_c || r.code, bh, fare, seats,
+      opsPerFlight: Math.round(ops), fullRevPerFlight: Math.round(fullRev),
+      breakEvenLF: beLF != null ? +beLF.toFixed(3) : null, marketDemandQ: demandQ });
+  }
+  return { fuelPrice: g.fuelPrice || 2.4, rows };
+}
+
+/** 速览的可读文本（供 Agent prompt 与小组端复用） */
+export function economicsBriefText(g) {
+  const b = fleetEconomicsBrief(g);
+  const NL = String.fromCharCode(10);
+  let s = '【航线经济性速览（沙盘算出的事实，开局即可用）】' + NL;
+  s += '油价 $' + b.fuelPrice + '/加仑｜每班次满座收入 = 座位 × 运价；变动成本 = 燃油 + 机组 + 维护' + NL;
+  for (const r of b.rows) {
+    s += '- ' + r.name + '（' + r.code + '）运价 $' + r.fare + '｜单程 ' + r.bh + ' h｜'
+      + '每班次变动成本 $' + r.opsPerFlight.toLocaleString() + '｜每班次满座收入 $' + r.fullRevPerFlight.toLocaleString()
+      + '｜单班次盈亏平衡 LF ' + (r.breakEvenLF != null ? (r.breakEvenLF * 100).toFixed(1) + '%' : '-')
+      + (r.marketDemandQ != null ? '｜市场季度需求约 ' + r.marketDemandQ.toLocaleString() + ' 人' : '') + NL;
+  }
+  s += '注：LF 低于该航线的盈亏平衡 LF 时，**每飞一班都在亏**；提价可提高平衡 LF，代价是客座率下降（弱弹性）。';
+  return s;
+}
+
 export function estimateScale(g, n, price = 40000000, fareRatio = 1) {
   const d = g.lastDetail || {};
   const codes = Object.keys(d);
