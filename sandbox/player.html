@@ -305,8 +305,11 @@ const SEAT_KEY = (() => {
   return LS.getItem('sbx-key-' + seat) || '';
 })();
 let g = null, gmState = null, invTab = 'airline', histSel = 0;
-const $ = s => (typeof window !== 'undefined' && window.document ? window.document : document).querySelector(s);   // 绑定本页文档，避免多页面共存时串扰
-const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+/* ★ 模块加载时**一次性捕获**本页文档：全局 window/document 可能被另一个页面覆盖
+   （多页面共存于同一 JS 上下文时）→ 运行时再取全局会拿到错误文档 */
+const __DOC = (typeof window !== 'undefined' && window.document) ? window.document : document;
+const $ = s => __DOC.querySelector(s);
+const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
 
@@ -335,7 +338,7 @@ async function load() {
       ? '席位密钥无效。请向裁判索取本组密钥，访问地址形如：'
         + location.origin + '/player.html?seat=' + seat + '&key=KEY'
       : '服务端未响应，或该席位不存在。';
-    document.body.innerHTML =
+    __DOC.body.innerHTML =
       '<div style="padding:40px;color:#e6e9ee;background:#0f1216">'
       + '<h2 style="color:#f85149">无法连接席位</h2><p>' + tip + '</p></div>';
     return;
@@ -863,7 +866,7 @@ $('#btnNegReq') && ($('#btnNegReq').onclick = async () => {
 /* ★ 网络攻击遮罩：被勒索时全屏覆盖，功能完全不可操作（困难由事件导致，非裁判"给予"） */
 function renderHackOverlay() {
   const h = g.hacked;
-  let ov = document.getElementById('hackOverlay');
+  let ov = __DOC.getElementById('hackOverlay');
   if (!h || h.resolved) { if (ov) ov.remove(); return; }
   if (ov) { ov.querySelector('#hackRansom').textContent = h.ransom > 0 ? ('$' + h.ransom.toLocaleString()) : '（裁判尚未报价）'; return; }
   ov = el('div'); ov.id = 'hackOverlay';
@@ -899,7 +902,7 @@ function renderHackOverlay() {
   bar.appendChild(amt); bar.appendChild(btn); bar.appendChild(btn2);
   ov.appendChild(bar);
   ov.appendChild(el('div', 'small', '第 ' + (h.at ?? '—') + ' 季遭攻击 · 请联系裁判'));
-  document.body.appendChild(ov);
+  __DOC.body.appendChild(ov);
 }
 /* 处置飞机的两条路径（团队自决，不强制时点） */
 /* 联程设置：每条航线两个开关（可作中转点 / 提供联程） */
@@ -978,7 +981,7 @@ function renderSellHint() {
 }
 /* 破产清算遮罩：资不抵债 → 全机队停飞、本届退出（教学上要有终点） */
 function renderBankruptOverlay() {
-  const ov = document.getElementById('bankruptOverlay');
+  const ov = __DOC.getElementById('bankruptOverlay');
   if (!g.bankrupt) { if (ov) ov.remove(); return; }
   if (ov) return;
   const o = el('div'); o.id = 'bankruptOverlay';
@@ -987,7 +990,7 @@ function renderBankruptOverlay() {
     + '<div style="font-size:24px;font-weight:700">破产清算 · 本届退出</div>'
     + '<div style="max-width:560px;line-height:1.8">该组已资不抵债（现金 $' + Math.round(g.cash).toLocaleString() + '）：全部机队停飞，本届退出。<br>'
     + '请与裁判一起复盘：现金流从哪一季断裂？是运力扩张过快、投资过重，还是运价与客座率的取舍出了问题？</div>';
-  document.body.appendChild(o);
+  __DOC.body.appendChild(o);
 }
 /* 扩张测算器：给学员「判断依据」，不是给答案 */
 async function renderScaleBox() {
@@ -1055,7 +1058,7 @@ async function renderEconBox() {
   if (!b || !b.rows || !b.rows.length) { box.appendChild(el('div', 'small', '暂无已开航线。')); return; }
   const tb = el('table');
   const h = el('tr');
-  ['航线', '运价', '单程BH', '每班次变动成本', '每班次满座收入', '单班次盈亏平衡LF', '市场季度需求'].forEach(x => h.appendChild(el('th', null, x)));
+  ['航线', '运价', '单程BH', '每班次变动成本', '每班次满座收入', '单班次盈亏平衡LF', '市场季度需求', '舱位结构与平衡LF'].forEach(x => h.appendChild(el('th', null, x)));
   tb.appendChild(h);
   for (const r of b.rows) {
     const tr2 = el('tr');
@@ -1069,6 +1072,13 @@ async function renderEconBox() {
     beCell.title = '客座率低于此值时，每飞一班都在亏';
     tr2.appendChild(beCell);
     tr2.appendChild(el('td', null, r.marketDemandQ != null ? r.marketDemandQ.toLocaleString() : '-'));
+    const cd = el('td', 'small');
+    if (r.cabin && r.cabin.length) {
+      cd.innerHTML = r.cabin.map(c => `${c.name} ${c.seats}座 @$${c.fare}`
+        + (c.beLF != null ? `<br><span class="${c.beLF > 0.5 ? 'bad' : 'ok'}">平衡LF ${(c.beLF * 100).toFixed(1)}%</span>` : '')).join('<br>');
+    } else { cd.textContent = '—'; }
+    cd.title = '舱位座位来自该航线在营机队；平衡 LF = 每班变动成本 ÷（该舱位座位 × 该舱位票价）';
+    tr2.appendChild(cd);
     tb.appendChild(tr2);
   }
   box.appendChild(tb);
@@ -1208,7 +1218,7 @@ function render() {
   }
   /* U17 导出 */
   const hSel = R.pickReport(g, null);
-  const onExp = (fn) => { const b = document.getElementById(fn.id); if (b) b.onclick = fn.run; };
+  const onExp = (fn) => { const b = __DOC.getElementById(fn.id); if (b) b.onclick = fn.run; };
   onExp({ id:'btnExpSum', run: () => R.exportSummaryCsv(g, g.seat) });
   onExp({ id:'btnExpRoute', run: () => R.exportRouteCsv(g, hSel, g.seat) });
   onExp({ id:'btnExpSched', run: () => R.exportSchedulesCsv(g, g.seat) });
@@ -1282,9 +1292,9 @@ $('#btnBuyIntel').onclick = async () => {
 load();
 
 const PKEY2 = new URLSearchParams(location.search).get("key") || "";
-async function seatClockTick(){var txt=document.getElementById("seatClock"),bar=document.getElementById("seatClockBar"),sub=document.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=(tm.submitted?"✅ 本组已提交":"⏳ 本组未提交")+"（到时自动结算，或点「立即结算本组」）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待开始计时";}}
-var bp=document.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
-var bs=document.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
+async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__DOC.getElementById("seatClockBar"),sub=__DOC.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=(tm.submitted?"✅ 本组已提交":"⏳ 本组未提交")+"（到时自动结算，或点「立即结算本组」）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待开始计时";}}
+var bp=__DOC.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
+var bs=__DOC.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
 setInterval(seatClockTick,2000);seatClockTick();
 </script>
 </body>

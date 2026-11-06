@@ -238,7 +238,10 @@ import { PROPOSAL_KINDS } from './game.js';
 import * as R from './reports.js';
 window.__PK__ = PROPOSAL_KINDS;
 
-const $ = s => (typeof window !== 'undefined' && window.document ? window.document : document).querySelector(s);   // 绑定本页文档，避免多页面共存时串扰
+/* ★ 模块加载时**一次性捕获**本页文档：全局 window/document 可能被另一个页面覆盖
+   （多页面共存于同一 JS 上下文时）→ 运行时再取全局会拿到错误文档 */
+const __DOC = (typeof window !== 'undefined' && window.document) ? window.document : document;
+const $ = s => __DOC.querySelector(s);
 /* localStorage 兜底：无 localStorage 环境（测试/隐私模式）不崩 */
 const LS = (() => {
   try {
@@ -255,7 +258,7 @@ const TEACHER_KEY = (() => {
   if (q) { LS.setItem('sbx-teacher-key', q); return q; }
   return LS.getItem('sbx-teacher-key') || '';
 })();
-const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
 let gm = null, seats = {}, seatGames = {};
@@ -733,7 +736,7 @@ $('#btnConn').onclick = async () => { await gmPost({ type: 'setConnecting', valu
      → 鼠标悬停在表格上、或焦点在按钮上时跳过本次刷新 */
 setInterval(() => {
   if (document.visibilityState !== 'visible') return;
-  const hot = document.querySelector('#tblRouteReq button:hover, #tblSeats button:hover, #tblRouteReq button:focus, #tblSeats button:focus');
+  const hot = __DOC.querySelector('#tblRouteReq button:hover, #tblSeats button:hover, #tblRouteReq button:focus, #tblSeats button:focus');
   if (hot) return;                       // 裁判正在操作 → 本轮不重绘
   refresh();
 }, 4000);
@@ -764,7 +767,7 @@ setInterval(refresh, 5000);
    ⚠ 本脚本块自带 key：module 作用域不跨 <script type=module> 共享 */
 const CLOCK_KEY = new URLSearchParams(location.search).get('key') || '';
 async function updateClock() {
-  const bar = document.getElementById('clockBar'), txt = document.getElementById('clockTxt'), st = document.getElementById('clockSeats');
+  const bar = __DOC.getElementById('clockBar'), txt = __DOC.getElementById('clockTxt'), st = __DOC.getElementById('clockSeats');
   if (!bar || !txt) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': CLOCK_KEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
@@ -788,15 +791,15 @@ async function updateClock() {
     return '<span style="' + style + '">' + c + ' ' + (sub ? '✅ 已提交' : '⏳ 未提交 ' + ms) + '</span>';
   }).join(' ｜ ');
 }
-const bStart = document.getElementById('btnStartRound');
+const bStart = __DOC.getElementById('btnStartRound');
 if (bStart) bStart.onclick = async () => {
-  const min = Number((document.getElementById('inRoundMin') || {}).value || 60);
+  const min = Number((__DOC.getElementById('inRoundMin') || {}).value || 60);
   const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': CLOCK_KEY },
     body: JSON.stringify({ type: 'startRound', seconds: min * 60 }) }).then(x => x.json());
   if (r.result !== 'ok') alert(r.result);
   updateClock();
 };
-const bSettle = document.getElementById('btnSettleNow');
+const bSettle = __DOC.getElementById('btnSettleNow');
 if (bSettle) bSettle.onclick = async () => {
   if (!confirm('立即结算所有未提交小组？')) return;
   const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': CLOCK_KEY },
@@ -811,7 +814,7 @@ const GKEY = new URLSearchParams(location.search).get('key') || '';
 const NLB = { draft:'草稿', submitted:'已提交', under_review:'裁判受理', countered:'待小组确认还价', agreed:'已达成', effective:'已生效', rejected:'已驳回', withdrawn:'已撤回' };
 let negSig = '';
 async function renderNegFlow() {
-  const box = document.getElementById('negFlow'); if (!box) return;
+  const box = __DOC.getElementById('negFlow'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const rows = [];
@@ -825,18 +828,18 @@ async function renderNegFlow() {
   if (sig === negSig) return; negSig = sig;
   box.innerHTML = '';
   if (!rows.length) { box.innerHTML = '<div class="small">暂无谈判申报单。</div>'; return; }
-  const tb = document.createElement('table');
+  const tb = __DOC.createElement('table');
   tb.innerHTML = '<tr><th>席位</th><th>编号</th><th>标题</th><th>状态</th><th>轮次</th><th>条款</th><th>操作</th></tr>';
   for (const x of rows) {
     const r = x.r;
-    const tr = document.createElement('tr');
+    const tr = __DOC.createElement('tr');
     const items = Object.keys(r.items || {}).map(k => (x.cat[k] && x.cat[k].label) || k).join('、');
     tr.innerHTML = '<td>' + r.seat + '</td><td>' + r.id + '</td><td>' + (r.title || '') + '</td>'
       + '<td>' + (NLB[r.status] || r.status) + '</td><td>' + (r.round || 1) + '</td>'
       + '<td class="small">' + (items || '—') + '</td>';
-    const td = document.createElement('td');
+    const td = __DOC.createElement('td');
     if (['submitted','under_review','countered'].includes(r.status)) {
-      const mk = (label, act) => { const b = document.createElement('button'); b.textContent = label;
+      const mk = (label, act) => { const b = __DOC.createElement('button'); b.textContent = label;
         b.onclick = async () => {
           let items = null;
           if (act === 'counter') {
@@ -861,7 +864,7 @@ setInterval(renderNegFlow, 4000);
 
 /* ⑮ 航线需求图（三家运力 + 需求高低） */
 async function renderRouteDemandPanel() {
-  const box = document.getElementById('routeDemand'); if (!box) return;
+  const box = __DOC.getElementById('routeDemand'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const games = {};
@@ -875,7 +878,7 @@ setInterval(renderRouteDemandPanel, 8000);
 
 /* ⑯ 三家日程甘特图 */
 async function renderGanttAll() {
-  const box = document.getElementById('ganttAll'); if (!box) return;
+  const box = __DOC.getElementById('ganttAll'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const games = {};
@@ -893,30 +896,30 @@ setInterval(renderGanttAll, 8000);
 
 /* ⑰ 考核目标设定（第 3 季起） */
 async function renderTargetPanel() {
-  const box = document.getElementById('targetPanel'); if (!box) return;
+  const box = __DOC.getElementById('targetPanel'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const turn = gm.gm ? gm.gm.turn : 0;
   if (turn < 2) { box.innerHTML = '<div class="small">第 3 季（Q3 2028）起开放：届时由裁判向各组询问并设定目标。</div>'; return; }
   const tg = gm.targets || {};
   box.innerHTML = '';
-  const t2 = document.createElement('table');
+  const t2 = __DOC.createElement('table');
   t2.innerHTML = '<tr><th>席位</th><th>LF 目标</th><th>累计利润目标</th><th>份额目标</th><th>备注</th><th></th></tr>';
   for (const s of (gm.seats || [])) {
     const cur = tg[s] || {};
-    const tr = document.createElement('tr');
+    const tr = __DOC.createElement('tr');
     tr.innerHTML = '<td>' + s + '</td>'
       + '<td><input size="5" id="tgLf_' + s + '" value="' + (cur.lf != null ? (cur.lf * 100).toFixed(0) : '') + '" placeholder="%"></td>'
       + '<td><input size="12" id="tgPf_' + s + '" value="' + (cur.profit != null ? cur.profit : '') + '" placeholder="$"></td>'
       + '<td><input size="5" id="tgSh_' + s + '" value="' + (cur.share != null ? (cur.share * 100).toFixed(0) : '') + '" placeholder="%"></td>'
       + '<td><input size="18" id="tgNt_' + s + '" value="' + (cur.note || '') + '"></td>';
-    const td = document.createElement('td');
-    const b = document.createElement('button'); b.textContent = '设定';
+    const td = __DOC.createElement('td');
+    const b = __DOC.createElement('button'); b.textContent = '设定';
     b.onclick = async () => {
-      const lf = document.getElementById('tgLf_' + s).value.trim();
-      const pf = document.getElementById('tgPf_' + s).value.trim();
-      const sh = document.getElementById('tgSh_' + s).value.trim();
-      const nt = document.getElementById('tgNt_' + s).value.trim();
+      const lf = __DOC.getElementById('tgLf_' + s).value.trim();
+      const pf = __DOC.getElementById('tgPf_' + s).value.trim();
+      const sh = __DOC.getElementById('tgSh_' + s).value.trim();
+      const nt = __DOC.getElementById('tgNt_' + s).value.trim();
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'setTarget', seat: s, lf: lf === '' ? null : Number(lf) / 100, profit: pf === '' ? null : Number(pf), share: sh === '' ? null : Number(sh) / 100, note: nt }) }).then(x => x.json());
       if (r.result !== 'ok') alert(r.result);
@@ -930,7 +933,7 @@ setInterval(renderTargetPanel, 6000);
 /* ⑱ 经营模式设定 + ⑲ 网络攻击处理 */
 const STYLE_OPTS = [['LCC', '低成本型 LCC'], ['FSC', '全服务型 FSC'], ['Hybrid', '混合型 Hybrid']];
 async function renderStyleAndHack() {
-  const srow = document.getElementById('styleRow'); if (!srow) return;
+  const srow = __DOC.getElementById('styleRow'); if (!srow) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const styles = gm.seatStyles || {};
@@ -951,7 +954,7 @@ async function renderStyleAndHack() {
   }
   srow.appendChild(el('span', 'small', '· 过站基线随之生效：LCC 30 / Hybrid 40 / FSC 60 分钟；并影响可投产品与票价系数'));
   // 网络攻击处理
-  const hp = document.getElementById('hackPanel'); if (!hp) return;
+  const hp = __DOC.getElementById('hackPanel'); if (!hp) return;
   hp.innerHTML = '';
   const hacked = [];
   for (const s of (gm.seats || [])) {
@@ -992,7 +995,7 @@ setInterval(renderStyleAndHack, 6000);
 
 /* ⑳ 大修触发（裁判决定时机；团队自决是否卖出） */
 async function renderHcPanel() {
-  const box = document.getElementById('hcPanel'); if (!box) return;
+  const box = __DOC.getElementById('hcPanel'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   box.innerHTML = '';
@@ -1033,14 +1036,14 @@ setInterval(renderHcPanel, 8000); renderHcPanel();
  renderNegFlow();
 
 async function renderMsgList() {
-  const box = document.getElementById('msgList'); if (!box) return;
+  const box = __DOC.getElementById('msgList'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const list = gm.messages || (gm.gm && gm.gm.messages) || [];
   box.innerHTML = '';
   if (!list.length) { box.innerHTML = '<div class="small">暂无消息。</div>'; return; }
   for (const m of list.slice().reverse()) {
-    const d = document.createElement('div');
+    const d = __DOC.createElement('div');
     d.style.cssText = 'border-left:3px solid #1f6feb;padding:4px 8px;margin-bottom:6px;background:#f6f8fa';
     d.innerHTML = '<div>' + (m.pinned ? '📌 ' : '') + (m.title || '') + '</div>'
       + (m.body ? '<div class="small">' + m.body + '</div>' : '')
@@ -1054,21 +1057,21 @@ async function renderMsgList() {
     box.appendChild(d);
   }
 }
-const bPost = document.getElementById('btnPostMsg');
+const bPost = __DOC.getElementById('btnPostMsg');
 if (bPost) bPost.onclick = async () => {
   const res = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
-    body: JSON.stringify({ type: 'postMessage', title: document.getElementById('msgTitle').value,
-      body: document.getElementById('msgBody').value, kind: document.getElementById('msgKind').value,
-      pinned: document.getElementById('msgPin').checked }) }).then(x => x.json());
+    body: JSON.stringify({ type: 'postMessage', title: __DOC.getElementById('msgTitle').value,
+      body: __DOC.getElementById('msgBody').value, kind: __DOC.getElementById('msgKind').value,
+      pinned: __DOC.getElementById('msgPin').checked }) }).then(x => x.json());
   if (res.result && res.result.indexOf('MSG') !== 0) alert(res.result);
-  document.getElementById('msgTitle').value = ''; document.getElementById('msgBody').value = '';
+  __DOC.getElementById('msgTitle').value = ''; __DOC.getElementById('msgBody').value = '';
   renderMsgList();
 };
 setInterval(renderMsgList, 5000); renderMsgList();
 ['btnTExpSum','btnTExpRoute','btnTExpSched','btnTExpInv'].forEach(function (id) {
-  const b = document.getElementById(id); if (!b) return;
+  const b = __DOC.getElementById(id); if (!b) return;
   b.onclick = async () => {
-    const sel = document.getElementById('repSeat');
+    const sel = __DOC.getElementById('repSeat');
     if (!sel || !sel.value) return alert('先在 ⑫ 区选择席位');
     const d = await fetch('/api/seat/' + sel.value, { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
     if (!d || !d.game) return;
@@ -1082,28 +1085,28 @@ setInterval(renderMsgList, 5000); renderMsgList();
 
 /* ⑫ 报表与运营视图（Reports 七页签 + 运营三视图）——按所选席位渲染 */
 async function renderRepPanel() {
-  const box = document.getElementById("repBody"); if (!box) return;
+  const box = __DOC.getElementById("repBody"); if (!box) return;
   const gm = await fetch("/api/gm", { headers: { "x-sandbox-key": TEACHER_KEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
-  const sel = document.getElementById("repSeat");
+  const sel = __DOC.getElementById("repSeat");
   const code = (sel && sel.value) || (gm.seats || [])[0];
   if (!code) return;
   const d = await fetch("/api/seat/" + code, { headers: { "x-sandbox-key": TEACHER_KEY } }).then(r => r.json()).catch(() => null);
   if (!d || !d.game) return;
   R.renderReports(box, d.game);
-  R.renderOpsViews(document.getElementById("opsBody"), d.game);
+  R.renderOpsViews(__DOC.getElementById("opsBody"), d.game);
 }
 setInterval(renderRepPanel, 6000); renderRepPanel();
 /* ⑳ 载货策略：裁判可对某航线（或全部）关闭/开放载货 */
 async function renderCargoPolicy() {
-  const row = document.getElementById("cargoPolicyRow"); if (!row) return;
+  const row = __DOC.getElementById("cargoPolicyRow"); if (!row) return;
   const gm = await fetch("/api/gm", { headers: { "x-sandbox-key": GKEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const pol = gm.cargoPolicy || {};
   const codes = ["*"].concat((gm.seats || []).flatMap(() => Object.keys(gm.terms || {})).slice(0, 0));
   row.innerHTML = "";
-  const mk = (label, code) => { const sp = document.createElement("span"); sp.style.marginRight = "10px";
-    const b = document.createElement("button");
+  const mk = (label, code) => { const sp = __DOC.createElement("span"); sp.style.marginRight = "10px";
+    const b = __DOC.createElement("button");
     b.textContent = label + (pol[code] && pol[code].open === false ? "（已关闭）" : "（开放）");
     b.onclick = async () => { const open = !(pol[code] && pol[code].open === false);
       await fetch("/api/gm", { method: "POST", headers: { "content-type": "application/json", "x-sandbox-key": GKEY },

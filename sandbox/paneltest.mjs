@@ -49,7 +49,9 @@ async function render(file, url) {
   globalThis.fetch = (u, o) => realFetch(String(u).startsWith('http') ? u : BASE + u, o);
   window.fetch = globalThis.fetch;
   await import('file://' + tmp.replace(/\\/g, '/'));
-  await new Promise(r => setTimeout(r, 700));   // 等 fetch 完成
+  /* 等页面自身的异步链（fetch → 渲染 → 速览/测算器等并发请求）彻底跑完：
+     player.html 与 teacher.html 先后渲染于同一 JS 全局，若未等完，前者的回调会落到后者的文档上 */
+  for (let i = 0; i < 12; i++) await new Promise(r => setTimeout(r, 250));
   return { window, doc: window.document, errors, cleanup: () => { try { unlinkSync(tmp); } catch {} } };
 }
 

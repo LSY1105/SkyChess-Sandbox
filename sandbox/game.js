@@ -833,9 +833,26 @@ export function fleetEconomicsBrief(g) {
     const beLF = fullRev > 0 ? ops / fullRev : null;
     let demandQ = null;
     try { demandQ = Math.round(E.demand(r.code, fare, 90)); } catch (e) { demandQ = null; }
+    /* ★ S4 舱位维度：该航线在营机队的舱位座位（按不同飞机去重累加）+ 各舱位票价与盈亏平衡 LF
+       舱位平衡 LF 定义：若只有该舱位有客，每班变动成本不变 → 需售出该舱位多少比例的座位才不亏 */
+    const cs = { Y: 0, W: 0, J: 0 };
+    const seenAc = new Set();
+    for (const s of (g.schedules || [])) {
+      if (s.code !== r.code || seenAc.has(s.acId)) continue;
+      seenAc.add(s.acId);
+      const ac = (g.aircraft || []).find(x => x.id === s.acId); if (!ac) continue;
+      cs.Y += (ac.eco != null ? ac.eco : (ac.seats || 0)); cs.W += ac.prem || 0; cs.J += ac.biz || 0;
+    }
+    const cf = r.cabinFare || {};
+    const cfare = { Y: fare, W: cf.prem != null ? cf.prem : fare, J: cf.biz != null ? cf.biz : fare };
+    const cabin = ['J', 'W', 'Y'].filter(k => cs[k] > 0).map(k => ({
+      cls: k, name: k === 'J' ? '公务舱' : (k === 'W' ? '超经舱' : '经济舱'),
+      seats: cs[k], fare: cfare[k],
+      beLF: cs[k] * cfare[k] > 0 ? +(ops / (cs[k] * cfare[k])).toFixed(3) : null,
+    }));
     rows.push({ code: r.code, name: m.name_c || r.code, bh, fare, seats,
       opsPerFlight: Math.round(ops), fullRevPerFlight: Math.round(fullRev),
-      breakEvenLF: beLF != null ? +beLF.toFixed(3) : null, marketDemandQ: demandQ });
+      breakEvenLF: beLF != null ? +beLF.toFixed(3) : null, marketDemandQ: demandQ, cabin });
   }
   return { fuelPrice: g.fuelPrice || 2.4, rows };
 }
@@ -851,6 +868,12 @@ export function economicsBriefText(g) {
       + '每班次变动成本 $' + r.opsPerFlight.toLocaleString() + '｜每班次满座收入 $' + r.fullRevPerFlight.toLocaleString()
       + '｜单班次盈亏平衡 LF ' + (r.breakEvenLF != null ? (r.breakEvenLF * 100).toFixed(1) + '%' : '-')
       + (r.marketDemandQ != null ? '｜市场季度需求约 ' + r.marketDemandQ.toLocaleString() + ' 人' : '') + NL;
+  }
+  for (const r of b.rows) {
+    if (!r.cabin || !r.cabin.length) continue;
+    s += '- ' + r.name + ' 舱位：' + r.cabin.map(c =>
+      `${c.name} ${c.seats} 座 @$${c.fare}` + (c.beLF != null ? `（该舱位盈亏平衡 LF ${(c.beLF * 100).toFixed(1)}%）` : '')
+    ).join('｜') + NL;
   }
   s += '注：LF 低于该航线的盈亏平衡 LF 时，**每飞一班都在亏**；提价可提高平衡 LF，代价是客座率下降（弱弹性）。';
   return s;
