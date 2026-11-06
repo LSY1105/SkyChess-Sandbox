@@ -510,6 +510,10 @@ function applyActionRaw(g, a) {
       g.log.push(`投资 ${i.name}`);
       return 'ok';
     }
+    case 'estimateScaleJoint': {
+      // 定价 × 运力 联合测算：候选机队规模 × 运价倍率 → 净收益最大组合
+      return G.estimateScaleJoint(g, 4);
+    }
     case 'estimateScale': {
       // 扩张测算（组合式）：供小组端「扩张测算器」使用
       const n = Math.max(0, Math.min(20, Number(a.n) || 0));

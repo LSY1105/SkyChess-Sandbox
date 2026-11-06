@@ -973,8 +973,34 @@ async function renderScaleBox() {
   const box = $('#scaleBox'); if (!box) return;
   const n = Number(($('#scN') || {}).value || 0);
   const res = await act('estimateScale', { n: n }).catch(() => null);
+  const joint = await act('estimateScaleJoint', {}).catch(() => null);
   box.innerHTML = '';
   if (!res || typeof res !== 'object' || res.revenue == null) { box.appendChild(el('div', 'small', '请先完成一个回合（有历史数据）后再测算。')); return; }
+  /* ★ 定价 × 运力 联合测算：现价下扩机常为负，提价后可能转正 → 两套结果并列 */
+  if (joint && joint.best) {
+    const wrap = el('div');
+    wrap.appendChild(el('div', 'small', '联合测算（运价倍率 × 机队规模）：现价下扩机往往亏，提价后可能转正 —— 请同时看两套结果：'));
+    const t2 = el('table');
+    const h = el('tr');
+    ['口径', '运价倍率', '机队规模', '净影响', '盈亏平衡LF'].forEach(x => h.appendChild(el('th', null, x)));
+    t2.appendChild(h);
+    const rows2 = [
+      ['现价最优', joint.bestAtCurrentFare || joint.best],
+      ['全局最优', joint.best],
+    ];
+    for (const [k, r] of rows2) {
+      if (!r) continue;
+      const tr2 = el('tr');
+      tr2.appendChild(el('td', null, k));
+      tr2.appendChild(el('td', null, '×' + (r.fareRatio || 1).toFixed(2)));
+      tr2.appendChild(el('td', null, '+' + r.n + ' 架'));
+      tr2.appendChild(el('td', r.net >= 0 ? 'ok' : 'bad', (r.net < 0 ? '-$' : '$') + Math.abs(r.net).toLocaleString()));
+      tr2.appendChild(el('td', null, r.breakEvenLF != null ? (r.breakEvenLF * 100).toFixed(1) + '%' : '-'));
+      t2.appendChild(tr2);
+    }
+    wrap.appendChild(t2);
+    box.appendChild(wrap);
+  }
   const t2 = el('table');
   const tr = el('tr');
   ['项目', '金额'].forEach(h => tr.appendChild(el('th', null, h)));

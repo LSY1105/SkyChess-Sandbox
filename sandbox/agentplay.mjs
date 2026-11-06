@@ -119,21 +119,31 @@ function ruleStrategy(seat, g, prev) {
      旧判据：单条航线 LF≥40% 且份额<60% → 扩 1 架 → 结构性死锁（单机增量恒为负→不扩→固定成本不摊薄）
      新判据：候选 N=1..4 架 → 沙盘侧 estimateScale 取**净收益最大**者 → 融资买 N 架
      （estimateScale 与小组端「扩张测算器」共用同一逻辑，口径一致） */
-  let bestN = 0, bestNet = 0, bestCode = null;
-  for (let N = 1; N <= 4; N++) {
-    const est = G.estimateScale(g, N);
-    if (!est || !est.rows || !est.rows.length) continue;
-    if (est.net > bestNet) {
-      bestNet = est.net; bestN = N;
-      bestCode = est.rows.slice().sort((a, b) => b.revenue - a.revenue)[0].code;
-    }
+  /* ★ 定价 × 运力 联合决策：estimateScaleJoint 同时优化机队规模 N 与运价倍率
+     —— 单独任一维度都可能是负的：现价下扩机亏，但提价后扩机转正 → 必须联合求解 */
+  const joint = G.estimateScaleJoint(g, 4);
+  const best = joint && joint.best;
+  /* 诊断：无论是否触发扩张，都记录联合测算摘要（便于定位为何不解锁） */
+  if (joint && joint.best) {
+    const top = joint.rows.slice().sort((a, b) => b.net - a.net).slice(0, 3)
+      .map(r => 'N=' + r.n + ',价×' + r.fareRatio.toFixed(2) + '→' + Math.round(r.net / 1000) + 'k').join(' | ');
+    console.log('    [联合测算] ' + seat + ' 现价最优 N=' + (joint.bestAtCurrentFare || {}).n +
+      ' 净 ' + Math.round(((joint.bestAtCurrentFare || {}).net || 0) / 1000) + 'k ｜ 全局最优 N=' + best.n +
+      ' 价×' + best.fareRatio.toFixed(2) + ' 净 ' + Math.round(best.net / 1000) + 'k ｜ 前三：' + top);
   }
-  if (bestN > 0 && g.cash > 0) {
-    const buys = [];
-    for (let i = 0; i < bestN; i++) buys.push({ type: 'buyAircraft', acType: 'APT100', financed: true });
-    expanded = expanded.concat([bestCode]);
-    return { actions: buys, removeIdx: removeIdx, expandCodes: expanded,
-             note: '组合测算：扩 ' + bestN + ' 架（投 ' + bestCode + '）→ 季度净增 ' + Math.round(bestNet).toLocaleString() + '（含利息与折旧）' };
+  if (best && best.net > 0 && g.cash > 0) {
+    const acts = [];
+    // ① 运价调整（按各航线**当前价** × 最优倍率）
+    for (const r of g.routes) {
+      const nf = Math.round((r.fare || 200) * best.fareRatio);
+      if (nf > 0 && nf !== r.fare) acts.push({ type: 'setFare', code: r.code, fare: nf });
+    }
+    // ② 机队扩张（融资买机）
+    for (let i = 0; i < best.n; i++) acts.push({ type: 'buyAircraft', acType: 'APT100', financed: true });
+    const bestCode = (best.rows || []).slice().sort((a, b) => b.revenue - a.revenue)[0];
+    if (bestCode) expanded = expanded.concat([bestCode.code]);
+    return { actions: acts, removeIdx: removeIdx, expandCodes: expanded,
+             note: '联合测算：运价 ×' + best.fareRatio.toFixed(2) + '、扩 ' + best.n + ' 架 → 季度净增 ' + Math.round(best.net).toLocaleString() };
   }
   const styleK = { LCC: 0.85, FSC: 1.20, Hybrid: 1.00 }[g.style] || 1;
   const actions = [];
@@ -240,7 +250,7 @@ async function judgeTurn(turn) {
   }
   // 开线审批：按归属表批准（裁判按教学目的放行）
   for (const s of SEATS) {
-    const g = (await seatGet(s)).game;
+    const g = ((await seatGet(s)) || {}).game || {};
     for (const r of (g.routeRequests || [])) {
       if (r.status !== 'pending') continue;
       const mine = (OWN[s] || []).includes(r.code);
