@@ -397,7 +397,7 @@ async function refresh() {
   // 席位表
   const t = $('#tblSeats'); t.innerHTML = '';
   const tr = el('tr');
-  ['席位', '期间', '现金', 'QSI', '航线', '飞机', '机龄', '累计利润', '客座率', '平衡LF(现/全)', '被拒操作', ''].forEach(h => tr.appendChild(el('th', null, h)));
+  ['席位', '期间', '现金', 'QSI', '航线', '飞机', '机龄', '状态', '累计利润', '客座率', '平衡LF(现/全)', '被拒操作', ''].forEach(h => tr.appendChild(el('th', null, h)));
   t.appendChild(tr);
   for (const s of g.seats) {
     const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
@@ -420,6 +420,12 @@ async function refresh() {
     row.appendChild(qsiCell);
     row.appendChild(el('td', null, gm_.routes.map(r => r.code).join(' ')));
     row.appendChild(el('td', null, gm_.aircraft.length));
+    const stCell = el('td', 'small');
+    const isHack = gm_.hacked && !gm_.hacked.resolved;
+    stCell.textContent = gm_.bankrupt ? '破产清算' : (isHack ? '被攻击' : '正常');
+    stCell.style.color = gm_.bankrupt ? '#cf222e' : (isHack ? '#bf8700' : '#1a7f37');
+    stCell.title = gm_.bankrupt ? '资不抵债 → 全部停飞、本届退出' : (isHack ? '面板被勒索覆盖，无法操作' : '');
+    row.appendChild(stCell);
     const ageCell = el('td', 'small');
     const ages = (gm_.aircraft || []).map(a => a.type + ' ' + (a.age != null ? a.age : '?') + '年').join(' / ');
     ageCell.textContent = ages || '—';

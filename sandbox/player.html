@@ -945,6 +945,19 @@ function renderSellHint() {
   if (doing.length) lines.push('⚠ 当前有飞机正在大修（运力减半），若不继续运营请尽早决定处置方式。');
   box.appendChild(el('div', 'small', lines.join(' ')));
 }
+/* 破产清算遮罩：资不抵债 → 全机队停飞、本届退出（教学上要有终点） */
+function renderBankruptOverlay() {
+  const ov = document.getElementById('bankruptOverlay');
+  if (!g.bankrupt) { if (ov) ov.remove(); return; }
+  if (ov) return;
+  const o = el('div'); o.id = 'bankruptOverlay';
+  o.style.cssText = 'position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 50% 40%,#2a0d0d,#0b0202 70%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:24px';
+  o.innerHTML = '<div style="font-size:76px">&#128128;</div>'
+    + '<div style="font-size:24px;font-weight:700">破产清算 · 本届退出</div>'
+    + '<div style="max-width:560px;line-height:1.8">该组已资不抵债（现金 $' + Math.round(g.cash).toLocaleString() + '）：全部机队停飞，本届退出。<br>'
+    + '请与裁判一起复盘：现金流从哪一季断裂？是运力扩张过快、投资过重，还是运价与客座率的取舍出了问题？</div>';
+  document.body.appendChild(o);
+}
 function renderTarget() {
   const box = $('#targetBox'); if (!box) return;
   box.innerHTML = '';
@@ -1064,7 +1077,7 @@ function render() {
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
   else R.renderReports($('#repBody'), g);
   R.renderOpsViews($('#opsBody'), g);
-  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderSellHint(); renderConnBox(); renderRetBox(); renderTips();
+  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
   R.renderRouteDemand($('#routeDemandBox'), { [g.seat]: g });
