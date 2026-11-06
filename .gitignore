@@ -1,0 +1,124 @@
+# ── 依赖与构建产物 ──
+node_modules/
+__pycache__/
+*.pyc
+dist/
+build/
+*.tsbuildinfo
+
+# ── 密钥与凭据（绝不入库）──
+.sandbox-keys.json
+.admin-key
+*.pem
+*.key
+!*.pub
+
+# ── 备份产物（含 admin-key 与数据库快照）──
+sandbox/backups/
+backups/
+
+# ── 运行时临时文件 ──
+*.log
+sandbox/_smoke_*.mjs
+sandbox/_page_test.mjs
+sandbox/_patch_*.py
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# ── 抓包产物中的凭据字段（保留结构，剔除明文口令）──
+# 说明：capture-*.json 已人工脱敏，仍不入库以防遗漏
+capture-*.json
+capture-*.log
+bundle.json
+
+# ── 本地数据库 ──
+*.db
+*.db-wal
+*.db-shm
+
+# ── Chrome DevTools Protocol 浏览器 profile（190MB 一次性调试残留）──
+cdp-profile/
+
+# ── 一次性探针转储（56MB/个，与 capture 同源证据，已由 reports 与 extract 产物覆盖）──
+t-mod.json
+t-flight.json
+t-route.json
+trace-probe.json
+
+# ── 可重新获取的运行时与一次性转储 ──
+node64.zip
+msg-cap.json
+poll.json
+
+# ── 推送工具的临时清单 ──
+filelist.txt
+_filelist.json
+
+# ── 超大文件（>50MB，GitHub API 上限），指纹与获取方式见 LARGE-FILES.md ──
+jsapp.json
+_diff/
+sandbox/_fl.json
+_commit_msg.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+sandbox/replay_out/keys.json
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+sandbox/replay_out/agentkeys.json
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt
+_cm.txt

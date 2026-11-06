@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "title": "Q2 2029（第六季）逐市场航班表 —— 三家班次/票价/机型/座位；CA 另含逐班旅客",
+    "source": "主截图/屏幕截图_22-10-2026_22213_www.skychess.com.jpg（Reports/FLIGHTS，Q2 2029）",
+    "unit": "一条记录 = 该机每日 1 班（含往返）；季班次 = 记录数 × 90",
+    "note": "VA/AB 的 Passengers 与 Load Factor 在原版即为不可见（'-'），故其承运量无一手数据"
+  },
+  "markets": {
+    "SIM": {
+      "CA": [ { "h": 6, "fare": 108.00, "seats": 100, "pax": 45 }, { "h": 10, "fare": 113.40, "seats": 129, "pax": 46 } ],
+      "AB": [ { "h": 6, "fare": 110.00, "seats": 100 }, { "h": 14, "fare": 110.00, "seats": 100 }, { "h": 19, "fare": 110.00, "seats": 100 } ],
+      "VA": []
+    },
+    "ETN": {
+      "CA": [ { "h": 6, "fare": 175.00, "seats": 100, "pax": 82 } ],
+      "AB": [ { "h": 10, "fare": 199.50, "seats": 100 }, { "h": 16, "fare": 190.00, "seats": 100 } ],
+      "VA": [ { "h": 6, "fare": 205.00, "seats": 100 }, { "h": 11, "fare": 215.25, "seats": 100 }, { "h": 18, "fare": 215.25, "seats": 100 } ]
+    },
+    "JOP": {
+      "CA": [ { "h": 6, "fare": 118.00, "seats": 159, "pax": 108 }, { "h": 12, "fare": 118.00, "seats": 100, "pax": 72 }, { "h": 17, "fare": 123.90, "seats": 100, "pax": 79 } ],
+      "AB": [ { "h": 13, "fare": 120.00, "seats": 100 } ],
+      "VA": [ { "h": 6, "fare": 158.00, "seats": 135 }, { "h": 12, "fare": 158.00, "seats": 100 } ]
+    },
+    "ARM": {
+      "CA": [ { "h": 14, "fare": 550.00, "seats": 159, "pax": 57 }, { "h": 20, "fare": 550.00, "seats": 129, "pax": 88 } ],
+      "AB": [],
+      "VA": [ { "h": 14, "fare": 650.00, "seats": 135 } ]
+    },
+    "FTZ": {
+      "CA": [ { "h": 13, "fare": 108.00, "seats": 100, "pax": 80 } ],
+      "AB": [ { "h": 7, "fare": 130.00, "seats": 100 }, { "h": 11, "fare": 136.50, "seats": 100 }, { "h": 17, "fare": 136.50, "seats": 135 } ],
+      "VA": [ { "h": 7, "fare": 170.00, "seats": 147 } ]
+    },
+    "LEW": {
+      "CA": [ { "h": 14, "fare": 68.00, "seats": 129, "pax": 129 }, { "h": 18, "fare": 71.40, "seats": 100, "pax": 100 } ],
+      "AB": [ { "h": 18, "fare": 92.40, "seats": 100 } ],
+      "VA": []
+    },
+    "PKR": {
+      "CA": [],
+      "AB": [ { "h": 7, "fare": 280.00, "seats": 100 }, { "h": 15, "fare": 280.00, "seats": 135 } ],
+      "VA": [ { "h": 6, "fare": 288.00, "seats": 135 }, { "h": 17, "fare": 302.40, "seats": 100 } ]
+    },
+    "GEE": {
+      "CA": [],
+      "AB": [ { "h": 23, "fare": 825.00, "seats": 135 } ],
+      "VA": [ { "h": 14, "fare": 830.00, "seats": 147 } ]
+    },
+    "BZY": {
+      "CA": [],
+      "AB": [ { "h": 23, "fare": 630.00, "seats": 135 } ],
+      "VA": [ { "h": 14, "fare": 640.00, "seats": 135 } ]
+    },
+    "CHA": {
+      "CA": [],
+      "AB": [ { "h": 7, "fare": 210.00, "seats": 100 }, { "h": 15, "fare": 210.00, "seats": 100 } ],
+      "VA": [ { "h": 6, "fare": 218.00, "seats": 100 } ]
+    }
+  },
+  "market_meta": {
+    "SIM": { "name": "Simone", "km": 525 }, "ETN": { "name": "Ellington", "km": 1150 },
+    "JOP": { "name": "Joplin", "km": 1433 }, "ARM": { "name": "Armstrong", "km": 3780 },
+    "FTZ": { "name": "Fitzgerald", "km": 784 }, "LEW": { "name": "Lewis", "km": 415 },
+    "PKR": { "name": "Parker", "km": 1620 }, "GEE": { "name": "McGee", "km": 5265 },
+    "BZY": { "name": "Broonzy", "km": 4473 }, "CHA": { "name": "Charles City", "km": 1409 }
+  }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="J9gU3ZJNwqqg4z2zFDRNgtU1SDHOmYI3czHlAi9c">
+    <title>SkyChess</title>
+    <!-- Styles -->
+    <link href="https://www.skychess.com/css/app.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      // Load the Visualization API and the piechart package.
+      google.charts.load('current', {'packages':['sankey', 'line', 'bar', 'corechart']});
+</script>
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+            <a class="navbar-brand" href="https://www.skychess.com/play/lounge" id="menu-toggle">
+            <img class="" src="/images/logos/skychess-logo.png" alt="SkyChess Logo" style="width:110px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-uppercase" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-fw fa-user" aria-hidden="true"></i> CA RR 20 Oct 26 China Eastern <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="https://www.skychess.com/play/lounge">Player Lounge</a></li>
+                    <li><a class="dropdown-item" href="https://www.skychess.com/logout"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="https://www.skychess.com/logout" method="POST" style="display: none;">
+                            <input type="hidden" name="_token" value="J9gU3ZJNwqqg4z2zFDRNgtU1SDHOmYI3czHlAi9c" autocomplete="off">
+                        </form>
+                    </li>
+                </ul>
+            </li>
+              </ul>
+    </div>
+  </div>
+</nav>
+        <div id="wrapper" class="app-container toggled">
+                <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+    <li class="divider">SkyChess</li>
+    <li><a href="https://www.skychess.com/play/lounge">Player Lounge</a></li>
+</ul>    </div>
+    <div id="page-content-wrapper">
+        <div class="container">
+            <player-airline-reports airlineid="833" airlineturnid="5364"></player-airline-reports>
+        </div>
+    </div>
+        </div>
+        <flash message="" success=""></flash>
+    </div>
+    <script src="/js/app.js"></script>
+    
+    
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+</html>

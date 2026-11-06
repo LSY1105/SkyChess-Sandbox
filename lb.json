@@ -1,0 +1,1 @@
+{"browser":{"mode":"connect","cdp_endpoint":"http://127.0.0.1:9222","target_id":"9FBAC6DFC82C4D9B8CA71C7CD7BDCD86"},"start_url":{"url":"https://www.skychess.com/play/liveboard/285"},"capture":{"after_each_step":["accessibility"]},"actions":[{"action":"wait_for_timeout","step_id":"w","duration_ms":3000}]}

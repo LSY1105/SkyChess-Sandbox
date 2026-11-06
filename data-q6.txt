@@ -1,0 +1,82 @@
+==============================================================================
+★ 航线市场 (markets) 结构与首条样例
+==============================================================================
+来源: /play/api/airline/833/scheduler/5205
+markets 共 2 条
+list[2]
+  id = 20389
+  airline_turn_id = 5205
+  game_market_id = 2496
+  fare = 120.00
+  landing_fee = 10.00
+  handling_fee = 11.00
+  traffic_handling_fee = 10.00
+  cargo_handling_fee = 60.00
+  peak_revenue = 1.05
+  peak_landing = 1.25
+  peak_handling = 1.25
+  peak_traffic = 1.25
+  business_modifier = 1.80
+  premium_modifier = 1.20
+  premium_handling = 1.20
+  business_handling = 3.00
+  gamemarket: object(7)
+    id = 2496
+    game_id = 285
+    market_id = 26
+    from_turn = 0
+    initial_size = 145
+    fuel_prices: list[7]
+    market: object(33)
+      id = 26
+      name = Simone
+      code = SIM
+      description = None
+      market_type = 1
+      market_demand_curve_id = 3
+      market_transfer_model_id = 1
+      inelasticity = 1
+      elasticity = 2
+      unit_p = 24
+      unit_q = 0
+      sector_length = 525
+      population_growth = 2.00
+      gdp_growth = 1.50
+      population_demand = 1.20
+      gdp_demand = 1.50
+      k_factor = 0.45
+      size = 145
+
+==============================================================================
+★ 运价 (fares) 结构
+==============================================================================
+来源: /play/api/airline/833/fares/5205
+  airline: object(12) keys=['id', 'code', 'colour', 'name', 'game_id', 'logo_id', 'operational_status', 'attack_ransom', 'hex', 'game', 'logo', 'users']
+  airlineturn: object(6) keys=['id', 'airline_id', 'turn_id', 'airline', 'turn', 'markets']
+  player: object(8) keys=['id', 'firstname', 'surname', 'email', 'created_at', 'updated_at', 'name', 'roles']
+
+==============================================================================
+★ 运价矩阵 (fare-matrix)
+==============================================================================
+来源: /play/api/airline/833/fare-matrix/5205
+顶层键: ['airline', 'airlineturn', 'matrix', 'colPercent', 'player']
+  airline: object(12) keys=['id', 'code', 'colour', 'name', 'game_id', 'logo_id', 'operational_status', 'attack_ransom', 'hex', 'game', 'logo', 'users']
+  airlineturn: object(6) keys=['id', 'airline_id', 'turn_id', 'airline', 'turn', 'markets']
+  matrix: object(1) keys=['turns']
+  colPercent = 10
+  player: object(8) keys=['id', 'firstname', 'surname', 'email', 'created_at', 'updated_at', 'name', 'roles']
+
+==============================================================================
+★ 机队 (schedule.aircraft)
+==============================================================================
+来源: /play/api/airline/833/schedules/5205
+  schedule.aircraft: list[6]
+  name = APT100 (CA:Starter)
+  aaid = 16557
+  flights: list[3]
+    destination = Simone
+    airlineColour = #dfbf0c
+    flightNumber = CA-4291
+    departure = 09:00:00
+    utilization = 2.26
+    turnaround = 60

@@ -1,0 +1,2423 @@
+{
+  "generatedAt": "2026-11-03T05:49:10.852Z",
+  "scenario": "7 季回测（2027Q4-2029Q2）：依 RULE_SCHEDULE 逐季开规则、routeReleaseTurn 逐季放航线、按事件时间线触发",
+  "seats": [
+    "CA",
+    "AB",
+    "VA"
+  ],
+  "seasons": [
+    {
+      "turn": 0,
+      "inputs": {
+        "turn": 0,
+        "rules": [
+          "carbonCost",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "leaseWet"
+        ],
+        "routes": [
+          "SIM",
+          "ETN",
+          "FTZ",
+          "PKR"
+        ],
+        "events": [],
+        "buys": [
+          {
+            "seat": "CA",
+            "id": "adv_web"
+          },
+          {
+            "seat": "CA",
+            "id": "ota"
+          },
+          {
+            "seat": "AB",
+            "id": "ife_basic"
+          },
+          {
+            "seat": "VA",
+            "id": "cat_econ"
+          },
+          {
+            "seat": "VA",
+            "id": "fnb_basic"
+          }
+        ],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "fixed_price_item",
+            "result": "ok"
+          },
+          {
+            "seat": "AB",
+            "kind": "heavy_check",
+            "result": "ok"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -4486146,
+          "qsi": 4.5,
+          "period": "Q1 2028",
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 0,
+          "revenue": 944603,
+          "cost": 5272686,
+          "operating_profit": -4328083,
+          "net_profit": null,
+          "pax": 6541,
+          "load_factor": 0.1403,
+          "ask": 24475500,
+          "share": 0.0461,
+          "gross_margin": -4.5819,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 6541,
+              "lf": 0.14,
+              "rev": 928249,
+              "op": -1575429,
+              "share": 0.619
+            }
+          }
+        },
+        "AB": {
+          "cash": -3800625,
+          "qsi": 6.2,
+          "period": "Q1 2028",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 1134196,
+          "cost": 4703008,
+          "operating_profit": -3568812,
+          "net_profit": null,
+          "pax": 3814,
+          "load_factor": 0.2119,
+          "ask": 20700000,
+          "share": 0.0991,
+          "gross_margin": -3.1466,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 3814,
+              "lf": 0.212,
+              "rev": 1115124,
+              "op": -840141,
+              "share": 0.392
+            }
+          }
+        },
+        "VA": {
+          "cash": -3993203,
+          "qsi": 5,
+          "period": "Q1 2028",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 1345058,
+          "cost": 6403948,
+          "operating_profit": -5058890,
+          "net_profit": null,
+          "pax": 4945,
+          "load_factor": 0.1254,
+          "ask": 43138080,
+          "share": 0.1142,
+          "gross_margin": -3.7611,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 4189,
+              "lf": 0.233,
+              "rev": 1036075,
+              "op": -893091,
+              "share": 0.399
+            },
+            "FTZ": {
+              "pax": 756,
+              "lf": 0.026,
+              "rev": 296417,
+              "op": -1421121,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「fuelHedge」开启回合 → 0",
+        "规则「etops」开启回合 → 0",
+        "规则「heavyCheck」开启回合 → 0",
+        "规则「leaseWet」开启回合 → 0",
+        "本回合释放航线：SIM、ETN、FTZ、PKR",
+        "更新套保报价表（3 家：A Northwind Energy（银行互换部）、B Gulf Trading（商品经纪）、C Aurum Capital（私募基金））",
+        "CA 选定套保方案 C（Aurum Capital（私募基金））",
+        "AB 选定套保方案 A（Northwind Energy（银行互换部））",
+        "VA 选定套保方案 B（Gulf Trading（商品经纪））",
+        "【谈判 #1】AB · 投资项议价（成本/收益 每旅客） = undefined",
+        "【谈判 #2】CA · 提案审批：固定价采购项 = 批准 · 修改后批准",
+        "CA 提交 Q1 2028: 利润 -4,328,083",
+        "AB 提交 Q1 2028: 利润 -3,568,812",
+        "VA 提交 Q1 2028: 利润 -5,058,890"
+      ]
+    },
+    {
+      "turn": 1,
+      "inputs": {
+        "turn": 1,
+        "rules": [
+          "carbonCost",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "turnaroundNeg",
+          "cyberService"
+        ],
+        "routes": [],
+        "events": [
+          {
+            "eventId": "cyber",
+            "seat": "AB",
+            "result": "ok"
+          }
+        ],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "event_exemption",
+            "result": "ok"
+          },
+          {
+            "seat": "VA",
+            "kind": "sell_to_group",
+            "result": "ok"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -10287164,
+          "qsi": 4.5,
+          "period": "Q2 2028",
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 0,
+          "revenue": 1023381,
+          "cost": 5286336,
+          "operating_profit": -4262955,
+          "net_profit": null,
+          "pax": 7147,
+          "load_factor": 0.1533,
+          "ask": 24475500,
+          "share": 0.2055,
+          "gross_margin": -4.1656,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 7147,
+              "lf": 0.153,
+              "rev": 1005513,
+              "op": -1508786,
+              "share": 0.558
+            }
+          }
+        },
+        "AB": {
+          "cash": -8898922,
+          "qsi": 6.2,
+          "period": "Q2 2028",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 1103937,
+          "cost": 4670420,
+          "operating_profit": -3566483,
+          "net_profit": null,
+          "pax": 3695,
+          "load_factor": 0.2053,
+          "ask": 20700000,
+          "share": 0.0913,
+          "gross_margin": -3.2307,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 3695,
+              "lf": 0.205,
+              "rev": 1085460,
+              "op": -837573,
+              "share": 0.379
+            }
+          }
+        },
+        "VA": {
+          "cash": -10793426,
+          "qsi": 5,
+          "period": "Q2 2028",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 1394930,
+          "cost": 6410840,
+          "operating_profit": -5015910,
+          "net_profit": null,
+          "pax": 5181,
+          "load_factor": 0.1317,
+          "ask": 43138080,
+          "share": 0.1138,
+          "gross_margin": -3.5958,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 4425,
+              "lf": 0.246,
+              "rev": 1085238,
+              "op": -849638,
+              "share": 0.36
+            },
+            "FTZ": {
+              "pax": 756,
+              "lf": 0.026,
+              "rev": 296417,
+              "op": -1421121,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「turnaroundNeg」开启回合 → 1",
+        "规则「cyberService」开启回合 → 1",
+        "裁判触发 网络攻击 @ 全局",
+        "更新套保报价表（3 家：A Northwind Energy（银行互换部）、B Gulf Trading（商品经纪）、C Aurum Capital（私募基金））",
+        "【谈判 #3】CA · 投资项议价（成本/收益 每旅客） = undefined",
+        "【谈判 #4】CA · 情报报价 [SIM] = 55000",
+        "【谈判 #5】AB · 情报报价 [SIM] = 55000",
+        "【谈判 #6】VA · 投资项议价（成本/收益 每旅客） = undefined",
+        "【谈判 #7】VA · 情报报价 [SIM] = 55000",
+        "【谈判 #8】CA · 提案审批：事件罚则豁免 + 替代机顶班 = 驳回 · 驳回",
+        "【谈判 #9】VA · 提案审批：飞机转让给其它小组 = 驳回 · 驳回",
+        "CA 提交 Q2 2028: 利润 -4,262,955",
+        "AB 提交 Q2 2028: 利润 -3,566,483",
+        "VA 提交 Q2 2028: 利润 -5,015,910"
+      ]
+    },
+    {
+      "turn": 2,
+      "inputs": {
+        "turn": 2,
+        "rules": [
+          "connections",
+          "carbonCost",
+          "carbonTerms",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "leaseDry",
+          "turnaroundNeg",
+          "cyberService",
+          "newMarkets",
+          "hangar",
+          "themedOp",
+          "targetSubmit"
+        ],
+        "routes": [
+          "JOP",
+          "CHA"
+        ],
+        "events": [
+          {
+            "eventId": "volcano",
+            "target": "ETN",
+            "result": "ok"
+          }
+        ],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "openRoute",
+            "code": "JOP",
+            "result": "裁判尚未开放该航线"
+          },
+          {
+            "seat": "CA",
+            "kind": "hangar_lease",
+            "result": "ok"
+          },
+          {
+            "seat": "AB",
+            "kind": "openRoute",
+            "code": "CHA",
+            "result": "裁判尚未开放该航线"
+          },
+          {
+            "seat": "AB",
+            "kind": "cabin_extra_crew",
+            "result": "ok"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -14755971,
+          "qsi": 4.5,
+          "period": "Q3 2028",
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 0,
+          "revenue": 2634806,
+          "cost": 5565549,
+          "operating_profit": -2930743,
+          "net_profit": null,
+          "pax": 19541,
+          "load_factor": 0.4191,
+          "ask": 24475500,
+          "share": 0.4686,
+          "gross_margin": -1.1123,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 19541,
+              "lf": 0.419,
+              "rev": 2585955,
+              "op": -145591,
+              "share": 1
+            }
+          }
+        },
+        "AB": {
+          "cash": -14381785,
+          "qsi": 6.2,
+          "period": "Q3 2028",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 670368,
+          "cost": 4621419,
+          "operating_profit": -3951050,
+          "net_profit": null,
+          "pax": 1989,
+          "load_factor": 0.1105,
+          "ask": 20700000,
+          "share": 0.0775,
+          "gross_margin": -5.8938,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 1989,
+              "lf": 0.111,
+              "rev": 660422,
+              "op": -1218728,
+              "share": 0.371
+            }
+          }
+        },
+        "VA": {
+          "cash": -17993451,
+          "qsi": 5,
+          "period": "Q3 2028",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 935879,
+          "cost": 6351590,
+          "operating_profit": -5415711,
+          "net_profit": null,
+          "pax": 3249,
+          "load_factor": 0.0791,
+          "ask": 43138080,
+          "share": 0.1466,
+          "gross_margin": -5.7868,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 2358,
+              "lf": 0.131,
+              "rev": 632018,
+              "op": -1252032,
+              "share": 0.389
+            },
+            "FTZ": {
+              "pax": 891,
+              "lf": 0.031,
+              "rev": 296787,
+              "op": -1422662,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「newMarkets」开启回合 → 2",
+        "规则「hangar」开启回合 → 2",
+        "规则「themedOp」开启回合 → 2",
+        "规则「targetSubmit」开启回合 → 2",
+        "本回合释放航线：JOP、CHA",
+        "裁判触发 火山爆发 @ ETN",
+        "【谈判 #10】CA · 情报报价 [SIM] = 55000",
+        "【谈判 #11】AB · 情报报价 [SIM] = 55000",
+        "【谈判 #12】VA · 情报报价 [SIM] = 55000",
+        "【谈判 #13】CA · 提案审批：机库租赁 = 批准 · 批准",
+        "【谈判 #14】AB · 提案审批：公务舱额外乘务员 = 批准 · 批准",
+        "CA 提交 Q3 2028: 利润 -2,930,743",
+        "AB 提交 Q3 2028: 利润 -3,951,050",
+        "VA 提交 Q3 2028: 利润 -5,415,711"
+      ]
+    },
+    {
+      "turn": 3,
+      "inputs": {
+        "turn": 3,
+        "rules": [
+          "connections",
+          "carbonCost",
+          "carbonTerms",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "leaseDry",
+          "turnaroundNeg",
+          "cyberService",
+          "newMarkets",
+          "hangar",
+          "themedOp",
+          "targetSubmit"
+        ],
+        "routes": [
+          "BZY"
+        ],
+        "events": [
+          {
+            "eventId": "hail",
+            "seat": "AB",
+            "result": "ok"
+          }
+        ],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "openRoute",
+            "code": "JOP",
+            "result": "pending"
+          },
+          {
+            "seat": "CA",
+            "kind": "themed_op",
+            "result": "ok"
+          },
+          {
+            "seat": "AB",
+            "kind": "openRoute",
+            "code": "CHA",
+            "result": "需先投资环保项目"
+          },
+          {
+            "seat": "VA",
+            "kind": "catering_consistent",
+            "result": "ok"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -19224777,
+          "qsi": 4.5,
+          "period": "Q4 2028",
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 0,
+          "revenue": 2634806,
+          "cost": 5565549,
+          "operating_profit": -2930743,
+          "net_profit": null,
+          "pax": 19541,
+          "load_factor": 0.4191,
+          "ask": 24475500,
+          "share": 0.4686,
+          "gross_margin": -1.1123,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 19541,
+              "lf": 0.419,
+              "rev": 2585955,
+              "op": -145591,
+              "share": 1
+            }
+          }
+        },
+        "AB": {
+          "cash": -20080431,
+          "qsi": 6.2,
+          "period": "Q4 2028",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 427091,
+          "cost": 4593924,
+          "operating_profit": -4166833,
+          "net_profit": null,
+          "pax": 1032,
+          "load_factor": 0.0573,
+          "ask": 20700000,
+          "share": 0.0926,
+          "gross_margin": -9.7563,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 1032,
+              "lf": 0.057,
+              "rev": 421931,
+              "op": -1432596,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -25166443,
+          "qsi": 5,
+          "period": "Q4 2028",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 967389,
+          "cost": 6356068,
+          "operating_profit": -5388679,
+          "net_profit": null,
+          "pax": 3407,
+          "load_factor": 0.0832,
+          "ask": 43138080,
+          "share": 0.1275,
+          "gross_margin": -5.5703,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 2507,
+              "lf": 0.139,
+              "rev": 663056,
+              "op": -1224599,
+              "share": 0.355
+            },
+            "FTZ": {
+              "pax": 900,
+              "lf": 0.031,
+              "rev": 296812,
+              "op": -1422765,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「targetSubmit」开启回合 → 2",
+        "本回合释放航线：BZY",
+        "裁判触发 冰雹 @ 全局",
+        "更新套保报价表（3 家：A Northwind Energy（银行互换部）、B Gulf Trading（商品经纪）、C Aurum Capital（私募基金））",
+        "【谈判 #15】CA · 投资项议价（成本/收益 每旅客） = undefined",
+        "【谈判 #16】CA · 情报报价 [SIM] = 55000",
+        "【谈判 #17】AB · 情报报价 [SIM] = 55000",
+        "【谈判 #18】VA · 情报报价 [SIM] = 55000",
+        "驳回 CA 的 乔普林 开线申请（本季暂不放行）",
+        "【谈判 #19】CA · 提案审批：主题化运营（辅营收费） = 批准 · 批准",
+        "【谈判 #20】VA · 提案审批：全航线餐饮统一 = 批准 · 批准",
+        "CA 提交 Q4 2028: 利润 -2,930,743",
+        "AB 提交 Q4 2028: 利润 -4,166,833",
+        "VA 提交 Q4 2028: 利润 -5,388,679"
+      ]
+    },
+    {
+      "turn": 4,
+      "inputs": {
+        "turn": 4,
+        "rules": [
+          "connections",
+          "carbonCost",
+          "carbonTerms",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "leaseDry",
+          "turnaroundNeg",
+          "cyberService",
+          "newMarkets",
+          "hangar",
+          "themedOp",
+          "targetSubmit"
+        ],
+        "routes": [
+          "ARM",
+          "GEE"
+        ],
+        "events": [
+          {
+            "eventId": "pandemic",
+            "result": "ok"
+          }
+        ],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "openRoute",
+            "code": "JOP",
+            "result": "pending"
+          },
+          {
+            "seat": "AB",
+            "kind": "openRoute",
+            "code": "CHA",
+            "result": "需先投资环保项目"
+          },
+          {
+            "seat": "AB",
+            "kind": "heavy_check",
+            "result": "ok"
+          },
+          {
+            "seat": "VA",
+            "kind": "openRoute",
+            "code": "GEE",
+            "result": "裁判尚未开放该航线"
+          },
+          {
+            "seat": "VA",
+            "kind": "event_exemption",
+            "result": "ok"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -24943831,
+          "qsi": 4.5,
+          "period": "Q1 2029",
+          "routes": [
+            "SIM",
+            "ETN",
+            "JOP"
+          ],
+          "schedules": 0,
+          "revenue": 1364440,
+          "cost": 5347931,
+          "operating_profit": -3980991,
+          "net_profit": null,
+          "pax": 9770,
+          "load_factor": 0.2096,
+          "ask": 24475500,
+          "share": 0.4686,
+          "gross_margin": -2.9195,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 9770,
+              "lf": 0.21,
+              "rev": 1340015,
+              "op": -1220265,
+              "share": 1
+            }
+          }
+        },
+        "AB": {
+          "cash": -25800223,
+          "qsi": 6.2,
+          "period": "Q1 2029",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 403251,
+          "cost": 4591229,
+          "operating_profit": -4187978,
+          "net_profit": null,
+          "pax": 938,
+          "load_factor": 0.0521,
+          "ask": 20700000,
+          "share": 0.1564,
+          "gross_margin": -10.3855,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 938,
+              "lf": 0.052,
+              "rev": 398561,
+              "op": -1453554,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -32453577,
+          "qsi": 5,
+          "period": "Q1 2029",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 833372,
+          "cost": 6336192,
+          "operating_profit": -5502820,
+          "net_profit": null,
+          "pax": 2575,
+          "load_factor": 0.0644,
+          "ask": 43138080,
+          "share": 0.1326,
+          "gross_margin": -6.6031,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 2076,
+              "lf": 0.115,
+              "rev": 584970,
+              "op": -1292711,
+              "share": 0.385
+            },
+            "FTZ": {
+              "pax": 499,
+              "lf": 0.017,
+              "rev": 242175,
+              "op": -1469656,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「turnaroundNeg」开启回合 → 1",
+        "规则「cyberService」开启回合 → 1",
+        "规则「newMarkets」开启回合 → 2",
+        "规则「hangar」开启回合 → 2",
+        "规则「themedOp」开启回合 → 2",
+        "规则「targetSubmit」开启回合 → 2",
+        "本回合释放航线：ARM、GEE",
+        "裁判触发 疾病大流行 @ 全局",
+        "批准 CA 开通 乔普林（开线费 $200,000 于当季计入）",
+        "【谈判 #21】AB · 提案审批：飞机大修 = 驳回 · 驳回",
+        "【谈判 #22】VA · 提案审批：事件罚则豁免 + 替代机顶班 = 驳回 · 驳回",
+        "CA 提交 Q1 2029: 利润 -3,980,991",
+        "AB 提交 Q1 2029: 利润 -4,187,978",
+        "VA 提交 Q1 2029: 利润 -5,502,820"
+      ]
+    },
+    {
+      "turn": 5,
+      "inputs": {
+        "turn": 5,
+        "rules": [
+          "connections",
+          "carbonCost",
+          "carbonTerms",
+          "safMandate",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "leaseDry",
+          "turnaroundNeg",
+          "cyberService",
+          "newMarkets",
+          "hangar",
+          "themedOp",
+          "targetSubmit"
+        ],
+        "routes": [
+          "LEW"
+        ],
+        "events": [
+          {
+            "eventId": "fuel_shock",
+            "result": "ok"
+          }
+        ],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "openRoute",
+            "code": "LEW",
+            "result": "裁判尚未开放该航线"
+          },
+          {
+            "seat": "CA",
+            "kind": "fixed_price_item",
+            "result": "ok"
+          },
+          {
+            "seat": "AB",
+            "kind": "openRoute",
+            "code": "CHA",
+            "result": "需先投资环保项目"
+          },
+          {
+            "seat": "AB",
+            "kind": "themed_op",
+            "result": "ok"
+          },
+          {
+            "seat": "VA",
+            "kind": "openRoute",
+            "code": "GEE",
+            "result": "pending"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -30539112,
+          "qsi": 4.5,
+          "period": "Q2 2029",
+          "routes": [
+            "SIM",
+            "ETN",
+            "JOP"
+          ],
+          "schedules": 0,
+          "revenue": 1364440,
+          "cost": 5424158,
+          "operating_profit": -4057217,
+          "net_profit": null,
+          "pax": 9770,
+          "load_factor": 0.2096,
+          "ask": 24475500,
+          "share": 0.4686,
+          "gross_margin": -2.9754,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 9770,
+              "lf": 0.21,
+              "rev": 1340015,
+              "op": -1296491,
+              "share": 1
+            }
+          }
+        },
+        "AB": {
+          "cash": -31583424,
+          "qsi": 6.2,
+          "period": "Q2 2029",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 403251,
+          "cost": 4654639,
+          "operating_profit": -4251387,
+          "net_profit": null,
+          "pax": 938,
+          "load_factor": 0.0521,
+          "ask": 20700000,
+          "share": 0.1564,
+          "gross_margin": -10.5428,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 938,
+              "lf": 0.052,
+              "rev": 398561,
+              "op": -1516963,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -39826423,
+          "qsi": 5,
+          "period": "Q2 2029",
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 0,
+          "revenue": 863989,
+          "cost": 6452521,
+          "operating_profit": -5588533,
+          "net_profit": null,
+          "pax": 2729,
+          "load_factor": 0.0684,
+          "ask": 43138080,
+          "share": 0.1165,
+          "gross_margin": -6.4683,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 2221,
+              "lf": 0.123,
+              "rev": 615128,
+              "op": -1329466,
+              "share": 0.353
+            },
+            "FTZ": {
+              "pax": 508,
+              "lf": 0.018,
+              "rev": 242199,
+              "op": -1518325,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「cyberService」开启回合 → 1",
+        "规则「newMarkets」开启回合 → 2",
+        "规则「hangar」开启回合 → 2",
+        "规则「themedOp」开启回合 → 2",
+        "规则「targetSubmit」开启回合 → 2",
+        "本回合释放航线：LEW",
+        "裁判触发 能源价格冲击 @ 全局",
+        "更新套保报价表（3 家：A Northwind Energy（银行互换部）、B Gulf Trading（商品经纪）、C Aurum Capital（私募基金））",
+        "【谈判 #23】CA · 提案审批：固定价采购项 = 批准 · 批准",
+        "【谈判 #24】AB · 提案审批：主题化运营（辅营收费） = 批准 · 批准",
+        "驳回 VA 的 麦基 开线申请（本季暂不放行）",
+        "CA 提交 Q2 2029: 利润 -4,057,217",
+        "AB 提交 Q2 2029: 利润 -4,251,387",
+        "VA 提交 Q2 2029: 利润 -5,588,533"
+      ]
+    },
+    {
+      "turn": 6,
+      "inputs": {
+        "turn": 6,
+        "rules": [
+          "connections",
+          "carbonCost",
+          "carbonTerms",
+          "safMandate",
+          "loanSystem",
+          "cashFloor",
+          "intelPurchase",
+          "fuelHedge",
+          "etops",
+          "heavyCheck",
+          "financingChannel",
+          "leaseWet",
+          "leaseDry",
+          "turnaroundNeg",
+          "cyberService",
+          "newMarkets",
+          "hangar",
+          "themedOp",
+          "targetSubmit"
+        ],
+        "routes": [],
+        "events": [],
+        "buys": [],
+        "proposals": [
+          {
+            "seat": "CA",
+            "kind": "openRoute",
+            "code": "LEW",
+            "result": "pending"
+          },
+          {
+            "seat": "AB",
+            "kind": "openRoute",
+            "code": "CHA",
+            "result": "需先投资环保项目"
+          },
+          {
+            "seat": "VA",
+            "kind": "openRoute",
+            "code": "GEE",
+            "result": "pending"
+          }
+        ],
+        "hedge": []
+      },
+      "seats": {
+        "CA": {
+          "cash": -36334392,
+          "qsi": 4.5,
+          "period": "Q3 2029",
+          "routes": [
+            "SIM",
+            "ETN",
+            "JOP",
+            "LEW"
+          ],
+          "schedules": 0,
+          "revenue": 1364440,
+          "cost": 5426658,
+          "operating_profit": -4057217,
+          "net_profit": null,
+          "pax": 9770,
+          "load_factor": 0.2096,
+          "ask": 24475500,
+          "share": 0.4686,
+          "gross_margin": -2.9772,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "SIM": {
+              "pax": 9770,
+              "lf": 0.21,
+              "rev": 1340015,
+              "op": -1296491,
+              "share": 1
+            }
+          }
+        },
+        "AB": {
+          "cash": -37366624,
+          "qsi": 6.2,
+          "period": "Q3 2029",
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "revenue": 403251,
+          "cost": 4654639,
+          "operating_profit": -4251387,
+          "net_profit": null,
+          "pax": 938,
+          "load_factor": 0.0521,
+          "ask": 20700000,
+          "share": 0.1564,
+          "gross_margin": -10.5428,
+          "loan_balance": 0,
+          "investments": 1,
+          "detail": {
+            "ETN": {
+              "pax": 938,
+              "lf": 0.052,
+              "rev": 398561,
+              "op": -1516963,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -47425534,
+          "qsi": 5,
+          "period": "Q3 2029",
+          "routes": [
+            "ETN",
+            "FTZ",
+            "GEE"
+          ],
+          "schedules": 0,
+          "revenue": 833372,
+          "cost": 6450670,
+          "operating_profit": -5614798,
+          "net_profit": null,
+          "pax": 2575,
+          "load_factor": 0.0644,
+          "ask": 43138080,
+          "share": 0.1326,
+          "gross_margin": -6.7404,
+          "loan_balance": 0,
+          "investments": 2,
+          "detail": {
+            "ETN": {
+              "pax": 2076,
+              "lf": 0.115,
+              "rev": 584970,
+              "op": -1356121,
+              "share": 0.385
+            },
+            "FTZ": {
+              "pax": 499,
+              "lf": 0.017,
+              "rev": 242175,
+              "op": -1518225,
+              "share": 1
+            }
+          }
+        }
+      },
+      "gmLog": [
+        "规则「financingChannel」开启回合 → 1",
+        "规则「leaseWet」开启回合 → 0",
+        "规则「leaseDry」开启回合 → 2",
+        "规则「turnaroundNeg」开启回合 → 1",
+        "规则「cyberService」开启回合 → 1",
+        "规则「newMarkets」开启回合 → 2",
+        "规则「hangar」开启回合 → 2",
+        "规则「themedOp」开启回合 → 2",
+        "规则「targetSubmit」开启回合 → 2",
+        "批准 CA 开通 路易斯（开线费 $200,000 于当季计入）",
+        "批准 VA 开通 麦基（开线费 $200,000 于当季计入）",
+        "CA 提交 Q3 2029: 利润 -4,057,217",
+        "AB 提交 Q3 2029: 利润 -4,251,387",
+        "VA 提交 Q3 2029: 利润 -5,614,798"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "id": "rule:connections",
+      "cat": "规则",
+      "name": "中转客源（承接率可调）",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:carbonCost",
+      "cat": "规则",
+      "name": "碳成本计入",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:carbonTerms",
+      "cat": "规则",
+      "name": "碳价谈判 / 碳减排项目",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:safMandate",
+      "cat": "规则",
+      "name": "SAF 强制掺混 5%（2.5 倍价）",
+      "state": "covered",
+      "note": "第 5 季开启"
+    },
+    {
+      "id": "rule:loanSystem",
+      "cat": "规则",
+      "name": "自有资产贷款（12 年期）",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:cashFloor",
+      "cat": "规则",
+      "name": "现金下限 $2,000,000 + 超额强制还贷",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:intelPurchase",
+      "cat": "规则",
+      "name": "市场情报购买",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:fuelHedge",
+      "cat": "规则",
+      "name": "燃油套保谈判",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:etops",
+      "cat": "规则",
+      "name": "ETOPS 长程许可",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:heavyCheck",
+      "cat": "规则",
+      "name": "定检大修",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:financingChannel",
+      "cat": "规则",
+      "name": "机队融资通道（借款买机/付押金 · 利息计入运营成本）",
+      "state": "covered",
+      "note": "第 1 季开启"
+    },
+    {
+      "id": "rule:leaseWet",
+      "cat": "规则",
+      "name": "湿租（首季可赊机：免押金 · 租金后付）",
+      "state": "covered",
+      "note": "第 0 季开启"
+    },
+    {
+      "id": "rule:leaseDry",
+      "cat": "规则",
+      "name": "干租（可议价）",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:turnaroundNeg",
+      "cat": "规则",
+      "name": "过站时间谈判",
+      "state": "covered",
+      "note": "第 1 季开启"
+    },
+    {
+      "id": "rule:cyberService",
+      "cat": "规则",
+      "name": "网络安全服务（$250k/季）",
+      "state": "covered",
+      "note": "第 1 季开启"
+    },
+    {
+      "id": "rule:newMarkets",
+      "cat": "规则",
+      "name": "新市场开放（JOP / CHA / BZY）",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:hangar",
+      "cat": "规则",
+      "name": "机库（抗冰雹）",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:themedOp",
+      "cat": "规则",
+      "name": "主题化运营（007 精品航班）",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "rule:targetSubmit",
+      "cat": "规则",
+      "name": "目标提交与追踪",
+      "state": "covered",
+      "note": "第 2 季开启"
+    },
+    {
+      "id": "route:SIM",
+      "cat": "航线",
+      "name": "航线 SIM 释放",
+      "state": "covered",
+      "note": "第 0 季"
+    },
+    {
+      "id": "route:ETN",
+      "cat": "航线",
+      "name": "航线 ETN 释放",
+      "state": "covered",
+      "note": "第 0 季"
+    },
+    {
+      "id": "route:FTZ",
+      "cat": "航线",
+      "name": "航线 FTZ 释放",
+      "state": "covered",
+      "note": "第 0 季"
+    },
+    {
+      "id": "route:PKR",
+      "cat": "航线",
+      "name": "航线 PKR 释放",
+      "state": "covered",
+      "note": "第 0 季"
+    },
+    {
+      "id": "route:JOP",
+      "cat": "航线",
+      "name": "航线 JOP 释放",
+      "state": "covered",
+      "note": "第 2 季"
+    },
+    {
+      "id": "route:CHA",
+      "cat": "航线",
+      "name": "航线 CHA 释放",
+      "state": "covered",
+      "note": "第 2 季"
+    },
+    {
+      "id": "route:BZY",
+      "cat": "航线",
+      "name": "航线 BZY 释放",
+      "state": "covered",
+      "note": "第 3 季"
+    },
+    {
+      "id": "route:ARM",
+      "cat": "航线",
+      "name": "航线 ARM 释放",
+      "state": "covered",
+      "note": "第 4 季"
+    },
+    {
+      "id": "route:GEE",
+      "cat": "航线",
+      "name": "航线 GEE 释放",
+      "state": "covered",
+      "note": "第 4 季"
+    },
+    {
+      "id": "route:LEW",
+      "cat": "航线",
+      "name": "航线 LEW 释放",
+      "state": "covered",
+      "note": "第 5 季"
+    },
+    {
+      "id": "hedge:quotes3",
+      "cat": "套保",
+      "name": "裁判发布 3 家条件各异的报价",
+      "state": "covered",
+      "note": "ok"
+    },
+    {
+      "id": "hedge:pick:CA",
+      "cat": "套保",
+      "name": "CA 比价选型",
+      "state": "covered",
+      "note": "选 C（期望 220000 $/gal；未套保 ）"
+    },
+    {
+      "id": "hedge:quote:A",
+      "cat": "套保",
+      "name": "报价 A Northwind Energy（银行互换部）",
+      "state": "covered",
+      "note": "期望 50000 $/gal"
+    },
+    {
+      "id": "hedge:quote:C",
+      "cat": "套保",
+      "name": "报价 C Aurum Capital（私募基金）",
+      "state": "covered",
+      "note": "期望 220000 $/gal"
+    },
+    {
+      "id": "hedge:quote:B",
+      "cat": "套保",
+      "name": "报价 B Gulf Trading（商品经纪）",
+      "state": "covered",
+      "note": "期望 400000 $/gal"
+    },
+    {
+      "id": "hedge:pick:AB",
+      "cat": "套保",
+      "name": "AB 比价选型",
+      "state": "covered",
+      "note": "选 A（期望 50000 $/gal；未套保 ）"
+    },
+    {
+      "id": "hedge:pick:VA",
+      "cat": "套保",
+      "name": "VA 比价选型",
+      "state": "covered",
+      "note": "选 B（期望 400000 $/gal；未套保 ）"
+    },
+    {
+      "id": "action:addFlight",
+      "cat": "动作",
+      "name": "加入班次",
+      "state": "covered",
+      "note": "CA 本季 4 班｜被拒 SIM 09:00 过站时间不足 181 分钟; SIM 16:00 该机每季最多 2 个日班次（长程 1 班/日 · 短程 2 班/日）"
+    },
+    {
+      "id": "action:setFare",
+      "cat": "动作",
+      "name": "设定运价",
+      "state": "covered",
+      "note": "CA"
+    },
+    {
+      "id": "action:setFareBands",
+      "cat": "动作",
+      "name": "分时定价",
+      "state": "covered",
+      "note": "ok"
+    },
+    {
+      "id": "invest:adv_web",
+      "cat": "投资",
+      "name": "adv_web（Advertising (Agents, Website)）",
+      "state": "covered",
+      "note": "CA T0"
+    },
+    {
+      "id": "invest:ota",
+      "cat": "投资",
+      "name": "ota（Online Travel Agents）",
+      "state": "covered",
+      "note": "CA T0"
+    },
+    {
+      "id": "propose:fixed_price_item",
+      "cat": "提案",
+      "name": "fixed_price_item",
+      "state": "covered",
+      "note": "CA -> ok"
+    },
+    {
+      "id": "invest:cab_galaxy",
+      "cat": "投资",
+      "name": "cab_galaxy（Cabin Upgrade (Galaxy)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "neg:investTerms",
+      "cat": "谈判",
+      "name": "投资项议价（成本/收益 每旅客）",
+      "state": "covered",
+      "note": "ok"
+    },
+    {
+      "id": "invest:ife_basic",
+      "cat": "投资",
+      "name": "ife_basic（IFE (Basic Video)）",
+      "state": "covered",
+      "note": "AB T0"
+    },
+    {
+      "id": "propose:heavy_check",
+      "cat": "提案",
+      "name": "heavy_check",
+      "state": "covered",
+      "note": "AB -> ok"
+    },
+    {
+      "id": "invest:cat_econ",
+      "cat": "投资",
+      "name": "cat_econ（Provided Catering (Economy)）",
+      "state": "covered",
+      "note": "VA T0"
+    },
+    {
+      "id": "invest:fnb_basic",
+      "cat": "投资",
+      "name": "fnb_basic（On Board F&B Sales (Basic)）",
+      "state": "covered",
+      "note": "VA T0"
+    },
+    {
+      "id": "action:resolveProposal",
+      "cat": "动作",
+      "name": "裁判审批提案",
+      "state": "covered",
+      "note": "CA fixed_price_item -> ok"
+    },
+    {
+      "id": "propose:modify",
+      "cat": "提案",
+      "name": "提案带修改批准",
+      "state": "covered",
+      "note": "ok"
+    },
+    {
+      "id": "action:advanceAll",
+      "cat": "动作",
+      "name": "裁判统一推进结算",
+      "state": "covered",
+      "note": "[object Object]"
+    },
+    {
+      "id": "event:cyber",
+      "cat": "事件",
+      "name": "事件 cyber",
+      "state": "covered",
+      "note": "第 1 季 · AB"
+    },
+    {
+      "id": "invest:adv_social",
+      "cat": "投资",
+      "name": "adv_social（Advertising (Social Media)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:enews",
+      "cat": "投资",
+      "name": "enews（eNewsletters）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "propose:event_exemption",
+      "cat": "提案",
+      "name": "event_exemption",
+      "state": "covered",
+      "note": "CA -> ok"
+    },
+    {
+      "id": "action:buyIntel",
+      "cat": "动作",
+      "name": "购买市场情报",
+      "state": "failed",
+      "note": "CA -> 现金不足（情报报价 $55,000）"
+    },
+    {
+      "id": "invest:lounge_shared",
+      "cat": "投资",
+      "name": "lounge_shared（Lounge (Basic) Shared）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:pref_seats",
+      "cat": "投资",
+      "name": "pref_seats（Preferred Seats）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:cat_biz_pe",
+      "cat": "投资",
+      "name": "cat_biz_pe（Provided Catering (Biz and PE)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:fnb_super",
+      "cat": "投资",
+      "name": "fnb_super（On Board F&B Sales (Superior)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "propose:sell_to_group",
+      "cat": "提案",
+      "name": "sell_to_group",
+      "state": "covered",
+      "note": "VA -> ok"
+    },
+    {
+      "id": "event:volcano",
+      "cat": "事件",
+      "name": "事件 volcano",
+      "state": "covered",
+      "note": "第 2 季 · ETN"
+    },
+    {
+      "id": "invest:cab_lowcost",
+      "cat": "投资",
+      "name": "cab_lowcost（Cabin Upgrade (Low Cost)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:adv_bill",
+      "cat": "投资",
+      "name": "adv_bill（Advertising (Billboards)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "action:openRoute",
+      "cat": "动作",
+      "name": "申请开线",
+      "state": "failed",
+      "note": "CA JOP -> 裁判尚未开放该航线"
+    },
+    {
+      "id": "propose:hangar_lease",
+      "cat": "提案",
+      "name": "hangar_lease",
+      "state": "covered",
+      "note": "CA -> ok"
+    },
+    {
+      "id": "invest:wifi",
+      "cat": "投资",
+      "name": "wifi（In Flight Connectivity (WiFi)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:loyalty",
+      "cat": "投资",
+      "name": "loyalty（Loyalty Programme）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "propose:cabin_extra_crew",
+      "cat": "提案",
+      "name": "cabin_extra_crew",
+      "state": "covered",
+      "note": "AB -> ok"
+    },
+    {
+      "id": "invest:cab_new",
+      "cat": "投资",
+      "name": "cab_new（Cabin Upgrade (New Seats)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:adv_tv",
+      "cat": "投资",
+      "name": "adv_tv（Advertising (TV and Cinema)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "event:hail",
+      "cat": "事件",
+      "name": "事件 hail",
+      "state": "covered",
+      "note": "第 3 季 · AB"
+    },
+    {
+      "id": "invest:adv_print",
+      "cat": "投资",
+      "name": "adv_print（Advertising (Print)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:giveaway",
+      "cat": "投资",
+      "name": "giveaway（Giveaways）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "propose:themed_op",
+      "cat": "提案",
+      "name": "themed_op",
+      "state": "covered",
+      "note": "CA -> ok"
+    },
+    {
+      "id": "invest:ife_enh",
+      "cat": "投资",
+      "name": "ife_enh（IFE (Enhanced Video)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:lounge",
+      "cat": "投资",
+      "name": "lounge（Lounge (Basic)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:cab_refresh",
+      "cat": "投资",
+      "name": "cab_refresh（Cabin Upgrade (Refresh)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:bags",
+      "cat": "投资",
+      "name": "bags（Extra Bags）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "propose:catering_consistent",
+      "cat": "提案",
+      "name": "catering_consistent",
+      "state": "covered",
+      "note": "VA -> ok"
+    },
+    {
+      "id": "action:approveRoute",
+      "cat": "动作",
+      "name": "裁判审批开线",
+      "state": "covered",
+      "note": "CA JOP 驳回 -> ok"
+    },
+    {
+      "id": "route:open:JOP",
+      "cat": "航线",
+      "name": "航线 JOP 开通",
+      "state": "covered",
+      "note": "CA T4"
+    },
+    {
+      "id": "event:pandemic",
+      "cat": "事件",
+      "name": "事件 pandemic",
+      "state": "covered",
+      "note": "第 4 季 · global"
+    },
+    {
+      "id": "invest:online_booking",
+      "cat": "投资",
+      "name": "online_booking（On Line Booking）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:wifi_hc",
+      "cat": "投资",
+      "name": "wifi_hc（In Flight Connectivity Hi-Connex）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:lounge_vip_shared",
+      "cat": "投资",
+      "name": "lounge_vip_shared（Lounge (VIP) Shared）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "event:fuel_shock",
+      "cat": "事件",
+      "name": "事件 fuel_shock",
+      "state": "covered",
+      "note": "第 5 季 · global"
+    },
+    {
+      "id": "invest:selfcheckin",
+      "cat": "投资",
+      "name": "selfcheckin（Self-service Check-in）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:priority",
+      "cat": "投资",
+      "name": "priority（Priority Boarding）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:lounge_vip",
+      "cat": "投资",
+      "name": "lounge_vip（Lounge (VIP)）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:overweight",
+      "cat": "投资",
+      "name": "overweight（Overweight Baggage）",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "invest:agent_ch",
+      "cat": "投资",
+      "name": "agent_ch（代理人渠道（谈判新增））",
+      "state": "failed",
+      "note": "no cash"
+    },
+    {
+      "id": "route:open:GEE",
+      "cat": "航线",
+      "name": "航线 GEE 开通",
+      "state": "covered",
+      "note": "VA T6"
+    },
+    {
+      "id": "route:open:LEW",
+      "cat": "航线",
+      "name": "航线 LEW 开通",
+      "state": "covered",
+      "note": "CA T6"
+    }
+  ],
+  "shareTrend": [
+    {
+      "turn": 0,
+      "shares": {
+        "CA": 0.0461,
+        "AB": 0.0991,
+        "VA": 0.1142
+      }
+    },
+    {
+      "turn": 1,
+      "shares": {
+        "CA": 0.2055,
+        "AB": 0.0913,
+        "VA": 0.1138
+      }
+    },
+    {
+      "turn": 2,
+      "shares": {
+        "CA": 0.4686,
+        "AB": 0.0775,
+        "VA": 0.1466
+      }
+    },
+    {
+      "turn": 3,
+      "shares": {
+        "CA": 0.4686,
+        "AB": 0.0926,
+        "VA": 0.1275
+      }
+    },
+    {
+      "turn": 4,
+      "shares": {
+        "CA": 0.4686,
+        "AB": 0.1564,
+        "VA": 0.1326
+      }
+    },
+    {
+      "turn": 5,
+      "shares": {
+        "CA": 0.4686,
+        "AB": 0.1564,
+        "VA": 0.1165
+      }
+    },
+    {
+      "turn": 6,
+      "shares": {
+        "CA": 0.4686,
+        "AB": 0.1564,
+        "VA": 0.1326
+      }
+    }
+  ],
+  "hedgeQuotes": [
+    {
+      "id": "A",
+      "supplier": "Northwind Energy（银行互换部）",
+      "product": "swap",
+      "strike": 2.63,
+      "floor": null,
+      "share": 0.6,
+      "quarters": 2,
+      "upfront": 50000,
+      "fixedFeePerQuarter": 0,
+      "varPerGal": 0,
+      "creditSupport": true,
+      "prepayRate": 0,
+      "minGallons": 0,
+      "leverage": 0,
+      "terms": "双向锁定；含违约信用保护；需提前 1 季签约；无最低量"
+    },
+    {
+      "id": "B",
+      "supplier": "Gulf Trading（商品经纪）",
+      "product": "call",
+      "strike": 2.43,
+      "floor": null,
+      "share": 0.4,
+      "quarters": 2,
+      "upfront": 350000,
+      "fixedFeePerQuarter": 25000,
+      "varPerGal": 0.012,
+      "creditSupport": false,
+      "prepayRate": 0.5,
+      "minGallons": 200000,
+      "leverage": 1.5,
+      "terms": "价格上限（低于按市价）；另收 $25k/季管理费 + $0.012/gal；预付 50%；最低 20 万加仑"
+    },
+    {
+      "id": "C",
+      "supplier": "Aurum Capital（私募基金）",
+      "product": "collar",
+      "strike": 2.75,
+      "floor": 2.1,
+      "share": 0.8,
+      "quarters": 3,
+      "upfront": 220000,
+      "fixedFeePerQuarter": 0,
+      "varPerGal": 0.004,
+      "creditSupport": true,
+      "prepayRate": 0.25,
+      "minGallons": 0,
+      "leverage": 2,
+      "terms": "上下限走廊 $2.10–$2.75；覆盖 80%、3 季；预付 25%；含信用保护；杠杆 2.0×"
+    }
+  ],
+  "hedgeScenarios": [
+    {
+      "key": "base",
+      "label": "基准（市价持平）",
+      "priceFactor": 1,
+      "weight": 0.5
+    },
+    {
+      "key": "up",
+      "label": "上行（油价 +50%）",
+      "priceFactor": 1.5,
+      "weight": 0.3
+    },
+    {
+      "key": "down",
+      "label": "下行（油价 −25%）",
+      "priceFactor": 0.75,
+      "weight": 0.2
+    }
+  ],
+  "inventory": [
+    {
+      "id": "adv_web",
+      "name": "Advertising (Agents, Website)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 150000,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.5
+      }
+    },
+    {
+      "id": "adv_bill",
+      "name": "Advertising (Billboards)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 250000,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.35
+      }
+    },
+    {
+      "id": "adv_print",
+      "name": "Advertising (Print)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 650000,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.8
+      }
+    },
+    {
+      "id": "adv_social",
+      "name": "Advertising (Social Media)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 350000,
+      "costPerPax": 0,
+      "revenuePerPax": 2,
+      "effect": {
+        "qsi": 0.45
+      }
+    },
+    {
+      "id": "adv_tv",
+      "name": "Advertising (TV and Cinema)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 500000,
+      "costPerPax": 0,
+      "revenuePerPax": 2,
+      "effect": {
+        "qsi": 0.6
+      }
+    },
+    {
+      "id": "ota",
+      "name": "Online Travel Agents",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 50000,
+      "costPerPax": 5,
+      "revenuePerPax": 2.5,
+      "effect": {
+        "qsi": 0.25
+      }
+    },
+    {
+      "id": "agent_ch",
+      "name": "代理人渠道（谈判新增）",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 0,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.2
+      }
+    },
+    {
+      "id": "cab_galaxy",
+      "name": "Cabin Upgrade (Galaxy)",
+      "cat": "airline",
+      "upfront": 3700000,
+      "annual": 0,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.9,
+        "premium": 1
+      }
+    },
+    {
+      "id": "cab_lowcost",
+      "name": "Cabin Upgrade (Low Cost)",
+      "cat": "airline",
+      "upfront": 1375000,
+      "annual": 0,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.5
+      }
+    },
+    {
+      "id": "cab_new",
+      "name": "Cabin Upgrade (New Seats)",
+      "cat": "airline",
+      "upfront": 2550000,
+      "annual": 0,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.6
+      }
+    },
+    {
+      "id": "cab_refresh",
+      "name": "Cabin Upgrade (Refresh)",
+      "cat": "airline",
+      "upfront": 2150000,
+      "annual": 0,
+      "costPerPax": 0,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.4
+      }
+    },
+    {
+      "id": "enews",
+      "name": "eNewsletters",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 75000,
+      "costPerPax": 0,
+      "revenuePerPax": 0.5,
+      "effect": {
+        "qsi": 0.12
+      }
+    },
+    {
+      "id": "bags",
+      "name": "Extra Bags",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 0,
+      "costPerPax": 1.25,
+      "revenuePerPax": 2.5,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "giveaway",
+      "name": "Giveaways",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 20000,
+      "costPerPax": 1,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.08
+      }
+    },
+    {
+      "id": "ife_basic",
+      "name": "IFE (Basic Video)",
+      "cat": "airline",
+      "upfront": 1450000,
+      "annual": 175000,
+      "costPerPax": 3,
+      "revenuePerPax": 5,
+      "effect": {
+        "qsi": 0.5,
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "ife_enh",
+      "name": "IFE (Enhanced Video)",
+      "cat": "airline",
+      "upfront": 1600000,
+      "annual": 190000,
+      "costPerPax": 4,
+      "revenuePerPax": 6.5,
+      "effect": {
+        "qsi": 0.65,
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "wifi",
+      "name": "In Flight Connectivity (WiFi)",
+      "cat": "airline",
+      "upfront": 1450000,
+      "annual": 150000,
+      "costPerPax": 2,
+      "revenuePerPax": 3,
+      "effect": {
+        "qsi": 0.6,
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "wifi_hc",
+      "name": "In Flight Connectivity Hi-Connex",
+      "cat": "airline",
+      "upfront": 330000,
+      "annual": 120000,
+      "costPerPax": 2,
+      "revenuePerPax": 3,
+      "effect": {
+        "qsi": 0.35,
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "lounge",
+      "name": "Lounge (Basic)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 1455000,
+      "costPerPax": 1,
+      "revenuePerPax": 1,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "lounge_shared",
+      "name": "Lounge (Basic) Shared",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 191000,
+      "costPerPax": 1,
+      "revenuePerPax": 1,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "lounge_vip",
+      "name": "Lounge (VIP)",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 2924000,
+      "costPerPax": 1,
+      "revenuePerPax": 4,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "lounge_vip_shared",
+      "name": "Lounge (VIP) Shared",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 945500,
+      "costPerPax": 1,
+      "revenuePerPax": 1.5,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "loyalty",
+      "name": "Loyalty Programme",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 1750000,
+      "costPerPax": 5,
+      "revenuePerPax": 8,
+      "effect": {
+        "ancillary": 1,
+        "qsi": 0.5
+      }
+    },
+    {
+      "id": "overweight",
+      "name": "Overweight Baggage",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 0,
+      "costPerPax": 0.5,
+      "revenuePerPax": 1.75,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "pref_seats",
+      "name": "Preferred Seats",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 25000,
+      "costPerPax": 1,
+      "revenuePerPax": 2,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "priority",
+      "name": "Priority Boarding",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 25000,
+      "costPerPax": 1,
+      "revenuePerPax": 1.5,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "selfcheckin",
+      "name": "Self-service Check-in",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 80000,
+      "costPerPax": 1,
+      "revenuePerPax": 2,
+      "effect": {
+        "ancillary": 1
+      }
+    },
+    {
+      "id": "online_booking",
+      "name": "On Line Booking",
+      "cat": "airline",
+      "upfront": 0,
+      "annual": 550000,
+      "costPerPax": 0.5,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.4
+      }
+    },
+    {
+      "id": "cat_econ",
+      "name": "Provided Catering (Economy)",
+      "cat": "route",
+      "upfront": 0,
+      "annual": 875000,
+      "costPerPax": 3,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.3
+      }
+    },
+    {
+      "id": "cat_biz_pe",
+      "name": "Provided Catering (Biz and PE)",
+      "cat": "route",
+      "upfront": 0,
+      "annual": 2000000,
+      "costPerPax": 12.5,
+      "revenuePerPax": 0,
+      "effect": {
+        "qsi": 0.35
+      }
+    },
+    {
+      "id": "fnb_basic",
+      "name": "On Board F&B Sales (Basic)",
+      "cat": "route",
+      "upfront": 0,
+      "annual": 310000,
+      "costPerPax": 2,
+      "revenuePerPax": 3,
+      "effect": {
+        "ancillary": 1,
+        "qsi": 0.25
+      }
+    },
+    {
+      "id": "fnb_super",
+      "name": "On Board F&B Sales (Superior)",
+      "cat": "route",
+      "upfront": 0,
+      "annual": 510000,
+      "costPerPax": 5,
+      "revenuePerPax": 8.5,
+      "effect": {
+        "ancillary": 1,
+        "qsi": 0.35
+      }
+    }
+  ],
+  "serverLog": [
+    "SkyChess 沙盘服务端已启动",
+    "  玩家    http://127.0.0.1:8799/player.html?seat=CA  (AB / VA)",
+    "  教师    http://127.0.0.1:8799/teacher.html",
+    ""
+  ]
+}

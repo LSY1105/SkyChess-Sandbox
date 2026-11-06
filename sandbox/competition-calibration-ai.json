@@ -1,0 +1,22 @@
+{
+  "note": "M3 AI 竞品标定到真实反解效用轨迹",
+  "params_in_sample": {
+    "kPrice": 1.15,
+    "followRatio": 0.9,
+    "qsiPrice": 0,
+    "flightsPerAc": 3,
+    "qsiOffset": 1
+  },
+  "rmse_in_sample": 0.06294011455188336,
+  "holdout_market_rmse_median": 0.06853233883612753,
+  "holdout_market_rmse": [
+    0.0357695496971151,
+    0.147312825548518,
+    0.03167269807851236,
+    0.023155760172550416,
+    0.09741646366018497,
+    0.06853233883612753,
+    0.0689895963298176
+  ],
+  "residual_baseline": 0.37690771685007785
+}

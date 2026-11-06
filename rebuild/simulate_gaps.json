@@ -1,0 +1,323 @@
+{
+  "generatedAt": "2026-11-03T07:51:32.071Z",
+  "qsi": {
+    "CA": {
+      "Q4_2027": 4.5,
+      "Q1_2028": -0.2,
+      "Q2_2028": 6.1,
+      "Q3_2028": 7.38,
+      "Q4_2028": 8.3,
+      "Q1_2029": 9.2,
+      "Q2_2029": 10.1
+    },
+    "VA": {
+      "Q4_2027": 4.5,
+      "Q1_2028": 14.4,
+      "Q2_2028": 20.7,
+      "Q3_2028": 21.96,
+      "Q4_2028": 22.9,
+      "Q1_2029": 23.8,
+      "Q2_2029": 24.7
+    },
+    "AB": {
+      "Q4_2027": 4.2,
+      "Q1_2028": -0.5,
+      "Q2_2028": 5.8,
+      "Q3_2028": 7.1,
+      "Q4_2028": 8,
+      "Q1_2029": 8.9,
+      "Q2_2029": 9.8
+    },
+    "_basis": {
+      "anchors": {
+        "CA": {
+          "Q4_2027": 4.5,
+          "Q1_2028": -0.2,
+          "Q2_2028": 6.1,
+          "Q3_2028": 7.38
+        },
+        "VA": {
+          "Q4_2027": 4.5,
+          "Q3_2028": 21.96
+        },
+        "AB": "无一手锚点"
+      },
+      "method": "锚点值直接采用；锚点之后的季度按尾段步长 +0.9/季外推；锚点稀疏的季度用「同期 CA 值 + 该家锚点偏移」回填（VA）；AB 无任何一手锚点，以初始 QSI 4.20 起按 CA 的季度增量形状 Δ[−4.70,+6.30,+1.28] 外推，其后 +0.9/季",
+      "tag": "【模拟产出·非一手数据】"
+    }
+  },
+  "costByQuarter": {
+    "CA_Q1_2028": {
+      "label": "CA Q1 2028",
+      "anchor": {
+        "revenue": 13950000,
+        "net_margin": 0.0742,
+        "fuel_cost": 2370000,
+        "carbon_cost": 526000
+      },
+      "revenue": 13950000,
+      "operating_profit": 1035090,
+      "anchorCheck": {
+        "Fuel": {
+          "derived": 2414335,
+          "actual": 2370000,
+          "dev": 0.0187
+        },
+        "Carbon": {
+          "derived": 535840,
+          "actual": 526000,
+          "dev": 0.0187
+        }
+      },
+      "residualNote": "总量残差为构造性归零（按总量做了整体修正），不构成独立验证；有意义的检验是 anchorCheck（与该季已知 fuel/carbon 的偏离）",
+      "total_cost_derived": 12914910,
+      "total_cost_actual": 12914910,
+      "residual": 0,
+      "correction": 1.0187,
+      "items": {
+        "Fuel": 2414335,
+        "Sustainable Aviation Fuel": 0,
+        "Carbon": 535840,
+        "Maintenance": 1273671,
+        "Flight Crew": 817518,
+        "Cabin Crew": 618204,
+        "Landing": 589502,
+        "Navigation": 349470,
+        "Aircraft Handling": 726075,
+        "Traffic Handling": 697373,
+        "Cargo Handling": 41654,
+        "Passenger Services": 738890,
+        "Ticketing, Sales and Promotion": 426314,
+        "General & Administration": 1339776,
+        "Cargo Overheads": 289417,
+        "Depreciation on Owned Assets": 1901518,
+        "Insurance": 155353
+      },
+      "tag": "【模拟产出·非一手数据】推导值，未经一手逐项核对"
+    },
+    "CA_Q2_2028": {
+      "label": "CA Q2 2028",
+      "anchor": {
+        "revenue": 24060000,
+        "net_margin": 0.0216,
+        "fuel_cost": 3880000,
+        "carbon_cost": 843000
+      },
+      "revenue": 24060000,
+      "operating_profit": 519696,
+      "anchorCheck": {
+        "Fuel": {
+          "derived": 4537194,
+          "actual": 3880000,
+          "dev": 0.1694
+        },
+        "Carbon": {
+          "derived": 985787,
+          "actual": 843000,
+          "dev": 0.1694
+        }
+      },
+      "residualNote": "总量残差为构造性归零（按总量做了整体修正），不构成独立验证；有意义的检验是 anchorCheck（与该季已知 fuel/carbon 的偏离）",
+      "total_cost_derived": 23540305,
+      "total_cost_actual": 23540304,
+      "residual": 1,
+      "correction": 1.1694,
+      "items": {
+        "Fuel": 4537194,
+        "Sustainable Aviation Fuel": 0,
+        "Carbon": 985787,
+        "Maintenance": 2521653,
+        "Flight Crew": 1618547,
+        "Cabin Crew": 1223938,
+        "Landing": 1167115,
+        "Navigation": 691892,
+        "Aircraft Handling": 1437505,
+        "Traffic Handling": 1380681,
+        "Cargo Handling": 82467,
+        "Passenger Services": 1462878,
+        "Ticketing, Sales and Promotion": 844030,
+        "General & Administration": 2652529,
+        "Cargo Overheads": 572995,
+        "Depreciation on Owned Assets": 2182764,
+        "Insurance": 178330
+      },
+      "tag": "【模拟产出·非一手数据】推导值，未经一手逐项核对"
+    },
+    "CA_Q3_2028": {
+      "label": "CA Q3 2028",
+      "anchor": {
+        "revenue": 30940000,
+        "net_margin": 0.146,
+        "fuel_cost": 4640000,
+        "carbon_cost": 2380000
+      },
+      "revenue": 30940000,
+      "operating_profit": 4517240,
+      "anchorCheck": {
+        "Fuel": {
+          "derived": 4669461,
+          "actual": 4640000,
+          "dev": 0.0063
+        },
+        "Carbon": {
+          "derived": 2395111,
+          "actual": 2380000,
+          "dev": 0.0063
+        }
+      },
+      "residualNote": "总量残差为构造性归零（按总量做了整体修正），不构成独立验证；有意义的检验是 anchorCheck（与该季已知 fuel/carbon 的偏离）",
+      "total_cost_derived": 26422759,
+      "total_cost_actual": 26422760,
+      "residual": -1,
+      "correction": 1.0063,
+      "items": {
+        "Fuel": 4669461,
+        "Sustainable Aviation Fuel": 0,
+        "Carbon": 2395111,
+        "Maintenance": 2790636,
+        "Flight Crew": 1791196,
+        "Cabin Crew": 1354495,
+        "Landing": 1291610,
+        "Navigation": 765695,
+        "Aircraft Handling": 1590842,
+        "Traffic Handling": 1527956,
+        "Cargo Handling": 91264,
+        "Passenger Services": 1618921,
+        "Ticketing, Sales and Promotion": 934063,
+        "General & Administration": 2935473,
+        "Cargo Overheads": 634116,
+        "Depreciation on Owned Assets": 1878452,
+        "Insurance": 153468
+      },
+      "tag": "【模拟产出·非一手数据】推导值，未经一手逐项核对"
+    },
+    "VA_Q4_2027": {
+      "label": "VA Q4 2027",
+      "anchor": {
+        "revenue": 12870000,
+        "net_margin": 0.0253
+      },
+      "revenue": 12870000,
+      "operating_profit": 325611,
+      "anchorCheck": {},
+      "residualNote": "总量残差为构造性归零（按总量做了整体修正），不构成独立验证；有意义的检验是 anchorCheck（与该季已知 fuel/carbon 的偏离）",
+      "total_cost_derived": 12544389,
+      "total_cost_actual": 12544389,
+      "residual": 0,
+      "correction": 1.068,
+      "items": {
+        "Fuel": 2212880,
+        "Sustainable Aviation Fuel": 0,
+        "Carbon": 526155,
+        "Maintenance": 1231960,
+        "Flight Crew": 790745,
+        "Cabin Crew": 597959,
+        "Landing": 570196,
+        "Navigation": 338026,
+        "Aircraft Handling": 702297,
+        "Traffic Handling": 674536,
+        "Cargo Handling": 40289,
+        "Passenger Services": 714692,
+        "Ticketing, Sales and Promotion": 412353,
+        "General & Administration": 1295900,
+        "Cargo Overheads": 279939,
+        "Depreciation on Owned Assets": 1993587,
+        "Insurance": 162875
+      },
+      "tag": "【模拟产出·非一手数据】推导值，未经一手逐项核对"
+    }
+  },
+  "sensitivity": {
+    "qsi_plus_1": {
+      "logit_delta": 0.086,
+      "table": {
+        "p=0.1": {
+          "share_delta_pp": 0.77,
+          "lf_delta_pp": 0.77
+        },
+        "p=0.2": {
+          "share_delta_pp": 1.38,
+          "lf_delta_pp": 1.38
+        },
+        "p=0.3": {
+          "share_delta_pp": 1.81,
+          "lf_delta_pp": 1.81
+        },
+        "p=0.4": {
+          "share_delta_pp": 2.06,
+          "lf_delta_pp": 2.06
+        },
+        "p=0.5": {
+          "share_delta_pp": 2.15,
+          "lf_delta_pp": 2.15
+        },
+        "p=0.6": {
+          "share_delta_pp": 2.06,
+          "lf_delta_pp": 2.06
+        }
+      },
+      "note": "一阶近似：Δ份额(pp) ≈ p(1−p)·δ；LF 变化幅度同数量级（需按航线加权）"
+    },
+    "qsi_plus_2": {
+      "logit_delta": 0.172,
+      "table": {
+        "p=0.1": {
+          "share_delta_pp": 1.55,
+          "lf_delta_pp": 1.55
+        },
+        "p=0.2": {
+          "share_delta_pp": 2.75,
+          "lf_delta_pp": 2.75
+        },
+        "p=0.3": {
+          "share_delta_pp": 3.61,
+          "lf_delta_pp": 3.61
+        },
+        "p=0.4": {
+          "share_delta_pp": 4.13,
+          "lf_delta_pp": 4.13
+        },
+        "p=0.5": {
+          "share_delta_pp": 4.3,
+          "lf_delta_pp": 4.3
+        },
+        "p=0.6": {
+          "share_delta_pp": 4.13,
+          "lf_delta_pp": 4.13
+        }
+      },
+      "note": "一阶近似：Δ份额(pp) ≈ p(1−p)·δ；LF 变化幅度同数量级（需按航线加权）"
+    },
+    "qsi_plus_3": {
+      "logit_delta": 0.258,
+      "table": {
+        "p=0.1": {
+          "share_delta_pp": 2.32,
+          "lf_delta_pp": 2.32
+        },
+        "p=0.2": {
+          "share_delta_pp": 4.13,
+          "lf_delta_pp": 4.13
+        },
+        "p=0.3": {
+          "share_delta_pp": 5.42,
+          "lf_delta_pp": 5.42
+        },
+        "p=0.4": {
+          "share_delta_pp": 6.19,
+          "lf_delta_pp": 6.19
+        },
+        "p=0.5": {
+          "share_delta_pp": 6.45,
+          "lf_delta_pp": 6.45
+        },
+        "p=0.6": {
+          "share_delta_pp": 6.19,
+          "lf_delta_pp": 6.19
+        }
+      },
+      "note": "一阶近似：Δ份额(pp) ≈ p(1−p)·δ；LF 变化幅度同数量级（需按航线加权）"
+    }
+  },
+  "notes": []
+}

@@ -1,0 +1,367 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2029" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "34"
+  - button "Read Messages"
+  - heading "Fare Matrix" [level=2]
+  - text: Q2/2029
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $600.00 VisionAir $650.00 Capital Airways $185.00 Air Ballistic $250.00 VisionAir $220.00 Capital Airways $139.00 Air Ballistic $150.00 VisionAir $170.00 Capital Airways $68.00 Air Ballistic $88.00 Air Ballistic $825.00 VisionAir $830.00 Air Ballistic $290.00 VisionAir $288.00 Capital Airways $165.00 Air Ballistic $120.00 Capital Airways $118.00 VisionAir $158.00 Air Ballistic $210.00 VisionAir $218.00 Air Ballistic $700.00 VisionAir $680.00":
+        - cell "Capital Airways $600.00 VisionAir $650.00":
+          - text: Capital Airways
+          - strong: $600.00
+          - text: VisionAir
+          - strong: $650.00
+        - cell "Capital Airways $185.00 Air Ballistic $250.00 VisionAir $220.00":
+          - text: Capital Airways
+          - strong: $185.00
+          - text: Air Ballistic
+          - strong: $250.00
+          - text: VisionAir
+          - strong: $220.00
+        - cell "Capital Airways $139.00 Air Ballistic $150.00 VisionAir $170.00":
+          - text: Capital Airways
+          - strong: $139.00
+          - text: Air Ballistic
+          - strong: $150.00
+          - text: VisionAir
+          - strong: $170.00
+        - cell "Capital Airways $68.00 Air Ballistic $88.00":
+          - text: Capital Airways
+          - strong: $68.00
+          - text: Air Ballistic
+          - strong: $88.00
+        - cell "Air Ballistic $825.00 VisionAir $830.00":
+          - text: Air Ballistic
+          - strong: $825.00
+          - text: VisionAir
+          - strong: $830.00
+        - cell "Air Ballistic $290.00 VisionAir $288.00":
+          - text: Air Ballistic
+          - strong: $290.00
+          - text: VisionAir
+          - strong: $288.00
+        - cell "Capital Airways $165.00 Air Ballistic $120.00":
+          - text: Capital Airways
+          - strong: $165.00
+          - text: Air Ballistic
+          - strong: $120.00
+        - cell "Capital Airways $118.00 VisionAir $158.00":
+          - text: Capital Airways
+          - strong: $118.00
+          - text: VisionAir
+          - strong: $158.00
+        - cell "Air Ballistic $210.00 VisionAir $218.00":
+          - text: Air Ballistic
+          - strong: $210.00
+          - text: VisionAir
+          - strong: $218.00
+        - cell "Air Ballistic $700.00 VisionAir $680.00":
+          - text: Air Ballistic
+          - strong: $700.00
+          - text: VisionAir
+          - strong: $680.00
+  - text: Q1/2029
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $600.00 VisionAir $650.00 Capital Airways $185.00 VisionAir $220.00 Capital Airways $139.00 Air Ballistic $150.00 VisionAir $170.00 Capital Airways $68.00 Air Ballistic $80.00 Air Ballistic $825.00 VisionAir $830.00 Air Ballistic $290.00 VisionAir $288.00 Capital Airways $165.00 Capital Airways $118.00 VisionAir $158.00 Air Ballistic $210.00 VisionAir $218.00 Capital Airways $618.00 VisionAir $680.00":
+        - cell "Capital Airways $600.00 VisionAir $650.00":
+          - text: Capital Airways
+          - strong: $600.00
+          - text: VisionAir
+          - strong: $650.00
+        - cell "Capital Airways $185.00 VisionAir $220.00":
+          - text: Capital Airways
+          - strong: $185.00
+          - text: VisionAir
+          - strong: $220.00
+        - cell "Capital Airways $139.00 Air Ballistic $150.00 VisionAir $170.00":
+          - text: Capital Airways
+          - strong: $139.00
+          - text: Air Ballistic
+          - strong: $150.00
+          - text: VisionAir
+          - strong: $170.00
+        - cell "Capital Airways $68.00 Air Ballistic $80.00":
+          - text: Capital Airways
+          - strong: $68.00
+          - text: Air Ballistic
+          - strong: $80.00
+        - cell "Air Ballistic $825.00 VisionAir $830.00":
+          - text: Air Ballistic
+          - strong: $825.00
+          - text: VisionAir
+          - strong: $830.00
+        - cell "Air Ballistic $290.00 VisionAir $288.00":
+          - text: Air Ballistic
+          - strong: $290.00
+          - text: VisionAir
+          - strong: $288.00
+        - cell "Capital Airways $165.00":
+          - text: Capital Airways
+          - strong: $165.00
+        - cell "Capital Airways $118.00 VisionAir $158.00":
+          - text: Capital Airways
+          - strong: $118.00
+          - text: VisionAir
+          - strong: $158.00
+        - cell "Air Ballistic $210.00 VisionAir $218.00":
+          - text: Air Ballistic
+          - strong: $210.00
+          - text: VisionAir
+          - strong: $218.00
+        - cell "Capital Airways $618.00 VisionAir $680.00":
+          - text: Capital Airways
+          - strong: $618.00
+          - text: VisionAir
+          - strong: $680.00
+  - text: Q4/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $649.00 VisionAir $650.00 VisionAir $239.00 Capital Airways $159.00 Air Ballistic $180.00 VisionAir $189.00 Capital Airways $109.00 Air Ballistic $110.00 VisionAir $888.00 Air Ballistic $290.00 VisionAir $288.00 Capital Airways $185.00 Capital Airways $180.00 Air Ballistic $220.00 VisionAir $200.00 Capital Airways $699.00 VisionAir $700.00":
+        - cell "Capital Airways $649.00 VisionAir $650.00":
+          - text: Capital Airways
+          - strong: $649.00
+          - text: VisionAir
+          - strong: $650.00
+        - cell "VisionAir $239.00":
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Capital Airways $159.00 Air Ballistic $180.00 VisionAir $189.00":
+          - text: Capital Airways
+          - strong: $159.00
+          - text: Air Ballistic
+          - strong: $180.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $109.00 Air Ballistic $110.00":
+          - text: Capital Airways
+          - strong: $109.00
+          - text: Air Ballistic
+          - strong: $110.00
+        - cell "VisionAir $888.00":
+          - text: VisionAir
+          - strong: $888.00
+        - cell "Air Ballistic $290.00 VisionAir $288.00":
+          - text: Air Ballistic
+          - strong: $290.00
+          - text: VisionAir
+          - strong: $288.00
+        - cell "Capital Airways $185.00":
+          - text: Capital Airways
+          - strong: $185.00
+        - cell "Capital Airways $180.00":
+          - text: Capital Airways
+          - strong: $180.00
+        - cell "Air Ballistic $220.00 VisionAir $200.00":
+          - text: Air Ballistic
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $200.00
+        - cell "Capital Airways $699.00 VisionAir $700.00":
+          - text: Capital Airways
+          - strong: $699.00
+          - text: VisionAir
+          - strong: $700.00
+  - text: Q3/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $650.00 Capital Airways $220.00 VisionAir $239.00 Air Ballistic $180.00 VisionAir $189.00 Capital Airways $105.00 Air Ballistic $110.00 VisionAir $888.00 Air Ballistic $295.00 Capital Airways $165.00 Capital Airways $170.00 Air Ballistic $220.00 VisionAir $200.00 VisionAir $700.00":
+        - cell "Capital Airways $650.00":
+          - text: Capital Airways
+          - strong: $650.00
+        - cell "Capital Airways $220.00 VisionAir $239.00":
+          - text: Capital Airways
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Air Ballistic $180.00 VisionAir $189.00":
+          - text: Air Ballistic
+          - strong: $180.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $105.00 Air Ballistic $110.00":
+          - text: Capital Airways
+          - strong: $105.00
+          - text: Air Ballistic
+          - strong: $110.00
+        - cell "VisionAir $888.00":
+          - text: VisionAir
+          - strong: $888.00
+        - cell "Air Ballistic $295.00":
+          - text: Air Ballistic
+          - strong: $295.00
+        - cell "Capital Airways $165.00":
+          - text: Capital Airways
+          - strong: $165.00
+        - cell "Capital Airways $170.00":
+          - text: Capital Airways
+          - strong: $170.00
+        - cell "Air Ballistic $220.00 VisionAir $200.00":
+          - text: Air Ballistic
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $200.00
+        - cell "VisionAir $700.00":
+          - text: VisionAir
+          - strong: $700.00
+  - text: Q2/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $650.00 Capital Airways $220.00 VisionAir $239.00 Capital Airways $180.00 Air Ballistic $175.00 VisionAir $189.00 Capital Airways $105.00 Air Ballistic $105.00 VisionAir $825.00 Air Ballistic $289.00 Capital Airways $150.00":
+        - cell "Capital Airways $650.00":
+          - text: Capital Airways
+          - strong: $650.00
+        - cell "Capital Airways $220.00 VisionAir $239.00":
+          - text: Capital Airways
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Capital Airways $180.00 Air Ballistic $175.00 VisionAir $189.00":
+          - text: Capital Airways
+          - strong: $180.00
+          - text: Air Ballistic
+          - strong: $175.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $105.00 Air Ballistic $105.00":
+          - text: Capital Airways
+          - strong: $105.00
+          - text: Air Ballistic
+          - strong: $105.00
+        - cell "VisionAir $825.00":
+          - text: VisionAir
+          - strong: $825.00
+        - cell "Air Ballistic $289.00":
+          - text: Air Ballistic
+          - strong: $289.00
+        - cell "Capital Airways $150.00":
+          - text: Capital Airways
+          - strong: $150.00
+        - cell
+        - cell
+        - cell
+  - text: Q1/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone Joplin Charles City Broonzy":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+        - columnheader "Joplin"
+        - columnheader "Charles City"
+        - columnheader "Broonzy"
+    - rowgroup:
+      - row "Capital Airways $220.00 VisionAir $239.00 Air Ballistic $180.00 VisionAir $189.00 Capital Airways $110.00 Air Ballistic $289.00 Capital Airways $135.00":
+        - cell
+        - cell "Capital Airways $220.00 VisionAir $239.00":
+          - text: Capital Airways
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Air Ballistic $180.00 VisionAir $189.00":
+          - text: Air Ballistic
+          - strong: $180.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $110.00":
+          - text: Capital Airways
+          - strong: $110.00
+        - cell
+        - cell "Air Ballistic $289.00":
+          - text: Air Ballistic
+          - strong: $289.00
+        - cell "Capital Airways $135.00":
+          - text: Capital Airways
+          - strong: $135.00
+        - cell
+        - cell
+        - cell

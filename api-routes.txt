@@ -1,0 +1,147 @@
+######################################################################
+# PLAYER API  (/play/api)   - 5 routes
+######################################################################
+  /play/api/airline/+this
+       methods: pullInitialRoute, pullRoute, pushDepartureTimeCheckRoute, pushInvestmentUpdateRoute, pushNewFlightRoute, pushRemoveInvestmentRoute, pushRoute
+
+  /play/api/airline/csv/+this
+       methods: csvRoute
+
+  /play/api/airlines
+       methods: pullRoute
+
+  /play/api/liveboard/+this
+       methods: pullRoute
+
+  /play/api/messaging/+this
+       methods: pullRoute
+
+######################################################################
+# ADMIN / GAME-MASTER API  (/admin/api)   - 42 routes
+######################################################################
+  /admin/api/abacus/helpers/netbookvalue/aircraft/+this
+       methods: pushCalculateNetBookValueRoute
+
+  /admin/api/abacus/helpers/netbookvalue/asset/+this
+       methods: pushCalculateNetBookValueRoute
+
+  /admin/api/airlinequarters/+this
+       methods: pullRoute, pushAircraftUpdateRoute, pushDepartureTimeCheckRoute, pushInvestmentUpdateRoute, pushMarketUpdateRoute, pushNewFlightRoute, pushNewTurnInvestmentRoute, pushNewTurnMarketRoute
+
+  /admin/api/airlines/+this
+       methods: pullRoute, pushAircraftCancelRoute, pushAircraftCancelSaleRoute, pushAircraftDeleteRoute, pushAircraftPostponeRoute, pushAircraftSaleAndLeaseBackRoute, pushAircraftSaleRoute, pushAircraftUpdateRoute, pushAirlineUpdateRoute, pushAssetUpdateRoute, pushFuelHedgeUpdateRoute, pushNewAssetRoute, pushNewFuelHedgeRoute, pushNewTurnAircraftRoute, pushNewTurnLeasedAircraftRoute
+
+  /admin/api/airlines/create
+       methods: pushNewAirlineRoute
+
+  /admin/api/airlines/users/create
+       methods: pushNewAirlineUserRoute
+
+  /admin/api/data/aircraft/+this
+       methods: pullAircraftRoute, pushAircraftRoute, pushRemoveRoute
+
+  /admin/api/data/aircraft/create
+       methods: pushNewAircraftRoute
+
+  /admin/api/data/assets/+this
+       methods: pullAssetRoute, pushAssetRoute, pushRemoveRoute
+
+  /admin/api/data/assets/create
+       methods: pushNewAssetRoute
+
+  /admin/api/data/demandcurves/+this
+       methods: pullDemandCurveRoute, pushCloneDemandCurveRoute, pushDemandCurveRoute
+
+  /admin/api/data/investments/+this
+       methods: pullInvestmentRoute, pushInvestmentRoute, pushRemoveRoute
+
+  /admin/api/data/investments/create
+       methods: pushNewInvestmentRoute
+
+  /admin/api/data/logos/+this
+       methods: pullLogoRoute, pushLogoRoute
+
+  /admin/api/data/logos/create
+       methods: pushNewLogoRoute
+
+  /admin/api/data/payloadranges/+this
+       methods: pullPayloadRangeRoute, pushClonePayloadRangeRoute, pushInterpolateRoute, pushPayloadRangeRoute
+
+  /admin/api/data/payloadranges/create
+       methods: pushNewPayloadRangeRoute
+
+  /admin/api/data/routes/+this
+       methods: pullMarketRoute, pushMarketRoute, pushRemoveRoute
+
+  /admin/api/data/routes/create
+       methods: pushNewMarketRoute
+
+  /admin/api/data/taggable/+this
+       methods: pullTagRoute
+
+  /admin/api/data/tags/+this
+       methods: pullTagRoute, pushRemoveRoute, pushTagRoute
+
+  /admin/api/data/tags/create
+       methods: pushNewTagRoute
+
+  /admin/api/data/transfermodels/+this
+       methods: pullTransferModelRoute, pushCloneTransferModelRoute, pushTransferModelRoute
+
+  /admin/api/gameaircraft/+this
+       methods: pushGameAircraftUpdateRoute
+
+  /admin/api/gameaircraft/create
+       methods: pushNewGameAircraftRoute
+
+  /admin/api/gameassets/+this
+       methods: pushGameAssetUpdateRoute
+
+  /admin/api/gameassets/create
+       methods: pushNewGameAssetRoute
+
+  /admin/api/gameinvestments/+this
+       methods: pushGameInvestmentUpdateRoute
+
+  /admin/api/gameinvestments/create
+       methods: pushNewGameInvestmentRoute
+
+  /admin/api/gameinvestments/create/all
+       methods: pushAllInvestmentsRoute
+
+  /admin/api/gameroutes/+this
+       methods: pushGameHubUpdateRoute, pushGameMarketUpdateRoute
+
+  /admin/api/gameroutes/create
+       methods: pushNewGameMarketRoute
+
+  /admin/api/games/+this
+       methods: pullRoute, pushAirlineRoute, pushDeleteAllReportingRoute, pushGameSettingsRoute, pushRemoveRoute, pushRoute, pushSystemRoute, pushTurnAllReportingRoute, pushTurnAssembleRoute, pushTurnReportingRoute
+
+  /admin/api/games/clone
+       methods: pushNewCloneRoute
+
+  /admin/api/games/create
+       methods: pushNewGameRoute
+
+  /admin/api/images/model/+this
+       methods: pullImagesRoute
+
+  /admin/api/images/model/logo/id/+this
+       methods: uploadRoute
+
+  /admin/api/quarters/+this
+       methods: pullRoute, pushToggleLockFareChangesRoute, pushTurnTimestampRoute, resolveRoute
+
+  /admin/api/quarters/create/for/+this
+       methods: pushCreateTurnRoute
+
+  /admin/api/users/+this
+       methods: pullUserRoute, pushUserRoute, userRoleRoute
+
+  /admin/api/users/create
+       methods: pushNewUserRoute
+
+  /admin/api/users/delete-multi
+       methods: pushUserDeleteRoute
+

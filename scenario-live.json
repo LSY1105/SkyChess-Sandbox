@@ -1,0 +1,179 @@
+{
+ "browser": {
+  "mode": "connect",
+  "cdp_endpoint": "http://127.0.0.1:9222",
+  "target_id": "DFF8360C22895B71515028752AD80AFF"
+ },
+ "start_url": {
+  "url": "https://www.skychess.com/play/airline/833"
+ },
+ "capture": {
+  "after_each_step": [
+   "dom",
+   "accessibility",
+   "url",
+   "screenshot"
+  ],
+  "at_end": [
+   "url",
+   "dom",
+   "accessibility"
+  ],
+  "events": [
+   "network",
+   "console",
+   "page-errors",
+   "websockets"
+  ],
+  "network": {
+   "request_body": true,
+   "response_body": true,
+   "header_values": false
+  }
+ },
+ "actions": [
+  {
+   "action": "goto",
+   "step_id": "nav1",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait2",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav3",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/scheduler"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait4",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav5",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/schedules"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait6",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav7",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fares"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait8",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav9",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fare-matrix"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait10",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav11",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fleets"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait12",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav13",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/investments"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait14",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav15",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/catalogue/investments"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait16",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav17",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/catalogue/assets"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait18",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav19",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/reports"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait20",
+   "duration_ms": 2500
+  },
+  {
+   "action": "goto",
+   "step_id": "nav21",
+   "destination": {
+    "url": "https://www.skychess.com/play/liveboard/833"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wait22",
+   "duration_ms": 2500
+  }
+ ]
+}

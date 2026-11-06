@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>SkyChess 航空公司运营模拟沙盘</title>
+<style>
+:root{--bg:#0f1216;--card:#181c22;--line:#2a313a;--tx:#e6e9ee;--dim:#9aa4b2;
+ --ok:#3fb950;--warn:#d29922;--bad:#f85149;--acc:#58a6ff;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
+header{background:#12161b;border-bottom:1px solid var(--line);padding:10px 18px;display:flex;
+ align-items:center;gap:22px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+h1{font-size:16px;margin:0;font-weight:600;letter-spacing:.5px}
+.kv{display:flex;flex-direction:column;line-height:1.25}
+.kv b{font-size:15px;font-variant-numeric:tabular-nums}
+.kv span{font-size:11px;color:var(--dim)}
+button{background:#21262d;color:var(--tx);border:1px solid var(--line);border-radius:6px;
+ padding:6px 12px;cursor:pointer;font-size:13px}
+button:hover{background:#2d333b;border-color:#3d444d}
+button.pri{background:#1f6feb;border-color:#1f6feb}
+button.pri:hover{background:#388bfd}
+button:disabled{opacity:.4;cursor:not-allowed}
+main{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 14px}
+.card h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:5px 7px;text-align:right;border-bottom:1px solid #21262d;font-size:13px}
+th{color:var(--dim);font-weight:500;font-size:11px;text-transform:uppercase}
+td:first-child,th:first-child{text-align:left}
+tr.sel td{background:#1c2430}
+input,select{background:#0d1117;border:1px solid var(--line);color:var(--tx);border-radius:5px;
+ padding:4px 7px;font-size:13px;width:100%;font-variant-numeric:tabular-nums}
+input[type=number]{width:90px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.row>label{font-size:12px;color:var(--dim);min-width:72px}
+.chip{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;
+ background:#21262d;border:1px solid var(--line)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}.acc{color:var(--acc)}
+.small{font-size:11px;color:var(--dim)}
+#log{max-height:150px;overflow:auto;font-size:12px;color:var(--dim)}
+.scroll{max-height:340px;overflow:auto}
+.tabs{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.tabs button{padding:4px 10px;font-size:12px}
+.tabs button.on{background:#1f6feb;border-color:#1f6feb}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meter{height:5px;background:#21262d;border-radius:3px;overflow:hidden;margin-top:3px}
+.meter i{display:block;height:100%;background:var(--acc)}
+</style>
+</head>
+<body>
+<header>
+  <h1>SkyChess 航空公司运营模拟沙盘</h1>
+  <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
+  <div class="kv"><b id="hCash">—</b><span>现金</span></div>
+  <div class="kv"><b id="hQsi">—</b><span>QSI 服务质量</span></div>
+  <div class="kv"><b id="hFuel">—</b><span>油价 / 碳价</span></div>
+  <div class="kv"><b id="hBH">—</b><span>已排班 BH</span></div>
+  <div class="kv"><b id="hTurn">—</b><span>回合</span></div>
+  <div style="flex:1"></div>
+  <button id="btnReset">重开</button>
+  <button id="btnAdvance" class="pri">▶ 结算本回合</button>
+</header>
+
+<main>
+  <div>
+    <div class="card">
+      <h2>① 航线与运价</h2>
+      <div class="row">
+        <label>新开航线</label>
+        <select id="selNewRoute" style="width:180px"></select>
+        <button id="btnOpenRoute">开通（$200k + ETOPS $375k）</button>
+      </div>
+      <table id="tblRoutes"></table>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>② 航班排班</h2>
+      <div class="row">
+        <label>飞机</label><select id="selAc" style="width:230px"></select>
+        <label>市场</label><select id="selMkt" style="width:150px"></select>
+        <label>起飞</label><input id="inpDep" value="09:00">
+        <button id="btnAddFlight">加入班次</button>
+      </div>
+      <table id="tblSched"></table>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>③ 投资与资产</h2>
+      <div class="tabs" id="tabsInv"></div>
+      <div id="invBody"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>考核目标（Low-Cost Carrier）</h2>
+      <table id="tblScore"></table>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>本回合结算预览</h2>
+      <table id="tblPrev"></table>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>历史报告</h2>
+      <div class="tabs" id="tabsHist"></div>
+      <div id="histBody" class="scroll"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>竞争对手</h2>
+      <table id="tblComp"></table>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>裁判 / 事件</h2>
+      <div class="row">
+        <label>事件</label><select id="selEvent" style="width:160px"></select>
+        <select id="selEvTarget" style="width:140px"></select>
+        <button id="btnEvent">触发</button>
+      </div>
+      <div id="log"></div>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+import { GM, MARKETS, MARKET_LIST, AIRCRAFT, INVESTMENTS, ASSETS, EVENTS } from './data.js';
+import * as E from './engine.js';
+import * as G from './game.js';
+import { RIVALS } from './competitors.js';
+
+let g = G.newGame();
+let invTab = 'airline';
+let histSel = 0;
+
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e; };
+const money = n => '$' + Math.round(n).toLocaleString();
+const pct = n => (n*100).toFixed(2) + '%';
+
+/* ---------- 头部 ---------- */
+function head(){
+  const p = G.currentPeriod(g);
+  $('#hPeriod').textContent = p.label;
+  $('#hCash').textContent = money(g.cash);
+  $('#hCash').className = g.cash < 0 ? 'bad' : (g.cash < 500000 ? 'warn' : '');
+  $('#hQsi').textContent = g.qsi.toFixed(2);
+  $('#hQsi').className = g.qsi < 2 ? 'bad' : (g.qsi < 6 ? 'warn' : 'ok');
+  $('#hFuel').textContent = g.fuelPrice.toFixed(2) + ' / ' + g.carbonPrice.toFixed(2);
+  const used = g.schedules.reduce((a,s)=>a+s.bh,0);
+  $('#hBH').textContent = used.toFixed(2);
+  $('#hTurn').textContent = `${g.turn+1} / ${g.maxTurns}`;
+  $('#btnAdvance').disabled = g.turn >= g.maxTurns;
+}
+
+/* ---------- 航线 ---------- */
+function routes(){
+  const t = $('#tblRoutes'); t.innerHTML='';
+  const tr = el('tr');
+  ['市场','运价','指导价','季度需求','客座率','操作'].forEach(h=>tr.appendChild(el('th',null,h)));
+  t.appendChild(tr);
+  for (const r of g.routes){
+    const m = MARKETS[r.code];
+    const fl = g.schedules.filter(s=>s.code===r.code);
+    const seats = fl.reduce((a,s)=>a+s.seats,0);
+    const bh = fl.reduce((a,s)=>a+s.bh,0);
+    const ask = E.askAbs(seats,bh);
+    const freq = fl.length * 90;                      // 当季总班次（需求模型的频率项）
+    const D = E.demand(m.name, r.fare, freq, g.demandMult[r.code]??1);
+    const pax = Math.min(ask, D);
+    const lf = ask ? (pax*m.sector_km)/ask : 0;
+    const row = el('tr');
+    row.appendChild(el('td',null,`${m.name_cn} <span class="small">${r.code}</span>`));
+    const tdF = el('td');
+    const inp = el('input'); inp.type='number'; inp.value=r.fare; inp.step='5';
+    inp.onchange = ()=>{ r.fare = +inp.value||r.fare; render(); };
+    tdF.appendChild(inp); row.appendChild(tdF);
+    row.appendChild(el('td',null, m.guide_fare ? money(m.guide_fare) : '—'));
+    row.appendChild(el('td',null, seats? Math.round(D).toLocaleString() : '—'));
+    const conn = g.lastConnByRoute && g.lastConnByRoute[r.code];
+    row.appendChild(el('td',null, conn? Math.round(conn).toLocaleString() : '—'));
+    const lfc = el('td',null, seats? (lf*100).toFixed(1)+'%' : '—');
+    lfc.className = seats ? (lf>0.9?'ok':(lf<0.5?'bad':'warn')) : '';
+    row.appendChild(lfc);
+    const tdA = el('td');
+    const b = el('button',null,'提示最优价');
+    b.onclick = ()=>{ const opt=E.optimalFare(m.name, g.qsi, Math.max(ask,1)); alert(`${m.name_cn} 当前 QSI 下的最优运价 ≈ $${opt.toFixed(0)}\n(客座率95%附近)`); };
+    tdA.appendChild(b); row.appendChild(tdA);
+    t.appendChild(row);
+  }
+  const sel = $('#selNewRoute');
+  if (sel.dataset.done !== '1'){
+    sel.innerHTML = MARKET_LIST.map(c=>`<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('');
+    sel.dataset.done='1';
+  }
+}
+
+/* ---------- 排班 ---------- */
+function mktSelFill(){
+  const s=$('#selMkt');
+  const opened = g.routes.map(r=>r.code);
+  s.innerHTML = opened.map(c=>`<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+    || '<option value="">（先开通航线）</option>';
+}
+function acSelFill(){
+  const s=$('#selAc');
+  s.innerHTML = g.aircraft.map(a=>{
+    const cap = G.acCapacity(g,a);
+    const used = G.acUsedBH(g,a.id);
+    const t = AIRCRAFT.find(x=>x.name===a.type);
+    return `<option value="${a.id}">${a.type} (${a.nickname}) ${used.toFixed(1)}/${cap} BH · ${t.seats}座</option>`;
+  }).join('');
+}
+function sched(){
+  const t=$('#tblSched'); t.innerHTML='';
+  const tr=el('tr');
+  ['飞机','航班','起飞','市场','航段BH','货量','操作'].forEach(h=>tr.appendChild(el('th',null,h)));
+  t.appendChild(tr);
+  g.schedules.forEach((s,i)=>{
+    const ac=g.aircraft.find(a=>a.id===s.acId);
+    const m=MARKETS[s.code];
+    const row=el('tr');
+    row.appendChild(el('td',null,ac?ac.type:'-'));
+    row.appendChild(el('td',null,s.flightNo));
+    row.appendChild(el('td',null,s.departure));
+    row.appendChild(el('td',null,`${m.name_cn} (${m.sector_km}km)`));
+    row.appendChild(el('td',null,s.bh.toFixed(2)));
+    row.appendChild(el('td',null,s.cargoCap.toFixed(1)));
+    const td=el('td');
+    const b=el('button',null,'取消'); b.onclick=()=>{ g.schedules.splice(i,1); render(); };
+    td.appendChild(b); row.appendChild(td);
+    t.appendChild(row);
+  });
+}
+
+/* ---------- 投资 ---------- */
+function invTabs(){
+  const tb=$('#tabsInv'); tb.innerHTML='';
+  [['airline','航空公司'],['fleet','机队'],['route','航线'],['asset','资产']].forEach(([k,n])=>{
+    const b=el('button', invTab===k?'on':'', n);
+    b.onclick=()=>{invTab=k; render();};
+    tb.appendChild(b);
+  });
+}
+function invBody(){
+  const b=$('#invBody'); b.innerHTML='';
+  if(invTab==='airline'){
+    const t=el('table');
+    t.innerHTML='<tr><th>项目</th><th>一次性</th><th>年度</th><th>QSI 效果</th><th></th></tr>';
+    for(const i of INVESTMENTS){
+      const row=el('tr');
+      row.appendChild(el('td',null,`${i.name}<div class="small">${i.desc}</div>`));
+      row.appendChild(el('td',null, i.upfront?money(i.upfront):'—'));
+      row.appendChild(el('td',null, i.annual?money(i.annual):'—'));
+      row.appendChild(el('td',null, i.effect.qsi?('+'+i.effect.qsi):'—'));
+      const td=el('td');
+      const btn=el('button',null,'投资');
+      btn.onclick=()=>{
+        if (g.investments.some(x=>x.id===i.id)) { alert(`${i.name} 已在本回合投放`); return; }
+        if (g.cash < i.upfront) { alert('现金不足'); return; }
+        g.cash -= i.upfront;
+        g.investments.push({id:i.id,name:i.name,kind:'airline',amount:i.upfront,annual:i.annual,qsi:i.effect.qsi||0,openedTurn:g.turn});
+        if (i.annual) g.investmentsAnnual.push({id:i.id,name:i.name,annual:i.annual});
+        g.log.push(`投资 ${i.name}: 一次性 ${money(i.upfront)} + 年度 ${money(i.annual)}`);
+        render();
+      };
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else if(invTab==='fleet'){
+    const t=el('table');
+    t.innerHTML='<tr><th>机型</th><th>座位</th><th>目录价</th><th>MTOW</th><th>耗油/BH</th><th></th></tr>';
+    for(const a of AIRCRAFT){
+      const row=el('tr');
+      row.appendChild(el('td',null,`${a.name} <span class="chip">${a.type}</span>`));
+      row.appendChild(el('td',null,a.seats));
+      row.appendChild(el('td',null,money(a.price*1e6)));
+      row.appendChild(el('td',null,a.mtow));
+      row.appendChild(el('td',null,a.fuel));
+      const td=el('td');
+      const btn=el('button',null,'购买');
+      btn.onclick=()=>{ const price=a.price*1e6; if(g.cash<price){alert('现金不足：需要 '+money(price));return;}
+        g.cash-=price; g.aircraft.push({...mkAcLocal(a), price}); g.log.push(`购买 ${a.name} ${money(price)}`); render(); };
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else if(invTab==='route'){
+    const t=el('table');
+    t.innerHTML='<tr><th>航线</th><th>市场</th><th>一次性投入</th><th></th></tr>';
+    for(const c of MARKET_LIST){
+      const m=MARKETS[c];
+      const row=el('tr');
+      row.appendChild(el('td',null,`${m.name_cn} (${c})`));
+      row.appendChild(el('td',null,`${m.sector_km}km ${m.etops?'<span class="chip">ETOPS</span>':''}`));
+      row.appendChild(el('td',null, m.etops? money(GM.new_route_fee+GM.etops_fee) : money(GM.new_route_fee)));
+      const td=el('td');
+      const btn=el('button',null,'开通');
+      btn.onclick=()=>openRoute(c);
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else {
+    const t=el('table');
+    t.innerHTML='<tr><th>资产</th><th>价格</th><th>说明</th><th></th></tr>';
+    for(const a of ASSETS){
+      const row=el('tr');
+      row.appendChild(el('td',null,a.name));
+      row.appendChild(el('td',null,money(a.price)));
+      row.appendChild(el('td',null,`<div class="small">${a.note}</div>`));
+      const td=el('td');
+      const btn=el('button',null,'购置');
+      btn.onclick=()=>{ if(g.cash<a.price){alert('现金不足');return;} g.cash-=a.price; g.assets.push({...a,openedTurn:g.turn}); g.log.push(`购置 ${a.name} ${money(a.price)}`); render(); };
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  }
+}
+function mkAcLocal(a){
+  return { id: Math.floor(Math.random()*1e9), type:a.name, owned:true, price:a.price*1e6,
+    acquiredTurn:g.turn, age:0, seats:a.seats, eco:a.eco, prem:a.prem, biz:a.biz,
+    mtow:a.mtow, fuel:a.fuel, dmc_c:a.dmc_c, dmc_fh:a.dmc_fh, long:a.long, nickname:'Owned' };
+}
+
+/* ---------- 预览 / 评分 / 历史 ---------- */
+function preview(){
+  const t=$('#tblPrev'); t.innerHTML='';
+  const p=G.currentPeriod(g);
+  const r=G.computeTurn(g,p);
+  const rows=[
+    ['客运收入', Object.values(r.detail).reduce((a,d)=>a+d.rev['Passenger Revenue'],0)],
+    ['货运收入', Object.values(r.detail).reduce((a,d)=>a+d.rev['Cargo Revenue'],0)],
+    ['辅营收入', Object.values(r.detail).reduce((a,d)=>a+d.rev['Ancillary Revenue'],0)],
+    ['总成本', r.cost],
+    ['经营利润', r.operating_profit],
+    ['一次性支出', r.oneoff],
+    ['融资/租赁', r.financing],
+    ['期末现金', r.cash_end],
+    ['客座率', r.load_factor, 'pct'],
+    ['毛利率', r.gross_margin, 'pct'],
+    ['中转旅客', r.connected_total, 'num'],
+    ['网络份额', r.market_share, 'pct'],
+  ];
+  for(const [n,v,k] of rows){
+    const row=el('tr');
+    row.appendChild(el('td',null,n));
+    const c=el('td',null, k==='pct'? pct(v) : money(v));
+    if(n==='经营利润'||n==='期末现金') c.className = v>=0?'ok':'bad';
+    row.appendChild(c); t.appendChild(row);
+  }
+}
+function scoreTbl(){
+  const t=$('#tblScore'); t.innerHTML='';
+  const tr=el('tr'); ['指标','目标','实际','达成'].forEach(h=>tr.appendChild(el('th',null,h))); t.appendChild(tr);
+  for(const s of G.score(g)){
+    const row=el('tr');
+    row.appendChild(el('td',null,s.name));
+    row.appendChild(el('td',null, s.kind==='pct'?pct(s.target):money(s.target)));
+    row.appendChild(el('td',null, s.kind==='pct'?pct(s.actual):money(s.actual)));
+    const td=el('td');
+    const bar=el('div','meter'); const i=el('i'); i.style.width=Math.min(100,s.pct*100)+'%'; i.style.background=s.met?'var(--ok)':'var(--warn)';
+    bar.appendChild(i); td.appendChild(bar);
+    const tag=el('div','small '+(s.met?'ok':'warn'), s.met?'✓ 达标':'差 '+((1-s.pct)*100).toFixed(0)+'%');
+    td.appendChild(tag); row.appendChild(td); t.appendChild(row);
+  }
+}
+function hist(){
+  const tb=$('#tabsHist'); tb.innerHTML='';
+  g.history.forEach((h,i)=>{ const b=el('button', i===histSel?'on':'', h.period); b.onclick=()=>{histSel=i;render();}; tb.appendChild(b); });
+  const b=$('#histBody'); b.innerHTML='';
+  if(!g.history.length){ b.appendChild(el('div','small','尚无历史报告。')); return; }
+  const h=g.history[histSel];
+  let html='<table><tr><th>航线</th><th>频次</th><th>ASK</th><th>旅客</th><th>客座率</th><th>收入</th><th>成本</th><th>经营利润</th></tr>';
+  for(const [code,d] of Object.entries(h.detail)){
+    html+=`<tr><td>${d.market}</td><td>${d.freq}</td><td>${(d.ask/1e6).toFixed(1)}</td><td>${Math.round(d.pax).toLocaleString()}</td>`
+      +`<td>${(d.lf*100).toFixed(1)}%</td><td>${money(d.rev['Total Revenue'])}</td><td>${money(d.dco+d.ind+d.own)}</td>`
+      +`<td class="${d.operating_profit>=0?'ok':'bad'}">${money(d.operating_profit)}</td></tr>`;
+  }
+  html+='</table>';
+  b.innerHTML=html;
+}
+
+/* ---------- 动作 ---------- */
+function openRoute(code){
+  const m=MARKETS[code];
+  if(g.routes.some(r=>r.code===code)) return;
+  if(m.esg_required && !g.investments.some(i=>i.id==='cab_galaxy'||i.id==='cab_new')){
+    alert('Charles City 需要先进行环保项目投资才能获取时刻'); return;
+  }
+  g.routes.push({code, fare: m.guide_fare||200, openedTurn:g.turn, etopsPaid:false});
+  g.log.push(`开通航线 ${m.name_cn}`);
+  render();
+}
+$('#btnOpenRoute').onclick=()=>openRoute($('#selNewRoute').value);
+$('#btnAddFlight').onclick=()=>{
+  const acId=+$('#selAc').value, code=$('#selMkt').value;
+  const ac=g.aircraft.find(a=>a.id===acId);
+  const chk=G.canAddFlight(g,ac,code,$('#inpDep').value);
+  if(!chk.ok){ alert(chk.why); return; }
+  const m=MARKETS[code];
+  g.schedules.push({acId, code, ac, seats:ac.seats, bh:chk.bh,
+    cargoCap:(ac.cargo ?? 0), departure:$('#inpDep').value,
+    flightNo:'CA-'+(1000+Math.floor(Math.random()*8999))});
+  render();
+};
+$('#btnAdvance').onclick=()=>{
+  const rep=G.advanceTurn(g);
+  g.log.push(`${rep.period} 结算：经营利润 ${money(rep.operating_profit)}，现金 ${money(rep.cash_end)}`);
+  histSel=g.history.length-1; render();
+};
+$('#btnReset').onclick=()=>{ g=G.newGame(); g.log=[]; render(); };
+$('#selEvTarget').onchange=()=>{
+  const ev=EVENTS.find(e=>e.id===$('#selEvent').value);
+  const s=$('#selEvTarget');
+  s.innerHTML = ev && ev.scope==='market' ? MARKET_LIST.map(c=>`<option value="${c}">${MARKETS[c].name_cn}</option>`).join('')
+    : g.aircraft.map(a=>`<option value="${a.type}">${a.type} #${String(a.id).slice(-4)}</option>`).join('');
+};
+$('#btnEvent').onclick=()=>{
+  const ev=$('#selEvent').value, tgt=$('#selEvTarget').value;
+  G.triggerEvent(g, ev, tgt);
+  render();
+};
+function evFill(){
+  const s=$('#selEvent');
+  s.innerHTML=EVENTS.map(e=>`<option value="${e.id}">${e.title}</option>`).join('');
+  $('#selEvent').onchange=()=>$('#selEvTarget').onchange();
+}
+
+/* ---------- 渲染 ---------- */
+function compTbl(){
+  const t=$('#tblComp'); t.innerHTML='';
+  const tr=el('tr'); ['航司','航线','运价','RPK'].forEach(h=>tr.appendChild(el('th',null,h)));
+  t.appendChild(tr);
+  for(const c of (g.competitors||[])){
+    const row=el('tr');
+    row.appendChild(el('td',null, c.name_cn));
+    row.appendChild(el('td',null, c.routes.map(r=>r.code).join(' ')));
+    row.appendChild(el('td',null, c.routes.map(r=>'$'+r.fare).join(' ')));
+    row.appendChild(el('td',null, Math.round(c.lastRPK||0).toLocaleString()));
+    t.appendChild(row);
+  }
+}
+function render(){
+  head(); routes(); mktSelFill(); acSelFill(); sched(); invTabs(); invBody();
+  preview(); scoreTbl(); hist(); compTbl();
+  $('#log').innerHTML = g.log.slice(-20).map(l=>'· '+l).join('<br>') || '<span class="small">（无）</span>';
+}
+evFill(); render();
+window.__g = ()=>g;
+</script>
+</body>
+</html>

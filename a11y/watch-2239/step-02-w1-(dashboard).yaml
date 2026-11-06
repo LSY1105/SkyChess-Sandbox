@@ -1,0 +1,377 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "27"
+  - button "Read Messages"
+  - text: Flight Management
+  - img
+  - button "Flight Scheduler"
+  - text: Fare Management
+  - img
+  - button "Fare Manager"
+  - button "Matrix"
+  - text: Investment Management
+  - img
+  - button "Investment Manager"
+  - text: Reports
+  - img
+  - button "View Reports"
+  - text: Fleet Plans
+  - img
+  - button "View Fleet Plans"
+  - text: Live Schedules
+  - img
+  - button "View Schedules"
+  - text: Investment Catalogue
+  - img
+  - button "View Investments"
+  - text: Asset Catalogue
+  - img
+  - button "View Assets"
+  - text: Fleet
+  - img
+  - table:
+    - rowgroup:
+      - row "APT100 (Starter)":
+        - cell "APT100 (Starter)":
+          - strong: APT100 (Starter)
+      - row "Type Short Haul":
+        - cell "Type"
+        - cell "Short Haul"
+      - row "Crew 3 total / 2 minimum":
+        - cell "Crew"
+        - cell "3 total / 2 minimum"
+      - row "Age 7 years":
+        - cell "Age"
+        - cell "7 years"
+  - table:
+    - rowgroup:
+      - row "Finance Summary":
+        - cell "Finance Summary":
+          - strong: Finance Summary
+      - row "Residual Value 10%":
+        - cell "Residual Value"
+        - cell "10%"
+      - row "Loan 12 years (4.00%)":
+        - cell "Loan"
+        - cell "12 years (4.00%)"
+      - row "Depreciation Years 15 years":
+        - cell "Depreciation Years"
+        - cell "15 years"
+      - row "Insurance Rate 0.50%":
+        - cell "Insurance Rate"
+        - cell "0.50%"
+  - img
+  - table:
+    - rowgroup:
+      - row "G160XLR P3 (005)":
+        - cell "G160XLR P3 (005)":
+          - strong: G160XLR P3 (005)
+      - row "Type Long Haul":
+        - cell "Type"
+        - cell "Long Haul"
+      - row "Crew 4 total / 3 minimum":
+        - cell "Crew"
+        - cell "4 total / 3 minimum"
+      - row "Age 0.25 years":
+        - cell "Age"
+        - cell "0.25 years"
+  - table:
+    - rowgroup:
+      - row "Lease Summary":
+        - cell "Lease Summary":
+          - strong: Lease Summary
+      - row "Type Dry Lease":
+        - cell "Type"
+        - cell "Dry Lease"
+      - row "Rate $848,000 / month":
+        - cell "Rate"
+        - cell "$848,000 / month"
+  - img
+  - table:
+    - rowgroup:
+      - row "APT100 (007)":
+        - cell "APT100 (007)":
+          - strong: APT100 (007)
+      - row "Type Short Haul":
+        - cell "Type"
+        - cell "Short Haul"
+      - row "Crew 2 total / 2 minimum":
+        - cell "Crew"
+        - cell "2 total / 2 minimum"
+      - row "Age 0.25 years":
+        - cell "Age"
+        - cell "0.25 years"
+  - table:
+    - rowgroup:
+      - row "Lease Summary":
+        - cell "Lease Summary":
+          - strong: Lease Summary
+      - row "Type Dry Lease":
+        - cell "Type"
+        - cell "Dry Lease"
+      - row "Rate $310,000 / month":
+        - cell "Rate"
+        - cell "$310,000 / month"
+  - img
+  - table:
+    - rowgroup:
+      - row "G160XLR (009)":
+        - cell "G160XLR (009)":
+          - strong: G160XLR (009)
+      - row "Type Long Haul":
+        - cell "Type"
+        - cell "Long Haul"
+      - row "Crew 4 total / 4 minimum":
+        - cell "Crew"
+        - cell "4 total / 4 minimum"
+      - row "Age 0 years":
+        - cell "Age"
+        - cell "0 years"
+  - table:
+    - rowgroup:
+      - row "Lease Summary":
+        - cell "Lease Summary":
+          - strong: Lease Summary
+      - row "Type Dry Lease":
+        - cell "Type"
+        - cell "Dry Lease"
+      - row "Rate $810,000 / month":
+        - cell "Rate"
+        - cell "$810,000 / month"
+  - text: Fleet History
+  - table:
+    - rowgroup:
+      - row "Aircraft Status Type":
+        - columnheader "Aircraft"
+        - columnheader "Status"
+        - columnheader "Type"
+    - rowgroup:
+      - row "APT100 (Starter) In service Short Haul":
+        - cell
+        - cell "APT100 (Starter)"
+        - cell "In service"
+        - cell "Short Haul"
+      - row "G160 (Starter) Left at end of Q2 Short Haul":
+        - cell
+        - cell "G160 (Starter)"
+        - cell "Left at end of Q2"
+        - cell "Short Haul"
+      - row "G160XLR (002) Left at end of Q2 Long Haul":
+        - cell
+        - cell "G160XLR (002)"
+        - cell "Left at end of Q2"
+        - cell "Long Haul"
+      - row "G160XLR P3 (005) In service Long Haul":
+        - cell
+        - cell "G160XLR P3 (005)"
+        - cell "In service"
+        - cell "Long Haul"
+      - row "APT100 (006) Left at end of Q3 Short Haul":
+        - cell
+        - cell "APT100 (006)"
+        - cell "Left at end of Q3"
+        - cell "Short Haul"
+      - row "APT100 (007) In service Short Haul":
+        - cell
+        - cell "APT100 (007)"
+        - cell "In service"
+        - cell "Short Haul"
+      - row "G160XLR (009) In service Long Haul":
+        - cell
+        - cell "G160XLR (009)"
+        - cell "In service"
+        - cell "Long Haul"
+  - text: Assets
+  - img
+  - table:
+    - rowgroup:
+      - row "Hangar single aisle In Service":
+        - cell "Hangar single aisle In Service":
+          - strong: Hangar single aisle
+          - text: In Service
+      - row "Funding Leased":
+        - cell "Funding"
+        - cell "Leased"
+      - row "Price $1,935,000":
+        - cell "Price"
+        - cell "$1,935,000"
+  - table:
+    - rowgroup:
+      - row "Lease Summary":
+        - cell "Lease Summary":
+          - strong: Lease Summary
+      - row "Rate $40,000 / month":
+        - cell "Rate"
+        - cell "$40,000 / month"
+      - row "Term 12 quarters":
+        - cell "Term"
+        - cell "12 quarters"
+      - row "Effective Funding Rate 4.00 %":
+        - cell "Effective Funding Rate"
+        - cell "4.00 %"
+  - text: Inputs Crew and Aircraft Turnaround Inputs
+  - table:
+    - rowgroup:
+      - row "Current Max":
+        - columnheader
+        - columnheader "Current"
+        - columnheader "Max"
+    - rowgroup:
+      - row "Flight Crew Max Block Hours 775 900":
+        - cell "Flight Crew Max Block Hours"
+        - cell "775"
+        - cell "900"
+  - table:
+    - rowgroup:
+      - row "Short Haul Long Haul":
+        - columnheader
+        - columnheader "Short Haul"
+        - columnheader "Long Haul"
+    - rowgroup:
+      - row "Flight Crew Salary $165,000 $195,000":
+        - cell "Flight Crew Salary"
+        - cell "$165,000"
+        - cell "$195,000"
+      - row "Flight Crew Allowance $55.00 / BH $75.00 / BH":
+        - cell "Flight Crew Allowance"
+        - cell "$55.00 / BH"
+        - cell "$75.00 / BH"
+      - row "Cabin Crew Salary $65.00 / BH $85.00 / BH":
+        - cell "Cabin Crew Salary"
+        - cell "$65.00 / BH"
+        - cell "$85.00 / BH"
+      - row "Cabin Crew Allowance $35.00 / BH $50.00 / BH":
+        - cell "Cabin Crew Allowance"
+        - cell "$35.00 / BH"
+        - cell "$50.00 / BH"
+      - row "Turnaround 45 mins 120 mins":
+        - cell "Turnaround"
+        - cell "45 mins"
+        - cell "120 mins"
+  - text: Indirect Cash Operating Cost Inputs
+  - table:
+    - rowgroup:
+      - row "General & Admin (Short Haul) $0.012 / ASK":
+        - cell "General & Admin (Short Haul)"
+        - cell "$0.012 / ASK"
+      - row "General & Admin (Long Haul) $0.005 / ASK":
+        - cell "General & Admin (Long Haul)"
+        - cell "$0.005 / ASK"
+      - row "Cargo Overheads $0.35 / ATK":
+        - cell "Cargo Overheads"
+        - cell "$0.35 / ATK"
+  - text: Routes and Fuel Route Costs
+  - table:
+    - rowgroup:
+      - row "Route Landing Fees Aircraft Handling Traffic Handling Cargo Handling":
+        - columnheader "Route"
+        - columnheader "Landing Fees"
+        - columnheader "Aircraft Handling"
+        - columnheader "Traffic Handling"
+        - columnheader "Cargo Handling"
+    - rowgroup:
+      - row "Simone $10.00 / tonne MTOW $11.00 / tonne MTOW $10.00 / pax $60.00 / tonne":
+        - cell "Simone"
+        - cell "$10.00 / tonne MTOW"
+        - cell "$11.00 / tonne MTOW"
+        - cell "$10.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Ellington $11.00 / tonne MTOW $13.00 / tonne MTOW $10.00 / pax $60.00 / tonne":
+        - cell "Ellington"
+        - cell "$11.00 / tonne MTOW"
+        - cell "$13.00 / tonne MTOW"
+        - cell "$10.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Lewis $8.00 / tonne MTOW $12.00 / tonne MTOW $7.00 / pax $60.00 / tonne":
+        - cell "Lewis"
+        - cell "$8.00 / tonne MTOW"
+        - cell "$12.00 / tonne MTOW"
+        - cell "$7.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Armstrong $19.00 / tonne MTOW $15.00 / tonne MTOW $16.00 / pax $60.00 / tonne":
+        - cell "Armstrong"
+        - cell "$19.00 / tonne MTOW"
+        - cell "$15.00 / tonne MTOW"
+        - cell "$16.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Fitzgerald $11.00 / tonne MTOW $13.00 / tonne MTOW $10.00 / pax $60.00 / tonne":
+        - cell "Fitzgerald"
+        - cell "$11.00 / tonne MTOW"
+        - cell "$13.00 / tonne MTOW"
+        - cell "$10.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Joplin $19.00 / tonne MTOW $15.00 / tonne MTOW $16.00 / pax $60.00 / tonne":
+        - cell "Joplin"
+        - cell "$19.00 / tonne MTOW"
+        - cell "$15.00 / tonne MTOW"
+        - cell "$16.00 / pax"
+        - cell "$60.00 / tonne"
+      - row "Broonzy $14.00 / tonne MTOW $12.00 / tonne MTOW $12.00 / pax $60.00 / tonne":
+        - cell "Broonzy"
+        - cell "$14.00 / tonne MTOW"
+        - cell "$12.00 / tonne MTOW"
+        - cell "$12.00 / pax"
+        - cell "$60.00 / tonne"
+  - text: Fuel & Carbon
+  - table:
+    - rowgroup:
+      - row "Route Fuel Price":
+        - columnheader "Route"
+        - columnheader "Fuel Price"
+    - rowgroup:
+      - row "Armstrong $3.88 / USG":
+        - cell "Armstrong"
+        - cell "$3.88 / USG"
+      - row "Ellington $3.63 / USG":
+        - cell "Ellington"
+        - cell "$3.63 / USG"
+      - row "Fitzgerald $3.77 / USG":
+        - cell "Fitzgerald"
+        - cell "$3.77 / USG"
+      - row "Lewis $3.77 / USG":
+        - cell "Lewis"
+        - cell "$3.77 / USG"
+      - row "McGee $3.98 / USG":
+        - cell "McGee"
+        - cell "$3.98 / USG"
+      - row "Parker $3.88 / USG":
+        - cell "Parker"
+        - cell "$3.88 / USG"
+      - row "Simone $3.77 / USG":
+        - cell "Simone"
+        - cell "$3.77 / USG"
+      - row "Joplin $3.73 / USG":
+        - cell "Joplin"
+        - cell "$3.73 / USG"
+      - row "Charles City $3.83 / USG":
+        - cell "Charles City"
+        - cell "$3.83 / USG"
+      - row "Broonzy $4.13 / USG":
+        - cell "Broonzy"
+        - cell "$4.13 / USG"
+  - table:
+    - rowgroup:
+      - row "Carbon $52.00 / tonne":
+        - cell "Carbon"
+        - cell "$52.00 / tonne"
+  - text: There are no fuel hedges for this period.

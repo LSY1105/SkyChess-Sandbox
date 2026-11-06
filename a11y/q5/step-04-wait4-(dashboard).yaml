@@ -1,0 +1,194 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2029" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "34"
+  - button "Read Messages"
+  - text: Daily Schedule Scheduler & Flight Management
+  - tablist:
+    - tab "Flight List"
+    - tab "Scheduler"
+  - tabpanel:
+    - tablist:
+      - tab "Select Aircraft"
+      - tab "Select Route"
+    - tabpanel:
+      - img
+      - text: APT100 (Starter)
+      - button "Select"
+      - img
+      - text: G160XLR P3 (005)
+      - button "Select"
+      - img
+      - text: APT100 (007)
+      - button "Select"
+      - img
+      - text: G160XLR (009)
+      - button "Select"
+    - tabpanel:
+      - img
+      - text: Simone (SIM)
+      - button "Select"
+      - img
+      - text: Ellington (ETN)
+      - button "Select"
+      - img
+      - text: Lewis (LEW)
+      - button "Select"
+      - img
+      - text: Armstrong (ARM)
+      - button "Select"
+      - img
+      - text: Fitzgerald (FTZ)
+      - button "Select"
+      - img
+      - text: Joplin (JOP)
+      - button "Select"
+      - img
+      - text: Broonzy (BZY)
+      - button "Select"
+    - text: "Select an aircraft and route to schedule a flight. Aircraft Selected: Route Selected:"
+    - button "Reset Scheduler"
+  - tabpanel:
+    - table:
+      - rowgroup:
+        - row "Flight Aircraft Departure Route Cargo":
+          - columnheader "Flight"
+          - columnheader "Aircraft"
+          - columnheader "Departure"
+          - columnheader "Route"
+          - columnheader "Cargo"
+          - columnheader
+      - rowgroup:
+        - row "CA-8412 APT100 06:30 ETN Ellington 4.24t Cancel Flight":
+          - cell "CA-8412":
+            - strong: CA-8412
+          - cell "APT100"
+          - cell "06:30"
+          - cell "ETN"
+          - cell "Ellington"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4062 G160XLR 06:30 JOP Joplin 2.90t Cancel Flight":
+          - cell "CA-4062":
+            - strong: CA-4062
+          - cell "G160XLR"
+          - cell "06:30"
+          - cell "JOP"
+          - cell "Joplin"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-5041 APT100 06:45 SIM Simone 4.24t Cancel Flight":
+          - cell "CA-5041":
+            - strong: CA-5041
+          - cell "APT100"
+          - cell "06:45"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-0442 G160XLR P3 10:15 FTZ Fitzgerald 2.50t Cancel Flight":
+          - cell "CA-0442":
+            - strong: CA-0442
+          - cell "G160XLR P3"
+          - cell "10:15"
+          - cell "FTZ"
+          - cell "Fitzgerald"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-1782 APT100 10:45 SIM Simone 4.24t Cancel Flight":
+          - cell "CA-1782":
+            - strong: CA-1782
+          - cell "APT100"
+          - cell "10:45"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-9433 APT100 12:00 JOP Joplin 4.24t Cancel Flight":
+          - cell "CA-9433":
+            - strong: CA-9433
+          - cell "APT100"
+          - cell "12:00"
+          - cell "JOP"
+          - cell "Joplin"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-7792 G160XLR 14:15 ARM Armstrong 2.90t Cancel Flight":
+          - cell "CA-7792":
+            - strong: CA-7792
+          - cell "G160XLR"
+          - cell "14:15"
+          - cell "ARM"
+          - cell "Armstrong"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-7313 APT100 14:45 JOP Joplin 4.24t Cancel Flight":
+          - cell "CA-7313":
+            - strong: CA-7313
+          - cell "APT100"
+          - cell "14:45"
+          - cell "JOP"
+          - cell "Joplin"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-0663 G160XLR P3 14:45 LEW Lewis 2.50t Cancel Flight":
+          - cell "CA-0663":
+            - strong: CA-0663
+          - cell "G160XLR P3"
+          - cell "14:45"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-8783 APT100 18:15 LEW Lewis 4.24t Cancel Flight":
+          - cell "CA-8783":
+            - strong: CA-8783
+          - cell "APT100"
+          - cell "18:15"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-5171 G160XLR P3 20:00 ARM Armstrong 2.50t Cancel Flight":
+          - cell "CA-5171":
+            - strong: CA-5171
+          - cell "G160XLR P3"
+          - cell "20:00"
+          - cell "ARM"
+          - cell "Armstrong"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"

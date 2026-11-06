@@ -1,0 +1,18 @@
+--- p1 ---
+THE LATEST AVIATION NEWS FROM AROUND THE WORLD
+Hackers Target Air Ballistic
+Press release
+Media sources are buzzing with the news that Air Ballistic has been 
+subjected to a cyber-attack. It appears that attempts to encrypt 
+customers’ personal information, including passwords and credit card 
+data, have been successful. The airline was also robbed of over 30GB 
+of source code, compromising their revenue management system. 
+There is no doubt that passengers are unhappy with the situation.
+The consulting group Red Queen Consulting claims to have alerted 
+Air Ballistic to the potential risks of a cyber attack. An unnamed 
+source suggested to Flyte Magazine last night that the airline is being 
+held to ransom.
+Air Ballistic will hopefully make a full statement, including a list of 
+measures they will adopt to ensure that such a breach will not 
+happen again. 
+1st April 2028

@@ -1,0 +1,133 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "27"
+  - button "Read Messages"
+  - img
+  - text: Simone
+  - heading "HUB SIM" [level=1]
+  - text: Fare
+  - heading "$200.00" [level=3]
+  - text: Yield
+  - heading "$0.38" [level=3]
+  - text: Sector
+  - heading "525km" [level=3]
+  - separator
+  - textbox: "200.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Ellington
+  - heading "HUB ETN" [level=1]
+  - text: Fare
+  - heading "$220.00" [level=3]
+  - text: Yield
+  - heading "$0.19" [level=3]
+  - text: Sector
+  - heading "1150km" [level=3]
+  - separator
+  - textbox: "220.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Lewis
+  - heading "HUB LEW" [level=1]
+  - text: Fare
+  - heading "$109.00" [level=3]
+  - text: Yield
+  - heading "$0.26" [level=3]
+  - text: Sector
+  - heading "415km" [level=3]
+  - separator
+  - textbox: "109.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Armstrong
+  - heading "HUB ARM" [level=1]
+  - text: Fare
+  - heading "$650.00" [level=3]
+  - text: Yield
+  - heading "$0.17" [level=3]
+  - text: Sector
+  - heading "3780km" [level=3]
+  - separator
+  - textbox: "650.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Fitzgerald
+  - heading "HUB FTZ" [level=1]
+  - text: Fare
+  - heading "$159.00" [level=3]
+  - text: Yield
+  - heading "$0.20" [level=3]
+  - text: Sector
+  - heading "784km" [level=3]
+  - separator
+  - textbox: "159.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Joplin
+  - heading "HUB JOP" [level=1]
+  - text: Fare
+  - heading "$170.00" [level=3]
+  - text: Yield
+  - heading "$0.12" [level=3]
+  - text: Sector
+  - heading "1432km" [level=3]
+  - separator
+  - textbox: "170.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  
+  - img
+  - text: Broonzy
+  - heading "HUB BZY" [level=1]
+  - text: Fare
+  - heading "$700.00" [level=3]
+  - text: Yield
+  - heading "$0.16" [level=3]
+  - text: Sector
+  - heading "4473km" [level=3]
+  - separator
+  - textbox: "700.00"
+  - button "Update Fare"
+  - img
+  - separator
+  - text: SkyChess Ticketing Ltd  

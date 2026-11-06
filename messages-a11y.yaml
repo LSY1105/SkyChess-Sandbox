@@ -1,0 +1,93 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "13"
+  - button "Read Messages"
+  - text: Your Messages
+  - button "New Message"
+  - tablist:
+    - tab "Inbox" [selected]
+    - tab "Sent Messages"
+  - tabpanel:
+    - heading "Airline route expansion" [level=4]
+    - text: HQ
+    - heading "SkyChess HQ" [level=6]
+    - text: "To: Capital Airways Sent during: Q2 2028 Air Ballistic has just announced it will add Lewis to their network"
+    - heading "Messages" [level=6]
+    - 'button "HQ SkyChess HQ Q2 2028 To: Capital Airways Airline route expansion"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: "Q2 2028 To: Capital Airways Airline route expansion"
+    - 'button "HQ SkyChess HQ Q2 2028 To: Capital Airways Airline route expansion"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: "Q2 2028 To: Capital Airways Airline route expansion"
+    - 'button "HQ SkyChess HQ   Q2 2028 To: Capital Airways PRESS RELEASE - cyber"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: "  Q2 2028 To: Capital Airways PRESS RELEASE - cyber"
+    - 'button "HQ SkyChess HQ   Q2 2028 To: Capital Airways PRESS RELEASE - volcano"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: "  Q2 2028 To: Capital Airways PRESS RELEASE - volcano"
+    - 'button "HQ SkyChess HQ  Q2 2028 To: Capital Airways Connectivity"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q2 2028 To: Capital Airways Connectivity"
+    - 'button "HQ SkyChess HQ Q1 2028 To: Capital Airways Airline route expansion"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: "Q1 2028 To: Capital Airways Airline route expansion"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Market intelligence report"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Market intelligence report"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Dashboard Guide"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Dashboard Guide"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Role Guide"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Role Guide"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Aircraft type summary"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Aircraft type summary"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Aircraft Catalogue Summary"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Aircraft Catalogue Summary"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Map of routes"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Map of routes"
+    - 'button "HQ SkyChess HQ  Q1 2028 To: Capital Airways Cost data"':
+      - text: HQ
+      - heading "SkyChess HQ" [level=6]
+      - text: " Q1 2028 To: Capital Airways Cost data"
+  - tabpanel:
+    - heading "Messages" [level=6]

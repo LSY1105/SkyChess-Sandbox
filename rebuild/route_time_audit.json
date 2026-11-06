@@ -1,0 +1,170 @@
+{
+  "rows": [
+    {
+      "code": "LEW",
+      "name": "路易斯",
+      "km": 415,
+      "bh": 1,
+      "legMin": 60,
+      "spd": 415,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 2
+    },
+    {
+      "code": "SIM",
+      "name": "西蒙尼",
+      "km": 525,
+      "bh": 1.13,
+      "legMin": 68,
+      "spd": 465,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 2.26
+    },
+    {
+      "code": "FTZ",
+      "name": "菲兹杰拉德",
+      "km": 784,
+      "bh": 1.44,
+      "legMin": 86,
+      "spd": 544,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 2.88
+    },
+    {
+      "code": "CHA",
+      "name": "查尔斯市",
+      "km": 980,
+      "bh": 2.1,
+      "legMin": 126,
+      "spd": 467,
+      "etops": true,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 4.2
+    },
+    {
+      "code": "ETN",
+      "name": "艾灵顿",
+      "km": 1150,
+      "bh": 1.88,
+      "legMin": 113,
+      "spd": 612,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 3.76
+    },
+    {
+      "code": "JOP",
+      "name": "乔普林",
+      "km": 1433,
+      "bh": 2.22,
+      "legMin": 133,
+      "spd": 645,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 2
+      },
+      "occupancyH": 4.44
+    },
+    {
+      "code": "PKR",
+      "name": "帕克",
+      "km": 1620,
+      "bh": 2.44,
+      "legMin": 146,
+      "spd": 664,
+      "etops": false,
+      "remoteOnly": false,
+      "perDay": {
+        "LCC": 2,
+        "Hybrid": 2,
+        "FSC": 1
+      },
+      "occupancyH": 4.88
+    },
+    {
+      "code": "ARM",
+      "name": "阿姆斯特朗",
+      "km": 3780,
+      "bh": 5.04,
+      "legMin": 302,
+      "spd": 750,
+      "etops": false,
+      "remoteOnly": true,
+      "perDay": {
+        "LCC": 1,
+        "Hybrid": 1,
+        "FSC": 1
+      },
+      "occupancyH": 10.08
+    },
+    {
+      "code": "BZY",
+      "name": "布伦齐",
+      "km": 4473,
+      "bh": 8.42,
+      "legMin": 505,
+      "spd": 531,
+      "etops": false,
+      "remoteOnly": true,
+      "perDay": {
+        "LCC": 1,
+        "Hybrid": 1,
+        "FSC": 1
+      },
+      "occupancyH": 16.84
+    },
+    {
+      "code": "GEE",
+      "name": "麦基",
+      "km": 5265,
+      "bh": 6.82,
+      "legMin": 409,
+      "spd": 772,
+      "etops": false,
+      "remoteOnly": true,
+      "perDay": {
+        "LCC": 1,
+        "Hybrid": 1,
+        "FSC": 1
+      },
+      "occupancyH": 13.64
+    }
+  ],
+  "issues": [],
+  "inversions": [
+    "CHA(980km/2.1h) → ETN(1150km/1.88h)",
+    "BZY(4473km/8.42h) → GEE(5265km/6.82h)"
+  ],
+  "dayWindowH": 16
+}

@@ -1,0 +1,189 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - link "Back to Dashboard":
+    - /url: https://www.skychess.com/play/airline/833
+  - img
+  - heading "Capital Airways Fleet Plan All Owned Leased A chart." [level=3]:
+    - text: Capital Airways Fleet Plan
+    - button "All"
+    - button "Owned"
+    - button "Leased"
+    - img "A chart.": G130 G160 G200 APT100 Q0 Q1 Q2 Q3 Q4 Q5 Q6 0 50 100 150 200 250 300 350 Quarter Total Seats
+    - table:
+      - rowgroup:
+        - row "Quarter G130 G160 G200 APT100":
+          - columnheader "Quarter"
+          - columnheader "G130"
+          - columnheader "G160"
+          - columnheader "G200"
+          - columnheader "APT100"
+      - rowgroup:
+        - row "Q0 0 159 0 100":
+          - cell "Q0"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q1 0 159 0 100":
+          - cell "Q1"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q2 0 159 0 100":
+          - cell "Q2"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q3 0 159 0 100":
+          - cell "Q3"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q4 0 159 0 100":
+          - cell "Q4"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q5 0 159 0 100":
+          - cell "Q5"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+        - row "Q6 0 159 0 100":
+          - cell "Q6"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+          - cell "100"
+  - img
+  - heading "Air Ballistic Fleet Plan All Owned Leased A chart." [level=3]:
+    - text: Air Ballistic Fleet Plan
+    - button "All"
+    - button "Owned"
+    - button "Leased"
+    - img "A chart.": G130 G160 G200 APT100 Q0 Q1 Q2 Q3 Q4 Q5 Q6 0 100 200 300 Quarter Total Seats
+    - table:
+      - rowgroup:
+        - row "Quarter G130 G160 G200 APT100":
+          - columnheader "Quarter"
+          - columnheader "G130"
+          - columnheader "G160"
+          - columnheader "G200"
+          - columnheader "APT100"
+      - rowgroup:
+        - row "Q0 132 159 0 0":
+          - cell "Q0"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q1 132 159 0 0":
+          - cell "Q1"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q2 132 159 0 0":
+          - cell "Q2"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q3 132 159 0 0":
+          - cell "Q3"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q4 132 159 0 0":
+          - cell "Q4"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q5 132 159 0 0":
+          - cell "Q5"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+        - row "Q6 132 159 0 0":
+          - cell "Q6"
+          - cell "132"
+          - cell "159"
+          - cell "0"
+          - cell "0"
+  - img
+  - heading "VisionAir Fleet Plan All Owned Leased A chart." [level=3]:
+    - text: VisionAir Fleet Plan
+    - button "All"
+    - button "Owned"
+    - button "Leased"
+    - img "A chart.": G130 G160 G200 APT100 Q0 Q1 Q2 Q3 Q4 Q5 Q6 0 100 200 300 Quarter Total Seats
+    - table:
+      - rowgroup:
+        - row "Quarter G130 G160 G200 APT100":
+          - columnheader "Quarter"
+          - columnheader "G130"
+          - columnheader "G160"
+          - columnheader "G200"
+          - columnheader "APT100"
+      - rowgroup:
+        - row "Q0 0 0 192 100":
+          - cell "Q0"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q1 0 0 192 100":
+          - cell "Q1"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q2 0 0 192 100":
+          - cell "Q2"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q3 0 0 192 100":
+          - cell "Q3"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q4 0 0 192 100":
+          - cell "Q4"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q5 0 0 192 100":
+          - cell "Q5"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"
+        - row "Q6 0 0 192 100":
+          - cell "Q6"
+          - cell "0"
+          - cell "0"
+          - cell "192"
+          - cell "100"

@@ -1,0 +1,2167 @@
+{
+ "meta": {
+  "capture_file": "capture-watch-2208.json",
+  "evidence_id": "ev_3e534a31b29d505d744eece60f3b10104cf6086ab43d72e31a77e753b7010a71",
+  "endpoint_count": 3,
+  "endpoints": [
+   "/play/api/airline/833/scheduler/5373",
+   "/play/api/liveboard/285",
+   "/play/api/messaging/833/q/4"
+  ]
+ },
+ "snapshots": {
+  "/play/api/airline/833/scheduler/5373": {
+   "route": "/scheduler",
+   "payload": {
+    "airline": {
+     "id": 833,
+     "code": "CA",
+     "colour": "yellow",
+     "name": "Capital Airways",
+     "game_id": 285,
+     "logo_id": 2,
+     "operational_status": 0,
+     "attack_ransom": 2000000,
+     "hex": "#dfbf0c",
+     "game": {
+      "id": 285,
+      "game_status": 1,
+      "title": "RR Derby 20-22 October 2026",
+      "about": "China Eastern",
+      "max_turns": 6,
+      "base_year": "2027",
+      "max_bh": 900,
+      "open_minutes": 60,
+      "board_refresh_rate": 20,
+      "board_utc_offset": 0,
+      "board_show_departures": 30,
+      "board_players": 1,
+      "operational_status": 0,
+      "target_cash": 2000000,
+      "peak_pricing": 1,
+      "connecting_demand": 2,
+      "fuel_prices": [
+       null,
+       null,
+       "2.6",
+       "4.5",
+       "3.75",
+       "2.75",
+       "2.7"
+      ],
+      "airlinecolours": [
+       {
+        "id": "grey",
+        "name": "Grey",
+        "hex": "#cccccc"
+       },
+       {
+        "id": "red",
+        "name": "Red",
+        "hex": "#b40d0d"
+       },
+       {
+        "id": "blue",
+        "name": "Blue",
+        "hex": "#0270b6"
+       },
+       {
+        "id": "lightblue",
+        "name": "Light Blue",
+        "hex": "#00a8ec"
+       },
+       {
+        "id": "yellow",
+        "name": "Yellow",
+        "hex": "#dfbf0c"
+       },
+       {
+        "id": "orange",
+        "name": "Orange",
+        "hex": "#e34223"
+       },
+       {
+        "id": "green",
+        "name": "Green",
+        "hex": "#7e9200"
+       },
+       {
+        "id": "purple",
+        "name": "Purple",
+        "hex": "#3d0f7b"
+       }
+      ],
+      "currentturn": 4,
+      "yearsplayed": 1,
+      "turns": [
+       {
+        "id": 1730,
+        "game_id": 285,
+        "open": 0,
+        "turn": 0,
+        "quarter": 4,
+        "year": "2027",
+        "open_minutes": 60,
+        "opened_at": null,
+        "fare_lock_active": 0
+       },
+       {
+        "id": 1731,
+        "game_id": 285,
+        "open": 0,
+        "turn": 1,
+        "quarter": 1,
+        "year": "2028",
+        "open_minutes": 82,
+        "opened_at": "2026-10-21 07:23:54",
+        "fare_lock_active": 0
+       },
+       {
+        "id": 1784,
+        "game_id": 285,
+        "open": 0,
+        "turn": 2,
+        "quarter": 2,
+        "year": "2028",
+        "open_minutes": 80,
+        "opened_at": "2026-10-21 09:39:40",
+        "fare_lock_active": 0
+       },
+       {
+        "id": 1785,
+        "game_id": 285,
+        "open": 0,
+        "turn": 3,
+        "quarter": 3,
+        "year": "2028",
+        "open_minutes": 83,
+        "opened_at": "2026-10-21 11:52:08",
+        "fare_lock_active": 0
+       },
+       {
+        "id": 1787,
+        "game_id": 285,
+        "open": 1,
+        "turn": 4,
+        "quarter": 4,
+        "year": "2028",
+        "open_minutes": 60,
+        "opened_at": "2026-10-21 13:59:33",
+        "fare_lock_active": 0
+       }
+      ]
+     },
+     "logo": {
+      "id": 2,
+      "name": "Capital Airways",
+      "images": [
+       {
+        "id": 11,
+        "imageable_id": 2,
+        "imageable_type": "App\\Logo",
+        "location_main": "img/logos/2/main_fa_5b98d269f25e81.56012969.png"
+       }
+      ]
+     },
+     "users": [
+      {
+       "id": 318,
+       "firstname": "CA RR 20 Oct 26",
+       "surname": "China Eastern",
+       "email": "ca@rr20oct26",
+       "created_at": "2026-08-06 12:44:01",
+       "updated_at": "2026-08-06 12:44:01",
+       "name": "CA RR 20 Oct 26 China Eastern",
+       "pivot": {
+        "airline_id": 833,
+        "user_id": 318
+       }
+      }
+     ]
+    },
+    "airlineturn": {
+     "id": 5373,
+     "airline_id": 833,
+     "turn_id": 1787,
+     "airline": {
+      "id": 833,
+      "name": "Capital Airways",
+      "code": "CA",
+      "game_id": 285,
+      "colour": "yellow",
+      "logo_id": 2,
+      "starting_cash": 2687673,
+      "operational_status": 0,
+      "attack_ransom": 2000000,
+      "hex": "#dfbf0c"
+     },
+     "turn": {
+      "id": 1787,
+      "game_id": 285,
+      "open": 1,
+      "turn": 4,
+      "quarter": 4,
+      "year": "2028",
+      "open_minutes": 60,
+      "opened_at": "2026-10-21 13:59:33",
+      "fare_lock_active": 0
+     },
+     "aircraft": [
+      {
+       "id": 17048,
+       "airline_turn_id": 5373,
+       "airline_aircraft_id": 4080,
+       "name": "APT100",
+       "seats": 100,
+       "seats_standard": 100,
+       "seats_business": 0,
+       "seats_premium": 0,
+       "interest_rate": null,
+       "interest_years": null,
+       "residual_value": null,
+       "depreciation_years": null,
+       "additional_cabin_crew": 1,
+       "fuel_burn": 1643,
+       "insurance_rate": null,
+       "dmc_cycle": null,
+       "dmc_fh": null,
+       "costs": null,
+       "airlineaircraft": {
+        "id": 4080,
+        "airline_id": 833,
+        "aircraft_id": 17,
+        "nickname": "Starter",
+        "total_price": 34000000,
+        "total_finance": 34000000,
+        "sell_price": null,
+        "spares": 2,
+        "acquired_at_turn": 0,
+        "sell_at_turn": null,
+        "sell_from_turn": null,
+        "aircraft_fleet_type": 1,
+        "acquired_at_age": 6,
+        "available_from_turn": 0,
+        "leased_at_turn": null,
+        "leased_to_turn": null,
+        "left_at_turn": null,
+        "availability": true,
+        "aircraft": {
+         "id": 17,
+         "name": "APT100",
+         "payload_range_id": 1,
+         "description": null,
+         "seats": 100,
+         "seats_standard": 100,
+         "seats_business": 0,
+         "seats_premium": 0,
+         "total_price": 40000000,
+         "mtow": 45,
+         "structural_payload": 12581,
+         "maximum_cargo_payload": "4.24",
+         "cargo_volume": 26.5,
+         "cargo_containers": null,
+         "cargo_pallets": null,
+         "fuel_burn": 1565,
+         "flight_speed": 833,
+         "dmc_cycle": 220,
+         "dmc_fh": 260,
+         "cabin_crew": 2,
+         "additional_cabin_crew": 1,
+         "images": [
+          {
+           "id": 59,
+           "active": 1,
+           "imageable_id": 17,
+           "imageable_type": "App\\Aircraft",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/aircraft/17/main_fa_5bc61881c02b64.36143243.jpg",
+           "location_preview": "img/aircraft/17/preview_fa_5bc61881c02b64.36143243.jpg",
+           "location_tiny": "img/aircraft/17/tiny_fa_5bc61881c02b64.36143243.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2018-10-16T16:57:37.000000Z",
+           "updated_at": "2018-10-16T16:57:39.000000Z"
+          }
+         ]
+        },
+        "airline": {
+         "id": 833,
+         "name": "Capital Airways",
+         "code": "CA",
+         "game_id": 285,
+         "colour": "yellow",
+         "logo_id": 2,
+         "starting_cash": 2687673,
+         "operational_status": 0,
+         "attack_ransom": 2000000,
+         "hex": "#dfbf0c",
+         "game": {
+          "id": 285,
+          "game_status": 1,
+          "title": "RR Derby 20-22 October 2026",
+          "about": "China Eastern",
+          "max_turns": 6,
+          "base_year": "2027",
+          "max_bh": 900,
+          "open_minutes": 60,
+          "board_refresh_rate": 20,
+          "board_utc_offset": 0,
+          "board_show_departures": 30,
+          "board_players": 1,
+          "operational_status": 0,
+          "target_cash": 2000000,
+          "peak_pricing": 1,
+          "connecting_demand": 2,
+          "fuel_prices": [
+           null,
+           null,
+           "2.6",
+           "4.5",
+           "3.75",
+           "2.75",
+           "2.7"
+          ],
+          "airlinecolours": [
+           {
+            "id": "grey",
+            "name": "Grey",
+            "hex": "#cccccc"
+           },
+           {
+            "id": "red",
+            "name": "Red",
+            "hex": "#b40d0d"
+           },
+           {
+            "id": "blue",
+            "name": "Blue",
+            "hex": "#0270b6"
+           },
+           {
+            "id": "lightblue",
+            "name": "Light Blue",
+            "hex": "#00a8ec"
+           },
+           {
+            "id": "yellow",
+            "name": "Yellow",
+            "hex": "#dfbf0c"
+           },
+           {
+            "id": "orange",
+            "name": "Orange",
+            "hex": "#e34223"
+           },
+           {
+            "id": "green",
+            "name": "Green",
+            "hex": "#7e9200"
+           },
+           {
+            "id": "purple",
+            "name": "Purple",
+            "hex": "#3d0f7b"
+           }
+          ],
+          "currentturn": 4,
+          "yearsplayed": 1,
+          "turns": [
+           {
+            "id": 1730,
+            "game_id": 285,
+            "open": 0,
+            "turn": 0,
+            "quarter": 4,
+            "year": "2027",
+            "open_minutes": 60,
+            "opened_at": null,
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1731,
+            "game_id": 285,
+            "open": 0,
+            "turn": 1,
+            "quarter": 1,
+            "year": "2028",
+            "open_minutes": 82,
+            "opened_at": "2026-10-21 07:23:54",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1784,
+            "game_id": 285,
+            "open": 0,
+            "turn": 2,
+            "quarter": 2,
+            "year": "2028",
+            "open_minutes": 80,
+            "opened_at": "2026-10-21 09:39:40",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1785,
+            "game_id": 285,
+            "open": 0,
+            "turn": 3,
+            "quarter": 3,
+            "year": "2028",
+            "open_minutes": 83,
+            "opened_at": "2026-10-21 11:52:08",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1787,
+            "game_id": 285,
+            "open": 1,
+            "turn": 4,
+            "quarter": 4,
+            "year": "2028",
+            "open_minutes": 60,
+            "opened_at": "2026-10-21 13:59:33",
+            "fare_lock_active": 0
+           }
+          ]
+         }
+        }
+       },
+       "flights": [
+        {
+         "id": 56310,
+         "airline_turn_aircraft_id": 17048,
+         "game_market_id": 2491,
+         "flight": "CA-2031",
+         "departure": "10:45:00",
+         "utilization": "3.76",
+         "turnaround": 45,
+         "cargo_capacity": "4.24",
+         "gamemarket": {
+          "id": 2491,
+          "game_id": 285,
+          "market_id": 28,
+          "from_turn": 0,
+          "initial_size": 365,
+          "fuel_prices": [
+           null,
+           null,
+           "2.75",
+           "3.9",
+           "3.5",
+           "2.9",
+           "2.95"
+          ],
+          "market": {
+           "id": 28,
+           "name": "Ellington",
+           "code": "ETN",
+           "description": null,
+           "market_type": 1,
+           "market_demand_curve_id": 2,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 1,
+           "unit_p": 21,
+           "unit_q": 0,
+           "sector_length": 1150,
+           "population_growth": "1.00",
+           "gdp_growth": "1.00",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 365,
+           "market_cargo_demand": "4.00",
+           "market_cargo_yield": "0.30",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "11.00",
+           "handling_fee": "13.00",
+           "traffic_handling_fee": "10.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.20",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        }
+       ]
+      },
+      {
+       "id": 17049,
+       "airline_turn_id": 5373,
+       "airline_aircraft_id": 4236,
+       "name": "G160XLR P3",
+       "seats": 129,
+       "seats_standard": 105,
+       "seats_business": 0,
+       "seats_premium": 24,
+       "interest_rate": null,
+       "interest_years": null,
+       "residual_value": null,
+       "depreciation_years": null,
+       "additional_cabin_crew": 1,
+       "fuel_burn": null,
+       "insurance_rate": null,
+       "dmc_cycle": null,
+       "dmc_fh": null,
+       "costs": null,
+       "airlineaircraft": {
+        "id": 4236,
+        "airline_id": 833,
+        "aircraft_id": 26,
+        "nickname": "005",
+        "total_price": 106000000,
+        "total_finance": 0,
+        "sell_price": null,
+        "spares": 0,
+        "acquired_at_turn": 3,
+        "sell_at_turn": null,
+        "sell_from_turn": null,
+        "aircraft_fleet_type": 2,
+        "acquired_at_age": 0,
+        "available_from_turn": 3,
+        "leased_at_turn": 3,
+        "leased_to_turn": 7,
+        "left_at_turn": null,
+        "availability": true,
+        "aircraft": {
+         "id": 26,
+         "name": "G160XLR P3",
+         "payload_range_id": null,
+         "description": null,
+         "seats": 129,
+         "seats_standard": 105,
+         "seats_business": 0,
+         "seats_premium": 24,
+         "total_price": 106000000,
+         "mtow": 80,
+         "structural_payload": null,
+         "maximum_cargo_payload": "2.50",
+         "cargo_volume": null,
+         "cargo_containers": null,
+         "cargo_pallets": null,
+         "fuel_burn": 2100,
+         "flight_speed": 833,
+         "dmc_cycle": 400,
+         "dmc_fh": 340,
+         "cabin_crew": 3,
+         "additional_cabin_crew": 3,
+         "images": [
+          {
+           "id": 154,
+           "active": 1,
+           "imageable_id": 26,
+           "imageable_type": "App\\Aircraft",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/aircraft/26/main_fa_637e13e880c917.58204865.jpg",
+           "location_preview": "img/aircraft/26/preview_fa_637e13e880c917.58204865.jpg",
+           "location_tiny": "img/aircraft/26/tiny_fa_637e13e880c917.58204865.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2022-11-23T12:36:56.000000Z",
+           "updated_at": "2022-11-23T12:36:58.000000Z"
+          }
+         ]
+        },
+        "airline": {
+         "id": 833,
+         "name": "Capital Airways",
+         "code": "CA",
+         "game_id": 285,
+         "colour": "yellow",
+         "logo_id": 2,
+         "starting_cash": 2687673,
+         "operational_status": 0,
+         "attack_ransom": 2000000,
+         "hex": "#dfbf0c",
+         "game": {
+          "id": 285,
+          "game_status": 1,
+          "title": "RR Derby 20-22 October 2026",
+          "about": "China Eastern",
+          "max_turns": 6,
+          "base_year": "2027",
+          "max_bh": 900,
+          "open_minutes": 60,
+          "board_refresh_rate": 20,
+          "board_utc_offset": 0,
+          "board_show_departures": 30,
+          "board_players": 1,
+          "operational_status": 0,
+          "target_cash": 2000000,
+          "peak_pricing": 1,
+          "connecting_demand": 2,
+          "fuel_prices": [
+           null,
+           null,
+           "2.6",
+           "4.5",
+           "3.75",
+           "2.75",
+           "2.7"
+          ],
+          "airlinecolours": [
+           {
+            "id": "grey",
+            "name": "Grey",
+            "hex": "#cccccc"
+           },
+           {
+            "id": "red",
+            "name": "Red",
+            "hex": "#b40d0d"
+           },
+           {
+            "id": "blue",
+            "name": "Blue",
+            "hex": "#0270b6"
+           },
+           {
+            "id": "lightblue",
+            "name": "Light Blue",
+            "hex": "#00a8ec"
+           },
+           {
+            "id": "yellow",
+            "name": "Yellow",
+            "hex": "#dfbf0c"
+           },
+           {
+            "id": "orange",
+            "name": "Orange",
+            "hex": "#e34223"
+           },
+           {
+            "id": "green",
+            "name": "Green",
+            "hex": "#7e9200"
+           },
+           {
+            "id": "purple",
+            "name": "Purple",
+            "hex": "#3d0f7b"
+           }
+          ],
+          "currentturn": 4,
+          "yearsplayed": 1,
+          "turns": [
+           {
+            "id": 1730,
+            "game_id": 285,
+            "open": 0,
+            "turn": 0,
+            "quarter": 4,
+            "year": "2027",
+            "open_minutes": 60,
+            "opened_at": null,
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1731,
+            "game_id": 285,
+            "open": 0,
+            "turn": 1,
+            "quarter": 1,
+            "year": "2028",
+            "open_minutes": 82,
+            "opened_at": "2026-10-21 07:23:54",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1784,
+            "game_id": 285,
+            "open": 0,
+            "turn": 2,
+            "quarter": 2,
+            "year": "2028",
+            "open_minutes": 80,
+            "opened_at": "2026-10-21 09:39:40",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1785,
+            "game_id": 285,
+            "open": 0,
+            "turn": 3,
+            "quarter": 3,
+            "year": "2028",
+            "open_minutes": 83,
+            "opened_at": "2026-10-21 11:52:08",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1787,
+            "game_id": 285,
+            "open": 1,
+            "turn": 4,
+            "quarter": 4,
+            "year": "2028",
+            "open_minutes": 60,
+            "opened_at": "2026-10-21 13:59:33",
+            "fare_lock_active": 0
+           }
+          ]
+         }
+        }
+       },
+       "flights": [
+        {
+         "id": 56311,
+         "airline_turn_aircraft_id": 17049,
+         "game_market_id": 2490,
+         "flight": "CA-5171",
+         "departure": "20:00:00",
+         "utilization": "10.08",
+         "turnaround": 120,
+         "cargo_capacity": "2.50",
+         "gamemarket": {
+          "id": 2490,
+          "game_id": 285,
+          "market_id": 30,
+          "from_turn": 0,
+          "initial_size": 140,
+          "fuel_prices": [
+           null,
+           null,
+           "3.25",
+           "4.9",
+           "4",
+           "3.5",
+           "3.3"
+          ],
+          "market": {
+           "id": 30,
+           "name": "Armstrong",
+           "code": "ARM",
+           "description": null,
+           "market_type": 2,
+           "market_demand_curve_id": 3,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 2,
+           "unit_p": 14,
+           "unit_q": 0,
+           "sector_length": 3780,
+           "population_growth": "2.00",
+           "gdp_growth": "3.00",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 140,
+           "market_cargo_demand": "12.00",
+           "market_cargo_yield": "0.09",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "19.00",
+           "handling_fee": "15.00",
+           "traffic_handling_fee": "16.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.80",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        },
+        {
+         "id": 56312,
+         "airline_turn_aircraft_id": 17049,
+         "game_market_id": 2496,
+         "flight": "CA-5552",
+         "departure": "10:15:00",
+         "utilization": "2.26",
+         "turnaround": 45,
+         "cargo_capacity": "2.50",
+         "gamemarket": {
+          "id": 2496,
+          "game_id": 285,
+          "market_id": 26,
+          "from_turn": 0,
+          "initial_size": 145,
+          "fuel_prices": [
+           null,
+           null,
+           "2.7",
+           "4.5",
+           "3.8",
+           "2.8",
+           "2.75"
+          ],
+          "market": {
+           "id": 26,
+           "name": "Simone",
+           "code": "SIM",
+           "description": null,
+           "market_type": 1,
+           "market_demand_curve_id": 3,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 2,
+           "unit_p": 24,
+           "unit_q": 0,
+           "sector_length": 525,
+           "population_growth": "2.00",
+           "gdp_growth": "1.50",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 145,
+           "market_cargo_demand": "5.00",
+           "market_cargo_yield": "0.35",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "10.00",
+           "handling_fee": "11.00",
+           "traffic_handling_fee": "10.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.20",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        },
+        {
+         "id": 56313,
+         "airline_turn_aircraft_id": 17049,
+         "game_market_id": 2493,
+         "flight": "CA-4523",
+         "departure": "14:15:00",
+         "utilization": "2.00",
+         "turnaround": 45,
+         "cargo_capacity": "2.50",
+         "gamemarket": {
+          "id": 2493,
+          "game_id": 285,
+          "market_id": 25,
+          "from_turn": 0,
+          "initial_size": 175,
+          "fuel_prices": [
+           null,
+           null,
+           "2.75",
+           "4.2",
+           "3.8",
+           "2.85",
+           "2.85"
+          ],
+          "market": {
+           "id": 25,
+           "name": "Lewis",
+           "code": "LEW",
+           "description": null,
+           "market_type": 1,
+           "market_demand_curve_id": 1,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 2,
+           "unit_p": 23,
+           "unit_q": 0,
+           "sector_length": 415,
+           "population_growth": "2.00",
+           "gdp_growth": "1.70",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 175,
+           "market_cargo_demand": "12.00",
+           "market_cargo_yield": "0.34",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "8.00",
+           "handling_fee": "12.00",
+           "traffic_handling_fee": "7.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.20",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        }
+       ]
+      },
+      {
+       "id": 17050,
+       "airline_turn_id": 5373,
+       "airline_aircraft_id": 4237,
+       "name": "APT100",
+       "seats": 100,
+       "seats_standard": 100,
+       "seats_business": 0,
+       "seats_premium": 0,
+       "interest_rate": null,
+       "interest_years": null,
+       "residual_value": null,
+       "depreciation_years": null,
+       "additional_cabin_crew": 0,
+       "fuel_burn": null,
+       "insurance_rate": null,
+       "dmc_cycle": null,
+       "dmc_fh": null,
+       "costs": null,
+       "airlineaircraft": {
+        "id": 4237,
+        "airline_id": 833,
+        "aircraft_id": 17,
+        "nickname": "006",
+        "total_price": 40000000,
+        "total_finance": 0,
+        "sell_price": null,
+        "spares": 0,
+        "acquired_at_turn": 3,
+        "sell_at_turn": null,
+        "sell_from_turn": null,
+        "aircraft_fleet_type": 1,
+        "acquired_at_age": 0,
+        "available_from_turn": 3,
+        "leased_at_turn": 3,
+        "leased_to_turn": 7,
+        "left_at_turn": null,
+        "availability": true,
+        "aircraft": {
+         "id": 17,
+         "name": "APT100",
+         "payload_range_id": 1,
+         "description": null,
+         "seats": 100,
+         "seats_standard": 100,
+         "seats_business": 0,
+         "seats_premium": 0,
+         "total_price": 40000000,
+         "mtow": 45,
+         "structural_payload": 12581,
+         "maximum_cargo_payload": "4.24",
+         "cargo_volume": 26.5,
+         "cargo_containers": null,
+         "cargo_pallets": null,
+         "fuel_burn": 1565,
+         "flight_speed": 833,
+         "dmc_cycle": 220,
+         "dmc_fh": 260,
+         "cabin_crew": 2,
+         "additional_cabin_crew": 1,
+         "images": [
+          {
+           "id": 59,
+           "active": 1,
+           "imageable_id": 17,
+           "imageable_type": "App\\Aircraft",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/aircraft/17/main_fa_5bc61881c02b64.36143243.jpg",
+           "location_preview": "img/aircraft/17/preview_fa_5bc61881c02b64.36143243.jpg",
+           "location_tiny": "img/aircraft/17/tiny_fa_5bc61881c02b64.36143243.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2018-10-16T16:57:37.000000Z",
+           "updated_at": "2018-10-16T16:57:39.000000Z"
+          }
+         ]
+        },
+        "airline": {
+         "id": 833,
+         "name": "Capital Airways",
+         "code": "CA",
+         "game_id": 285,
+         "colour": "yellow",
+         "logo_id": 2,
+         "starting_cash": 2687673,
+         "operational_status": 0,
+         "attack_ransom": 2000000,
+         "hex": "#dfbf0c",
+         "game": {
+          "id": 285,
+          "game_status": 1,
+          "title": "RR Derby 20-22 October 2026",
+          "about": "China Eastern",
+          "max_turns": 6,
+          "base_year": "2027",
+          "max_bh": 900,
+          "open_minutes": 60,
+          "board_refresh_rate": 20,
+          "board_utc_offset": 0,
+          "board_show_departures": 30,
+          "board_players": 1,
+          "operational_status": 0,
+          "target_cash": 2000000,
+          "peak_pricing": 1,
+          "connecting_demand": 2,
+          "fuel_prices": [
+           null,
+           null,
+           "2.6",
+           "4.5",
+           "3.75",
+           "2.75",
+           "2.7"
+          ],
+          "airlinecolours": [
+           {
+            "id": "grey",
+            "name": "Grey",
+            "hex": "#cccccc"
+           },
+           {
+            "id": "red",
+            "name": "Red",
+            "hex": "#b40d0d"
+           },
+           {
+            "id": "blue",
+            "name": "Blue",
+            "hex": "#0270b6"
+           },
+           {
+            "id": "lightblue",
+            "name": "Light Blue",
+            "hex": "#00a8ec"
+           },
+           {
+            "id": "yellow",
+            "name": "Yellow",
+            "hex": "#dfbf0c"
+           },
+           {
+            "id": "orange",
+            "name": "Orange",
+            "hex": "#e34223"
+           },
+           {
+            "id": "green",
+            "name": "Green",
+            "hex": "#7e9200"
+           },
+           {
+            "id": "purple",
+            "name": "Purple",
+            "hex": "#3d0f7b"
+           }
+          ],
+          "currentturn": 4,
+          "yearsplayed": 1,
+          "turns": [
+           {
+            "id": 1730,
+            "game_id": 285,
+            "open": 0,
+            "turn": 0,
+            "quarter": 4,
+            "year": "2027",
+            "open_minutes": 60,
+            "opened_at": null,
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1731,
+            "game_id": 285,
+            "open": 0,
+            "turn": 1,
+            "quarter": 1,
+            "year": "2028",
+            "open_minutes": 82,
+            "opened_at": "2026-10-21 07:23:54",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1784,
+            "game_id": 285,
+            "open": 0,
+            "turn": 2,
+            "quarter": 2,
+            "year": "2028",
+            "open_minutes": 80,
+            "opened_at": "2026-10-21 09:39:40",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1785,
+            "game_id": 285,
+            "open": 0,
+            "turn": 3,
+            "quarter": 3,
+            "year": "2028",
+            "open_minutes": 83,
+            "opened_at": "2026-10-21 11:52:08",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1787,
+            "game_id": 285,
+            "open": 1,
+            "turn": 4,
+            "quarter": 4,
+            "year": "2028",
+            "open_minutes": 60,
+            "opened_at": "2026-10-21 13:59:33",
+            "fare_lock_active": 0
+           }
+          ]
+         }
+        }
+       },
+       "flights": [
+        {
+         "id": 56314,
+         "airline_turn_aircraft_id": 17050,
+         "game_market_id": 2491,
+         "flight": "CA-1441",
+         "departure": "07:30:00",
+         "utilization": "3.76",
+         "turnaround": 45,
+         "cargo_capacity": "4.24",
+         "gamemarket": {
+          "id": 2491,
+          "game_id": 285,
+          "market_id": 28,
+          "from_turn": 0,
+          "initial_size": 365,
+          "fuel_prices": [
+           null,
+           null,
+           "2.75",
+           "3.9",
+           "3.5",
+           "2.9",
+           "2.95"
+          ],
+          "market": {
+           "id": 28,
+           "name": "Ellington",
+           "code": "ETN",
+           "description": null,
+           "market_type": 1,
+           "market_demand_curve_id": 2,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 1,
+           "unit_p": 21,
+           "unit_q": 0,
+           "sector_length": 1150,
+           "population_growth": "1.00",
+           "gdp_growth": "1.00",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 365,
+           "market_cargo_demand": "4.00",
+           "market_cargo_yield": "0.30",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "11.00",
+           "handling_fee": "13.00",
+           "traffic_handling_fee": "10.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.20",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        },
+        {
+         "id": 56315,
+         "airline_turn_aircraft_id": 17050,
+         "game_market_id": 2496,
+         "flight": "CA-2882",
+         "departure": "14:30:00",
+         "utilization": "2.26",
+         "turnaround": 45,
+         "cargo_capacity": "4.24",
+         "gamemarket": {
+          "id": 2496,
+          "game_id": 285,
+          "market_id": 26,
+          "from_turn": 0,
+          "initial_size": 145,
+          "fuel_prices": [
+           null,
+           null,
+           "2.7",
+           "4.5",
+           "3.8",
+           "2.8",
+           "2.75"
+          ],
+          "market": {
+           "id": 26,
+           "name": "Simone",
+           "code": "SIM",
+           "description": null,
+           "market_type": 1,
+           "market_demand_curve_id": 3,
+           "market_transfer_model_id": 1,
+           "inelasticity": 1,
+           "elasticity": 2,
+           "unit_p": 24,
+           "unit_q": 0,
+           "sector_length": 525,
+           "population_growth": "2.00",
+           "gdp_growth": "1.50",
+           "population_demand": "1.20",
+           "gdp_demand": "1.50",
+           "k_factor": "0.45",
+           "size": 145,
+           "market_cargo_demand": "5.00",
+           "market_cargo_yield": "0.35",
+           "peak_revenue": "1.05",
+           "peak_landing": "1.25",
+           "peak_handling": "1.25",
+           "peak_traffic": "1.25",
+           "landing_fee": "10.00",
+           "handling_fee": "11.00",
+           "traffic_handling_fee": "10.00",
+           "cargo_handling_fee": "60.00",
+           "business_modifier": "1.20",
+           "business_handling": "3.00",
+           "premium_modifier": "1.20",
+           "premium_handling": "1.20"
+          }
+         }
+        }
+       ]
+      },
+      {
+       "id": 17051,
+       "airline_turn_id": 5373,
+       "airline_aircraft_id": 4238,
+       "name": "APT100",
+       "seats": 100,
+       "seats_standard": 100,
+       "seats_business": 0,
+       "seats_premium": 0,
+       "interest_rate": null,
+       "interest_years": null,
+       "residual_value": null,
+       "depreciation_years": null,
+       "additional_cabin_crew": 0,
+       "fuel_burn": null,
+       "insurance_rate": null,
+       "dmc_cycle": null,
+       "dmc_fh": null,
+       "costs": null,
+       "airlineaircraft": {
+        "id": 4238,
+        "airline_id": 833,
+        "aircraft_id": 17,
+        "nickname": "007",
+        "total_price": 40000000,
+        "total_finance": 0,
+        "sell_price": null,
+        "spares": 0,
+        "acquired_at_turn": 3,
+        "sell_at_turn": null,
+        "sell_from_turn": null,
+        "aircraft_fleet_type": 1,
+        "acquired_at_age": 0,
+        "available_from_turn": 3,
+        "leased_at_turn": 3,
+        "leased_to_turn": 7,
+        "left_at_turn": null,
+        "availability": true,
+        "aircraft": {
+         "id": 17,
+         "name": "APT100",
+         "payload_range_id": 1,
+         "description": null,
+         "seats": 100,
+         "seats_standard": 100,
+         "seats_business": 0,
+         "seats_premium": 0,
+         "total_price": 40000000,
+         "mtow": 45,
+         "structural_payload": 12581,
+         "maximum_cargo_payload": "4.24",
+         "cargo_volume": 26.5,
+         "cargo_containers": null,
+         "cargo_pallets": null,
+         "fuel_burn": 1565,
+         "flight_speed": 833,
+         "dmc_cycle": 220,
+         "dmc_fh": 260,
+         "cabin_crew": 2,
+         "additional_cabin_crew": 1,
+         "images": [
+          {
+           "id": 59,
+           "active": 1,
+           "imageable_id": 17,
+           "imageable_type": "App\\Aircraft",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/aircraft/17/main_fa_5bc61881c02b64.36143243.jpg",
+           "location_preview": "img/aircraft/17/preview_fa_5bc61881c02b64.36143243.jpg",
+           "location_tiny": "img/aircraft/17/tiny_fa_5bc61881c02b64.36143243.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2018-10-16T16:57:37.000000Z",
+           "updated_at": "2018-10-16T16:57:39.000000Z"
+          }
+         ]
+        },
+        "airline": {
+         "id": 833,
+         "name": "Capital Airways",
+         "code": "CA",
+         "game_id": 285,
+         "colour": "yellow",
+         "logo_id": 2,
+         "starting_cash": 2687673,
+         "operational_status": 0,
+         "attack_ransom": 2000000,
+         "hex": "#dfbf0c",
+         "game": {
+          "id": 285,
+          "game_status": 1,
+          "title": "RR Derby 20-22 October 2026",
+          "about": "China Eastern",
+          "max_turns": 6,
+          "base_year": "2027",
+          "max_bh": 900,
+          "open_minutes": 60,
+          "board_refresh_rate": 20,
+          "board_utc_offset": 0,
+          "board_show_departures": 30,
+          "board_players": 1,
+          "operational_status": 0,
+          "target_cash": 2000000,
+          "peak_pricing": 1,
+          "connecting_demand": 2,
+          "fuel_prices": [
+           null,
+           null,
+           "2.6",
+           "4.5",
+           "3.75",
+           "2.75",
+           "2.7"
+          ],
+          "airlinecolours": [
+           {
+            "id": "grey",
+            "name": "Grey",
+            "hex": "#cccccc"
+           },
+           {
+            "id": "red",
+            "name": "Red",
+            "hex": "#b40d0d"
+           },
+           {
+            "id": "blue",
+            "name": "Blue",
+            "hex": "#0270b6"
+           },
+           {
+            "id": "lightblue",
+            "name": "Light Blue",
+            "hex": "#00a8ec"
+           },
+           {
+            "id": "yellow",
+            "name": "Yellow",
+            "hex": "#dfbf0c"
+           },
+           {
+            "id": "orange",
+            "name": "Orange",
+            "hex": "#e34223"
+           },
+           {
+            "id": "green",
+            "name": "Green",
+            "hex": "#7e9200"
+           },
+           {
+            "id": "purple",
+            "name": "Purple",
+            "hex": "#3d0f7b"
+           }
+          ],
+          "currentturn": 4,
+          "yearsplayed": 1,
+          "turns": [
+           {
+            "id": 1730,
+            "game_id": 285,
+            "open": 0,
+            "turn": 0,
+            "quarter": 4,
+            "year": "2027",
+            "open_minutes": 60,
+            "opened_at": null,
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1731,
+            "game_id": 285,
+            "open": 0,
+            "turn": 1,
+            "quarter": 1,
+            "year": "2028",
+            "open_minutes": 82,
+            "opened_at": "2026-10-21 07:23:54",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1784,
+            "game_id": 285,
+            "open": 0,
+            "turn": 2,
+            "quarter": 2,
+            "year": "2028",
+            "open_minutes": 80,
+            "opened_at": "2026-10-21 09:39:40",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1785,
+            "game_id": 285,
+            "open": 0,
+            "turn": 3,
+            "quarter": 3,
+            "year": "2028",
+            "open_minutes": 83,
+            "opened_at": "2026-10-21 11:52:08",
+            "fare_lock_active": 0
+           },
+           {
+            "id": 1787,
+            "game_id": 285,
+            "open": 1,
+            "turn": 4,
+            "quarter": 4,
+            "year": "2028",
+            "open_minutes": 60,
+            "opened_at": "2026-10-21 13:59:33",
+            "fare_lock_active": 0
+           }
+          ]
+         }
+        }
+       },
+       "flights": []
+      }
+     ],
+     "markets": [
+      {
+       "id": 20950,
+       "airline_turn_id": 5373,
+       "game_market_id": 2496,
+       "fare": "175.00",
+       "landing_fee": "10.00",
+       "handling_fee": "11.00",
+       "traffic_handling_fee": "10.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.80",
+       "premium_modifier": "1.20",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2496,
+        "game_id": 285,
+        "market_id": 26,
+        "from_turn": 0,
+        "initial_size": 145,
+        "fuel_prices": [
+         null,
+         null,
+         "2.7",
+         "4.5",
+         "3.8",
+         "2.8",
+         "2.75"
+        ],
+        "market": {
+         "id": 26,
+         "name": "Simone",
+         "code": "SIM",
+         "description": null,
+         "market_type": 1,
+         "market_demand_curve_id": 3,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 2,
+         "unit_p": 24,
+         "unit_q": 0,
+         "sector_length": 525,
+         "population_growth": "2.00",
+         "gdp_growth": "1.50",
+         "population_demand": "1.20",
+         "gdp_demand": "1.50",
+         "k_factor": "0.45",
+         "size": 145,
+         "market_cargo_demand": "5.00",
+         "market_cargo_yield": "0.35",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "10.00",
+         "handling_fee": "11.00",
+         "traffic_handling_fee": "10.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.20",
+         "business_handling": "3.00",
+         "premium_modifier": "1.20",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 83,
+           "active": 1,
+           "imageable_id": 26,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/26/main_fa_5cb4a4693d1169.89902829.jpg",
+           "location_preview": "img/markets/26/preview_fa_5cb4a4693d1169.89902829.jpg",
+           "location_tiny": "img/markets/26/tiny_fa_5cb4a4693d1169.89902829.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2019-04-15T15:34:01.000000Z",
+           "updated_at": "2019-04-15T15:34:02.000000Z"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "id": 20951,
+       "airline_turn_id": 5373,
+       "game_market_id": 2491,
+       "fare": "220.00",
+       "landing_fee": "11.00",
+       "handling_fee": "13.00",
+       "traffic_handling_fee": "10.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.80",
+       "premium_modifier": "1.20",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2491,
+        "game_id": 285,
+        "market_id": 28,
+        "from_turn": 0,
+        "initial_size": 365,
+        "fuel_prices": [
+         null,
+         null,
+         "2.75",
+         "3.9",
+         "3.5",
+         "2.9",
+         "2.95"
+        ],
+        "market": {
+         "id": 28,
+         "name": "Ellington",
+         "code": "ETN",
+         "description": null,
+         "market_type": 1,
+         "market_demand_curve_id": 2,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 1,
+         "unit_p": 21,
+         "unit_q": 0,
+         "sector_length": 1150,
+         "population_growth": "1.00",
+         "gdp_growth": "1.00",
+         "population_demand": "1.20",
+         "gdp_demand": "1.50",
+         "k_factor": "0.45",
+         "size": 365,
+         "market_cargo_demand": "4.00",
+         "market_cargo_yield": "0.30",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "11.00",
+         "handling_fee": "13.00",
+         "traffic_handling_fee": "10.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.20",
+         "business_handling": "3.00",
+         "premium_modifier": "1.20",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 85,
+           "active": 1,
+           "imageable_id": 28,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/28/main_fa_5cb4a5382af486.03519933.jpg",
+           "location_preview": "img/markets/28/preview_fa_5cb4a5382af486.03519933.jpg",
+           "location_tiny": "img/markets/28/tiny_fa_5cb4a5382af486.03519933.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2019-04-15T15:37:28.000000Z",
+           "updated_at": "2019-04-15T15:37:29.000000Z"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "id": 20952,
+       "airline_turn_id": 5373,
+       "game_market_id": 2493,
+       "fare": "115.00",
+       "landing_fee": "8.00",
+       "handling_fee": "12.00",
+       "traffic_handling_fee": "7.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.20",
+       "premium_modifier": "1.20",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2493,
+        "game_id": 285,
+        "market_id": 25,
+        "from_turn": 0,
+        "initial_size": 175,
+        "fuel_prices": [
+         null,
+         null,
+         "2.75",
+         "4.2",
+         "3.8",
+         "2.85",
+         "2.85"
+        ],
+        "market": {
+         "id": 25,
+         "name": "Lewis",
+         "code": "LEW",
+         "description": null,
+         "market_type": 1,
+         "market_demand_curve_id": 1,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 2,
+         "unit_p": 23,
+         "unit_q": 0,
+         "sector_length": 415,
+         "population_growth": "2.00",
+         "gdp_growth": "1.70",
+         "population_demand": "1.20",
+         "gdp_demand": "1.50",
+         "k_factor": "0.45",
+         "size": 175,
+         "market_cargo_demand": "12.00",
+         "market_cargo_yield": "0.34",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "8.00",
+         "handling_fee": "12.00",
+         "traffic_handling_fee": "7.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.20",
+         "business_handling": "3.00",
+         "premium_modifier": "1.20",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 82,
+           "active": 1,
+           "imageable_id": 25,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/25/main_fa_5cb4a402f2a355.73815158.jpg",
+           "location_preview": "img/markets/25/preview_fa_5cb4a402f2a355.73815158.jpg",
+           "location_tiny": "img/markets/25/tiny_fa_5cb4a402f2a355.73815158.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2019-04-15T15:32:19.000000Z",
+           "updated_at": "2019-04-15T15:32:20.000000Z"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "id": 20953,
+       "airline_turn_id": 5373,
+       "game_market_id": 2490,
+       "fare": "750.00",
+       "landing_fee": "19.00",
+       "handling_fee": "15.00",
+       "traffic_handling_fee": "16.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.80",
+       "premium_modifier": "1.20",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2490,
+        "game_id": 285,
+        "market_id": 30,
+        "from_turn": 0,
+        "initial_size": 140,
+        "fuel_prices": [
+         null,
+         null,
+         "3.25",
+         "4.9",
+         "4",
+         "3.5",
+         "3.3"
+        ],
+        "market": {
+         "id": 30,
+         "name": "Armstrong",
+         "code": "ARM",
+         "description": null,
+         "market_type": 2,
+         "market_demand_curve_id": 3,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 2,
+         "unit_p": 14,
+         "unit_q": 0,
+         "sector_length": 3780,
+         "population_growth": "2.00",
+         "gdp_growth": "3.00",
+         "population_demand": "1.20",
+         "gdp_demand": "1.50",
+         "k_factor": "0.45",
+         "size": 140,
+         "market_cargo_demand": "12.00",
+         "market_cargo_yield": "0.09",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "19.00",
+         "handling_fee": "15.00",
+         "traffic_handling_fee": "16.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.80",
+         "business_handling": "3.00",
+         "premium_modifier": "1.20",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 87,
+           "active": 1,
+           "imageable_id": 30,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/30/main_fa_5cb4a5db6a00b0.76927584.jpg",
+           "location_preview": "img/markets/30/preview_fa_5cb4a5db6a00b0.76927584.jpg",
+           "location_tiny": "img/markets/30/tiny_fa_5cb4a5db6a00b0.76927584.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2019-04-15T15:40:11.000000Z",
+           "updated_at": "2019-04-15T15:40:14.000000Z"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "id": 20954,
+       "airline_turn_id": 5373,
+       "game_market_id": 2492,
+       "fare": "159.00",
+       "landing_fee": "11.00",
+       "handling_fee": "13.00",
+       "traffic_handling_fee": "10.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.20",
+       "premium_modifier": "1.20",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2492,
+        "game_id": 285,
+        "market_id": 27,
+        "from_turn": 0,
+        "initial_size": 240,
+        "fuel_prices": [
+         null,
+         null,
+         "2.7",
+         "4.2",
+         "3.8",
+         "2.85",
+         "2.8"
+        ],
+        "market": {
+         "id": 27,
+         "name": "Fitzgerald",
+         "code": "FTZ",
+         "description": null,
+         "market_type": 1,
+         "market_demand_curve_id": 1,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 1,
+         "unit_p": 22,
+         "unit_q": 0,
+         "sector_length": 784,
+         "population_growth": "1.00",
+         "gdp_growth": "1.00",
+         "population_demand": "1.20",
+         "gdp_demand": "1.50",
+         "k_factor": "0.45",
+         "size": 240,
+         "market_cargo_demand": "10.00",
+         "market_cargo_yield": "0.20",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "11.00",
+         "handling_fee": "13.00",
+         "traffic_handling_fee": "10.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.20",
+         "business_handling": "3.00",
+         "premium_modifier": "1.20",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 84,
+           "active": 1,
+           "imageable_id": 27,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/27/main_fa_5cb4a4cd3b37e9.56459307.jpg",
+           "location_preview": "img/markets/27/preview_fa_5cb4a4cd3b37e9.56459307.jpg",
+           "location_tiny": "img/markets/27/tiny_fa_5cb4a4cd3b37e9.56459307.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2019-04-15T15:35:41.000000Z",
+           "updated_at": "2019-04-15T15:35:43.000000Z"
+          }
+         ]
+        }
+       }
+      },
+      {
+       "id": 20955,
+       "airline_turn_id": 5373,
+       "game_market_id": 2497,
+       "fare": "170.00",
+       "landing_fee": "19.00",
+       "handling_fee": "15.00",
+       "traffic_handling_fee": "16.00",
+       "cargo_handling_fee": "60.00",
+       "peak_revenue": "1.05",
+       "peak_landing": "1.25",
+       "peak_handling": "1.25",
+       "peak_traffic": "1.25",
+       "business_modifier": "1.20",
+       "premium_modifier": "1.50",
+       "premium_handling": "1.20",
+       "business_handling": "3.00",
+       "gamemarket": {
+        "id": 2497,
+        "game_id": 285,
+        "market_id": 42,
+        "from_turn": 3,
+        "initial_size": 125,
+        "fuel_prices": [
+         null,
+         null,
+         "2.55",
+         "4.9",
+         "3.7",
+         "2.65",
+         "2.6"
+        ],
+        "market": {
+         "id": 42,
+         "name": "Joplin",
+         "code": "JOP",
+         "description": null,
+         "market_type": 1,
+         "market_demand_curve_id": 2,
+         "market_transfer_model_id": 1,
+         "inelasticity": 1,
+         "elasticity": 2,
+         "unit_p": 12,
+         "unit_q": 0,
+         "sector_length": 1432,
+         "population_growth": "1.00",
+         "gdp_growth": "4.00",
+         "population_demand": "0.20",
+         "gdp_demand": "1.70",
+         "k_factor": "0.45",
+         "size": 125,
+         "market_cargo_demand": "40.00",
+         "market_cargo_yield": "0.15",
+         "peak_revenue": "1.05",
+         "peak_landing": "1.25",
+         "peak_handling": "1.25",
+         "peak_traffic": "1.25",
+         "landing_fee": "19.00",
+         "handling_fee": "15.00",
+         "traffic_handling_fee": "16.00",
+         "cargo_handling_fee": "60.00",
+         "business_modifier": "1.20",
+         "business_handling": "3.00",
+         "premium_modifier": "1.50",
+         "premium_handling": "1.20",
+         "images": [
+          {
+           "id": 148,
+           "active": 1,
+           "imageable_id": 42,
+           "imageable_type": "App\\Market",
+           "image_type": "main",
+           "type": "jpg",
+           "location_main": "img/markets/42/main_fa_60a8d8142df7d7.04875413.jpg",
+           "location_preview": "img/markets/42/preview_fa_60a8d8142df7d7.04875413.jpg",
+           "location_tiny": "img/markets/42/tiny_fa_60a8d8142df7d7.04875413.jpg",
+           "caption": "",
+           "feature": 1,
+           "created_at": "2021-05-22T10:08:20.000000Z",
+           "updated_at": "2021-05-22T10:08:21.000000Z"
+          }
+         ]
+        }
+       }
+      }
+     ]
+    },
+    "player": {
+     "id": 318,
+     "firstname": "CA RR 20 Oct 26",
+     "surname": "China Eastern",
+     "email": "ca@rr20oct26",
+     "created_at": "2026-08-06 12:44:01",
+     "updated_at": "2026-08-06 12:44:01",
+     "name": "CA RR 20 Oct 26 China Eastern",
+     "roles": [
+      {
+       "id": 3,
+       "name": "player",
+       "label": "Player",
+       "description": "Players have access to the game dashboard and any data connected to their account and games.",
+       "created_at": "2018-09-21T15:47:17.000000Z",
+       "updated_at": "2018-09-21T15:47:17.000000Z",
+       "pivot": {
+        "user_id": 318,
+        "role_id": 3
+       }
+      }
+     ]
+    }
+   }
+  },
+  "/play/api/messaging/833/q/4": {
+   "route": "/scheduler",
+   "payload": {
+    "player": {
+     "id": 318,
+     "name": "CA RR 20 Oct 26 China Eastern"
+    },
+    "messages": {
+     "total": 24
+    },
+    "airlinestatus": 0
+   }
+  },
+  "/play/api/liveboard/285": {
+   "route": "/catalogue/investments",
+   "payload": {
+    "status": 0,
+    "inplay": true,
+    "quarterrunning": true,
+    "gametitle": "RR Derby 20-22 October 2026",
+    "minutes_remaining": 49,
+    "run_for_minutes": 60,
+    "current_period": "Q4 2028",
+    "departures": [
+     {
+      "id": 56335,
+      "flight": "VA-6492",
+      "hex": "#0270b6",
+      "market": "Fitzgerald",
+      "departure": "06:15:00"
+     },
+     {
+      "id": 56332,
+      "flight": "VA-9962",
+      "hex": "#0270b6",
+      "market": "Charles City",
+      "departure": "06:45:00"
+     },
+     {
+      "id": 56314,
+      "flight": "CA-1441",
+      "hex": "#dfbf0c",
+      "market": "Ellington",
+      "departure": "07:30:00"
+     },
+     {
+      "id": 56318,
+      "flight": "AB-4082",
+      "hex": "#7e9200",
+      "market": "Charles City",
+      "departure": "07:30:00"
+     },
+     {
+      "id": 56322,
+      "flight": "AB-9822",
+      "hex": "#7e9200",
+      "market": "Parker",
+      "departure": "07:30:00"
+     },
+     {
+      "id": 56325,
+      "flight": "AB-0463",
+      "hex": "#7e9200",
+      "market": "Fitzgerald",
+      "departure": "08:15:00"
+     },
+     {
+      "id": 56312,
+      "flight": "CA-5552",
+      "hex": "#dfbf0c",
+      "market": "Simone",
+      "departure": "10:15:00"
+     },
+     {
+      "id": 56310,
+      "flight": "CA-2031",
+      "hex": "#dfbf0c",
+      "market": "Ellington",
+      "departure": "10:45:00"
+     },
+     {
+      "id": 56327,
+      "flight": "VA-1373",
+      "hex": "#0270b6",
+      "market": "Ellington",
+      "departure": "11:00:00"
+     },
+     {
+      "id": 56334,
+      "flight": "VA-5222",
+      "hex": "#0270b6",
+      "market": "McGee",
+      "departure": "12:30:00"
+     },
+     {
+      "id": 56324,
+      "flight": "AB-0233",
+      "hex": "#7e9200",
+      "market": "Fitzgerald",
+      "departure": "13:30:00"
+     },
+     {
+      "id": 56319,
+      "flight": "AB-4592",
+      "hex": "#7e9200",
+      "market": "Lewis",
+      "departure": "14:00:00"
+     },
+     {
+      "id": 56313,
+      "flight": "CA-4523",
+      "hex": "#dfbf0c",
+      "market": "Lewis",
+      "departure": "14:15:00"
+     },
+     {
+      "id": 56315,
+      "flight": "CA-2882",
+      "hex": "#dfbf0c",
+      "market": "Simone",
+      "departure": "14:30:00"
+     },
+     {
+      "id": 56321,
+      "flight": "AB-8722",
+      "hex": "#7e9200",
+      "market": "Parker",
+      "departure": "14:30:00"
+     },
+     {
+      "id": 56331,
+      "flight": "VA-6441",
+      "hex": "#0270b6",
+      "market": "Broonzy",
+      "departure": "15:00:00"
+     },
+     {
+      "id": 56328,
+      "flight": "VA-4323",
+      "hex": "#0270b6",
+      "market": "Ellington",
+      "departure": "18:00:00"
+     },
+     {
+      "id": 56320,
+      "flight": "AB-4743",
+      "hex": "#7e9200",
+      "market": "Lewis",
+      "departure": "18:15:00"
+     },
+     {
+      "id": 56323,
+      "flight": "AB-9693",
+      "hex": "#7e9200",
+      "market": "Fitzgerald",
+      "departure": "18:30:00"
+     },
+     {
+      "id": 56311,
+      "flight": "CA-5171",
+      "hex": "#dfbf0c",
+      "market": "Armstrong",
+      "departure": "20:00:00"
+     }
+    ],
+    "timezone_offset": 0,
+    "refresh_seconds": 20,
+    "departures_per_board": 30
+   }
+  }
+ }
+}

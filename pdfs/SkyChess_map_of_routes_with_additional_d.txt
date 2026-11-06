@@ -1,0 +1,40 @@
+--- p1 ---
+BH = Block Hours one way
+HUB
+Parker
+Ellington
+Simone
+Fitzgerald
+Armstrong
+McGee
+PKR
+SIM
+FTZ
+ETN
+ARM
+GEE
+1,620 km
+2.44 BH
+1,150 km
+1.88 BH
+525 km
+1.13 BH
+784 km
+1.44 BH
+3,780 km
+5.04 BH
+5,265 km
+6.82 BH
+Lewis
+LEW415 km1.00 BH
+ETOPS
+Charles City
+CHA
+1,409 km
+2.19 BH
+Joplin
+JOP1,432 km2.22 BH
+Broonzy
+BZY
+4,473 km
+5.87 BH

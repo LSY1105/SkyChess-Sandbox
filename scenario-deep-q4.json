@@ -1,0 +1,463 @@
+{
+ "browser": {
+  "mode": "connect",
+  "cdp_endpoint": "http://127.0.0.1:9222",
+  "target_id": "67CAD7DCFA5B139CEA0CBBAB3703DB9F"
+ },
+ "start_url": {
+  "url": "https://www.skychess.com/play/airline/833"
+ },
+ "capture": {
+  "after_each_step": [
+   "accessibility",
+   "dom",
+   "url"
+  ],
+  "at_end": [
+   "url"
+  ],
+  "events": [
+   "network",
+   "console",
+   "page-errors",
+   "websockets"
+  ],
+  "network": {
+   "request_body": true,
+   "response_body": true,
+   "header_values": false
+  },
+  "limits": {
+   "max_events": 50000,
+   "max_event_allocation_bytes": 67108864,
+   "max_total_event_allocation_bytes": 1073741824,
+   "max_network_transactions": 16384,
+   "max_network_body_bytes": 134217728,
+   "max_network_body_allocation_bytes": 536870912,
+   "max_network_header_allocation_bytes": 16777216,
+   "max_network_metadata_allocation_bytes": 33554432
+  }
+ },
+ "actions": [
+  {
+   "action": "goto",
+   "step_id": "s001",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/reports"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s002",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s003",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Summary"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s004",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s005",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Economics"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s006",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s007",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Fuel"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s008",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s009",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Route Metrics"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s010",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s011",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Investments"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s012",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s013",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Flights"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s014",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s015",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Route Demand"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s016",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s017",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Network Economics"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s018",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s019",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Route Economics"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s020",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s021",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/scheduler"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s022",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s023",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Flight List"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s024",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s025",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Scheduler"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s026",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s027",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Select Aircraft"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s028",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s029",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Select Route"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s030",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s031",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/investments"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s032",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s033",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Airline Investments"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s034",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s035",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Fleet Investments"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s036",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s037",
+   "locator": {
+    "kind": "role",
+    "role": "tab",
+    "name": "Route Investments"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s038",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s039",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fares"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s040",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s041",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fare-matrix"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s042",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s043",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/fleets"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s044",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s045",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/catalogue/investments"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s046",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s047",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/catalogue/assets"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s048",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s049",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s050",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s051",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833/liveboard"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s052",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s053",
+   "destination": {
+    "url": "https://www.skychess.com/play/liveboard/285"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s054",
+   "duration_ms": 2200
+  },
+  {
+   "action": "goto",
+   "step_id": "s055",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s056",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s057",
+   "locator": {
+    "kind": "role",
+    "role": "button",
+    "name": "Read Messages"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s058",
+   "duration_ms": 3000
+  },
+  {
+   "action": "click",
+   "step_id": "s059",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q3/2028\"] >> nth=0"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s060",
+   "duration_ms": 2200
+  },
+  {
+   "action": "click",
+   "step_id": "s061",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2/2028\"] >> nth=0"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "s062",
+   "duration_ms": 2200
+  }
+ ]
+}

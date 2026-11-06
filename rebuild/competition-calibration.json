@@ -1,0 +1,96 @@
+{
+  "note": "M2 竞争结构标定：目标均衡份额 + 市场级品牌优势",
+  "weights": {
+    "price": -0.5623,
+    "freq": 1.1596,
+    "qsi": 0.086
+  },
+  "market_calibration": {
+    "Armstrong": {
+      "target_share": 0.5793,
+      "delta_brand": 0.3198,
+      "ca_avg_fare": 640.03,
+      "ca_avg_freq": 240.0,
+      "ca_avg_qsi": 11.88,
+      "n_contested": 3,
+      "n_monopoly": 2,
+      "n_exited": 0,
+      "verdict": "均势市场"
+    },
+    "Broonzy": {
+      "target_share": 0.4827,
+      "delta_brand": -0.069,
+      "ca_avg_fare": 698.09,
+      "ca_avg_freq": 180.0,
+      "ca_avg_qsi": 7.9,
+      "n_contested": 2,
+      "n_monopoly": 0,
+      "n_exited": 0,
+      "verdict": "均势市场"
+    },
+    "Ellington": {
+      "target_share": 0.3383,
+      "delta_brand": -0.6709,
+      "ca_avg_fare": 227.71,
+      "ca_avg_freq": 300.0,
+      "ca_avg_qsi": 6.53,
+      "n_contested": 6,
+      "n_monopoly": 0,
+      "n_exited": 0,
+      "verdict": "CA 弱势区"
+    },
+    "Fitzgerald": {
+      "target_share": 0.2113,
+      "delta_brand": -1.3174,
+      "ca_avg_fare": 155.42,
+      "ca_avg_freq": 225.0,
+      "ca_avg_qsi": 8.54,
+      "n_contested": 4,
+      "n_monopoly": 0,
+      "n_exited": 0,
+      "verdict": "CA 极弱势（结构性劣势）"
+    },
+    "Joplin": {
+      "target_share": 0.7065,
+      "delta_brand": 0.8782,
+      "ca_avg_fare": 127.91,
+      "ca_avg_freq": 450.0,
+      "ca_avg_qsi": 10.68,
+      "n_contested": 2,
+      "n_monopoly": 2,
+      "n_exited": 0,
+      "verdict": "CA 主导区"
+    },
+    "Lewis": {
+      "target_share": 0.4495,
+      "delta_brand": -0.2028,
+      "ca_avg_fare": 98.81,
+      "ca_avg_freq": 324.0,
+      "ca_avg_qsi": 9.12,
+      "n_contested": 5,
+      "n_monopoly": 1,
+      "n_exited": 0,
+      "verdict": "均势市场"
+    },
+    "Simone": {
+      "target_share": 0.4417,
+      "delta_brand": -0.2343,
+      "ca_avg_fare": 119.45,
+      "ca_avg_freq": 360.0,
+      "ca_avg_qsi": 10.85,
+      "n_contested": 1,
+      "n_monopoly": 6,
+      "n_exited": 0,
+      "verdict": "均势市场"
+    }
+  },
+  "regime_counts": {
+    "独占市场 (share=100%)": 11,
+    "完全退出 (share=0%)": 0,
+    "CA 主导 (share>=60%)": 2,
+    "均势 (40%~60%)": 11,
+    "CA 弱势 (25%~40%)": 6,
+    "CA 极弱势 (<25%)": 4
+  },
+  "caveat": "目标份额是**长期均衡位**，不是逐期预测。M1 已证明逐期份额无法从 CA 自身属性预测（样本外 15~30pp），因为份额波动由观测不到的对手行为驱动。"
+}

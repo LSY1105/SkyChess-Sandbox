@@ -1,0 +1,23 @@
+- document:
+  - progressbar: "Minutes Remaining: 45"
+  - text: Departures Q3 2028 12:29 45 min remaining
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 06:15 Ellington CA-3483 Departed
+    - listitem: 06:15 Fitzgerald VA-8562 Departed
+    - listitem: 07:30 Parker AB-9822 Departed
+    - listitem: 08:00 Charles City AB-5492 Departed
+    - listitem: 08:00 Ellington VA-4031 Departed
+    - listitem: 08:15 Fitzgerald AB-0463 Departed
+    - listitem: 10:45 Ellington VA-9172 Departed
+    - listitem: 13:30 Fitzgerald AB-0233 Check-in open
+    - listitem: 14:15 McGee VA-4252 Check-in open
+    - listitem: 14:30 Parker AB-8722 Check-in open
+    - listitem: 15:00 Broonzy VA-6441 Check-in open
+    - listitem: 15:45 Fitzgerald CA-4313 On time
+    - listitem: 18:00 Lewis AB-7443 On time
+    - listitem: 18:00 Ellington VA-0113 On time
+    - listitem: 18:30 Fitzgerald AB-9693 On time
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 20:15 Lewis CA-4474 On time

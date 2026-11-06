@@ -1,0 +1,38 @@
+{
+  "version": "v2-corrected-identification",
+  "fare_ref": 200.0,
+  "revenue_coef": 0.926228,
+  "freq_exponent": 0.5,
+  "freq_ref": 100.0,
+  "demand_K": {
+    "Simone": 9868,
+    "Ellington": 11603,
+    "Lewis": 7555,
+    "Armstrong": 68505,
+    "Fitzgerald": 5951,
+    "Joplin": 12999,
+    "Broonzy": 26953
+  },
+  "elasticity": {
+    "Lewis": 1.1,
+    "Simone": 1.1,
+    "Fitzgerald": 1.05,
+    "Ellington": 1.05,
+    "Armstrong": 1.1,
+    "Joplin": 1.1,
+    "Broonzy": 1.05
+  },
+  "qsi_in_model": false,
+  "qsi_reason": "报告 QSI 为季度级变量、与隐含需求非单调；加入 QSI 幂函数项后等式行 log-RMS 由 29.34% 恶化到 30.91%",
+  "identification": "LF<100% ⇒ D=pax（精确等式）；LF=100% ⇒ D>=ASK（下界）。旧模型方向相反，导致 31 个含信息量的等式行被丢弃。",
+  "log_rms_pct": 34.26,
+  "log_rms_unconstrained_pct": 29.34,
+  "log_rms_excl_fare_reversal_pct": 26.69,
+  "eq_rows": 31,
+  "bound_rows": 3,
+  "known_limits": [
+    "运价回合内变更使反解执行价 = 旅客加权均价，与需求形成价不一致（测量误差）",
+    "价格弹性无法独立识别（K 与 eps 共线），eps 采用 API 逆向值",
+    "观察到的 QSI 序列非单调，无法与需求建立稳定映射"
+  ]
+}

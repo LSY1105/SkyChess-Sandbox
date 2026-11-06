@@ -1,0 +1,168 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q1 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "6"
+  - button "Read Messages"
+  - text: Daily Schedule
+  - img "A chart.": APT100 (CA:Starter) G160 (CA:Starter) G130 (AB:Starter) G160 (AB:Starter) APT100 (VA:Starter) G200 (VA:Starter) 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 Simone Simone Simone Simone Simone Simone Ellington Ellington Ellington Ellington Fitzgerald Fitzgerald Fitzgerald Fitzgerald Parker Parker Parker Parker Fitzgerald Fitzgerald Fitzgerald Fitzger… Ellington Ellington Ellington Ellington
+  - table:
+    - rowgroup:
+      - row "Aircraft Flight Departure Return":
+        - columnheader "Aircraft"
+        - columnheader "Flight"
+        - columnheader "Departure"
+        - columnheader "Return"
+    - rowgroup:
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G200 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G200 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G200 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G200 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G200 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G200 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G200 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G200 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
