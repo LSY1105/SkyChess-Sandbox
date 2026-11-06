@@ -286,19 +286,16 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
       if (joint && joint.best) {
         const b = joint.best, c = joint.bestAtCurrentFare || b;
         const f2 = v => (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString();
-        prompts[s] += '
-
-【沙盘测算器 —— 沙盘算出的事实（非你的建议）】
-'
+        const NL = String.fromCharCode(10);
+        prompts[s] += NL + NL
+          + '【沙盘测算器 —— 沙盘算出的事实（非你的建议）】' + NL
           + '- 保持现价、只扩机：最优 +' + (c.n || 0) + ' 架 → 季度净影响 ' + f2(c.net || 0)
-          + '（该规模盈亏平衡 LF ' + (c.breakEvenLF != null ? (c.breakEvenLF * 100).toFixed(1) + '%' : '-') + '）
-'
+          + '（该规模盈亏平衡 LF ' + (c.breakEvenLF != null ? (c.breakEvenLF * 100).toFixed(1) + '%' : '-') + '）' + NL
           + '- 允许同时调运价：全局最优 运价 ×' + (b.fareRatio || 1).toFixed(2) + '、扩 ' + (b.n || 0)
-          + ' 架 → 季度净影响 ' + f2(b.net || 0) + '
-'
+          + ' 架 → 季度净影响 ' + f2(b.net || 0) + NL
           + '（提价会压低客座率，弹性较弱；是否提价、提多少、扩几架，由你判断）';
       }
-    } catch (e) { /* 测算不可用则不注入 */ }
+    } 
     // ★ 若该组正处于被攻击状态 → 明确指示其第一步执行 buyCyberService（对应小组端遮罩上的按钮）
     if (g.hacked && !g.hacked.resolved) {
       prompts[s] += `
