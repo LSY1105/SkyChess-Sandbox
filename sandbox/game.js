@@ -814,8 +814,13 @@ export function estimateScale(g, n, price = 40000000) {
     const cap = extraFlights * seats;
     const served = Math.min(cap, want);
     const revenue = served * r.fare;
-    const bh = x.bh || 1.5;
-    const vc = extraFlights * (E.F08_VAR(bh, g.fuelPrice || 2.4) + E.F06_VAR(0, bh) + E.F07_VAR(0, bh));
+    /* ★ 每班次运营成本：用该航线**历史实际**反推（季度总额 ÷ 季度班次）
+       —— 不能直接套季度级公式（F06/F07/F08 的 bh 语义是季度总 BH），否则会放大数十倍 */
+    const freq = x.freq || 0;
+    const perFlightOps = freq > 0
+      ? ((x.cost['Fuel'] || 0) + (x.cost['Maintenance'] || 0) + (x.cost['Flight Crew'] || 0)) / freq
+      : 0;
+    const vc = extraFlights * perFlightOps;
     rev += revenue; varCost += vc;
     detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: r.fare, lf,
       extraFlights: Math.round(extraFlights), served: Math.round(served), revenue: Math.round(revenue) });
