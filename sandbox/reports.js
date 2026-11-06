@@ -117,6 +117,14 @@ function network(root, h, g) {
   root.appendChild(table(['航线', '频次', 'ASK(MM)', 'RPK(MM)', 'LF', '收入', '经营利润'], rows));
 }
 
+/** S5 舱位收入单元格：经济舱 / 超经舱 / 公务舱（未设分舱票价则显示 —） */
+function cabinCell(cabin) {
+  if (!cabin || !cabin.Y) return { text: '—' };
+  const f = v => '$' + Math.round(v).toLocaleString();
+  return { text: `${f(cabin.Y.rev)} / ${f(cabin.W.rev)} / ${f(cabin.J.rev)}
+${Math.round(cabin.Y.pax)} / ${Math.round(cabin.W.pax)} / ${Math.round(cabin.J.pax)} 人` };
+}
+
 function routeEcon(root, h, g) {
   const rows = [];
   for (const [c, x] of Object.entries(h.detail || {})) {
@@ -126,10 +134,11 @@ function routeEcon(root, h, g) {
       m.name_c || c, num(x.fare, 2), num(m.sector_km), yieldPerKm.toFixed(4),
       money(x.rev['Passenger Revenue']), money(x.rev['Cargo Revenue']), money(x.rev['Ancillary Revenue']),
       money(x.cost['Fuel']), money(x.cost['Maintenance']), money(x.cost['Flight Crew']),
+      cabinCell(x.cabin),
       { text: money(x.operating_profit), cls: x.operating_profit >= 0 ? 'ok' : 'bad' },
     ]);
   }
-  root.appendChild(table(['航线', '运价', '航段km', 'YIELD', '客运', '货邮', '辅营', '燃油', '维修', '机组', '经营利润'], rows));
+  root.appendChild(table(['航线', '运价', '航段km', 'YIELD', '客运', '货邮', '辅营', '燃油', '维修', '机组', '舱位收入(经/超/公)', '经营利润'], rows));
 }
 
 function routeMetrics(root, h, g) {
