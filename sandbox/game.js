@@ -798,7 +798,7 @@ export function dropGroundedSchedules(g) {
  *   · 固定成本：利息（自有）+ 折旧（自有）
  * 用途：小组端「扩张测算器」与回测 Agent 的扩张判据共用同一逻辑
  */
-export function estimateScale(g, n, price = 40000000) {
+export function estimateScale(g, n, price = 40000000, fareRatio = 1) {
   const d = g.lastDetail || {};
   const codes = Object.keys(d);
   const seats = 100, perDay = 2, days = 90;
@@ -809,11 +809,16 @@ export function estimateScale(g, n, price = 40000000) {
     const r = (g.routes || []).find(q => q.code === code); if (!r) continue;
     const lf = x.lf || 0;
     const share = x.share != null ? x.share : 1;
-    const want = (x.marketDemand || 0) * share;         // 该航线我方可争取的季度旅客
+    /* 票价调整 → 需求按价格弹性变化：eps = 1 + 0.05 × 该市场 elasticity（engine.js 同口径）
+       需求 D ∝ fare^(-eps) → 调整比例 fareRatio 后需求 × fareRatio^(-eps) */
+    const mk = MARKETS[code] || {};
+    const eps = 1 + 0.05 * (mk.elasticity || 1);
+    const demAdj = Math.pow(Math.max(fareRatio, 1e-6), -eps);
+    const want = (x.marketDemand || 0) * demAdj * share;   // 该航线我方可争取的季度旅客
     const extraFlights = (n / Math.max(1, codes.length)) * perDay * days;
     const cap = extraFlights * seats;
     const served = Math.min(cap, want);
-    const revenue = served * r.fare;
+    const revenue = served * r.fare * fareRatio;
     /* ★ 每班次运营成本：用该航线**历史实际**反推（季度总额 ÷ 季度班次）
        —— 不能直接套季度级公式（F06/F07/F08 的 bh 语义是季度总 BH），否则会放大数十倍 */
     const freq = x.freq || 0;
@@ -822,7 +827,7 @@ export function estimateScale(g, n, price = 40000000) {
       : 0;
     const vc = extraFlights * perFlightOps;
     rev += revenue; varCost += vc;
-    detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: r.fare, lf,
+    detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: Math.round(r.fare * fareRatio), lf: +(lf * demAdj).toFixed(4), fareBase: r.fare,
       extraFlights: Math.round(extraFlights), served: Math.round(served), revenue: Math.round(revenue) });
   }
   const interest = n * price * (g.interestRate || 5) / 100 / 4;
@@ -834,6 +839,28 @@ export function estimateScale(g, n, price = 40000000) {
   return { n, revenue: Math.round(rev), variableCost: Math.round(varCost), interest: Math.round(interest),
            depreciation: Math.round(dep), net: Math.round(total), breakEvenLF: beLF != null ? +beLF.toFixed(3) : null,
            rows: detailRows };
+}
+
+/**
+ * 定价 × 运力 联合测算：对每个候选机队规模 N 与运价倍率，取**净收益最大**的组合
+ * 用途：小组端「扩张测算器」升级（现价 vs 最优运价两套结果）；回测 Agent 的扩张判据
+ */
+export function estimateScaleJoint(g, nMax = 4, ratios = [0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0]) {
+  const rows = [];
+  for (let n = 0; n <= nMax; n++) {
+    for (const ratio of ratios) {
+      const est = estimateScale(g, n, 40000000, ratio);
+      rows.push({ n, fareRatio: ratio, revenue: est.revenue, variableCost: est.variableCost,
+        interest: est.interest, depreciation: est.depreciation, net: est.net,
+        breakEvenLF: est.breakEvenLF, rows: est.rows });
+    }
+  }
+  let best = rows[0], bestNow = rows.find(r => r.n === 0 && r.fareRatio === 1) || rows[0];
+  for (const r of rows) {
+    if (r.net > best.net) best = r;
+    if (r.fareRatio === 1 && r.net > bestNow.net) bestNow = r;
+  }
+  return { best, bestAtCurrentFare: bestNow, rows };
 }
 
 export function applyFinancialHealth(g) {
