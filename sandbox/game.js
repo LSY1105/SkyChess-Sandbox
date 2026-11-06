@@ -958,13 +958,13 @@ export function advanceTurn(g) {
   settleCompetitors(g);
   const report = computeTurn(g, per);
   g.lastDetail = report.detail;
-  /* ★ 经营失败收口放在**引擎层**：任何调用路径（server 结算、回测直调引擎）都会生效
-     —— 此前只写在 server 的 advance 分支里 → 直调引擎的路径完全绕过 → 破产从不触发 */
-  g.financialHealth = applyFinancialHealth(g);
   g.lastConnByRoute = {};
   for (const [k, d] of Object.entries(report.detail)) g.lastConnByRoute[k] = d.connected_pax;
   g.history.push(report);
   g.cash = report.cash_end;
+  /* ★ 经营失败收口放在**引擎层**、且必须在 cash_end 赋值**之后**
+     —— 否则判定用的是上季末现金（滞后一季），破产/强制削减从不触发 */
+  g.financialHealth = applyFinancialHealth(g);
   g.qsi = report.qsi_end;
   g.fuelPrice = report.fuel_price_next;
   g.carbonPrice = report.carbon_price;
