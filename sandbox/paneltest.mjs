@@ -22,6 +22,9 @@ const R = [];
    前者的异步回调会落到后者的文档上（真实浏览器每页独立上下文，不存在此问题） */
 const ONLY = process.argv[2] || '';
 const step = async (name, fn) => {
+  /* 分进程模式：跳过属于「另一页面」的断言（断言名以「玩家面板」/「裁判面板」区分） */
+  if (ONLY === 'player' && name.includes('裁判面板')) return;
+  if (ONLY === 'teacher' && name.includes('玩家面板')) return;
   try { const r = await fn(); R.push({ name, ok: true, note: typeof r === 'string' ? r : '' }); }
   catch (e) { R.push({ name, ok: false, note: e.message }); }
 };
