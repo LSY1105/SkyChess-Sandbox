@@ -791,6 +791,46 @@ export function dropGroundedSchedules(g) {
  * 经营失败收口（方案 C）：① 现金为负 → 强制退租赁（可退不罚，退还押金）② 仍资不抵债 → 破产清算
  * 返回 { reduced: [...], bankrupt: bool }
  */
+/**
+ * 扩张测算（组合式）：拟增 n 架飞机后的季度收入/成本/盈亏平衡 LF
+ *   · 收入：新增运力可承运的旅客 × 运价（受该航线「市场总需求 × 我方份额」约束）
+ *   · 变动成本：燃油 + 机组 + 维护（按新增班次）
+ *   · 固定成本：利息（自有）+ 折旧（自有）
+ * 用途：小组端「扩张测算器」与回测 Agent 的扩张判据共用同一逻辑
+ */
+export function estimateScale(g, n, price = 40000000) {
+  const d = g.lastDetail || {};
+  const codes = Object.keys(d);
+  const seats = 100, perDay = 2, days = 90;
+  const detailRows = [];
+  let rev = 0, varCost = 0;
+  for (const code of codes) {
+    const x = d[code];
+    const r = (g.routes || []).find(q => q.code === code); if (!r) continue;
+    const lf = x.lf || 0;
+    const share = x.share != null ? x.share : 1;
+    const want = (x.marketDemand || 0) * share;         // 该航线我方可争取的季度旅客
+    const extraFlights = (n / Math.max(1, codes.length)) * perDay * days;
+    const cap = extraFlights * seats;
+    const served = Math.min(cap, want);
+    const revenue = served * r.fare;
+    const bh = x.bh || 1.5;
+    const vc = extraFlights * (E.F08_VAR(bh, g.fuelPrice || 2.4) + E.F06_VAR(0, bh) + E.F07_VAR(0, bh));
+    rev += revenue; varCost += vc;
+    detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: r.fare, lf,
+      extraFlights: Math.round(extraFlights), served: Math.round(served), revenue: Math.round(revenue) });
+  }
+  const interest = n * price * (g.interestRate || 5) / 100 / 4;
+  const dep = n * price / (GM.depreciation_years || 25) / 4;
+  const total = rev - varCost - interest - dep;
+  // 盈亏平衡 LF：在该规模下达到 total=0 所需客座率
+  const capSeats = n / Math.max(1, codes.length) * perDay * days * seats;
+  const beLF = capSeats > 0 ? Math.max(0, (varCost + interest + dep) / (capSeats * ((g.routes[0] || {}).fare || 200))) : null;
+  return { n, revenue: Math.round(rev), variableCost: Math.round(varCost), interest: Math.round(interest),
+           depreciation: Math.round(dep), net: Math.round(total), breakEvenLF: beLF != null ? +beLF.toFixed(3) : null,
+           rows: detailRows };
+}
+
 export function applyFinancialHealth(g) {
   const res = { reduced: [], bankrupt: false };
   if (g.bankrupt) return res;

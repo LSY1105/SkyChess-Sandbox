@@ -115,47 +115,18 @@ function ruleStrategy(seat, g, prev) {
   // ★ 裁定 A（双口径）：允许「战略性亏损扩张」——
   //   若某航线现金口径可打平（LF 较高）且我方份额仍低 → 增 1 架（优先融资买机，现金压力最小）
   const detail = (prev && prev.detail) || {};
-  const expand = [];
-  for (const r of g.routes) {
-    const x = detail[r.code]; if (!x) continue;
-    const lf = x.lf || 0, share = x.share != null ? x.share : 1;
-    // 门槛取「现金口径平衡 LF」量级（LCC 约 21%、票价越高门槛越低）→ 用 25% 覆盖
-    if (lf >= 0.40 && share < 0.60) expand.push(r.code);
+  // ★ 组合式扩张判据（scale economy）：候选规模 N → 沙盘侧 estimateScale 选净收益最大者
+  let bestN = 0, bestNet = 0, bestEst = null;
+  for (let N = 1; N <= 4; N++) {
+    const est = G.estimateScale(g, N);
+    if (est.net > bestNet) { bestNet = est.net; bestN = N; bestEst = est; }
   }
-  if (expand.length) {
-    const code = expand[0];
-    const buy = { type: 'buyAircraft', acType: 'APT100', financed: true };
-    // 融资买机 → 成功后下季可多排 2 班（本季无法立刻用上，先买）
-    expanded = expanded.concat([code]);
-    return { actions: [buy], removeIdx: removeIdx, expandCodes: expanded, note: '现金口径可打平且份额偏低 → 战略性扩张：融资增 1 架 ' + code };
+  if (bestN > 0 && g.cash > 0) {
+    const buys = [];
+    for (let i = 0; i < bestN; i++) buys.push({ type: 'buyAircraft', acType: 'APT100', financed: true });
+    return { actions: buys, removeIdx: removeIdx,
+             note: '组合测算：扩 ' + bestN + ' 架 → 季度净 ' + Math.round(bestNet).toLocaleString() + '（含利息与折旧）' };
   }
-  const styleK = { LCC: 0.85, FSC: 1.20, Hybrid: 1.00 }[g.style] || 1;
-  const actions = [];
-  for (const r of g.routes) { const m = D.MARKETS[r.code]; if (!m) continue;
-    actions.push({ type: "setFare", code: r.code, fare: Math.round((m.guide_fare || 200) * styleK) }); }
-  const EXTRA = (expanded || []);
-  const plan = { CA: [["SIM",6],["ETN",4],["JOP",3],["LEW",2],["ARM",1]],
-                 AB: [["ETN",4],["PKR",4],["CHA",2],["BZY",1]],
-                 VA: [["ETN",3],["FTZ",3],["GEE",1],["ARM",1]] }[seat] || [];
-  const opened = g.routes.map(r => r.code);
-  const wanted = plan.map(([c, k]) => [c, k + (EXTRA.includes(c) ? 2 : 0)]).filter(([c]) => opened.includes(c));
-    /* ★ 时刻占用对齐：先删除不再需要的时刻（= 释放该时刻，可被对手抢占），再补新增时刻 */
-    {
-      const keep = new Set();
-      for (const [code2, perDay] of wanted) {
-        const bh2 = D.MARKETS[code2] ? D.MARKETS[code2].bh : 1.5;
-        const gapH2 = Math.ceil(2 * bh2 + 0.6);
-        let t0b = 6, done2 = 0, ai2 = 0; const pool2 = g.aircraft.slice();
-        while (done2 < perDay && ai2 < pool2.length) {
-          const acx = pool2[ai2]; const maxA = acx.long ? 1 : 2;
-          for (let k = 0; k < maxA && done2 < perDay; k++) { keep.add(code2 + "@" + String((t0b + k * gapH2) % 24).padStart(2, "0") + ":00"); done2++; }
-          t0b += gapH2 * maxA; ai2++;
-        }
-      }
-      const idxs = [];
-      (g.schedules || []).forEach((s2, i2) => { if (!keep.has(s2.code + "@" + s2.departure)) idxs.push(i2); });
-      removeIdx = idxs.reverse();
-    }
 
   const acPool = g.aircraft.slice(); let ci = 0;
   for (const [code, perDay] of wanted) {

@@ -175,6 +175,16 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
+      <h2>⓫ 扩张测算器（拟增几架 → 收入/成本/盈亏平衡 LF）</h2>
+      <div class="row" style="margin-bottom:6px">
+        <label>拟增飞机</label><input id="scN" type="number" min="0" max="20" value="2" style="width:80px"> 架
+        <button id="btnScale">测算</button>
+        <span class="small">融资买机 → 增量收入 − 变动成本 − 利息 − 折旧</span>
+      </div>
+      <div id="scaleBox"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
       <h2>⓰ 经营要点（课堂三条铁律）</h2>
       <div id="tipsBox" class="small"></div>
     </div>
@@ -958,6 +968,38 @@ function renderBankruptOverlay() {
     + '请与裁判一起复盘：现金流从哪一季断裂？是运力扩张过快、投资过重，还是运价与客座率的取舍出了问题？</div>';
   document.body.appendChild(o);
 }
+/* 扩张测算器：给学员「判断依据」，不是给答案 */
+async function renderScaleBox() {
+  const box = $('#scaleBox'); if (!box) return;
+  const n = Number(($('#scN') || {}).value || 0);
+  const res = await act('estimateScale', { n: n }).catch(() => null);
+  box.innerHTML = '';
+  if (!res || typeof res !== 'object' || res.revenue == null) { box.appendChild(el('div', 'small', '请先完成一个回合（有历史数据）后再测算。')); return; }
+  const t2 = el('table');
+  const tr = el('tr');
+  ['项目', '金额'].forEach(h => tr.appendChild(el('th', null, h)));
+  t2.appendChild(tr);
+  const rows = [['新增班次带来的收入', res.revenue], ['变动成本（燃油/机组/维护）', -res.variableCost],
+    ['利息', -res.interest], ['折旧', -res.depreciation]];
+  for (const [k, v] of rows) { const r2 = el('tr'); r2.appendChild(el('td', null, k));
+    const c = el('td', v < 0 ? 'bad' : 'ok', (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString()); r2.appendChild(c); t2.appendChild(r2); }
+  const r3 = el('tr'); r3.appendChild(el('td', null, '净影响'));
+  const c3 = el('td', res.net >= 0 ? 'ok' : 'bad', (res.net < 0 ? '-$' : '$') + Math.abs(res.net).toLocaleString()); r3.appendChild(c3); t2.appendChild(r3);
+  if (res.breakEvenLF != null) { const r4 = el('tr'); r4.appendChild(el('td', null, '该规模下的盈亏平衡 LF'));
+    r4.appendChild(el('td', null, (res.breakEvenLF * 100).toFixed(1) + '%')); t2.appendChild(r4); }
+  box.appendChild(t2);
+  if (res.rows && res.rows.length) {
+    const t3 = el('table');
+    const h = el('tr');
+    ['航线', '运价', '上季 LF', '新增班次', '可承运', '增量收入'].forEach(x => h.appendChild(el('th', null, x)));
+    t3.appendChild(h);
+    for (const rw of res.rows) { const r5 = el('tr');
+      [rw.name, rw.fare, (rw.lf * 100).toFixed(1) + '%', rw.extraFlights, rw.served, '$' + rw.revenue.toLocaleString()]
+        .forEach(x => r5.appendChild(el('td', null, String(x))));
+      t3.appendChild(r5); }
+    box.appendChild(t3);
+  }
+}
 function renderTarget() {
   const box = $('#targetBox'); if (!box) return;
   box.innerHTML = '';
@@ -1077,7 +1119,7 @@ function render() {
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
   else R.renderReports($('#repBody'), g);
   R.renderOpsViews($('#opsBody'), g);
-  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderConnBox(); renderRetBox(); renderTips();
+  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
   R.renderRouteDemand($('#routeDemandBox'), { [g.seat]: g });
