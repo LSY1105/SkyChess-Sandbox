@@ -24,6 +24,20 @@ const ONLY = process.argv[2] || '';
 /* ★ 原生 fetch：页面渲染时 globalThis.fetch 会被替换成 jsdom 包装（相对路径基准不同），
    渲染后执行的断言必须用原生 fetch 直连 BASE */
 const NODE_FETCH = globalThis.fetch;
+/** 直连请求（node:http）：绕开 fetch —— 页面渲染后 fetch 包装在 jsdom 环境下会出现连接层失败 */
+import http from 'node:http';
+function nf(url, opt = {}) {
+  const u = new URL(url);
+  return new Promise((resolve, reject) => {
+    const req = http.request({
+      host: u.hostname, port: u.port, path: u.pathname + u.search, method: opt.method || 'GET',
+      headers: { ...(opt.headers || {}), 'content-length': opt.body ? Buffer.byteLength(opt.body) : 0 },
+    }, res => { let s = ''; res.on('data', d => s += d); res.on('end', () => resolve({ ok: res.statusCode < 400, status: res.statusCode, json: async () => JSON.parse(s || '{}'), text: async () => s })); });
+    req.on('error', reject);
+    if (opt.body) req.write(opt.body);
+    req.end();
+  });
+}
 const step = async (name, fn) => {
   /* 分进程模式：跳过属于「另一页面」的断言（断言名以「玩家面板」/「裁判面板」区分） */
   if (ONLY === 'player' && name.includes('裁判面板')) return;
@@ -122,15 +136,15 @@ await step('玩家面板 投资面板 4 个子页签', async () => {
 /* ★ 2026-11-02 修复：空排班提交被服务端拒绝（避免必然破产的巨额亏损）
    → 本用例改为「先排一班并提交」，使其后能产生历史报告 */
 await step('玩家面板 排班并提交产生历史', async () => {
-  const gh = await (await NODE_FETCH(BASE + '/api/seat/CA', { headers: { 'x-sandbox-key': KEYS.seats.CA } })).json();
+  const gh = await (await nf(BASE + '/api/seat/CA', { headers: { 'x-sandbox-key': KEYS.seats.CA } })).json();
   const acId = gh.game.aircraft[0].id;
-  await NODE_FETCH(BASE + '/api/seat/CA', { method: 'POST',
+  await nf(BASE + '/api/seat/CA', { method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-sandbox-key': KEYS.seats.CA },
     body: JSON.stringify({ type: 'addFlight', acId, code: 'SIM', departure: '07:00' }) });
-  await NODE_FETCH(BASE + '/api/seat/CA', { method: 'POST',
+  await nf(BASE + '/api/seat/CA', { method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-sandbox-key': KEYS.seats.CA },
     body: JSON.stringify({ type: 'advance' }) });
-  const gh2 = await (await NODE_FETCH(BASE + '/api/seat/CA', { headers: { 'x-sandbox-key': KEYS.seats.CA } })).json();
+  const gh2 = await (await nf(BASE + '/api/seat/CA', { headers: { 'x-sandbox-key': KEYS.seats.CA } })).json();
   ok(gh2.game.history && gh2.game.history.length > 0, '提交后无历史记录');
   return gh2.game.history.length + ' 个季度';
 });
