@@ -1257,6 +1257,8 @@ function applyGMAction(a) {
       return 'ok';
     }
     case 'advanceAll': {
+      /* ★ 把**全局回合**注入各席位 → 航线释放等全局节奏对未提交的组同样可见 */
+      for (const g of sessions.values()) g.globalTurn = gm.turn;
       // 场景事件排期：到达回合即触发
       for (const ev of (gm.scenarioEvents || [])) {
         if (!ev.fired && ev.turn <= gm.turn) {

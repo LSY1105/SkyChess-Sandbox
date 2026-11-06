@@ -37,10 +37,13 @@ export function effectiveFare(g, route, hour) {
 export function releasedRoutes(g) {
   const tbl = g.routeReleaseTurn || GM.routeReleaseTurn;
   const overrides = g.routeReleaseOverrides || {};
+  /* ★ 释放判定用**全局回合**（g.globalTurn，由裁判在每回合开始时注入）
+     —— 此前用席位自身回合：未提交的组席位回合不推进 → 该组永远看不到新释放的航线 */
+  const now = g.globalTurn != null ? g.globalTurn : g.turn;
   return Object.entries(tbl)
     .filter(([code, t]) => {
       const turn = overrides[code] != null ? overrides[code] : t;
-      return g.turn >= turn;
+      return now >= turn;
     })
     .map(([code]) => code);
 }
@@ -52,10 +55,11 @@ export function newlyReleasedRoutes(g) {
   const tbl = g.routeReleaseTurn || GM.routeReleaseTurn;
   const overrides = g.routeReleaseOverrides || {};
   const opened = (g.routes || []).map(r => r.code);
+  const now = g.globalTurn != null ? g.globalTurn : g.turn;
   return Object.entries(tbl)
     .filter(([code, t]) => {
       const turn = overrides[code] != null ? overrides[code] : t;
-      return g.turn === turn && !opened.includes(code);   // 已开通（初始航线）不算「新开放」
+      return now === turn && !opened.includes(code);   // 已开通（初始航线）不算「新开放」
     })
     .map(([code]) => code);
 }
