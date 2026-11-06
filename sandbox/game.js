@@ -956,6 +956,7 @@ export function advanceTurn(g) {
   dropGroundedSchedules(g);    // 事件停飞的班次作废（对各家影响不对称）
   allocateMarkets(g);          // ★ 竞争分配：市场需求切分给各航司（无重复计量）
   settleCompetitors(g);
+  E.setDemandTurn(g.turn);            // ★ P0-2：结算时把当前回合注入需求模型（GDP/人口增长）
   const report = computeTurn(g, per);
   g.lastDetail = report.detail;
   g.lastConnByRoute = {};
@@ -977,7 +978,10 @@ export function advanceTurn(g) {
   for (const k of Object.keys(g.groundUntil))
     if (g.groundUntil[k] <= g.turn) delete g.groundUntil[k];
   // ★ F9 修复：annual 为年费，回合=季度 → 按 1/4 摊销（原按每回合全额扣 = 一年 4 倍）
-  for (const inv of g.investmentsAnnual) { g.cash -= inv.annual / 4; }
+  for (const inv of g.investmentsAnnual) {
+    g.cash -= inv.annual / 4;
+    g.annualCharged = (g.annualCharged || 0) + inv.annual / 4;   // 累计计提（供测试精确断言）
+  }
   /* ★ 班次集合**跨赛季保留**（= 时刻占用表）：
      上赛季未调整的航线时刻，本赛季**继续占飞**；
      删除某个时刻 = 释放该时刻航线 → 其他航司可从图表看到变化并抢占（跨席位校验见 server addFlight） */

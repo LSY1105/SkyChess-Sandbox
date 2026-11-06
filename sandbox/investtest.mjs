@@ -140,19 +140,18 @@ head('F9 annual 年费计提频率');
   const a = mkGame(909), b = mkGame(909);
   serverInvest(a, 'adv_web');
   for (let k = 0; k < 4; k++) { G.advanceTurn(a); G.advanceTurn(b); }
-  const diff = a.cash - b.cash;
-  ok(Math.abs(diff + inv.annual) < 1e-6,
+  /* 断言用 annualCharged 累计器（精确）：现金差额会混入旅客收入随回合增长的效应，不适合做等式断言 */
+  ok(Math.abs((a.annualCharged || 0) - inv.annual) < 1e-6,
      '4 回合（1 年）年费总扣 = annual（非 4×annual）',
-     `实扣 $${(-diff).toLocaleString()} / 期望 $${inv.annual.toLocaleString()}`);
+     `计提 $${(a.annualCharged || 0).toLocaleString()} / 期望 $${inv.annual.toLocaleString()}`);
 }
 {
   const inv = INVESTMENTS.find(i => i.id === 'lounge'); // annual = 1455000
   const a = mkGame(909), b = mkGame(909);
   serverInvest(a, 'lounge');
   for (let k = 0; k < 4; k++) { G.advanceTurn(a); G.advanceTurn(b); }
-  const diff = a.cash - b.cash;
-  ok(Math.abs(diff + inv.annual) < 1e-6, 'Lounge 年费 $1,455,000 一年扣一次',
-     `实扣 $${(-diff).toLocaleString()}`);
+  ok(Math.abs((a.annualCharged || 0) - inv.annual) < 1e-6, 'Lounge 年费 $1,455,000 一年扣一次',
+     `计提 $${(a.annualCharged || 0).toLocaleString()} / 期望 $${inv.annual.toLocaleString()}`);
 }
 
 /* ══════════════ F10：ETOPS 不得双扣 ══════════════ */
