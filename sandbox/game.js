@@ -145,8 +145,10 @@ export function newGame(seed = 20261021, opts = {}) {
   // 起始航线：Simone（已开通）
   /* 初始航线：Simone + Ellington（原版 CA Q4/2027 即经营此两条，
      见 Reports-ROUTE METRICS：SIM 540 班/季、ETN 360 班/季） */
-  g.routes.push({ code: 'SIM', fare: 120, openedTurn: 0, etopsPaid: false });
-  g.routes.push({ code: 'ETN', fare: 250, openedTurn: 0, etopsPaid: false });
+  /* ★ S2 舱位分级：每航线除基准票价外，可单设超经舱 / 公务舱票价
+     （null = 未单设 → 按基准价；座位数由机型 eco/prem/biz 决定） */
+  g.routes.push({ code: 'SIM', fare: 120, openedTurn: 0, etopsPaid: false, cabinFare: { prem: null, biz: null } });
+  g.routes.push({ code: 'ETN', fare: 250, openedTurn: 0, etopsPaid: false, cabinFare: { prem: null, biz: null } });
   initCompetitors(g, seed);
   return g;
 }
