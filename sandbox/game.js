@@ -948,6 +948,12 @@ export function applyFinancialHealth(g) {
 }
 
 export function advanceTurn(g) {
+  /* ★ 破产清算后**冻结**：不再结算、不再产生损益（否则现金会无限负下去，且已无经营意义） */
+  if (g.bankrupt) {
+    g.lastDetail = g.lastDetail || {};
+    return { detail: g.lastDetail, cash_end: g.cash, qsi_end: g.qsi,
+             fuel_price_next: g.fuelPrice, carbon_price: g.carbonPrice, interest_rate: g.interestRate };
+  }
   const per = currentPeriod(g);
   // ★ 燃油套保：剩余季度递减
   for (const h of (g.negotiation?.fuelHedge || [])) {
