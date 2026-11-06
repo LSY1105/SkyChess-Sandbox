@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>SkyChess 沙盘 — 玩家席位</title>
+<style>
+:root{--bg:#0f1216;--card:#181c22;--line:#2a313a;--tx:#e6e9ee;--dim:#9aa4b2;
+ --ok:#3fb950;--warn:#d29922;--bad:#f85149;--acc:#58a6ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
+header{background:#12161b;border-bottom:1px solid var(--line);padding:10px 18px;display:flex;
+ align-items:center;gap:20px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+h1{font-size:16px;margin:0;font-weight:600}
+.badge{padding:2px 10px;border-radius:11px;font-size:12px;font-weight:600}
+.kv{display:flex;flex-direction:column;line-height:1.25}
+.kv b{font-size:15px;font-variant-numeric:tabular-nums}
+.kv span{font-size:11px;color:var(--dim)}
+main{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 14px}
+.card h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:5px 7px;text-align:right;border-bottom:1px solid #21262d;font-size:13px}
+th{color:var(--dim);font-weight:500;font-size:11px}
+td:first-child,th:first-child{text-align:left}
+input,select{background:#0d1117;border:1px solid var(--line);color:var(--tx);border-radius:5px;padding:4px 7px;font-size:13px}
+input[type=number]{width:86px}
+button{background:#21262d;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:5px 11px;cursor:pointer;font-size:13px}
+button:hover{background:#2d333b}
+button.pri{background:#1f6feb;border-color:#1f6feb}
+button:disabled{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.row>label{font-size:12px;color:var(--dim);min-width:76px}
+.small{font-size:11px;color:var(--dim)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.scroll{max-height:330px;overflow:auto}
+#log{max-height:130px;overflow:auto;font-size:12px;color:var(--dim)}
+.tabs{ position:relative; z-index:5;display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.tabs button{padding:4px 10px;font-size:12px}
+.tabs button.on{background:#1f6feb;border-color:#1f6feb}
+</style>
+<script>
+/* 页面级错误可见化：真实课堂里不能只留在控制台 */
+window.addEventListener('error', function (e) {
+  var b = document.getElementById('errBar');
+  if (!b) { b = document.createElement('div'); b.id = 'errBar';
+    b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99;background:#b00;color:#fff;font:12px monospace;padding:4px 8px;max-height:80px;overflow:auto';
+    document.body.appendChild(b); }
+  b.textContent = '页面错误：' + (e.message || e.error) + ' @' + (e.lineno || '?');
+});
+</script>
+<script>
+/* 小组端轮询：与裁判端对称，保证「裁判批准开线 / 参数下发 / 回合推进」能及时反映到小组端
+   ★ 用户正在输入（焦点在表单控件）或悬停按钮时跳过刷新，避免打断操作 */
+setInterval(function () {
+  if (document.visibilityState !== 'visible') return;
+  var a = document.activeElement;
+  if (a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return;
+  if (document.querySelector('button:hover')) return;
+  try { refresh(); } catch (e) { /* 刷新失败不阻断 */ }
+}, 4000);
+</script>
+</head>
+<body>
+<header>
+  <h1>SkyChess 沙盘</h1>
+  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">⏱ 开始本季计时</button> <button id="btnSettleNowP" class="warn">⏭ 立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
+  <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
+  <div class="kv"><b id="hCash">—</b><span>现金</span></div>
+  <div class="kv"><b id="hQsi">—</b><span>QSI</span></div>
+  <div class="kv"><b id="hFuel">—</b><span>油价 / 碳价</span></div>
+  <div class="kv"><b id="hRate">—</b><span>利率 / 中转</span></div>
+  <div class="kv"><b id="hTurn">—</b><span>回合</span></div>
+  <div class="kv"><b id="hBudget">—</b><span>谈判额度</span></div>
+  <div class="kv"><b id="hScenario">—</b><span>场景</span></div>
+  <div style="flex:1"></div>
+  <select id="seatSel"></select>
+  <button id="btnSubmit" class="pri">▶ 提交本回合</button>
+</header>
+
+<main>
+  <div>
+    <div class="card">
+      <h2>① 航线与运价</h2>
+      <div class="row">
+        <label>申请开通航线</label><select id="selNewRoute" style="width:170px"></select>
+        <button id="btnOpenRoute">提交开线申请（开线费 $200k · 须裁判批准）</button>
+        <button id="btnEtops">购 ETOPS</button>
+      </div>
+      <div id="routeHint" class="small" style="margin:6px 0 10px"></div>
+      <div class="row small" style="margin:6px 0">
+        <label>分时定价</label>
+        <select id="selBandMkt" style="width:140px"></select>
+        <label>高峰系数</label><input id="inPeak" type="number" step="0.05" min="0.5" max="2" value="1.20" style="width:70px">
+        <label>低谷系数</label><input id="inOff" type="number" step="0.05" min="0.5" max="2" value="0.85" style="width:70px">
+        <button id="btnBand">设定</button>
+        <span class="small">高峰加价、低谷降价 —— 票价由你按市场情况自行决策</span>
+      </div>
+      <table id="tblRoutes"></table>
+      <div class="row" style="margin-top:10px">
+        <label>购买情报</label>
+        <select id="intelBuy" style="width:150px"></select>
+        <span id="intelQuote" class="small"></span>
+        <button id="btnBuyIntel">购买（解锁市场参数）</button>
+        <span class="small">未购买的市场：需求参数不可见、事件不预警</span>
+      </div>
+      <div id="intelWarn" class="small"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>② 航班排班（每班 = 每日 1 班）</h2>
+      <div class="row">
+        <label>飞机</label><select id="selAc" style="width:225px"></select>
+        <label>市场</label><select id="selMkt" style="width:145px"></select>
+        <label>起飞</label><input id="inpDep" value="09:00" style="width:80px">
+        <button id="btnAddFlight">加入班次</button>
+      </div>
+      <table id="tblSched"></table>
+
+      <div style="margin-top:12px">
+        <h3>排班甘特图（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</h3>
+        <div id="schedGantt"></div>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3>航线需求图（ROUTE DEMAND · 需求曲线固定值 · 上升与高峰段=红 · 下降与低峰段=绿 · 悬停看数值与趋势）</h3>
+        <div id="routeDemandBox"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>③ 投资与资产</h2>
+      <div class="tabs" id="tabsInv"></div>
+      <div id="invBody" class="scroll"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>本季开放的新机制（循序渐进）</h2>
+      <div id="newRules" class="small"></div>
+      <table id="tblLoan" style="margin-top:8px"></table>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>考核目标（Low-Cost Carrier）</h2>
+      <table id="tblScore"></table>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>本回合预览</h2>
+      <table id="tblPrev"></table>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>提案（须裁判确认后生效）</h2>
+      <div class="row">
+        <label>提案类型</label>
+        <select id="propKind" style="width:230px"></select>
+        <label>飞机</label>
+        <select id="propAc" style="width:210px"></select>
+      </div>
+      <div class="row">
+        <label>参数</label>
+        <input id="propP1" placeholder="对方席位 / 价格 / 说明" style="width:200px">
+        <input id="propP2" placeholder="金额（转让价等）" style="width:140px">
+        <input id="propNote" placeholder="给裁判的说明" style="width:200px">
+        <button id="btnPropose" class="pri">发起提案</button>
+      </div>
+      <div class="small">小组只能<b>发起</b>；涉及别组数据、市场规则或罚则豁免的事项，
+        必须由裁判在裁判端确认或修改后才生效。</div>
+      <div id="propList" class="scroll small" style="margin-top:6px"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>历史报告</h2>
+      <div class="tabs" id="tabsHist"></div>
+      <div id="histBody" class="scroll"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⓰ 经营要点（课堂三条铁律）</h2>
+      <div id="tipsBox" class="small"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>② 运力指引（先算盈亏平衡，再定班次）</h2>
+      <div class="small" style="margin-bottom:6px">
+        <b>现金口径盈亏平衡 LF</b>（主指标，只含利息与租金，不含折旧）→ 低于它必须减班次；
+        <b>全成本口径</b>（再加折旧）→ 低于它时扩张属「战略性亏损扩张」，是规模摊薄固定成本的必经阶段。
+        运价越低 → 两者都越高；低票价机型必须换来更高客座率。
+      </div>
+      <div id="demandHint"></div>
+      <div id="turnHint" class="small" style="margin-top:6px"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>③ 上次操作的被拒原因（排班/投资没成功时看这里）</h2>
+      <div id="rejectBox"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>③ 谈判申报单（提交 → 裁判受理 / 还价 → 达成生效）</h2>
+      <div class="row" style="margin-bottom:8px">
+        <input id="nrTitle" type="text" placeholder="标题（如 Q3 燃油与运价诉求）" style="width:230px">
+        <select id="nrItem" style="width:220px"></select>
+        <input id="nrVal" type="text" placeholder="值（数字或 JSON）" style="width:150px">
+        <input id="nrNote" type="text" placeholder="备注（可选）" style="width:180px">
+        <button id="btnNegReq">提交申报单</button>
+      </div>
+      <div id="negReqs"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>④ 报表（Reports · 七页签 + 历史季度）</h2>
+      <div class="row" style="margin-bottom:8px">
+        <button id="btnExpSum">导出 汇总 CSV</button>
+        <button id="btnExpRoute">导出 航线 CSV</button>
+        <button id="btnExpSched">导出 班次 CSV</button>
+        <button id="btnExpInv">导出 投资 CSV</button>
+      </div>
+      <div id="repBody"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑤ 运营视图（Fare Matrix / Live Schedules / Fleet Plans）</h2>
+      <div id="opsBody"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑨ 回程设置（学员自行设定回程起飞时刻）</h2>
+      <div class="small" style="margin-bottom:6px">
+        回程起飞时刻<b>不得早于「过站时间」</b>（到达 + 下客/清洁/上客）；回程到达须在 22:00 前回到廊桥。
+        下一班起点可再晚 2–4 小时 → 为<b>联程中转</b>留出窗口。
+      </div>
+      <div id="retBox"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑧ 联程设置（中转）</h2>
+      <div class="small" style="margin-bottom:6px">
+        联程（转机）＝旅客在 2–4 小时内转乘你的下一班飞机。承接率由裁判设定的中转强度决定（10%/20%/32%）。
+        <b>可作中转点</b>：你的航线允许别家旅客转机；<b>提供联程</b>：你的航班允许承接别家转机旅客（会分流你的座位、增加中转收入）。
+      </div>
+      <div id="connBox"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑥ 处置飞机指引（团队自决）</h2>
+      <div id="sellHint"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑦ 考核目标（裁判于第 3 季公布）</h2>
+      <div id="targetBox"></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>⑥ 消息板（裁判公告与规则更新）</h2>
+      <div id="msgBoard"></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>日志</h2>
+      <div id="log"></div>
+    </div>
+  </div>
+</main>
+
+<script type="module">
+import { MARKETS, MARKET_LIST, AIRCRAFT, INVESTMENTS, ASSETS, GM, MARKET_INTEL, INTEL_WARNINGS } from './data.js';
+window.__INTEL__ = MARKET_INTEL;
+window.__WARN__ = INTEL_WARNINGS;
+import * as E from './engine.js';
+import * as G from './game.js';
+import * as R from './reports.js';
+window.__PK__ = G.PROPOSAL_KINDS;
+
+const PKEY = new URLSearchParams(location.search).get("key") || "";
+const seat = new URLSearchParams(location.search).get('seat') || 'CA';
+/* localStorage 兜底：无 localStorage 环境（测试/隐私模式）不崩 */
+const LS = (() => {
+  try {
+    const s = (typeof window !== 'undefined' && window.localStorage) ||
+              (typeof localStorage !== 'undefined' ? localStorage : null);
+    if (s) return s;
+  } catch { /* 隐私模式禁用 */ }
+  return { getItem: () => null, setItem: () => {}, removeItem: () => {} };
+})();
+
+/* 席位密钥：URL ?key= 优先，否则取本地存储；缺失时提示教师分发 */
+const SEAT_KEY = (() => {
+  const q = new URLSearchParams(location.search).get('key');
+  if (q) { LS.setItem('sbx-key-' + seat, q); return q; }
+  return LS.getItem('sbx-key-' + seat) || '';
+})();
+let g = null, gmState = null, invTab = 'airline', histSel = 0;
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+const money = n => '$' + Math.round(n).toLocaleString();
+const pct = n => (n * 100).toFixed(2) + '%';
+
+async function api(path, body) {
+  const headers = { 'Content-Type': 'application/json', 'x-sandbox-key': SEAT_KEY };
+  const opt = body ? { method: 'POST', headers, body: JSON.stringify(body) } : { headers };
+  const r = await fetch(path, opt);
+  if (r.status === 401) {
+    const err = await r.json().catch(() => ({}));
+    alert(err.error === 'invalid seat key'
+      ? '席位密钥无效，请向裁判索取本组密钥（?key=...）' : (err.error || '授权失败'));
+    return { error: err.error, code: r.status };
+  }
+  return r.json();
+}
+async function act(type, extra = {}) {
+  const res = await api('/api/seat/' + seat, { type, ...extra });
+  if (res.result && typeof res.result === 'object' && res.result.why) alert(res.result.why);
+  else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
+  g = res.game; gmState = res.gm; render(); return res;
+}
+async function load() {
+  const res = await api('/api/seat/' + seat);
+  if (!res || res.error) {
+    const tip = res && res.error === 'invalid seat key'
+      ? '席位密钥无效。请向裁判索取本组密钥，访问地址形如：'
+        + location.origin + '/player.html?seat=' + seat + '&key=KEY'
+      : '服务端未响应，或该席位不存在。';
+    document.body.innerHTML =
+      '<div style="padding:40px;color:#e6e9ee;background:#0f1216">'
+      + '<h2 style="color:#f85149">无法连接席位</h2><p>' + tip + '</p></div>';
+    return;
+  }
+  g = res.game; gmState = res.gm;
+  const gl = await api('/api/gm');
+  window.__seats = gl.seats || ['CA', 'AB', 'VA'];
+  render();
+}
+
+function head() {
+  $('#seatBadge').textContent = seat + ' 席位';
+  $('#seatBadge').style.background = ({CA:'#dfbf0c',AB:'#0270b6',VA:'#3d0f7b'})[seat] || '#333';
+  $('#seatBadge').style.color = '#000';
+  $('#hPeriod').textContent = g.period.label;
+  $('#hCash').textContent = money(g.cash);
+  $('#hCash').className = g.cash < 0 ? 'bad' : (g.cash < 500000 ? 'warn' : '');
+  $('#hQsi').textContent = g.qsi.toFixed(2);
+  $('#hQsi').className = g.qsi < 2 ? 'bad' : (g.qsi < 6 ? 'warn' : 'ok');
+  $('#hFuel').textContent = g.fuelPrice.toFixed(2) + ' / ' + g.carbonPrice.toFixed(2);
+  $('#hRate').textContent = g.interestRate.toFixed(1) + '% / L' + g.connectingDemand;
+  $('#hTurn').textContent = `${g.turn + 1} / ${g.maxTurns}`;
+  const nb = g.negotiation || {};
+  const lim = nb.budgetLimit;
+  $('#hBudget').textContent = lim == null ? '不限' : `${nb.budgetUsed || 0} / ${lim}`;
+  $('#hBudget').className = (lim != null && (nb.budgetUsed || 0) >= lim) ? 'bad' : '';
+  $('#hScenario').textContent = nb.scenarioName || (g.scenarioId ? g.scenarioId : '自定义');
+  $('#btnSubmit').disabled = g.turn >= g.maxTurns;
+  const sel = $('#seatSel');
+  /* ★ 席位由**裁判端**显式创建（GM 动作 createSeat）；小组端不得自行开组 */
+  sel.innerHTML = (window.__seats || ['CA', 'AB', 'VA']).map(s => `<option value="${s}">${s}</option>`).join('');
+  sel.value = seat;
+  sel.onchange = () => { location.href = '/player.html?seat=' + sel.value; };
+}
+
+function routes() {
+  const t = $('#tblRoutes'); t.innerHTML = '';
+  const tr = el('tr');
+  ['市场', '运价', '指导价', '市场总需求', '我方份额', '对手份额', '市场情报', '中转', '客座率', '操作']
+    .forEach(h => tr.appendChild(el('th', null, h)));
+  t.appendChild(tr);
+  const alloc = G.allocateMarkets(g);          // ★ 竞争分配：市场需求切分给各航司
+  for (const r of g.routes) {
+   try {
+    const m = MARKETS[r.code];
+    const fl = g.schedules.filter(s => s.code === r.code);
+    const seats = fl.reduce((a, s) => a + s.seats, 0) * 90;
+    const ask = seats * m.sector_km;
+    const freq = fl.length * 90;                      // 当季总班次（需求模型的频率项）
+    const al = alloc[r.code];
+    const D = al ? al.alloc.player : E.demand(m.name, r.fare, freq, g.demandMult[r.code] ?? 1);
+    const pax = Math.min(seats, D);
+    const lf = seats ? pax / seats : 0;
+    const row = el('tr');
+    row.appendChild(el('td', null, `${m.name_cn} <span class="small">${r.code}</span>`));
+    const tdF = el('td');
+    const inp = el('input'); inp.type = 'number'; inp.value = r.fare; inp.step = '5';
+    inp.onchange = () => act('setFare', { code: r.code, fare: +inp.value });
+    tdF.appendChild(inp); row.appendChild(tdF);
+    row.appendChild(el('td', null, m.guide_fare ? money(m.guide_fare) : '—'));
+    row.appendChild(el('td', null, al ? Math.round(al.totalDemand).toLocaleString() : (seats ? Math.round(D).toLocaleString() : '—')));
+    const shc = el('td', null, al ? (al.shares.player * 100).toFixed(1) + '%' : '—');
+    shc.className = al ? (al.shares.player > 0.5 ? 'ok' : (al.shares.player < 0.2 ? 'bad' : 'warn')) : '';
+    row.appendChild(shc);
+    const rv = al ? Object.entries(al.shares).filter(([k]) => k !== 'player')
+                      .map(([k, v]) => `${k} ${(v * 100).toFixed(0)}%`).join(' / ') : '—';
+    row.appendChild(el('td', 'small', rv));
+    // ★ 市场情报：未购买 → 参数不可见（真实游戏的关键参数不下发）
+    const bought = g.intel && g.intel[r.code];
+    const intelTd = el('td', 'small');
+    if (bought) {
+      const im = (window.__INTEL__ || {})[r.code] || {};
+      const gd = im.gdpDemand ?? null;
+      intelTd.innerHTML = gd != null
+        ? `<span class="ok">已购</span> GDP弹 ${gd}<br><span class="small">货 ${im.cargoT ?? '?'}t/日</span>`
+        : '<span class="ok">已购</span><br><span class="small">部分参数未知</span>';
+    } else {
+      intelTd.innerHTML = '<span class="bad">需购买</span><br><span class="small">参数不可见</span>';
+    }
+    row.appendChild(intelTd);
+    row.appendChild(el('td', null, g.lastConnByRoute[r.code] ? Math.round(g.lastConnByRoute[r.code]).toLocaleString() : '—'));
+    const lfc = el('td', null, seats ? (lf * 100).toFixed(1) + '%' : '—');
+    lfc.className = seats ? (lf > 0.9 ? 'ok' : (lf < 0.5 ? 'bad' : 'warn')) : '';
+    row.appendChild(lfc);
+    const tdA = el('td');
+    const b1 = el('button', null, '最优价');
+    b1.onclick = () => alert(`${m.name_cn} 最优运价 ≈ $${E.optimalFare(m.name, fl.length * 90, Math.max(seats, 1)).toFixed(0)}`);
+    tdA.appendChild(b1);
+    if (m.etops && !r.etopsPaid) {
+      const b2 = el('button', null, '购ETOPS');
+      b2.onclick = () => act('payEtops', { code: r.code });
+      tdA.appendChild(b2);
+    }
+    row.appendChild(tdA);
+    t.appendChild(row);
+    } catch (err) { console.warn('航线行渲染失败', r.code, err); }
+  }
+  // 开线申请下拉：**只列裁判已释放且本组尚未开通**的航线
+  const sel = $('#selNewRoute');
+  const opened = g.routes.map(r => r.code);
+  const releasable = (g.releasedRoutes || []).filter(c => !opened.includes(c));
+  sel.innerHTML = releasable.length
+    ? releasable.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+    : '<option value="">（无裁判已释放的新航线）</option>';
+}
+
+/* 航线释放提示 + 本组开线申请状态 */
+function renderRouteHint() {
+  const box = $('#routeHint');
+  if (!box) return;
+  const fresh = g.newlyReleasedRoutes || [];
+  const reqs = g.routeRequests || [];
+  const pending = reqs.filter(r => r.status === 'pending');
+  const rejected = reqs.filter(r => r.status === 'rejected');
+  const parts = [];
+  if (fresh.length) {
+    parts.push('<b style="color:#c47f00">本季裁判新开放航线：'
+      + fresh.map(c => `${MARKETS[c]?.name_cn || c}(${c})`).join('、')
+      + '</b> —— 须与裁判洽谈并支付开线费 $200,000 后方可开通');
+  } else {
+    parts.push('裁判按赛季逐步释放航线；当前无新开放航线');
+  }
+  if (pending.length) {
+    parts.push('｜<span style="color:#b58900">待裁判批准：'
+      + pending.map(r => `${MARKETS[r.code]?.name_cn || r.code}`).join('、') + '</span>');
+  }
+  if (rejected.length) {
+    parts.push('｜<span class="bad">已被驳回：'
+      + rejected.map(r => `${MARKETS[r.code]?.name_cn || r.code}`).join('、') + '</span>');
+  }
+  box.innerHTML = parts.join(' ');
+}
+/* 分时定价设置 */
+function bandSelFill() {
+  const s = $('#selBandMkt'); if (!s) return;
+  const opened = g.routes.map(r => r.code);
+  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+    || '<option value="">（无已开通航线）</option>';
+}
+$('#btnBand') && ($('#btnBand').onclick = async () => {
+  const code = $('#selBandMkt').value;
+  if (!code) return;
+  const res = await act('setFareBands', { code, peak: Number($('#inPeak').value), offPeak: Number($('#inOff').value) });
+  if (res === 'ok') alert('已设定 ' + code + ' 的分时定价');
+});
+function mktSelFill() {
+  const s = $('#selMkt');
+  const opened = g.routes.map(r => r.code);
+  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+    || '<option value="">（先开通航线）</option>';
+}
+/* 大修标记：运力减半（BH 上限）提示 */
+/* 机龄提示：G160 初始机龄 18 年（机龄过大）→ 何时大修由裁判决定，处置与否由团队自决 */
+function acSelFill() {
+  const s = $('#selAc');
+  s.innerHTML = g.aircraft.map(a => {
+    const cap = G.acCapacity(g, a);
+    const used = G.acUsedBH(g, a.id);
+    const t = AIRCRAFT.find(x => x.name === a.type);
+    return `<option value="${a.id}">${a.type} (${a.nickname}) ${used.toFixed(0)}/${cap} BH · ${t.seats}座</option>`;
+  }).join('');
+}
+function sched() {
+  const t = $('#tblSched'); t.innerHTML = '';
+  const tr = el('tr');
+  ['飞机', '航班', '起飞', '到达', '过站时间', '回程起飞', '回程到达', '市场', '货量', '操作'].forEach(h => tr.appendChild(el('th', null, h)));
+  t.appendChild(el('tr'));
+  const tip = el('td', 'small');
+  tip.colSpan = 14;
+  tip.innerHTML = '★ 时刻占用规则：<b>上季未调整的时刻本季继续占飞</b>；<b>删除某个时刻 = 释放该时刻航线</b>'
+    + '（其他航司会从甘特图看到变化并抢占）→ 调整航线前请先删除要改的时刻，只删一个不影响其他时刻。';
+  t.appendChild(tip);
+  t.appendChild(tr);
+  g.schedules.forEach((s, i) => {
+    const ac = g.aircraft.find(a => a.id === s.acId);
+    const m = MARKETS[s.code];
+    const row = el('tr');
+    row.appendChild(el('td', null, ac ? ac.type : '-'));
+    const _bh = s.bh || (MARKETS[s.code] ? MARKETS[s.code].bh : 1.5);
+    const _toMin = (str) => { const p2 = String(str || '00:00').split(':'); return (Number(p2[0]) || 0) * 60 + (Number(p2[1]) || 0); };
+    const _hhmm = (v) => String(Math.floor(((v % 1440) + 1440) % 1440 / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
+    const _dep = _toMin(s.departure);
+    row.appendChild(el('td', null, s.flightNo));
+    row.appendChild(el('td', null, s.departure));                                                          // 起点（学员填写）
+    /* 到达 / 过站 / 可再排时刻：服务端字段缺失时按 BH 与本组过站基线兜底计算 */
+    const _arr = s.arrival || _hhmm(_dep + (GM.taxi_out_min || 0) + Math.round(_bh * 60) + (GM.taxi_in_min || 0));  // 到达（廊桥）
+    const _turn = s.turnaround != null ? s.turnaround
+      : ((GM.style_turnaround || {})[g.style || 'Hybrid'] || GM.sh_turnaround || 45);
+    const _arrMin = _toMin(_arr);
+    const _tOut2 = GM.taxi_out_min || 0, _tIn2 = GM.taxi_in_min || 0;
+    const _ready = s.returnDeparture || _hhmm(_arrMin + _turn);                        // 保障结束 = 到达 + 清洁保障
+    const _retDep = s.returnOffBlocks || _hhmm(_arrMin + _turn + _tOut2);             // 回程起飞（实际轮挡起飞）
+    const _retArr = s.returnArrival || _hhmm(_arrMin + _turn + _tOut2 + Math.round(_bh * 60) + _tIn2);  // 回程到达（廊桥）
+    row.appendChild(el('td', null, _arr));                                                   // 到达（廊桥）
+    const readyCell = el('td', null, _ready);                                            // 过站时间 = 到达 + 下客/清洁/上客
+    {
+      const parts = (GM.style_turnaround_parts || {})[g.style || 'Hybrid'] || { deplane: 0, clean: 0, board: 0 };
+      readyCell.title = '过站时间 = 到达 + 下客 ' + parts.deplane + ' 分 + 清洁 ' + parts.clean + ' 分 + 上客 ' + parts.board + ' 分（共 ' + _turn + ' 分）｜回程起飞不得早于此时刻；下一班起点可再晚 2–4 小时（联程中转窗口）';
+    }
+    row.appendChild(readyCell);
+    row.appendChild(el('td', null, s.returnDeparture || '待设定'));                          // 回程起飞（学员设定）
+    row.appendChild(el('td', null, s.returnArrival || '待设定'));                            // 回程到达（系统推导）
+    row.appendChild(el('td', null, `${m.name_cn} (${m.sector_km}km)`));
+    row.appendChild(el('td', null, (s.cargoCap || 0).toFixed(1)));
+    const td = el('td');
+    const b = el('button', null, '取消');
+    b.onclick = () => act('removeFlight', { index: i });
+    td.appendChild(b); row.appendChild(td);
+    t.appendChild(row);
+  });
+}
+function invTabs() {
+  const tb = $('#tabsInv'); tb.innerHTML = '';
+  [['airline', '航空公司'], ['fleet', '机队'], ['route', '航线'], ['asset', '资产']].forEach(([k, n]) => {
+    const b = el('button', invTab === k ? 'on' : '', n);
+    b.onclick = () => { invTab = k; render(); };
+    tb.appendChild(b);
+  });
+}
+function invBody() {
+  const b = $('#invBody'); b.innerHTML = '';
+  if (invTab === 'airline') {
+    const t = el('table');
+    t.innerHTML = '<tr><th>项目</th><th>一次性</th><th>年度</th><th>QSI</th><th></th></tr>';
+    for (const i of INVESTMENTS) {
+      const owned = g.investments.some(x => x.id === i.id);
+      const row = el('tr');
+      row.appendChild(el('td', null, `${i.name_cn || i.name}<div class="small">${i.desc_cn || i.desc || ''}</div>`));
+      row.appendChild(el('td', null, i.upfront ? money(i.upfront) : '—'));
+      row.appendChild(el('td', null, i.annual ? money(i.annual) : '—'));
+      row.appendChild(el('td', null, i.effect.qsi ? ('+' + i.effect.qsi) : '—'));
+      const td = el('td');
+      const btn = el('button', null, owned ? '已投放' : '投资');
+      btn.disabled = owned;
+      btn.onclick = () => act('invest', { id: i.id });
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else if (invTab === 'fleet') {
+    const t = el('table');
+    t.innerHTML = '<tr><th>机型</th><th>座位</th><th>目录价</th><th>MTOW</th><th>耗油/BH</th><th>湿租押金</th><th>季租</th><th></th></tr>';
+    for (const a of AIRCRAFT) {
+      const row = el('tr');
+      row.appendChild(el('td', null, `${a.name}`));
+      row.appendChild(el('td', null, a.seats));
+      row.appendChild(el('td', null, money(a.price * 1e6)));
+      row.appendChild(el('td', null, a.mtow));
+      row.appendChild(el('td', null, a.fuel));
+      row.appendChild(el('td', null, money(a.price*1e6*GM.lease_deposit_rate)));
+      row.appendChild(el('td', null, money(a.price*1e6*GM.lease_rate_annual/4)));
+      const td = el('td');
+      const btn = el('button', null, '购买');
+      btn.onclick = () => act('buyAircraft', { type: a.name });
+      td.appendChild(btn);
+      const lb = el('button', null, '租赁');
+      lb.title = `湿租：押金 ${money(a.price*1e6*GM.lease_deposit_rate)} + 季租 ${money(a.price*1e6*GM.lease_rate_annual/4)}`;
+      lb.onclick = () => act('lease', { acType: a.name });
+      td.appendChild(lb);
+      row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else if (invTab === 'route') {
+    const t = el('table');
+    t.innerHTML = '<tr><th>航线</th><th>市场</th><th>费用</th><th></th></tr>';
+    for (const c of MARKET_LIST) {
+      const m = MARKETS[c];
+      const row = el('tr');
+      row.appendChild(el('td', null, `${m.name_cn} (${c})`));
+      row.appendChild(el('td', null, `${m.sector_km}km${m.etops ? ' ETOPS' : ''}`));
+      row.appendChild(el('td', null, money(GM.new_route_fee + (m.etops ? GM.etops_fee : 0))));
+      const td = el('td');
+      const btn = el('button', null, g.routes.some(r => r.code === c) ? '已开通' : '开通');
+      btn.disabled = g.routes.some(r => r.code === c);
+      btn.onclick = () => act('openRoute', { code: c });
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  } else {
+    const t = el('table');
+    t.innerHTML = '<tr><th>资产</th><th>价格</th><th>说明</th><th></th></tr>';
+    for (const a of ASSETS) {
+      const row = el('tr');
+      row.appendChild(el('td', null, a.name));
+      row.appendChild(el('td', null, money(a.price)));
+      row.appendChild(el('td', null, `<div class="small">${a.note}</div>`));
+      const td = el('td');
+      const btn = el('button', null, '购置');
+      btn.onclick = () => act('buyAsset', { id: a.id });
+      td.appendChild(btn); row.appendChild(td); t.appendChild(row);
+    }
+    b.appendChild(t);
+  }
+}
+function scoreTbl() {
+  const t = $('#tblScore'); t.innerHTML = '';
+  const tr = el('tr'); ['指标', '目标', '实际', '达成'].forEach(h => tr.appendChild(el('th', null, h))); t.appendChild(tr);
+  const last = g.history[g.history.length - 1];
+  const cum = g.history.reduce((a, r) => a + r.operating_profit, 0);
+  const rows = [
+    ['毛利率', 0.10, last ? last.gross_margin : 0],
+    ['辅营收入占比', 0.40, last ? last.ancillary_share : 0],
+    ['累计利润', 6000000, cum],
+    ['客座率', 0.60, last ? last.load_factor : 0],
+    ['市场份额', 0.35, last ? last.market_share : 0],
+  ];
+  for (const [n, tgt, act_] of rows) {
+    const isPct = tgt < 1;
+    const row = el('tr');
+    row.appendChild(el('td', null, n));
+    row.appendChild(el('td', null, isPct ? pct(tgt) : money(tgt)));
+    row.appendChild(el('td', null, isPct ? pct(act_) : money(act_)));
+    const met = act_ >= tgt;
+    row.appendChild(el('td', null, met ? '<span class="ok">✓ 达标</span>' : '<span class="warn">未达标</span>'));
+    t.appendChild(row);
+  }
+}
+function prevTbl() {
+  const t = $('#tblPrev'); t.innerHTML = '';
+  const rep = G.computeTurn(g, g.period);
+  const rows = [
+    ['客运收入', Object.values(rep.detail).reduce((a, d) => a + d.rev['Passenger Revenue'], 0)],
+    ['货运收入', Object.values(rep.detail).reduce((a, d) => a + d.rev['Cargo Revenue'], 0)],
+    ['辅营收入', Object.values(rep.detail).reduce((a, d) => a + d.rev['Ancillary Revenue'], 0)],
+    ['总成本', rep.cost], ['经营利润', rep.operating_profit],
+    ['一次性支出', rep.oneoff], ['融资/租赁', rep.financing], ['期末现金', rep.cash_end],
+    ['客座率', rep.load_factor, 'pct'], ['毛利率', rep.gross_margin, 'pct'],
+    ['中转旅客', rep.connected_total], ['网络份额', rep.market_share, 'pct'],
+  ];
+  for (const [n, v, k] of rows) {
+    const row = el('tr');
+    row.appendChild(el('td', null, n));
+    const c = el('td', null, k === 'pct' ? pct(v) : money(v));
+    if (n === '经营利润' || n === '期末现金') c.className = v >= 0 ? 'ok' : 'bad';
+    row.appendChild(c); t.appendChild(row);
+  }
+}
+function hist() {
+  const tb = $('#tabsHist'); tb.innerHTML = '';
+  g.history.forEach((h, i) => { const b = el('button', i === histSel ? 'on' : '', h.period); b.onclick = () => { histSel = i; render(); }; tb.appendChild(b); });
+  const b = $('#histBody'); b.innerHTML = '';
+  if (!g.history.length) { b.appendChild(el('div', 'small', '尚无历史报告。')); return; }
+  const h = g.history[histSel];
+  let html = '<table><tr><th>航线</th><th>频次</th><th>ASK</th><th>旅客</th><th>客座率</th><th>中转</th><th>收入</th><th>经营利润</th></tr>';
+  for (const [code, d] of Object.entries(h.detail))
+    html += `<tr><td>${d.market}</td><td>${d.freq}</td><td>${(d.ask / 1e6).toFixed(1)}</td><td>${Math.round(d.pax).toLocaleString()}</td>`
+      + `<td>${(d.lf * 100).toFixed(1)}%</td><td>${Math.round(d.connected_pax || 0).toLocaleString()}</td>`
+      + `<td>${money(d.rev['Total Revenue'])}</td><td class="${d.operating_profit >= 0 ? 'ok' : 'bad'}">${money(d.operating_profit)}</td></tr>`;
+  b.innerHTML = html + '</table>';
+}
+/* ── U2 谈判申报单 ── */
+const NLS = { draft:'草稿', submitted:'已提交', under_review:'裁判受理', countered:'待确认还价', agreed:'已达成', effective:'已生效', rejected:'已驳回', withdrawn:'已撤回' };
+/* ★ 最近被拒操作（把"为什么没排上"显性化） */
+/* ★ 运力指引：用上季市场总需求与份额，按盈亏平衡 LF 反算「建议班次/日」 */
+function renderDemandHint() {
+  const box = $('#demandHint'); if (!box) return;
+  box.innerHTML = '';
+  const d = g.lastDetail || {};
+  const rows = [];
+  for (const r of g.routes) {
+    const x = d[r.code]; if (!x) continue;
+    const seatsPerDay = (x.seats || 0) / 90;              // 每班次座位
+    const dailyDemand = (x.marketDemand || 0) / 90;       // 市场日需求
+    const share = x.share != null ? x.share : 1;
+    const perFlight = Math.max(seatsPerDay * 0.45, 1);    // 单班次可盈亏的座位（按 45% LF）
+    const suggest = dailyDemand * share / perFlight;
+    rows.push([(x.market || r.code), Math.round(dailyDemand), Math.round(dailyDemand * share),
+      x.lf != null ? (x.lf * 100).toFixed(1) + '%' : '—',
+      Math.max(0, Math.ceil(suggest * 10) / 10),
+      Math.round(x.fare || 0)]);
+  }
+  if (!rows.length) { box.appendChild(el('div', 'small', '完成一个回合后即可看到按市场的建议班次。')); return; }
+  /* ★ 盈亏平衡 LF = 固定成本 ÷ (季座位 × 运价) → 运价越低，要求的客座率越高
+     固定成本 = 自有机（折旧 + 利息）或 租赁（季租），按其服务的航线数分摊 */
+  /* ★ 双口径固定成本（裁定 A：现金口径为主，允许战略性亏损扩张）
+     现金口径 = 利息（自有）+ 租金（租赁）→ 不含折旧 → 生存决策主指标
+     全成本口径 = 现金口径 + 折旧 → 参考（长期是否真的赚钱） */
+  const leaseOfAc = (id) => (g.leases || []).find(l => l.acId === id);
+  const acRoutes = {};
+  for (const s of (g.schedules || [])) (acRoutes[s.acId] = acRoutes[s.acId] || new Set()).add(s.code);
+  const cashFixedByCode = {}, fullFixedByCode = {};
+  for (const ac of (g.aircraft || [])) {
+    const interest = ac.owned ? ac.price * (GM.interest_rate || 5) / 100 / 4 : 0;
+    const rent = leaseOfAc(ac.id) ? leaseOfAc(ac.id).quarterlyRent : 0;
+    const dep = ac.owned ? ac.price / (GM.depreciation_years || 25) / 4 : 0;
+    const cashF = interest + rent, fullF = cashF + dep;
+    const rs = [...(acRoutes[ac.id] || [])];
+    for (const c of rs) {
+      const k = Math.max(1, rs.length);
+      cashFixedByCode[c] = (cashFixedByCode[c] || 0) + cashF / k;
+      fullFixedByCode[c] = (fullFixedByCode[c] || 0) + fullF / k;
+    }
+  }
+  const tb = el('table');
+  const tr = el('tr');
+  ['航线', '运价', '季班次', '现金固定成本', '现金平衡 LF(主)', '全成本平衡 LF', '上季 LF', '判断', '建议班次/日'].forEach(h => tr.appendChild(el('th', null, h)));
+  tb.appendChild(tr);
+  for (const r of rows) {
+    const code = r[0], fare = r[5];
+    const freq = (g.schedules || []).filter(s => s.code === code).length * 90;
+    const seats = (g.schedules || []).filter(s => s.code === code).reduce((a, s) => a + s.seats, 0) * 90;
+    const cashF = cashFixedByCode[code] || 0, fullF = fullFixedByCode[code] || 0;
+    const cashLF = (seats > 0 && fare > 0) ? cashF / (seats * fare) : null;   // 主指标
+    const fullLF = (seats > 0 && fare > 0) ? fullF / (seats * fare) : null;   // 参考
+    const actual = r[3];
+    const rr = el('tr');
+    const cells = [code, '$' + fare, freq, '$' + Math.round(cashF).toLocaleString(),
+      cashLF != null ? (cashLF * 100).toFixed(1) + '%' : '—',
+      fullLF != null ? (fullLF * 100).toFixed(1) + '%' : '—', actual,
+      cashLF == null || actual === '—' ? '—' : (parseFloat(actual) / 100 >= cashLF ? '现金达标' : '现金未达标'),
+      r[4]];
+    cells.forEach((c, i) => { const td = el('td', i === 7 ? (c === '现金达标' ? 'ok' : c === '现金未达标' ? 'bad' : null) : null, String(c)); rr.appendChild(td); });
+    tb.appendChild(rr);
+  }
+  box.appendChild(tb);
+}
+/* 过站时间提示（按经营定位的强约束） */
+/* 经营要点（三条课堂铁律） */
+function renderTips() {
+  const box = $('#tipsBox'); if (!box) return;
+  const cyber = (GM.cyber_service_price || 250000).toLocaleString();
+  const maxFare = GM.max_fare_multiple || 3;
+  const turn = (GM.style_turnaround || {})[g.style || 'Hybrid'] || 45;
+  box.innerHTML =
+    '<div>① <b>被网络攻击 → 面板全屏不可操作</b>：两条解法 —— 付裁判赎金，或购买网络安全服务 $' + cyber + '/季（cyberService 规则）。'
+    + '攻击不是"裁判给的困难"，而是事件导致的经营中断。</div>'
+    + '<div style="margin-top:4px">② <b>独占 ≠ 赚钱</b>：拿到 100% 份额也可能亏（市场太小）。'
+    + '先算本组过站保障 ' + turn + ' 分钟对应的盈亏平衡 LF，再决定开几条航线、几班/日。</div>'
+    + '<div style="margin-top:4px">③ <b>高票价 → 客座率掉</b>：票价上限为指导价 × ' + maxFare + '；'
+    + '中转（联程）旅客只按<b>续程段比例</b>结算，余额归原承运人 —— 拉高票价接中转不是套利路径。</div>';
+}
+function renderTurnHint() {
+  const box = $('#turnHint'); if (!box) return;
+  const st = g.style || 'Hybrid';
+  const base = (GM.style_turnaround || {})[st] || 60;
+  const opts = ((GM.style_turnaround_options || {})[st] || [60]).join(' / ');
+  const cur = g.negotiation && g.negotiation.turnaroundMin != null ? g.negotiation.turnaroundMin : base;
+  box.textContent = `本组定位 ${st}：过站时间基线 ${base} 分钟（可选档位 ${opts}）｜当前生效 ${cur} 分钟`
+    + `　→ 过站时间越长，同机每日可飞班次越少（LCC 30 分钟最密、FSC 60 分钟最松）`;
+}
+function renderRejects() {
+  const box = $('#rejectBox'); if (!box) return;
+  box.innerHTML = '';
+  const list = (g.rejects || []).slice(0, 6);
+  if (!list.length) { box.appendChild(el('div', 'small', '暂无被拒操作。')); return; }
+  for (const r of list) {
+    const d = el('div');
+    d.style.cssText = 'border-left:3px solid #cf222e;padding:3px 8px;margin-bottom:4px;background:#fff8f8;font-size:12px';
+    d.textContent = 'T' + (r.turn ?? '-') + '　' + (r.type || '') + ' 未成功：' + (r.why || '');
+    box.appendChild(d);
+  }
+}
+function renderNegReqs() {
+  const box = $('#negReqs'); if (!box) return;
+  const cat = g.negCatalog || {};
+  const sel = $('#nrItem');
+  if (sel && !sel.options.length) sel.innerHTML = Object.entries(cat).map(([k, v]) => '<option value="' + k + '">' + v.label + '</option>').join('');
+  box.innerHTML = '';
+  const list = g.negRequests || [];
+  if (!list.length) { box.appendChild(el('div', 'small', '暂无申报单。')); return; }
+  const t = el('table');
+  const tr = el('tr');
+  ['编号','标题','状态','轮次','条款','更新时间','操作','流转记录'].forEach(h => tr.appendChild(el('th', null, h)));
+  t.appendChild(tr);
+  for (const r of list) {
+    const row = el('tr');
+    const items = Object.keys(r.items || {}).map(k => (cat[k] && cat[k].label) || k).join('、');
+    row.appendChild(el('td', null, r.id));
+    row.appendChild(el('td', null, r.title || ''));
+    row.appendChild(el('td', null, NLS[r.status] || r.status));
+    row.appendChild(el('td', null, String(r.round || 1)));
+    row.appendChild(el('td', 'small', items || '—'));
+    row.appendChild(el('td', null, 'T' + (r.updatedTurn != null ? r.updatedTurn : '—')));
+    const tdOp = el('td');
+    const mk = (label, act) => { const b = el('button', null, label); b.onclick = async () => {
+      const res = await act2(act, r.id);
+      if (res && res !== 'ok') alert(res); else render();
+    }; return b; };
+    if (r.status === 'submitted') tdOp.appendChild(mk('撤回', 'withdrawNegRequest'));
+    if (r.status === 'countered') { tdOp.appendChild(mk('接受还价', 'acceptCounter')); tdOp.appendChild(mk('拒绝还价', 'rejectCounter')); }
+    if (!tdOp.children.length) tdOp.appendChild(el('span', 'small', '—'));
+    row.appendChild(tdOp);
+    const tdH = el('td', 'small');
+    (r.history || []).forEach(h => tdH.appendChild(el('div', null, 'T' + h.turn + ' ' + h.by + ' ' + h.action + (h.note ? '：' + h.note : ''))));
+    row.appendChild(tdH);
+    t.appendChild(row);
+  }
+  box.appendChild(t);
+}
+async function act2(act, id) {
+  const r = await fetch('/api/seat/' + g.seat, { method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ type: act, id }) }).then(x => x.json());
+  return r.result;
+}
+$('#btnNegReq') && ($('#btnNegReq').onclick = async () => {
+  const item = $('#nrItem').value;
+  if (!item) return;
+  const raw = $('#nrVal').value;
+  const cat = (g.negCatalog || {})[item] || {};
+  let val;
+  try { val = (cat.type === 'perMarket' || cat.type === 'perAc' || cat.type === 'invest') ? JSON.parse(raw) : Number(raw); }
+  catch (e) { val = raw; }
+  const items = {}; items[item] = val;
+  const res = await fetch('/api/seat/' + g.seat, { method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ type: 'submitNegRequest', title: $('#nrTitle').value, note: $('#nrNote').value, items }) }).then(x => x.json());
+  if (res.result && res.result !== 'ok') alert(res.result);
+  else { $('#nrTitle').value = ''; $('#nrVal').value = ''; $('#nrNote').value = ''; render(); }
+});
+/* 考核目标：第 3 季（turn>=2）前不显示任何目标数值 */
+/* ★ 网络攻击遮罩：被勒索时全屏覆盖，功能完全不可操作（困难由事件导致，非裁判"给予"） */
+function renderHackOverlay() {
+  const h = g.hacked;
+  let ov = document.getElementById('hackOverlay');
+  if (!h || h.resolved) { if (ov) ov.remove(); return; }
+  if (ov) { ov.querySelector('#hackRansom').textContent = h.ransom > 0 ? ('$' + h.ransom.toLocaleString()) : '（裁判尚未报价）'; return; }
+  ov = el('div'); ov.id = 'hackOverlay';
+  ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 50% 35%,#3a0d0d,#0a0000 70%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:24px';
+  const art = el('div');
+  art.innerHTML = '<svg width="230" height="170" viewBox="0 0 230 170">'
+    + '<rect x="18" y="14" width="194" height="118" rx="8" fill="#120607" stroke="#7d1a1a" stroke-width="3"/>'
+    + '<text x="115" y="92" font-size="72" text-anchor="middle" fill="#ff4d4d">!</text>'
+    + '<path d="M60 150 h110" stroke="#7d1a1a" stroke-width="3" stroke-dasharray="7 5"/>'
+    + '<text x="115" y="164" font-size="11" text-anchor="middle" fill="#c9a0a0">REVENUE SYSTEM COMPROMISED</text></svg>';
+  ov.appendChild(art);
+  ov.appendChild(el('div', null, '！ 系统遭到网络攻击！'));
+  const desc = el('div');
+  desc.style.cssText = 'max-width:560px;line-height:1.7';
+  desc.innerHTML = '收益管理系统被勒索，<b>本组面板的全部功能已无法操作</b>（排班、定价、投资、提案全部不可用）。'
+    + '<br>解除方式：向裁判支付赎金，或由裁判确认已处理。';
+  ov.appendChild(desc);
+  const bar = el('div');
+  const amt = el('span', null, h.ransom > 0 ? ('$' + h.ransom.toLocaleString()) : '（裁判尚未报价）');
+  amt.id = 'hackRansom';
+  amt.style.cssText = 'font-size:20px;font-weight:700;color:#ffd7d7';
+  const btn2 = el('button', null, '购买网络安全服务 $' + ((GM.cyber_service_price || 250000)).toLocaleString() + '/季');
+  btn2.style.marginLeft = '10px';
+  btn2.onclick = async () => {
+    const res = await act('buyCyberService', {});
+    if (res && res !== 'ok') alert(res); else render();
+  };
+  const btn = el('button', null, '支付赎金');
+  btn.onclick = async () => {
+    const res = await act('payRansom', {});
+    if (res && res !== 'ok') alert(res); else render();
+  };
+  bar.appendChild(amt); bar.appendChild(btn); bar.appendChild(btn2);
+  ov.appendChild(bar);
+  ov.appendChild(el('div', 'small', '第 ' + (h.at ?? '—') + ' 季遭攻击 · 请联系裁判'));
+  document.body.appendChild(ov);
+}
+/* 处置飞机的两条路径（团队自决，不强制时点） */
+/* 联程设置：每条航线两个开关（可作中转点 / 提供联程） */
+function renderConnBox() {
+  const box = $('#connBox'); if (!box) return;
+  box.innerHTML = '';
+  const flags = g.routeFlags || {};
+  const tb = el('table');
+  const tr = el('tr');
+  ['航线', '可作中转点', '提供联程'].forEach(h => tr.appendChild(el('th', null, h)));
+  tb.appendChild(tr);
+  for (const r of g.routes) {
+    const f = flags[r.code] || {};
+    const row = el('tr');
+    row.appendChild(el('td', null, (MARKETS[r.code] ? MARKETS[r.code].name_c : r.code) + '（' + r.code + '）'));
+    for (const k of ['hub', 'feed']) {
+      const td = el('td');
+      const cb = el('input'); cb.type = 'checkbox'; cb.checked = f[k] !== false;
+      cb.onchange = async () => { await act('setRouteFlags', { code: r.code, [k]: cb.checked }); };
+      td.appendChild(cb); row.appendChild(td);
+    }
+    tb.appendChild(row);
+  }
+  box.appendChild(tb);
+  box.appendChild(el('div', 'small', '提示：全部开启＝最大化承接（但会占用你的座位）；全部关闭＝只做本线旅客。'));
+}
+/* 回程设置：学员逐班设定回程起飞时刻（须 ≥ 过站时间） */
+function renderRetBox() {
+  const box = $('#retBox'); if (!box) return;
+  box.innerHTML = '';
+  const fl = (g.schedules || []).slice();
+  if (!fl.length) { box.appendChild(el('div', 'small', '尚无排班。')); return; }
+  const tb = el('table');
+  const tr = el('tr');
+  ['航班', '航线', '起飞', '到达', '过站时间', '回程起飞（设定）', '回程到达', ''].forEach(h => tr.appendChild(el('th', null, h)));
+  tb.appendChild(tr);
+  fl.forEach((s, i) => {
+    const m = MARKETS[s.code] || {};
+    const turn = s.turnaround != null ? s.turnaround : (((GM.style_turnaround || {})[g.style || 'Hybrid']) || 45);
+    const toMin = (x) => { const p = String(x || '00:00').split(':').map(Number); return (p[0] || 0) * 60 + (p[1] || 0); };
+    const hhmm = (v) => String(Math.floor(((v % 1440) + 1440) % 1440 / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
+    const arrMin = toMin(s.arrival) || (toMin(s.departure) + Math.round((m.bh || 1.5) * 60));
+    const row = el('tr');
+    row.appendChild(el('td', null, s.flightNo || '—'));
+    row.appendChild(el('td', null, m.name_cn || s.code));
+    row.appendChild(el('td', null, s.departure));
+    row.appendChild(el('td', null, s.arrival || '—'));
+    const rc = el('td', null, hhmm(arrMin + turn)); rc.title = '回程起飞不得早于此时刻'; row.appendChild(rc);
+    const td = el('td');
+    const inp = el('input'); inp.type = 'time'; inp.value = s.returnDeparture || ''; inp.style.width = '110px';
+    td.appendChild(inp); row.appendChild(td);
+    row.appendChild(el('td', null, s.returnArrival || '—'));
+    const td2 = el('td');
+    const btn = el('button', null, '保存');
+    btn.onclick = async () => {
+      const res = await act('setReturnFlight', { index: i, departure: inp.value });
+      if (res && res !== 'ok') alert(res); else render();
+    };
+    td2.appendChild(btn); row.appendChild(td2);
+    tb.appendChild(row);
+  });
+  box.appendChild(tb);
+}
+function renderSellHint() {
+  const box = $('#sellHint'); if (!box) return;
+  box.innerHTML = '';
+  const own = (g.aircraft || []).filter(a => a.owned);
+  const hc = (g.negotiation || {}).heavyCheck || {};
+  const lines = [];
+  lines.push('处置权在你（团队自行决策，任何时候都可以）：');
+  lines.push('① 与裁判谈价 —— 请裁判报价后出售（可获得溢价，如大修后出售溢价 $500,000）；');
+  lines.push('② 卖给其他航司 —— 通过「小组提案：飞机转让给别组」提交，成交后由裁判更新台账。');
+  const doing = Object.keys(hc).filter(id => hc[id] && !hc[id].done);
+  if (doing.length) lines.push('⚠ 当前有飞机正在大修（运力减半），若不继续运营请尽早决定处置方式。');
+  box.appendChild(el('div', 'small', lines.join(' ')));
+}
+function renderTarget() {
+  const box = $('#targetBox'); if (!box) return;
+  box.innerHTML = '';
+  const tg = (g.targets || {})[g.seat];
+  if (!tg) { box.appendChild(el('div', 'small', '尚未公布（第 3 季起由裁判公布并设定）。')); return; }
+  const rows = [];
+  if (tg.lf != null) {
+    const now = g.lastDetail ? Object.values(g.lastDetail).reduce((a, d) => a + (d.lf || 0), 0) / Math.max(1, Object.keys(g.lastDetail || {}).length) : null;
+    rows.push(['客座率 LF', (tg.lf * 100).toFixed(0) + '%', now != null ? (now * 100).toFixed(1) + '%' : '—', now != null && now >= tg.lf ? '达标' : '未达标']);
+  }
+  if (tg.profit != null) {
+    const cum = (g.history || []).reduce((a, r) => a + (r.operating_profit || 0), 0);
+    rows.push(['累计经营利润', money(tg.profit), money(cum), cum >= tg.profit ? '达标' : '未达标']);
+  }
+  if (tg.share != null) {
+    const now = g.lastDetail ? Object.values(g.lastDetail).reduce((a, d) => a + (d.share || 0), 0) / Math.max(1, Object.keys(g.lastDetail || {}).length) : null;
+    rows.push(['市场份额', (tg.share * 100).toFixed(0) + '%', now != null ? (now * 100).toFixed(1) + '%' : '—', now != null && now >= tg.share ? '达标' : '未达标']);
+  }
+  const t2 = el('table');
+  t2.innerHTML = '<tr><th>指标</th><th>目标</th><th>当前</th><th>状态</th></tr>';
+  for (const r of rows) {
+    const tr = el('tr');
+    r.forEach((c, i) => { const td = el('td', i === 3 ? (c === '达标' ? 'ok' : 'bad') : null, String(c)); tr.appendChild(td); });
+    t2.appendChild(tr);
+  }
+  box.appendChild(t2);
+  if (tg.note) box.appendChild(el('div', 'small', '裁判说明：' + tg.note));
+  box.appendChild(el('div', 'small', '第 ' + (tg.setTurn ?? '—') + ' 季由裁判设定'));
+}
+function renderMsgBoard() {
+  const box = $('#msgBoard'); if (!box) return;
+  box.innerHTML = '';
+  const all = (g.messages || []).slice().reverse();
+  const mails = all.filter(m => m.seat === g.seat);      // ★ 定向：仅本组的邮件（一条一封）
+  const notices = all.filter(m => !m.seat);              // 全课堂公告
+  if (!all.length) { box.appendChild(el('div', 'small', '暂无公告或情报邮件。')); return; }
+  if (mails.length) {
+    box.appendChild(el('div', null, '情报邮件（裁判定向发送）'));
+    for (const m of mails) {
+      const d = el('div');
+      d.style.cssText = 'border-left:3px solid #8250df;padding:6px 10px;margin:4px 0;background:#fbf7ff';
+      d.appendChild(el('div', null, '✉ ' + (m.title || '')));
+      if (m.body) d.appendChild(el('div', 'small', m.body));
+      d.appendChild(el('div', 'small', '第 ' + (m.turn ?? '—') + ' 季 · ' + (m.by || '裁判') + (m.code ? ' · ' + m.code : '')));
+      box.appendChild(d);
+    }
+  }
+  if (notices.length) {
+    box.appendChild(el('div', null, '课堂公告'));
+    for (const m of notices) {
+      const d = el('div');
+      d.style.cssText = 'border-left:3px solid #1f6feb;padding:4px 8px;margin-bottom:6px;background:#f6f8fa';
+      d.appendChild(el('div', null, (m.pinned ? '📌 ' : '') + (m.title || '')));
+      if (m.body) d.appendChild(el('div', 'small', m.body));
+      d.appendChild(el('div', 'small', '第 ' + (m.turn ?? '—') + ' 季 · ' + (m.by || '裁判')));
+      box.appendChild(d);
+    }
+  }
+}
+function renderIntel() {
+  const sel = $('#intelBuy');
+  if (!sel.options.length) {
+    sel.innerHTML = Object.keys(MARKETS).map(c => `<option value="${c}">${MARKETS[c].name_c}</option>`).join('');
+    sel.onchange = () => {
+      const q = (g.intelPrices || {})[sel.value];
+      $('#intelQuote').textContent = q != null ? ('裁判报价 $' + q.toLocaleString()) : '（裁判尚未报价）';
+    };
+  }
+  sel.onchange();
+  // 风险预警：只对已购情报（或全局预警）显示
+  const w = [];
+  for (const i of (window.__WARN__ || [])) {
+    if (i.scope === 'market' && !(g.intel && g.intel[i.code])) continue;
+    if (i.scope === 'airline' && !(g.intel && Object.keys(g.intel).length)) continue;
+    w.push('⚠ ' + i.text);
+  }
+  $('#intelWarn').innerHTML = w.length ? w.join('<br>') : '';
+}
+
+function renderProposals() {
+  const K = window.__PK__ || {};
+  const ks = $('#propKind');
+  if (!ks.options.length) {
+    ks.innerHTML = Object.entries(K).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join('');
+    ks.onchange = () => { fillPropFields(); };
+  }
+  const acs = $('#propAc');
+  const own = (g.aircraft || []).filter(a => a.owned);
+  acs.innerHTML = own.map(a => `<option value="${a.id}">${a.type} #${String(a.id).slice(-4)}</option>`).join('')
+    || '<option value="">（无自有飞机）</option>';
+  // 待批提案列表
+  const ps = g.proposals || [];
+  $('#propList').innerHTML = ps.length
+    ? ps.slice().reverse().map(p => {
+        const st = p.status === 'pending' ? '<span class="warn">待裁判确认</span>'
+          : (p.status === 'approved' ? '<span class="ok">已批准</span>' : '<span class="small">已驳回</span>');
+        return `<div>· ${(g.proposalKinds || {})[p.kind] || p.kind} ${p.note || ''} ${st}</div>`;
+      }).join('<br>')
+    : '<span class="small">（暂无提案）</span>';
+}
+
+function fillPropFields() {
+  const K = window.__PK__ || {};
+  const kind = $('#propKind').value;
+  const spec = K[kind] || { fields: [] };
+  const f = spec.fields || [];
+  $('#propP1').placeholder = f.length ? (f[0].k === 'acId' ? '（飞机见上）' : f[0].k) : '说明';
+  $('#propP2').placeholder = f.length > 1 ? f[1].k : (f.length === 1 && f[0].t === 'money' ? '价格 $' : '');
+  $('#propP1').value = '';
+  $('#propP2').value = '';
+}
+
+function render() {
+  head(); routes(); mktSelFill(); bandSelFill(); acSelFill(); sched(); invTabs(); invBody(); renderIntel(); renderProposals();
+  scoreTbl(); prevTbl(); hist(); rulesTbl(); renderRouteHint();
+  /* U4 Reports 七页签 + U9 运营三视图 */
+  if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
+  else R.renderReports($('#repBody'), g);
+  R.renderOpsViews($('#opsBody'), g);
+  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderSellHint(); renderConnBox(); renderRetBox(); renderTips();
+  /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
+  R.renderGantt($('#schedGantt'), { [g.seat]: g });
+  R.renderRouteDemand($('#routeDemandBox'), { [g.seat]: g });
+  /* 本季倒计时 */
+  const tm = (g.seatTimer && g.seatTimer[g.seat]) || null;
+  const cd = $('#seatClock');
+  if (cd) {
+    if (tm && tm.remaining != null) {
+      const m = Math.floor(tm.remaining / 60), s = tm.remaining % 60;
+      cd.textContent = '本季剩余 ' + m + ':' + String(s).padStart(2, '0') + '　' + (tm.submitted ? '（已提交）' : '（未提交）');
+    } else cd.textContent = '未开始计时';
+  }
+  /* U17 导出 */
+  const hSel = R.pickReport(g, null);
+  const onExp = (fn) => { const b = document.getElementById(fn.id); if (b) b.onclick = fn.run; };
+  onExp({ id:'btnExpSum', run: () => R.exportSummaryCsv(g, g.seat) });
+  onExp({ id:'btnExpRoute', run: () => R.exportRouteCsv(g, hSel, g.seat) });
+  onExp({ id:'btnExpSched', run: () => R.exportSchedulesCsv(g, g.seat) });
+  onExp({ id:'btnExpInv', run: () => R.exportInvestmentsCsv(g, g.seat) });
+  $('#log').innerHTML = g.log.slice(-25).map(l => '· ' + l).join('<br>') || '<span class="small">（无）</span>';
+}
+
+/* 本季新开放机制 + 贷款台账（分季递进教学：只显示已开放与本季新开的） */
+function rulesTbl() {
+  const box = $('#newRules');
+  const rules = (g.rules || []);
+  const fresh = rules.filter(r => r.on && r.turn === g.turn);
+  box.innerHTML = fresh.length
+    ? '本季新开放：' + fresh.map(r => `<b>${r.name}</b>`).join(' · ')
+      + '<br><span class="small">机制按季逐步引入，后续赛季将开放更多（由裁判掌握节奏）。</span>'
+    : '<span class="small">本季无新机制开放。</span>';
+  const t = $('#tblLoan');
+  t.innerHTML = '';
+  const loans = g.loans || [];
+  if (!loans.length) { t.style.display = 'none'; return; }
+  t.style.display = '';
+  const tr = el('tr');
+  ['贷款', '剩余本金', '年利率', '本季利息', '本季还款(含息)', '剩余期数'].forEach(h => tr.appendChild(el('th', null, h)));
+  t.appendChild(tr);
+  for (const l of loans) {
+    const row = el('tr');
+    row.appendChild(el('td', null, l.id));
+    row.appendChild(el('td', null, money(l.balance)));
+    row.appendChild(el('td', null, l.rate.toFixed(2) + '%'));
+    row.appendChild(el('td', null, money(l.quarterlyInterest)));
+    row.appendChild(el('td', null, money(l.quarterlyRepay)));
+    row.appendChild(el('td', null, l.quartersLeft + ' 季'));
+    t.appendChild(row);
+  }
+  const fr = el('tr');
+  fr.appendChild(el('td', 'small', '现金下限'));
+  fr.appendChild(el('td', 'small', money(g.cashFloor || 2000000)));
+  fr.appendChild(el('td', 'small', '超额现金将优先还贷'));
+  fr.appendChild(el('td', 'small', ''));
+  fr.appendChild(el('td', 'small', ''));
+  fr.appendChild(el('td', 'small', ''));
+  t.appendChild(fr);
+}
+$('#btnOpenRoute').onclick = () => act('openRoute', { code: $('#selNewRoute').value });
+$('#btnEtops').onclick = () => act('payEtops', { code: g.routes.find(r => !r.etopsPaid && MARKETS[r.code].etops)?.code });
+$('#btnAddFlight').onclick = () => act('addFlight', { acId: +$('#selAc').value, code: $('#selMkt').value, departure: $('#inpDep').value });
+$('#btnSubmit').onclick = () => act('advance');
+$('#btnPropose').onclick = async () => {
+  const kind = $('#propKind').value;
+  const spec = (window.__PK__ || {})[kind] || { fields: [] };
+  const payload = {};
+  const f = spec.fields || [];
+  if (f.length && f[0].k === 'acId') payload.acId = Number($('#propAc').value);
+  for (let i = 0; i < f.length; i++) {
+    const key = f[i].k;
+    if (key === 'acId') continue;
+    if (f[i].t === 'seat') payload[key] = $('#propP1').value.trim().toUpperCase();
+    else if (f[i].t === 'money' || f[i].t === 'num') payload[key] = Number($('#propP2').value || $('#propP1').value) || 0;
+    else payload[key] = $('#propP1').value.trim();
+  }
+  if (f.length && f[0].t === 'money') payload[f[0].k] = Number($('#propP1').value) || 0;
+  if (f.some(x => x.k === 'price')) payload.price = Number($('#propP2').value || $('#propP1').value) || 0;
+  const res = await act('propose', { kind, payload, note: $('#propNote').value });
+  if (res && res.result === 'ok') { $('#propNote').value = ''; }
+};
+$('#btnBuyIntel').onclick = async () => {
+  const code = $('#intelBuy').value;
+  const res = await act('buyIntel', { code });
+  if (res && res.result === 'ok') renderIntel();
+};
+load();
+
+const PKEY2 = new URLSearchParams(location.search).get("key") || "";
+async function seatClockTick(){var txt=document.getElementById("seatClock"),bar=document.getElementById("seatClockBar"),sub=document.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=(tm.submitted?"✅ 本组已提交":"⏳ 本组未提交")+"（到时自动结算，或点「立即结算本组」）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待开始计时";}}
+var bp=document.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
+var bs=document.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
+setInterval(seatClockTick,2000);seatClockTick();
+</script>
+</body>
+</html>

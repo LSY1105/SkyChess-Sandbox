@@ -1,0 +1,234 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "27"
+  - button "Read Messages"
+  - text: Daily Schedule
+  - img "A chart.": APT100 Starter G160XLR P3 005 G160XLR 009 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 Simone Simone Joplin Joplin Armstrong Armstrong Simone Simone Lewis Lewis Broonzy Broonzy Lewis Lewis
+  - table:
+    - rowgroup:
+      - row "Aircraft Flight Departure Return":
+        - columnheader "Aircraft"
+        - columnheader "Flight"
+        - columnheader "Departure"
+        - columnheader "Return"
+    - rowgroup:
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Armstrong Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Armstrong"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Armstrong Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Armstrong"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 005 Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 005"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR 009 Broonzy Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR 009"
+        - cell "Broonzy"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR 009 Broonzy Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR 009"
+        - cell "Broonzy"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR 009 Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR 009"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR 009 Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR 009"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+  - text: Scheduler & Flight Management
+  - tablist:
+    - tab "Flight List" [selected]
+    - tab "Scheduler"
+  - tabpanel:
+    - tablist:
+      - tab "Select Aircraft" [selected]
+      - tab "Select Route"
+    - tabpanel:
+      - img
+      - text: APT100 (Starter)
+      - button "Select"
+      - img
+      - text: G160XLR P3 (005)
+      - button "Select"
+      - img
+      - text: APT100 (007)
+      - button "Select"
+      - img
+      - text: G160XLR (009)
+      - button "Select"
+    - tabpanel:
+      - img
+      - text: Simone (SIM)
+      - button "Select"
+      - img
+      - text: Ellington (ETN)
+      - button "Select"
+      - img
+      - text: Lewis (LEW)
+      - button "Select"
+      - img
+      - text: Armstrong (ARM)
+      - button "Select"
+      - img
+      - text: Fitzgerald (FTZ)
+      - button "Select"
+      - img
+      - text: Joplin (JOP)
+      - button "Select"
+      - img
+      - text: Broonzy (BZY)
+      - button "Select"
+    - text: "Select an aircraft and route to schedule a flight. Aircraft Selected: Route Selected:"
+    - button "Reset Scheduler"
+  - tabpanel:
+    - table:
+      - rowgroup:
+        - row "Flight Aircraft Departure Route Cargo":
+          - columnheader "Flight"
+          - columnheader "Aircraft"
+          - columnheader "Departure"
+          - columnheader "Route"
+          - columnheader "Cargo"
+          - columnheader
+      - rowgroup:
+        - row "CA-0981 APT100 06:45 SIM Simone 4.24t Cancel Flight":
+          - cell "CA-0981":
+            - strong: CA-0981
+          - cell "APT100"
+          - cell "06:45"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-1762 G160XLR 07:00 LEW Lewis 2.90t Cancel Flight":
+          - cell "CA-1762":
+            - strong: CA-1762
+          - cell "G160XLR"
+          - cell "07:00"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-5552 G160XLR P3 10:15 SIM Simone 2.50t Cancel Flight":
+          - cell "CA-5552":
+            - strong: CA-5552
+          - cell "G160XLR P3"
+          - cell "10:15"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4712 APT100 11:15 JOP Joplin 4.24t Cancel Flight":
+          - cell "CA-4712":
+            - strong: CA-4712
+          - cell "APT100"
+          - cell "11:15"
+          - cell "JOP"
+          - cell "Joplin"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-1232 G160XLR 12:00 BZY Broonzy 2.90t Cancel Flight":
+          - cell "CA-1232":
+            - strong: CA-1232
+          - cell "G160XLR"
+          - cell "12:00"
+          - cell "BZY"
+          - cell "Broonzy"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4523 G160XLR P3 14:15 LEW Lewis 2.50t Cancel Flight":
+          - cell "CA-4523":
+            - strong: CA-4523
+          - cell "G160XLR P3"
+          - cell "14:15"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-5171 G160XLR P3 20:00 ARM Armstrong 2.50t Cancel Flight":
+          - cell "CA-5171":
+            - strong: CA-5171
+          - cell "G160XLR P3"
+          - cell "20:00"
+          - cell "ARM"
+          - cell "Armstrong"
+          - cell "2.50t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"

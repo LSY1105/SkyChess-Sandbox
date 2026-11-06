@@ -1,0 +1,23 @@
+==============================================================================
+SkyChess 应用层计算语句（含专有领域字段 + 算术，排除 vendor）
+==============================================================================
+命中 6 条去重后的计算语句
+
+[ 1] (fuel_price)
+     e.formState.saving(),axios.post(e.pushGameMarketUpdateRoute(),{fuel_prices:e.localGameMarketFuelPrices}).then((function(t){e.errors.clear(),e.flashResponse(t.data),e.formState.saved(),e.bubbleUpdate()})).catch((function(t){e.errors.record(t.response.data),e.flashResponse(t.response.data),e.formState.saved()}))},pushGameMarketUpd
+
+[ 2] (fuel_price)
+     return t?null!=e.fuel_price?((parseFloat(e.fuel_price)+parseFloat(t))/2).toFixed(2):parseFloat(t,2).toFixed(2):0},resolveAdditionalCrew:function(e){return null!=e.additional_cabin_crew?e.additional_cabin_crew:e.airlineaircraft.aircraft?e.airlineaircraft.aircraft.additional_cabin_crew:0},resolveTotalCrew:function(e){var t=this.re
+
+[ 3] (average_load)
+     var a=Math.round(r.average_load)
+
+[ 4] (average_load)
+     for(var i in this.slots.forEach((function(e){""!=e.airline_id&&(n.hasOwnProperty(e.airline_id)||(n[e.airline_id]=0,r[e.airline_id]="",a[e.airline_id]=""),n[e.airline_id]+=e.average_load,a[e.airline_id]=e.airline_hex,r[e.airline_id]=e.airline)})),n)e.addRows([[r[i]+" "+Math.round(n[i]),Math.round(n[i])]]),t.push({color:a[i]})
+
+[ 5] (total_departures)
+     return 1===e?this.currentBoard.departures.slice(0,t):this.currentBoard.departures.slice(t,this.currentBoard.total_departures+1)},maxStringer:function(e,t){if(!e)return""
+
+[ 6] (total_departures)
+     e++){var t=e*this.departuresPerBoard-this.departuresPerBoard,n=(e===this.totalBoards&&e*this.departuresPerBoard>this.totalDepartures?this.totalDepartures:e*this.departuresPerBoard)-1,r={index_in:t,index_out:n,total_departures:n+1-t,departures:this.departures.slice(t,n+1)}
+

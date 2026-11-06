@@ -1,0 +1,1916 @@
+--- p1 ---
+Travel Practice 
+The State of 
+Aviation 2025 
+May 2025 
+--- p2 ---
+Copyright © 2025 McKinsey & Company. 
+All rights reserved. 
+Cover image © Jonathan Kitchen/Getty Images. 
+All interior images © Getty Images. 
+--- p3 ---
+Can the aviation 
+industry soar to 
+new heights, or will 
+headwinds slow 
+its progress? 
+Contents 
+Chapter 1: Can the global airline 
+industry continue its climb? 4 
+The airline sector had a decent 
+year in 2024. Is it finally cracking 
+the value creation formula? 
+Chapter 2: Are low-cost 
+airlines losing altitude? 14 
+Low- and ultra-low-cost airlines 
+have tended to earn better returns 
+than full-service carriers, but their 
+performance has slowed in the 
+United States. Are there lessons 
+here for global airline leaders? 
+Chapter 3: The eight myths 
+of airline retailing 22 
+Airlines are rethinking how they 
+sell their offerings and service their 
+customers. Understanding common 
+misconceptions about airline retailing 
+could help accelerate growth. 
+Chapter 4: How to modernize 
+airline planning 34 
+Outdated, nonintegrated approaches 
+won’t fly anymore. Airline planning 
+could benefit from an overhaul. 
+Chapter 5: How severe is 
+the aircraft shortage—and 
+what happens next?  40 
+Rebounding air travel demand is 
+bumping up against a constrained 
+supply of new aircraft. Assessing the 
+size of this gap—and how it could grow 
+or shrink—can help inform solutions. 
+Acknowledgments 47 
+1 The State of Aviation 2025 
+--- p4 ---
+The aviation industry is enjoying a welcome 
+boost from resurgent postpandemic air 
+travel demand. But there remain potential 
+storms to navigate. This report analyzes the 
+industry’s current trajectory while pointing 
+toward possible future landing spots. 
+How might economic trends and geopolitical 
+events shape aviation? What product 
+offerings are most likely to find favor with 
+air travelers? How can airlines adjust their 
+business models, plan their schedules, and 
+calibrate their fleets in ways that achieve 
+their commercial and operational goals? 
+During a moment that combines great 
+promise with great uncertainty, it’s 
+crucial for aviation stakeholders to ground 
+their decisions in solid facts, careful 
+analysis, and hard-earned insights. 
+2 The State of Aviation 2025 
+--- p5 ---
+41% 
+of airlines created positive 
+value in 2024 
+Web <2025>
+<State of Aviation landing page>
+Exhibit <1> of <5>
+++ + + 
+Web <2025>
+<State of Aviation landing page>
+Exhibit <2> of <5>
+–1.1% 
+ROIC for North American low-cost airlines in 2024 
+$$$ $$ 
+Web <2025>
+<State of Aviation landing page>
+Exhibit <3> of <5>
+34% 
+relative importance of price as a driver 
+for air travelers’ booking choices 
+Web <2025>
+<State of Aviation landing page>
+Exhibit <4> of <5>
+$100 
+cost to airline for each additional 
+minute an aircraft is delayed 
+Web <2025>
+<State of Aviation landing page>
+Exhibit <5> of
+3 The State of Aviation 2025 
+ <5>
+2,000 
+global aircraft shortage as a result of increased 
+demand and delayed deliveries 
+--- p6 ---
+Chapter 1 
+Can the global 
+airline industry 
+continue its climb? 
+
+--- p7 ---
+The airline sector had a decent year 
+in 2024. Is it finally cracking the 
+value creation formula? 
+Running an airline isn’t for the timid. Weather events, infrastructure failures, and fickle 
+passenger demand can make an already-tough business even more challenging. As this article 
+goes to publication, economic uncertainty and geopolitical tension are both threatening to alter 
+travel flows, piling yet more stress on airline executives. 
+These business challenges show up on ledger sheets. Since 2005, we’ve analyzed the financial 
+performance of the aviation value chain. Our research demonstrates that, compared with other 
+asset-intensive sectors, airlines in aggregate have a long record of mixing positive growth with 
+negative economic profit. 
+But recent results suggest that this losing streak could at last be nearing an end. Many carriers 
+and multiple regions performed well in 2023, and 2024 data indicate another decent year. 
+Airlines that have reported detailed financial results as of the time of this writing recorded, as a 
+whole, an economic loss of $5 billion (or –0.6 percent of industry revenue), but 41 percent of the 
+airlines we track earned their cost of capital. Considering the state of the industry prior to the 
+COVID-19 pandemic (airlines recorded a $30 billion collective economic loss in 2019), this is a 
+remarkable feat. 
+What’s changed for the industry? Are these changes structural? What can individual airlines 
+learn from the encouraging results? And what could derail the industry’s progress? 
+The airline sector in 2024 
+For the purposes of this analysis, we look at value creation from an investor’s perspective. Our 
+measure is economic profit, which considers the alternative return from equal-risk opportunities 
+available to investors. It’s calculated by subtracting weighted average cost of capital (WACC) 
+from ROIC and then multiplying by invested capital. Positive economic profit—when ROIC is 
+above WACC—signals that a company or sector is creating positive value. 
+5 The State of Aviation 2025 
+Airline sector ROIC in aggregate has been below its cost of capital since at least 1996, which is 
+the earliest data point in our research (Exhibit 1). Many of the structural factors underlying this 
+poor result remain: Airline passengers are typically very price sensitive, the industry features 
+strong competition paired with low barriers to entry and high barriers to exit, and the regulatory 
+landscape can pose challenges to consolidation. But in 2023 and 2024, results improved. The 
+--- p8 ---
+annual differences between ROIC and WACC, at the sector level, were among the narrowest 
+we’ve seen in the history of our research. 
+Exhibit 1 
+The global airline industry’s ROIC approached its cost of capital in 2023 
+and 2024. 
+Global airline industry ROIC1 and median WACC,2 % 
+–15 
+–10 
+–5 
+0 
+5 
+10 
+ROIC 
+2000 2005 2010 2015 2020 
+Median WACC 
+Web <2025>
+<State of Aviation - climb>
+Exhibit <1> of <4>
+Note: 2024 figures based on airlines that have reported financial data at the time of publishing. 
+1Including goodwill. 
+²Weighted average cost of capital. 
+Source: Bloomberg; Company reports; IATA; S&P Capital IQ; The Airline Analyst; McKinsey aviation value chain model 
+McKinsey & Company 
+Regional performance varied. Latin America and the Middle East and Africa (for which only a 
+limited set of airlines had reported data at the time of publication) were value creating. Europe 
+and North America recorded marginal losses. Asia–Pacific accounted for the bulk of the sector’s 
+negative results. 
+But sector averages don’t tell the whole story. The number of value creators was historically high 
+in 2023 (when 46 percent of the airlines in our sample created positive value) and in 2024 (when 
+41 percent created positive value). These are the two best years for this metric since 1996, and 
+they show notable improvement compared with 2019, the last full year of prepandemic results 
+(when only 23 percent of airlines were value creators) (Exhibit 2). 
+Many airlines don’t earn their cost of capital, and the sector average is pulled down by some 
+larger airlines that consistently don’t. (Some of these lagging performers are state owned—and 
+perhaps valued more for the roles that they play in serving broader economic agendas than for 
+their financial performance.) Still, there have been several consistent value creators among the 
+airlines that we track.1 Omitting the pandemic-influenced results of 2020–22, seven airlines in 
+our sample earned their cost of capital every year during the 2015–24 period. Another six were 
+1 Our total sample includes more than 100 airlines, representing roughly 85 percent of industry revenue. For 2024, our data 
+set (which includes only those airlines that have already released detailed financial results for the year) includes roughly 
+70 airlines, accounting for more than 70 percent of industry revenue. 
+6 The State of Aviation 2025 
+--- p9 ---
+value creating for all but one of the years in that period. Twelve airlines were value creating for all 
+but two of those years. 
+Exhibit 2 
+A relatively high share of global airlines created value in 2023 and 2024. 
+Share of global carriers 
+creating value,1 % 
+0 
+20 
+40 
+60 
+80 
+100 
+2000 2005 2010 2015 2020 
+Web <2025>
+<State of Aviation - climb>
+Exhibit <2> of <4>
+1Carriers whose ROIC was greater than their weighted average cost of capital. 
+Source: Airfinance Global; S&P Capital IQ; McKinsey analysis of company reports; McKinsey aviation value chain model 
+7 The State of Aviation 2025 
+McKinsey & Company 
+Jet fuel is generally airlines’ largest operating cost, accounting for roughly 20 to 40 percent of 
+an airline’s cost base, depending on the business model. Airline sector performance is often 
+thought to be linked directly to jet-fuel-price developments, which lie outside airlines’ control. 
+This link, however, isn’t as strong as some might imagine: Our research indicates that it’s possible 
+for the sector to do well during periods of both higher and lower jet fuel prices. Both 2023 and, to 
+a lesser extent, 2024 were years with higher nominal jet fuel prices, but the sector still performed 
+relatively well in terms of ROIC. Jet fuel prices in 2025 have, thus far, been lower than they were 
+in 2024, though geopolitical tensions could still cause them to fluctuate in the near term. 
+How do airlines create value? 
+Value-creating airlines operate in a mix of regions and employ a mix of business models. There is 
+no single path to success. That said, we’ve written before about six “secrets” that, based on our 
+research, can be key components of superior airline ROIC performance: 
+— balancing capacity and demand 
+— generating ancillary revenue (for instance, from selling premium seats and extra-baggage 
+allowances) 
+— earning a great reputation through reliable, on-time performance 
+— providing origin and destination (O&D) routes that other airlines don’t 
+--- p10 ---
+— ensuring high capital productivity (for instance, by making efficient use of aircraft) 
+— building strong organizational health, featuring a clear strategic vision, well-communicated 
+v
+alues, and motivated employees 
+Recent performance improvement in the airline sector can be traced, in large part, to better 
+e
+xecution in some of these six areas. Developments relating to these dynamics could heavily 
+influence future results. 
+OEM and supply chain challenges 
+resulted in fewer available 
+aircraft in 2024, meaning that 
+airlines had less capacity than 
+they perhaps would have liked. 
+Capacity moving largely in line with demand 
+In 2023, there were 24 percent fewer aircraft deliveries from manufacturers than in 2018 (which 
+w
+as a strong year for aircraft production). In 2024, there were 30 percent fewer deliveries than 
+in 2018. OEM and supply chain challenges resulted in fewer available aircraft, and airlines had 
+less capacity (meaning fewer available seats on flights) than they perhaps would have liked. 
+This undercapacity was exacerbated by rampant engine problems that required additional 
+maintenance checks, which grounded a substantial number of aircraft. 
+Airlines have responded to supply constraints by extending aircraft leases (there were 11 percent 
+m
+ore lease extensions in 2024 than in 2018) and by keeping older aircraft in service longer 
+(the average age of the narrow- and wide-body passenger fleet in 2024 was 11.3 years, versus 
+9.7 years in 2018). Still, supply levels have been lower than airlines would prefer. This has led to a 
+change in the supply–demand balance, moving from oversupply to undersupply, and yields have 
+adjusted accordingly. Fewer seats available to passengers means higher ticket prices. The result, 
+in pure economic terms, is better financial performance. 
+However, supply could soon increase. As of March 2025, airline manufacturers’ order books 
+a
+re near all-time highs. This is partly a result of slower deliveries, but it’s also an indicator that a 
+considerable number of aircraft are set to join airline fleets in the next few years, creating more 
+available seats. 
+Meanwhile, a few factors suggest potential decreases in demand. For some mature aviation 
+m
+arkets, such as Europe, real-GDP growth over the next few years is expected to be lower than 
+it was from 2000 to 2019. While air travel tends to grow faster than GDP does, growth in GDP is 
+still a core underlying factor for demand. 
+Airlines are also expected to increase their use of sustainable aviation fuels, which can be two 
+t
+o four times more expensive than regular jet fuel. This cost could be passed on through ticket 
+pricing, and pricier tickets could drive some passengers away. 
+8 The State of Aviation 2025 
+--- p11 ---
+Recent economic uncertainty posed by global trade developments has caused consumer and 
+business confidence to trend downward, especially in North America. This could lead to lower 
+demand for both business and leisure travel. Rising geopolitical tensions could also reduce travel 
+flows between certain countries. Notably, these tensions could alter supply chains and impede 
+deliveries to certain parts of the world, thereby reducing capacity and counteracting yield drops. 
+Improved returns from ancillaries 
+Airlines continue to grow revenue from sources beyond ticket sales, such as baggage fees, 
+in-flight purchases, travel retail commissions, and seat selection and upgrade fees. These 
+ancillaries are generally associated with higher margins and lower price elasticity than base 
+ticket sales are. By some estimates, ancillary revenue share has grown from approximately 5 
+percent of sector revenue in 2010 to approximately 15 percent in 2024. 
+Airlines have been expanding the number of ancillaries that they offer. But our analysis suggests 
+that rather than simply increasing the breadth of ancillaries available, airlines could benefit 
+more from a better retailing approach featuring an intensified focus on personalizing offerings, 
+carefully pricing them, and optimizing when and how ancillaries are offered. 
+Loyalty programs have become considerable sources of value for many airlines. Some airlines, 
+such as the large US network carriers, generate sizable amounts of revenue from cobranded 
+credit cards. This is likely linked in part to the high credit card penetration and interchange rates 
+in the United States. To illustrate, interchange fees in the United States are approximately 1.7 
+percent, whereas in Europe they’re mostly capped at around 0.3 percent. Greater revenue from 
+these transaction fees can help to fund US credit card rewards and benefits. 
+In markets with lower credit card penetration and interchange rates, loyalty programs can still be 
+an effective device for swinging customer demand. Customers might choose an airline because 
+of a strong preference for its loyalty program, even when the airline doesn’t offer the lowest price 
+or the best schedule option. 
+Reliability’s relationship to performance 
+We find evidence that better on-time performance correlates with better airline financial 
+performance (Exhibit 3). In our survey on airline customer preferences, 34 percent of passengers 
+indicate that reliable, on-time operation makes them more loyal to an airline, making this factor 
+the third-most important after competitive pricing (48 percent) and flight comfort (36 percent). 
+Today’s passengers are much more aware of an airline’s on-time performance rating, given easy 
+public access to statistics through metasearch engines and tracking websites. 
+On-time performance in the industry, however, hasn’t been on an upward trend. In the 
+United States in 2024, for example, 78 percent of flights were on time. This figure is up from 
+73 percent in 2000 but down from 81 percent in 2016. Staffing shortages across the value 
+chain may have contributed to this result. Some factors causing delays lie outside an airline’s 
+sphere of control, but data-driven operational decision-making, powered by better analytics, 
+can help airlines take proactive steps both to mitigate delays and to keep passengers informed 
+about impending disruptions. 
+The power of privilege 
+An airline enjoys network privilege if it can offer O&D journeys for which it is the clear best choice 
+for passengers. An airline that has a larger share of its passengers flying on trips for which it’s 
+privileged will tend to generate better ROIC. Passengers flying on privileged O&D routes tend to 
+provide higher yields, since they’re willing to pay for the airline’s distinctive offering. 
+Privileged O&Ds often occur in secondary markets in which fewer passengers travel the route. 
+For one large network carrier, the average market size for privileged O&D routes was 24 times 
+smaller than that of the most competitively exposed markets (meaning those in which the airline 
+has less than 20 percent expected market share). 
+9 The State of Aviation 2025 
+--- p12 ---
+Exhibit 3 
+Web <2025>
+<State of Aviation - climb>
+Exhibit <3> of <4>
+Airlines’ on-time performance correlates with their financial performance. 
+Average ROIC, by on-time performance, % 
+<70% 71–80% 
+Share of flights arriving on time 
+81–90% >90% 
+6 
+10 
+11 
+12 
+Source: Airfinance Global; Flightradar24; S&P Capital IQ; McKinsey analysis of company reports; McKinsey aviation value chain model 
+McKinsey & Company 
+Hubs—when an airline has a concentrated presence at an airport with many routes and a high share 
+of connecting passengers—are one way to create privileged O&D offerings and, in particular, to 
+tap into thinner secondary markets. Hubs allow an airline to group together multiple passenger 
+flows going to a certain secondary city, making service to that smaller city more viable. Some 
+industry observers have suggested that the rise of longer-range aircraft with smaller cabin sizes 
+could lead to the demise of hubs. Although hub market share has slightly decreased, we find that 
+connecting traffic remains a sizable portion of multiple end-to-end passenger flows. 
+Airlines can further build out network privilege by serving secondary markets in a cost-effective 
+manner and connecting them to at-scale hubs. New aircraft technology in the form of either cost-
+efficient regional aircraft or longer-range, smaller-gauge aircraft (which can fly long distances 
+but hold fewer passengers) can help strengthen hub operations.  
+A rise in capital productivity 
+Capital productivity, or how much revenue is generated per dollar of invested capital, is of vital 
+importance to airline performance. Airlines can maximize capital productivity in a number of 
+ways, such as the following: 
+— ensuring that new aircraft fly as many hours per day as they can (ten to 12 hours per day for 
+narrow-body aircraft and 15 to 16 hours per day for wide-bodies) 
+— ordering aircraft at the right moment—when aircraft prices are down or when aircraft 
+deliveries will be timed to arrive amid high passenger demand—which can lock in savings 
+across the aircraft’s lifespan 
+10 The State of Aviation 2025 
+--- p13 ---
+— effectively dealing with demand seasonality by playing with an aircraft fleet’s age profile (for 
+instance, by keeping a mix of newer and older aircraft in the fleet and putting older aircraft 
+into service only when demand is high) 
+Capital productivity has increased over time, in nominal terms. In 2000, airlines at a sector level 
+generated $0.90 for every $1.00 invested. That increased to $1.20 per $1.00 invested by 2023 
+and to $1.23 by 2024. This increase is in part caused by inflation stemming from supply–demand 
+imbalance, but airlines have also become more capital productive over time. 
+The value of healthy organizations 
+Healthy airline organizations are better able than others to bring disparate functions together to 
+make cross-functional trade-offs, quickly coming to decisions that are best for the airline as a 
+whole (for instance, through integrated planning). They employ motivated workforces that know 
+what’s expected and feel trusted to deliver on their objectives. They’re typically quite lean. 
+We measure organizational health using McKinsey’s Organizational Health Index, a diagnostic 
+tool that measures the critical elements of a high-performing culture within an organization. 
+Organizational health continues to correlate with better airline performance (Exhibit 4). But many 
+airlines could be healthier. In our sample, 67 percent of airlines exhibit health levels that are in the 
+bottom quartile across sectors. 
+Exhibit 4 
+Web <2025>
+<State of Aviation - climb>
+Exhibit <4> of <4>
+Airlines with better organizational health tend to achieve better ROIC. 
+ROIC vs McKinsey Organizational Health Index (OHI) score1 
+ROIC,² after taxes, 
+in year of OHI 
+assessment, % 
+OHI score 
+–10 
+–5 
+0 
+5 
+10 
+15 
+20 
+0 20 40 60 80 100 
+1Average across 9 dimensions of health; years vary. Based on results of 10 individual airlines with ~60,000 respondents.
+²Including goodwill. 
+McKinsey & Company 
+11 The State of Aviation 2025 
+--- p14 ---
+Healthy airline 
+organizations are better 
+able than others to bring 
+disparate functions 
+together to make cross-
+functional trade-offs. 
+12 The State of Aviation 2025 
+--- p15 ---
+Airlines could improve their health levels by focusing on areas such as direction (communicating 
+a clear and compelling vision of where the airline is headed, how it will get there, and what this 
+means for everyone), motivation (nurturing employee loyalty and enthusiasm), and external 
+orientation (engaging with customers, suppliers, partners, and other external stakeholders to 
+create and deliver value). 
+What could halt airlines’ progress in 2025? 
+Despite positive trends in 2023 and 2024, several developments could stop the airline sector 
+from maintaining or improving its results in 2025. Demand uncertainty linked to changes in 
+business and consumer sentiment could lead to lower demand for certain travel lanes, thereby 
+affecting airlines’ financials. Should a recession hit, demand could be further dampened due to 
+the link between GDP growth and air travel growth. Tariffs may put upward pressure on airline 
+input costs. 
+Knock-on effects are often unpredictable. Lower demand growth might be offset by decreased 
+OEM supply resulting from trade flow tensions. Shifting passenger demand could open up new 
+opportunities for network privilege. Healthier organizations will meet challenges with the cross-
+functional nimbleness that’s required to rapidly respond to changing external conditions. 
+Airline performance has been climbing, but there are potential storm clouds in the distance. 
+Airlines that can navigate this turbulence could see their financial performance take flight. 
+Steve Saxon is a partner in McKinsey’s London office, and Jaap Bouwer is a senior knowledge expert in the 
+Amsterdam office. 
+The authors wish to thank Regis Huc for his contributions to this article. 
+13 The State of Aviation 2025 
+This article was edited by Seth Stevenson, a senior editor in the New York office. 
+--- p16 ---
+Chapter 2 
+Are low-cost airlines 
+losing altitude? 
+
+--- p17 ---
+Low- and ultra-low-cost airlines 
+have tended to earn better returns 
+than full-service carriers, but their 
+performance has slowed in the 
+United States. Are there lessons 
+here for global airline leaders? 
+Airlines are often categorized into groups differentiated by their business models—in 
+particular, their cost structures and revenue approaches: 
+— Legacy carriers (also known as full-service airlines) tend to offer multiclass cabins and a wide 
+range of amenities, with many service features included in the ticket price. Examples include 
+American Airlines, British Airways, and Cathay Pacific. 
+— Low-cost carriers and ultra-low-cost carriers—a combined group known as (U)LCCs—tend 
+to sell discounted base-fare tickets and then charge extra for a range of amenities. Examples 
+include Southwest Airlines, Spirit Airlines, Ryanair, and AirAsia. 
+In the course of our research on airline profitability, we’ve found that (U)LCCs have typically 
+delivered better financial returns than legacy carriers. This outcome has been true across 
+geographies and over multiple decades. 
+But (U)LCCs in North America, one of the world’s largest airline markets, have recently been 
+underperforming their legacy counterparts—falling behind, by some measures, on both growth 
+and profitability. Changing economic conditions that influence passenger demand could, of 
+course, push this trend in unexpected directions, but it’s worth investigating how such a major 
+reversal occurred. 
+Which actions or circumstances clouded the picture for North America’s (U)LCCs? And what 
+important business model implications should be considered by airlines of all types, in all regions? 
+Budget airlines have propelled industry growth and profitability 
+15 The State of Aviation 2025 
+From 2012 through 2019, (U)LCCs generally outperformed legacy airlines across the globe with 
+respect to ROIC (Exhibit 1). This trend was especially pronounced in the years leading up to the 
+--- p18 ---
+pandemic, when (U)LCCs benefited from structurally leaner cost bases than legacy carriers— 
+thanks to simplified operations and lower overhead and labor costs. 
+Exhibit 1 
+Web <2025>
+<State of Aviation - Low Cost Carriers>
+Exhibit <1> of <5>
+Low-cost airlines generally outperformed full-service carriers prior to the 
+pandemic. 
+Global airline ROIC, 
+including goodwill, 
+by carrier type, 
+weighted average, % 
+0 
+2 
+4 
+6 
+8 
+10 
+12 
+2012 2013 2014 2015 2016 2017 2018 2019 
+Legacy carriers 
+(U)LCCs1 
+1Low-cost carriers and ultra-low-cost carriers. 
+Source: Airfinance Global; aviation value chain model; company reports; S&P Capital IQ 
+McKinsey & Company 
+16 The State of Aviation 2025 
+A key factor in (U)LCCs’ success has been their overall cost structures. They often use 
+streamlined route network designs, opting for point-to-point service over hub-and-spoke 
+models, thereby enabling more efficient aircraft utilization and limiting the operational complexity 
+of connecting passengers. Additionally, they tend to fly to secondary airports (which generally 
+involves lower costs) and operate denser aircraft with a single-cabin layout (fitting more 
+passengers on the same plane by narrowing the seats and decreasing legroom). 
+(U)LCCs have also excelled at generating incremental revenue at relatively high margins from 
+optional services such as baggage fees, seat selection, and onboard refreshments. These 
+services are unbundled from base fares, priced dynamically, and often purchased at the point of 
+need. While legacy carriers have adopted similar unbundling strategies, (U)LCCs have built an 
+entire business model around this approach, which reinforces their value-oriented positioning 
+(thanks to low base fares) while bolstering financial performance. 
+Over the past decade and a half, (U)LCCs have grown at a faster rate than legacy carriers. Across 
+most regions of the world, (U)LCCs’ share of total available seat kilometers (ASKs)—a measure of 
+airlines’ carrying capacity—has significantly increased (Exhibit 2). 
+Discount carriers have stalled out in North America 
+While (U)LCCs outperformed legacy airlines in the period preceding 2020, more recent data 
+show legacy carriers beginning to lead in ROIC in North America (Exhibit 3). Although (U)LCCs 
+continue to grow modestly in terms of scheduled capacity, their growth rate now trails that of 
+legacy carriers for the first time in many years. 
+--- p19 ---
+Exhibit 2 
+Web <2025>
+<State of Aviation - Low Cost Carriers>
+Exhibit <2> of <5>
+Low-cost airlines have steadily increased share across most regions. 
+(U)LCC1 share of total scheduled available seat kilometers, by region, % 
+Africa Asia–Pacific 
+2009 
+2014 
+2019 
+2024 
+8 
+15 21 26 26 
+8 9 2 
+Europe2 Latin America Middle East North America 
+31 
+44 
+55 60 
+27 30 34 37 
+12 
+21 24 
+37 
+24 30 34 36 
+Note: Flights are intraregional. 
+1 Low-cost carriers and ultra-low-cost carriers. 
+2EU-28, Norway, Switzerland, and Iceland. 
+Source: Diio Mi 
+McKinsey & Company 
+Exhibit 3 
+In North America, low-cost airlines have recently underperformed 
+compared with legacy carriers. 
+North American airline 
+ROIC, including goodwill, 
+by carrier type, weighted 
+average, % 
+–25 
+–20 
+–15 
+–10 
+–5 
+0 
+5 
+10 
+15 
+2012 2015 2020 2024 
+Legacy carriers 
+(U)LCCs1 
+Web <2025>
+<State of Aviation - Low Cost Carriers>
+Exhibit <3> of <5>
+1Low-cost carriers and ultra-low-cost carriers. 
+Source: Airfinance Global; aviation value chain model; company reports; S&P Capital IQ 
+17 The State of Aviation 2025 
+McKinsey & Company 
+--- p20 ---
+While North America presents the clearest example of this shift, recent data suggest it is 
+not the only region where changes are afoot. In Latin America, for instance, legacy carriers 
+are now leading (U)LCCs with respect to ROIC (though some have improved their financial 
+positions through postpandemic bankruptcy restructuring). There are indications that the North 
+American trend may not be isolated, and that it could reflect broader changes in the industry’s 
+competitive dynamics. 
+This raises two important questions: What caused this novel divergence in North America? In 
+light of this development, what implications should global airline leaders consider? 
+What happened to North America’s discount airlines? 
+Based on interviews with airline leaders, public statements from across the industry, and 
+McKinsey research, we find that the slowed performance of North American (U)LCCs—in 
+comparison with their better-performing legacy counterparts—has resulted in large part from 
+three factors: increased labor costs, a divergence in spending between higher-income and 
+lower-income travelers, and a concerted effort by full-service carriers to mimic (U)LCCs’ popular 
+offerings while providing better value and improved onboard experiences. 
+Cost convergence between (U)LCCs and legacy airlines 
+The postpandemic pilot and labor shortage has increased labor prices for all airlines. For legacy 
+carriers with broadly higher pay scales, this increase was more muted as a percentage of total 
+existing costs. For (U)LCCs, labor costs as a percentage of operational expenditures increased 
+at a far faster pace (Exhibit 4). This increase resulted in a drastic reduction in the cost differential 
+between (U)LCCs and legacy carriers. 
+Exhibit 4 
+Web <2025>
+<State of Aviation - Low Cost Carriers>
+Exhibit <4> of <5>
+Labor costs comprise a larger portion of US low-cost airlines’ cost bases 
+and have recently increased at a faster pace compared with legacy carriers. 
+US airline labor costs as share 
+of total operating expenditure, 
+by carrier type,1 % 
+0 
+10 
+20 
+30 
+40 
+50 
+2019 2024 
+Legacy carriers 
+(U)LCCs2 
+14 quarters ending in Q3 of each year shown. 
+2Low-cost carriers and ultra-low-cost carriers. 
+Source: US Department of Transportation, Form 41 
+18 The State of Aviation 2025 
+McKinsey & Company 
+--- p21 ---
+While North America 
+presents the clearest 
+example of this shift, recent 
+data suggest it is not the 
+only region where changes 
+are afoot. In Latin America, 
+for instance, legacy carriers 
+are now leading (U)LCCs 
+with respect to ROIC. 
+1919 The State of Aviation 2025 
+--- p22 ---
+Growth in premium demand—paired with softer demand for budget options 
+Postpandemic US consumer spending has become increasingly reliant on households earning 
+more than $250,000 a year—the upper 10 percent by income. These households have increased 
+their spending above inflation levels. Travelers from these households are more likely to value 
+products traditionally associated with legacy carriers (such as premium-economy or business 
+class seats, airport lounges, and other upmarket offerings). 
+Meanwhile, on the other end of the consumer-spending spectrum, inflation has cut into the 
+discretionary spending budgets of lower-income households. When these households spend 
+less on travel, (U)LCCs feel the effects more acutely than legacy carriers do. 
+Legacy-carrier products targeting (U)LCC traffic 
+Legacy carriers have launched their own versions of “basic” economy tickets. United Airlines 
+has reported that more than 15 percent of its ticket sales fit into this category. These products 
+directly target (U)LCC customers, using price points and fare rules that mimic (U)LCC offerings. 
+Despite the overall softening of budget demand, legacy carriers have succeeded with budget 
+products by offering basic fares within a broader premium-brand experience—combining 
+low entry prices with expansive route networks, robust loyalty programs, and strong brand 
+familiarity. This strategy has not only attracted budget-conscious travelers but also enabled 
+legacy carriers to upsell passengers to higher-margin options and ancillary services, enhancing 
+overall revenue performance. 
+What implications should global airline leaders consider? 
+Based on the state of order books for narrow-body aircraft—a broadly indicative measure—
+(U)LCC growth still appears to be outpacing legacy-carrier growth outside North America, in 
+line with its past trajectory (Exhibit 5). 
+ 
+Exhibit 5 
+In most regions outside of North America, low-cost airlines can still be 
+expected to grow faster than legacy carriers. 
+Firm passenger narrow-body orders placed, by type,1 
+number of units as of Apr 2025 
+0 1,000 2,000 3,000 4,000 5,000 
+Africa 
+Latin America 
+Middle East 
+North America 
+Europe 
+Asia–Pacific 
+(U)LCC share of 
+total orders, % 
+0 
+63 
+56 
+47 
+58 
+59 
+Legacy carriers 
+(U)LCCs2 
+Web <2025>
+<State of Aviation - Low Cost Carriers>
+Exhibit <5> of <5>
+1Excludes firm orders placed without operators assigned. Excludes lessor orders placed. 
+2Low-cost carriers and ultra-low-cost carriers. 
+Source: Cirium Fleets Analyzer, Apr 2025 
+McKinsey & Company 
+20 The State of Aviation 2025 
+--- p23 ---
+But the same factors that influenced (U)LCCs’ fortunes in North America could certainly show 
+up in other geographies. Global airline leaders can monitor whether similar developments are 
+brewing in their own regions. Additionally, they might draw a few broad lessons from the shift in 
+North America: 
+— Cost control is crucial. For airlines of all types, focusing on meaningful cost control will 
+always be a proven path to improving profitability. In today’s environment, rising labor costs— 
+particularly for pilots and technical staff—are placing pressure on operating models that 
+were once highly cost-competitive. While these dynamics could be difficult to reverse, there 
+are opportunities to improve efficiency through better utilization, scheduling, and resource 
+deployment. A systematic approach that is grounded in detailed cost diagnostics, bottom-
+up planning, and implementation across operations could help airlines identify areas of 
+untapped productivity. Amid continuing volatility, building a more resilient cost base will be 
+critical to sustaining performance. 
+— The value story matters. Customers like cheap fares—and they want a good experience 
+when they fly. In North America, legacy carriers have been investing in customer experience, 
+for instance, by improving their on-time performance, offering robust streaming or seat-back 
+in-flight entertainment, providing free Wi-Fi, and serving more appealing free snacks and 
+drinks. Many of these enhancements are available to all customers, including those flying on 
+restricted economy tickets. If customers are presented with an attractive price point, they will 
+likely pick the carrier with the better customer experience. 
+— Customer segments can be captured using different approaches. A traveler may choose a 
+full-service, nonrefundable ticket for a week-long trip to Paris and then, a couple of months 
+later, opt for a basic budget fare for a weekend jaunt to Las Vegas. How can an airline best 
+serve both needs? In North America, legacy carriers have introduced basic-economy 
+products—replicating (U)LCC offerings—by creating low-cost, unbundled fares within the 
+same cabin as their full-service products. Similar unbundling strategies have been adopted 
+by legacy carriers worldwide, but there is a notable divergence. North American legacy 
+carriers have largely managed the low-cost challenge within a single airline brand, but legacy 
+carriers in other regions have often responded to low-cost competition by creating group-
+owned, low-cost carriers under different branding (such as Lufthansa Group’s Eurowings, 
+Singapore Airlines’ Scoot, and Qantas’s Jetstar) while, in many cases, also unbundling their 
+mainline products. 
+As airline business models continue to converge, the industry may be approaching a turning 
+point. The North American example could portend not just a short-term shift but a deeper 
+change in how airlines compete. Legacy carriers have shown they can adapt by borrowing tactics 
+from (U)LCCs while using broader networks and premium services to compete across customer 
+segments. For (U)LCCs, competing on price alone may no longer be enough, and they could be 
+better served by offering a clearer value proposition—maintaining their low-cost edge while 
+selectively improving the customer experience in ways that build loyalty. The most successful 
+airlines, across categories, will be those that stay agile, rethink their business models regularly, 
+and focus on what customers truly value. As the lines between airline types blur, enduring 
+differentiation becomes even more vital. 
+Andrew Curley is a partner in McKinsey’s Chicago office, Vik Krishnan is a senior partner in the Bay Area office, 
+Jaap Bouwer is a senior knowledge expert in the Amsterdam office, and Nils Hübel is an associate partner in the 
+Atlanta office. 
+This article was edited by Seth Stevenson, a senior editor in the New York office. 
+21 The State of Aviation 2025 
+--- p24 ---
+Chapter 3 
+The eight myths of 
+airline retailing 
+
+--- p25 ---
+Airlines are rethinking how they 
+sell their offerings and service 
+their customers. Understanding 
+common misconceptions 
+about airline retailing could 
+help accelerate growth. 
+Travel not only has recovered  but also is exceeding prepandemic levels: In 2024, airline 
+gross bookings reached 115 percent of their 2019 total. At the same time, evolving consumer 
+expectations and behaviors are reshaping how people plan, book, and experience their 
+journeys. Together, these shifts are fueling a rapid transformation of the travel sector. 
+The airline industry is attempting to meet these expectations through, in part, improving its 
+approach to retailing.  What the airline industry refers to as “retailing” primarily encompasses 
+selling (of, for instance, tickets, upgrades, and ancillary offerings) and servicing (of, for instance, 
+refund requests and other traveler needs) across all customer channels, including both airline-
+controlled websites and apps and third-party online travel agencies (OTAs). Many carriers 
+remain constrained in their retail efforts by siloed structures, legacy technology platforms, and 
+concerns that up-front investments in retailing may not yield immediate or sufficient returns. 
+While some airlines have taken meaningful steps toward modernizing their retailing, there 
+remain untapped opportunities to boost both customer value and commercial potential. 
+23 The State of Aviation 2025 
+To bet
+ter understand how traveler expectations about retailing are shifting—and to identify 
+instances in which conventional industry wisdom may be outdated—we conducted a global 
+survey of 7,000 travelers from North America, Europe, the Middle East, and Asia. The survey’s 
+findings highlight and debunk eight common myths that continue to shape airline retail 
+strategies, while offering insight into what travelers actually want across the full retail journey 
+from inspiration to post-travel engagement. 
+--- p26 ---
+Myth #1: Airlines have already captured the full value of 
+customer preferences 
+Reality: Most travelers are willing to pay more for features they care 
+about—but many airline retail models still rely on static airfare bundles 
+that fail to realize that added value 
+In our survey, 33 percent of respondents cite price as their top booking criterion. But many 
+travelers prioritize other attributes too, including ease of booking (20 percent) and brand trust 
+(20 percent). These findings are consistent with decades of choice-modeling research and 
+industry knowledge, which have shown that price is just one of several decision drivers for 
+consumers. 
+Our conjoint analysis quantifies these preference patterns (Exhibit 1). While price holds the 
+highest relative weight (34 percent), other features such as baggage allowance (16 percent), 
+seat selection (10 percent), and ticket flexibility (9 percent) are also powerful drivers of 
+travelers’ choices—often more so than traditional premium features such as lounge access 
+(4 percent). 
+The airline industry has made considerable progress in revenue management over 
+the decades, but a breakthrough opportunity awaits airlines that can understand and 
+accommodate a range of preferences that vary substantially across segments. For instance, 
+Japanese travelers assign 42 percent importance to price, compared with just 28 percent 
+among Chinese travelers. Younger travelers (aged 18 to 24) place greater value on features like 
+Wi-Fi and ticket flexibility, while higher-income travelers are more likely to prioritize features 
+such as seat selection and priority services. 
+Exhibit 1 
+Web <2025>
+<State of Aviation - Retailing>
+Exhibit <1> of <5>
+Travelers consider many factors when assessing an airline ticket bundle. 
+Relative importance of attribute when selecting bundle, % 
+4 
+Upgrade eligibility (excluded vs included) 
+6 
+9 
+10 
+4 
+4 
+5 
+7 
+16 
+34 
+Lounge access (excluded vs included) 
+Priority boarding (excluded vs included) 
+Wi-Fi (excluded vs included) 
+Snacks and drinks (excluded vs included) 
+Miles collections (0.5× vs 1.5×) 
+Flexibility (no ”exibility vs fully refundable) 
+Seat selection (random seat vs extra legroom) 
+Baggage (personal item only vs 1 checked bag) 
+Price ($150 vs $400) 
+Average maximum amount willing 
+to pay for upgrade, $
+12
+14 
+15 
+18 
+27 
+13 
+54 
+57 
+112 
+n/a 
+Note: Figures may not sum to 100%, because of rounding. 
+Source: McKinsey Consumer Survey on airline retailing preferences, Mar 2025 (n = 7,000) 
+McKinsey & Company 
+24 The State of Aviation 2025 
+
+--- p27 ---
+When asked directly about standard airfare bundle options (economy light, economy standard, 
+and premium economy), respondents indicate certain preferences relating to which components 
+are included in those bundles (such as baggage allowances, seat selection, Wi-Fi access, 
+and ticket refundability). But when exposed to randomized airfare bundle combinations in a 
+structured choice experiment, respondents’ preferences often shift—revealing a gap between 
+how airlines package and price offers and what customers actually value. 
+This gap is especially pronounced because most airlines rely on just a few static airfare 
+bundles—which often fail to reflect the full willingness to pay for individual features. In many 
+cases, travelers are willing to pay for more than what these rigid bundles capture. 
+Our attribute-level willingness-to-pay modeling (mapped to global passenger volumes 
+and different product structures) reveals a latent customer value opportunity of more than 
+$45 billion across the full airline retail value chain—including, but not limited to, better 
+bundling. This finding is consistent with earlier research from McKinsey and the International 
+Air Transport Association (IATA) . Capturing this value doesn’t require a complete overhaul. 
+It starts with more precise tailoring—understanding who the customers are, what they care 
+about most, and how much they’re willing to pay for each feature. 
+Implications: Airlines that move beyond rigid fare families toward dynamic, segment-tailored 
+offers are best positioned to capture the full value that flows from travelers’ genuine priorities. 
+Most consumers are willing to pay incrementally for features they view as value adding—if 
+those features are offered in the right way to the right customer. 
+Myth #2: More personalization always equals better experiences 
+Reality: Travelers want personalization that reduces noise and adds 
+practical value—they care more about clarity and control than 
+customization for its own sake 
+25 The State of Aviation 2025 
+As evidenced above, travelers are willing to pay more when they see clear value—especially 
+for features that enhance control, comfort, or peace of mind. Personalization can support that 
+value perception, but only when the personalization is simple, useful, and relevant. 
+In recent years, airlines have raced to personalize every aspect of the travel experience. 
+They’ve added new fare classes in economy cabins, multiple seat types in premium cabins, 
+more tiers in loyalty programs, and highly customizable onboard services such as “dine on 
+demand” or entertainment profiles. But more choice doesn’t always mean a better experience. 
+Even features that are widely valued—such as seat selection—can become overwhelming 
+when the traveler is presented with too many nuanced or unclear options. One traveler 
+described spending more time choosing a seat than booking the flight itself—because of a 
+fear of picking the “wrong” seat. This particular choice might be made more useful if the airline 
+presented the differences in value between seats instead of just showing a seat map. 
+Digital experiences have followed a similar path. Travelers might now see hypertailored offers 
+in apps or loyalty portals, based on location, browsing history, or elite status. But when asked 
+to recall which ones were actually useful, many struggle to name even one. 
+Our survey data suggests that practical features such as real-time travel assistance (for 
+example, gate or delay alerts) and preflight customization (for example, selecting meals or 
+seats) are seen as some of the most valuable types of personalization. Seventy percent and 
+65 percent of travelers, respectively, rate these as “somewhat” or “very important.” Asked 
+to identify the most valuable type of personalization, 28 percent overall (and 37 percent of 
+travelers aged 65 to 74) selected real-time travel assistance. This suggests that what travelers 
+most want is convenience over curation and control over complexity (Exhibit 2) 
+--- p28 ---
+Generative AI could play a growing role  in delivering just that—if used wisely. By enabling 
+conversational trip planning, cocreating flexible itineraries, or powering intuitive chatbot 
+interactions, gen AI has the potential to simplify rather than overwhelm. Yet adoption is still 
+early: Fewer than a quarter of travelers report frequently using AI tools when exploring or 
+booking trips, and over a third say they’ve never experienced AI in their travels. This reveals a 
+significant opportunity for airlines to apply gen AI not just as a novelty but as a tool to enhance 
+practical value across the customer journey. 
+Exhibit 2 
+Web <2025>
+<State of Aviation - Retailing>
+Exhibit <2> of <5>
+Airline passengers value personalized, real-time travel assistance. 
+Reported importance of personalization, % of respondents 
+Personalized discounts/premiums 
+Personalized travel recommendations 
+Pre…ight ancilary customization 
+Loyalty and rewards personalization 
+Real-time travel assistance 
+Very 
+important 
+26 
+19 
+24 
+23 
+29 
+40 
+36 
+41 
+37 
+41 
+20 
+25 
+20 
+23 
+18 
+Share of respondents 
+selecting as most valuable, % 
+9
+13 
+10 
+12 
+8
+5 
+7 
+5 
+6 
+5 
+22 
+14 
+20 
+17 
+28 
+Somewhat 
+important 
+Neutral Somewhat 
+not important 
+Not important 
+at all 
+Note: Figures may not sum to 100%, because of rounding. 
+Source: McKinsey Consumer Survey on airline retailing preferences, Mar 2025 (n = 7,000) 
+26 The State of Aviation 2025 
+McKinsey & Company 
+Implications: Travelers aren’t primarily seeking more personalization; they’re seeking better 
+personalization that combines convenience and control. Airlines should strive to provide 
+personalization that enhances utility and removes friction, prioritizing timely updates, self-
+service features, and clear choices that make the journey smoother. 
+Myth #3: Travelers prefer to book travel components separately 
+Reality: Many travelers prefer thoughtfully designed travel bundles—
+as long as those bundles reduce complexity and offer real value 
+ 
+At first glance, it may seem logical that travelers who seek full control over their journeys would 
+prefer to book flights, hotels, and other components individually. After all, previous McKinsey 
+research  shows that many travelers enjoy the planning process and value the ability to shape 
+their itineraries on their own terms. 
+But in practice, many travelers appreciate bundled offers that simplify choices and deliver 
+clear value. Nearly half of all respondents (46 percent) express positive attitudes toward travel 
+bundles that combine flights with other services such as hotels, insurance, activities, or airport 
+transfers. Only 22 percent say they prefer to book each element separately. 
+The appeal of bundling is rooted in two powerful psychological drivers. First, travelers often 
+perceive bundles as offering a discount—even when the actual savings are modest—tapping into 
+a deeply ingrained behavioral instinct to secure a good deal. Second, bundles provide a sense of 
+relief by simplifying decision-making. In an environment overflowing with options, curated offers 
+help travelers make faster, more confident choices and reduce the stress of planning. 
+--- p29 ---
+But there’s a delicate balance to strike. Poorly constructed travel bundles at the wrong price 
+points can erode trust, cause confusion, and ultimately lead to abandoned bookings. Well-
+designed travel bundles—tailored to customer needs and sensibly priced—can significantly 
+boost both conversion and satisfaction. 
+Our survey data reveals deeper insights into consumer preferences. Hotels represent the most 
+appealing bundling opportunity, with 60 percent of travelers indicating they would “often” 
+or “always” consider hotel bookings offered as part of their flight packages. Travel insurance 
+(50 percent), tours and activities (43 percent), and airport parking (43 percent) also show 
+strong potential as travel bundle components. 
+The age gap in bundling preference is striking: 70 percent of 18-to-24-year-olds use travel 
+bundles often or always, versus only 19 percent of those aged 75 or older. This generational 
+divide suggests that bundling will likely grow in importance as younger travelers gain 
+purchasing power. 
+Regional variations are also notable: 71 percent of Saudi Arabian travelers and 66 percent 
+of Chinese travelers view bundling positively, compared with just 15 percent of Japanese 
+travelers and 32 percent of US travelers. This suggests a need for market-specific approaches. 
+Implications: Well-crafted travel bundles that preserve flexibility while offering clear value are 
+compelling to many travelers—especially when adapted to local preferences and generational 
+differences. Since the majority of travelers book their flights first, before other components, 
+airlines are in an ideal position to offer these bundled packages at the moment of highest intent. 
+Myth #4: Basic digital presence and traditional promotions are enough 
+to sell airline products effectively 
+Reality: Modern airline merchandising requires sophisticated 
+techniques, including behavioral nudging, immersive content, and 
+seamless omnichannel experiences 
+27 The State of Aviation 2025 
+Previous myths examined what travelers value—from flexible pricing models to practical 
+personalization to thoughtfully designed bundles. But understanding customer preferences is 
+only half the equation. How these offerings are presented to travelers is equally critical, yet it 
+often receives less attention. Our research indicates that advanced merchandising techniques 
+can drive a 10 to 20 percent revenue lift for retail organizations by improving conversion, basket 
+size, and traffic. While many airlines have invested in product development and pricing strategies, 
+they often still rely on basic website functionality and standardized promotional approaches. 
+The most successful airline retailers have adopted sophisticated techniques that were 
+pioneered by leading e-commerce players. These include grid-based modular layouts that 
+enable dynamic personalization, behavioral nudging tactics that encourage conversion, and 
+immersive visual content that brings the travel experience to life before booking. 
+McKinsey research on global airline merchandising capabilities reveals clear differences 
+between top performers and lagging players. Top-tier airlines allocate 3.5 times more data 
+and analytics resources and 1.7 times more integrative talent to merchandising, compared with 
+lagging players. Notably, 63 percent of top performers optimize for customer lifetime value as 
+their primary KPI, while none of the lagging players do so. 
+Behavioral economics principles, applied thoughtfully to the booking flow, can achieve 
+substantial impact. Techniques such as social-proof messaging (“customers like you chose 
+this option”), time-limited offers, and scarcity indicators can increase conversion rates by 
+reducing decision paralysis and creating appropriate urgency. When implemented well, these 
+approaches don’t manipulate behavior—they help travelers make confident choices while 
+revealing value opportunities that might otherwise be missed. 
+--- p30 ---
+Visual merchandising also plays a critical role. According to retail industry research, 83 percent 
+of consumers rate product images and photos as “very” or “extremely” influential in their 
+digital purchase decisions. Airlines with higher shares of ancillary revenue invest substantially 
+more in user experience and design capabilities, recognizing that immersive content, such as 
+360-degree cabin tours and destination videos, significantly improves conversion. 
+Perhaps most important, effective merchandising now demands a truly omnichannel approach. 
+Our data indicates that 77 percent of travelers consult multiple channels before booking, often 
+switching between devices during their customer journeys. Airlines that enable seamless 
+transitions—such as saving searches across devices or providing consistent personalization 
+across platforms—capture more bookings and build stronger customer relationships over time. 
+Implications: Airlines should invest in merchandising as a strategic capability, augmented by 
+dedicated leadership and cross-functional collaboration. The significant revenue potential 
+justifies investments in data analytics, personalization capabilities, and agile teams that 
+can rapidly test and implement digital merchandising concepts that are aimed at improving 
+customer lifetime value instead of just achieving immediate conversion. 
+Myth #5: Recent growth of direct channels means they will soon 
+dominate flight bookings 
+28 The State of Aviation 2025 
+Reality: Direct channels have gained ground and have room to grow 
+further—but intermediaries remain strong, and new players are 
+entering the game 
+Between 2016 and 2024, the share of global air travel bookings by value via airline-direct 
+online channels (such as airline websites and apps) rose from 34 percent to 49 percent. The 
+share of bookings by value via OTAs also increased, rising from 13 percent to 16 percent. 
+Meanwhile, the share of bookings by value through offline channels (for example, physical 
+travel agencies and airline ticket offices) declined sharply from 54 percent to 35 percent. 
+Despite this strong growth in value, direct bookings by volume still lag by comparison 
+(Exhibit 3). Only 33 percent of survey respondents say they currently book flights directly with 
+airlines. This reflects the fact that premium travelers tend to book directly, driving up value 
+share, while cost-conscious or occasional travelers favor intermediaries—driving volume. 
+The generational gap here is notable: just 27 percent of travelers aged 18 to 24 book directly, 
+compared with 64 percent of travelers aged 75 or older. Booking behavior also varies widely 
+by market, highlighting the influence of local dynamics. About 49 percent of respondents from 
+the United States book directly with airlines, versus just 20 percent of respondents from China 
+and 21 percent of respondents from Germany. 
+At the same time, the distribution landscape is diversifying. New entrants—such as Chase 
+Travel in the United States, Check24 in Germany, and Qunar in China—are gaining traction, 
+lifting nontraditional platforms to a 7 percent share of global flight bookings. These 
+nontraditional platforms often combine elements such as financial services, comparison 
+tools, and loyalty ecosystems. Moreover, they address key traveler concerns by offering price 
+transparency, adding a human touch to service, and providing a more intuitive experience. 
+Many consumers already use these platforms for other purchases, which makes them feel 
+more familiar and trustworthy than airline channels, especially for infrequent bookers. In China 
+and Germany, usage of nontraditional platforms is especially pronounced, reaching 13 percent 
+and 15 percent, respectively. In other major markets, such as Japan and Brazil, usage remains 
+below 2 percent—underscoring that this shift is not uniform and can depend heavily on the 
+influence of individual players. 
+--- p31 ---
+Exhibit 3 
+Web <2025>
+<State of Aviation - Retailing>
+Exhibit <3> of <5>
+Air travelers cite a variety of reasons for choosing which channel to book 
+tickets through. 
+Reasons for selecting booking platform, % of respondents 
+ Top reason in platform 
+Airline 
+website/app 
+Online travel 
+agency 
+Search 
+engine 
+Travel 
+agency 
+Loyalty 
+program 
+Corporate 
+booking tool 
+Subscription 
+service 
+Convenience 47 45 35 34 37 30 26 
+Best prices 37 39 55 27 32 26 32 
+Trust in brand 33 26 20 33 23 32 32 
+Transparent pricing 38 29 29 26 27 28 22 
+Ability to book multiple 
+services together 11 37 24 38 21 29 30 
+Loyalty program 30 19 18 13 47 26 23 
+Customer service 21 20 17 33 23 28 31 
+Flexible payment options 11 25 20 17 17 29 28 
+Share of total booking 
+volume, % 33 22 10 10 8 5 4
+29 The State of Aviation 2025 
+Source: McKinsey Consumer Survey on airline retailing preferences, Mar 2025 (n = 7,000) 
+McKinsey & Company 
+All this said, traveler preference for direct booking remains strong. About 57 percent of 
+respondents say they would “definitely” book directly if airlines improved the direct-booking 
+experience through better pricing, customer service, and personalized offers. 
+Implications: Direct channels remain a powerful but underused lever, while a diverse 
+ecosystem of intermediaries continues to play a vital role. By improving digital experiences 
+and addressing regional dynamics, airlines can better capture direct demand while remaining 
+competitive in an increasingly diverse distribution ecosystem. 
+Myth #6: Travelers’ flight-booking frustrations mainly relate to 
+legacy technology 
+Reality: Concerns about pricing transparency and flexibility far 
+outweigh technical frustrations 
+When asked about booking frustrations, travelers most often cite price-related concerns: 
+39 percent point to finding the best price, 36 percent to hidden fees or lack of transparency, 
+and 29 percent to limited flexibility regarding refunds and changes (Exhibit 4). By contrast, 
+technical concerns about complex comparison tools (24 percent) and lengthy booking 
+processes (21 percent) rank lower. 
+--- p32 ---
+30 The State of Aviation 2025 
+When travelers report 
+dissatisfaction with their most 
+recent flight experiences, the 
+primary concerns are flight 
+punctuality (46 percent), 
+seat comfort and space 
+(36 percent), and customer 
+service (30 percent). 
+--- p33 ---
+Exhibit 4 
+Web <2025>
+<State of Aviation - Retailing>
+Exhibit <4> of <5>
+Airline travelers’ booking frustrations often relate to pricing, transparency, 
+and flexibility. 
+Biggest frustrations when booking air travel, % of respondents 
+Finding 
+best price 
+39 
+Hidden 
+fees 
+36 
+Limited 
+flexibility 
+29 
+Complexity 
+comparing 
+offers 
+24 
+Lengthy 
+booking 
+process 
+21 
+Poor 
+customer 
+service 
+19 
+Irrelevant 
+recommen-
+dations 
+18 
+Unreliable 
+travel 
+information 
+17 
+Environmental 
+concerns 
+15 
+31 The State of Aviation 2025 
+Source: McKinsey Consumer Survey on airline retailing preferences, Mar 2025 (n = 7,000) 
+McKinsey & Company 
+These frustrations reveal an interesting generational split, with 25 percent of 18-to-24-year-
+olds citing long booking processes as a frustration versus just 15 percent of 65-to-74-year-
+olds. This divide could challenge assumptions that older travelers struggle more with digital 
+tools, or it could indicate that the bar for digital performance is higher for younger generations. 
+When travelers report dissatisfaction with their most recent flight experiences, the primary 
+concerns are flight punctuality (46 percent), seat comfort and space (36 percent), and 
+customer service (30 percent). Only 25 percent cite booking- and technology-related 
+concerns. This suggests that operational reliability and physical comfort remain more 
+fundamental than booking concerns to overall customer satisfaction. 
+Implications: While technical improvements to the booking process matter, airlines can 
+prioritize resolving pain points that affect value perception—such as the presence of hidden 
+fees and change restrictions—and can reinforce positive perceptions through providing 
+on-time performance and high-quality service. 
+Myth #7: Digital convenience has sped up travel decision-making 
+Reality: Digital access encourages travelers to be more deliberate 
+and research intensive 
+When it comes to booking, air travel is often the first step—54 percent of travelers book their 
+flights before they book accommodations, activities, or ground transportation. However, 
+before making the actual purchase, most travelers take time to explore their options. As 
+mentioned in myth #4, 77 percent consult more than one booking channel—including airline 
+sites, OTAs, and metasearch engines. According to Expedia, travel bookers consume an 
+average of 141 pages of travel content in the 45 days leading up to booking. 
+More than one in four travelers spend three or more hours researching before booking. This 
+trend is led by older travelers (33 percent of those aged 55 to 64), but 27 percent of both Gen Z 
+and millennial travelers report investing this amount of time. 
+Why do travelers invest so much effort into research? As previously mentioned, McKinsey 
+research  shows that travelers’ top-cited reason for doing research is a simple desire for full 
+control over their itineraries. The second-most-cited reason is simpler still: Many travelers 
+genuinely enjoy the planning process. 
+--- p34 ---
+Implications: Airlines should expect to meet with sustained consumer engagement across 
+multiple touchpoints, instead of aiming for quick, single-session conversions. Supporting the 
+traveler’s research process can be an essential part of earning their booking. 
+Myth #8: Social media is the dominant source of travel inspiration 
+Reality: Travelers are influenced by a diverse blend of digital content 
+and trusted personal recommendations 
+For air travelers aged 18 to 34, platforms such as Instagram, TikTok, and YouTube are indeed 
+influential. About 45 percent of respondents aged 18 to 24 and 46 percent of those aged 25 to 
+34 cite social media among their top sources of inspiration when planning journeys (Exhibit 5). 
+But while social media certainly shapes travel inspiration, it doesn’t dominate in the way that 
+some industry narratives might suggest. Personal recommendations, for instance, remain 
+powerful, with 39 percent of 18-to-24-year-olds pointing to friends and family as key sources 
+for ideas. 
+For survey respondents of all ages, traditional digital channels continue to be relevant sources 
+of influence: Search engines (41 percent), OTAs (41 percent), and airline and hotel websites 
+(36 percent) all get cited more often than social platforms (29 percent). Notably, social media’s 
+influence declines significantly as age rises. Only 17 percent of 55-to-64-year-olds and just 
+9 percent of those aged 65 to 74 cite social media as a major inspiration source. 
+Airline and hotel websites, in particular, resonate strongly with older travelers. Among 
+respondents aged 65 to 74, 41 percent cite these websites as a source of inspiration; for 
+those 75 and older, the number rises to 51 percent. 
+Exhibit 5 
+Web <2025>
+<State of Aviation - Retailing>
+Exhibit <5> of <5>
+Travelers cite widely ranging sources of inspiration when planning a trip. 
+Sources of travel inspiration, by age group, % of respondents 
+Search 
+engines 
+Online 
+travel 
+agencies 
+Airline 
+and hotel 
+websites 
+Family 
+and 
+friends 
+Social 
+media 
+O•cial 
+tourism 
+websites 
+Travel 
+agencies 
+Travel 
+books and 
+magazines 
+Online 
+forums 
+50 50 
+Overall 
+40 40 
+30 30 
+20 20 
+10 10 
+0 0 
+18›24 years 25›34 years 35›44 years 45›54 years 55›64 years 65›74 years ‰75 years 
+Source: McKinsey Consumer Survey on airline retailing preferences, Mar 2025 (n = 7,000) 
+32 The State of Aviation 2025 
+McKinsey & Company 
+--- p35 ---
+Implications : Airlines should adopt multichannel strategies that reach beyond social media—
+and beyond pure transactions. Many travel sites focus too narrowly on booking, missing 
+e
+arlier chances to engage travelers. By offering compelling content and designing shareable 
+experiences that spark positive word of mouth, airlines can capture more attention during the 
+crucial inspiration phase. 
+ 
+By aligning retail strategies with what travelers care about, airlines can achieve significant 
+incremental revenue gains while also improving customer satisfaction. Survey data reveals that 
+travelers are often more deliberate, value conscious, and practical than conventional wisdom 
+suggests—and that their preferences vary significantly by generation, region, and travel purpose. 
+Airlines that recognize these nuances and adapt their retail approaches accordingly will be 
+better positioned to compete not just with traditional players but also with the broader set of 
+travel retailers and intermediaries seeking to thrive within the evolving travel ecosystem. 
+Alex Cosmas is a senior partner in McKinsey’s New York office, Nina Lind
+33 The State of Aviation 2025 
+ is a partne r in the Stuttgart office, 
+Jean Petersen  is a capabilities and insights analyst in the Düsseldorf office, and Nils Hübel  is an associate 
+partner in the Atlanta office. 
+The authors wish to thank Kahan Parekh for his contributions to this article. 
+This article was edited by Seth Stevenson, a senior editor in the New York office. 
+--- p36 ---
+Chapter 4 
+How to modernize 
+airline planning 
+
+--- p37 ---
+Outdated, nonintegrated 
+approaches won’t fly anymore. 
+Airline planning could benefit 
+from an overhaul. 
+Airline planning  is inherently challenging, in part because many planning inputs are outside 
+an airline’s control. The global aviation ecosystem relies on interwoven networks shaped by 
+competing stakeholder priorities. Travel demand patterns are forever shifting and tough to 
+forecast. Unpleasant surprises—including major storms, airport infrastructure breakdowns, IT 
+failures, ground staff shortages, and aircraft delivery delays—can add significant uncertainty 
+to any projections. This can be further exacerbated by global crises, geopolitical challenges , 
+and other external factors. Making flawless decisions, up to a year in advance, about 
+which exact aircraft should fly which route, with what crew, and how to react to unforeseen 
+disruptions (and these are only a portion of the variables involved) would require airline 
+executives to be clairvoyant. 
+35 The State of Aviation 2025 
+That sa
+id, airlines could mitigate some of these planning challenges if they took steps to 
+update their tools, methods, and mindsets. Many of the decision-making processes through 
+which airlines establish route maps, schedules, fleet management, airport staffing levels, and 
+so forth remain impeded by siloed communications and outdated technology and metrics. 
+There have been some recent positive developments in the planning sphere. At the same 
+time, many airlines have abandoned many of the collaborative and flexible approaches they 
+pioneered (out of necessity) during the pandemic. 
+A fully integrated approach to airline planning, using a process that unites commercial and 
+operational considerations, could achieve improved results. There are billions of dollars in 
+opportunities for airlines that can get this right (according to one industry group estimate, each 
+additional minute an airplane spends taxiing or airborne costs the airline more than $100 while 
+also imposing personal costs, such as lost productivity and wages, on delayed passengers). 
+But enacting changes would require airlines to commit to adopting more holistic strategies, 
+building more accurate simulations, modernizing their collection and analysis of data, enabling 
+nimbler decision-making, and intensifying focus on customer experience. This article presents 
+a vision of future integrated planning that could help airlines soar above the competition. 
+--- p38 ---
+Factors complicating effective airline planning 
+Synchronizing operational components (such as scheduling, crew management, and 
+maintenance) with commercial objectives (such as maximizing revenue and enhancing 
+customer satisfaction) has always posed a challenge for airline planners. Long lead times 
+and suboptimal tools and processes can add to the difficulty. As the complexity of operating 
+environments increases, these challenges will only be magnified. 
+Inflexible processes and long lead times 
+Airline operations are inherently unstable—often constrained by prolonged, externally 
+dictated lead times that can require schedules to be set nearly a year in advance—and they 
+are subject to uncontrolled developments, such as weather issues, equipment malfunctions, 
+or airport construction work that unexpectedly increases ground times. The need to plan 
+for a probability distribution of scenarios, instead of for discrete events, adds considerable 
+complexity to decision-making processes. Different airlines have responded to this challenge 
+in different ways. Network carriers have historically tended to be reactive, waiting for demand 
+to materialize before adding capacity. Low-cost and ultra-low-cost carriers have tended to 
+take more of a venture capitalist–type approach to planning, featuring some successes, many 
+failures, and significant experimentation. Airlines in Europe and other slot-constrained regions 
+(where limited slots are distributed for airport take-offs and landings) must also try to capture 
+changing demand while maintaining their valuable slot portfolios. 
+Siloed teams with misaligned priorities 
+Historically, there has been a disconnect between commercial and operational planning within 
+airlines. Fragmented workflows cause both sides to misjudge critical factors. Commercial 
+teams will sometimes underestimate operational constraints (for instance, how aircraft routing 
+can affect crew pairing) when setting a schedule. Operational teams might size the impact of 
+schedule delays without fully understanding the effects on the customer. Without the right 
+tools and a common language, both commercial and operational teams frequently resort to 
+inserting precautionary buffers into schedules to account for potential delays—but these 
+buffers are not always optimally positioned or removed when they are no longer needed. 
+Inadequate tech 
+Technology often limits airline planning. Tools sometimes lack adequate capabilities, and 
+upgrades can be very costly to implement. For the most part, existing optimization software is 
+unable to handle the complexity of combining all the aspects of planning into one calculation. 
+It cannot consider every variable (and the interactions between those variables) and isn’t quick 
+enough when analyzing a plethora of different scenarios and options. 
+This means problems frequently need to be broken down into manageable components that 
+are solved independently. The result can be outputs that offer conflicting solutions. This 
+siloed approach to employing tech also often leads to the use of narrow KPIs that focus on 
+the activities of individual departments instead of the overall performance of the airline. For 
+instance, a maintenance planning organization might reroute aircraft to ensure they get to their 
+maintenance slots without realizing that this could cause inefficient crew connections. 
+Clouds on the horizon 
+Some emerging trends could exacerbate these challenges. Increasing congestion in both 
+airspaces and airports, potential economic uncertainty or geopolitical tension that causes 
+passenger demand to fluctuate, and rising costs (for items such as fuel, labor, and emerging 
+requirements to compensate passengers for delays and cancellations) could all put additional 
+pressure on planning processes, necessitating more sophisticated and dynamic solutions. 
+Positive airline planning developments 
+36 The State of Aviation 2025 
+In recent years, the airline industry has seen some improvements in coordination between 
+commercial and operations functions. Collaborative practices adopted as emergency 
+--- p39 ---
+measures during the COVID-19 pandemic have emerged as catalysts and crucial building 
+blocks for the future of airline planning. Meanwhile, technology has steadily advanced. Efforts 
+on these fronts should be expanded and incorporated into a cohesive framework. 
+The COVID-19 pandemic forced 
+airlines to adopt unprecedented 
+levels of collaboration and flexibility 
+in their planning processes. 
+Creation of joint planning teams 
+Airlines have increasingly adopted integrated-planning processes to bridge the gap between 
+commercial and operational priorities. Initiatives have ranged from establishing cross-
+functional planning forums to undertaking full organizational restructuring. In 2023, for 
+example, Southwest Airlines created a joint department 1 that combined its network planning 
+(responsible for deciding where the airline flies to) and network operations center (responsible 
+for monitoring daily flight activity). The airline described this move as an effort to create “a 
+tighter feedback loop between schedule design and schedule execution.” 
+Agile process born from a crisis 
+The COVID-19 pandemic forced airlines to adopt unprecedented levels of collaboration and 
+flexibility in their planning processes. Business-as-usual processes ceased in most airlines. In 
+many cases, small cross-functional teams would meet daily in the same room to address crew 
+shortages, staffing challenges at airports, rapidly shifting competitor capacity, and changing 
+passenger demands. These approaches proved effective, as airlines communicated end to 
+end, established clear ownership over processes, and prioritized agility and tight feedback 
+loops. As labor shortages eased and commercial considerations regained importance, many 
+airlines reverted to their pre-COVID-19 planning approaches—abandoning some of their 
+hard-won process improvements—while others carried forward the wisdom earned during a 
+challenging moment. 
+Improved tech to tackle complexity 
+Airlines are rich with data. Technological innovations can enable greater use of complex data 
+sets and have given airlines tools that can inject the power of simulation (digitally replicating 
+a situation to test different theses) and optimization (automatically generating a solution) into 
+their planning processes. Amadeus’ Sky Suite, for instance, incorporates both simulation and 
+optimization capabilities to help airlines rapidly generate and test different network plans. 
+This can allow planners to better understand trade-offs between competing priorities, such as 
+revenue maximization and operational efficiency. 
+37 The State of Aviation 2025 
+1 “Southwest Airlines announces leadership promotions,” Southwest press release, January 9, 2023. 
+--- p40 ---
+A vision of fully integrated planning 
+While there have been green shoots, many airlines continue to plan in much the same way they 
+have for decades. Turning a critical eye on the current state of planning could help airlines 
+imagine a more efficient and effective future. 
+What if … there was a single tool to plan the airline? 
+Rather than completing a series of hand-offs from group to group and optimizer to optimizer, 
+a consolidated planning organization could use an integrated architecture (meaning a single 
+tool or ecosystem of connected tools) that incorporates customer demand, aircraft availability, 
+crew requirements, maintenance requirements, gate availability, and other factors to create a 
+schedule that considers and solves for all of these varying constraints. The role of long-term 
+planning would shift from repeating tedious runs on the same data to instead steering the core 
+models and testing new scenarios that could help reach more efficient frontiers. Improved 
+feedback would be seamlessly fed into the system, which quickly learns and adapts to new 
+operating conditions. The organization could confidently balance its commercial, operational, 
+and risk considerations based on current company priorities. 
+What if … customers mattered more than the schedule? 
+Airlines could make a leap from thinking about their own binary on-time performance and 
+completion factors to instead thinking about customers’ minutes of delay and journey 
+completions. Instead of worrying about whether a flight is 15 or 16 minutes late, airlines would 
+care more about the experience of each individual customer—noting those who are flying on 
+a quick day trip or making an internal connection. This would fundamentally change schedule 
+design features, as density could be built into key lanes to ensure there are recovery options 
+for flight connections or delays. Simulation could be used to model customer flows and 
+outcomes on good days and bad and to make schedule adjustments accordingly. Contingency 
+plans would be built with rerouting options to proactively move customers around major 
+areas of disruption when conditions require. The end result would be greater confidence for 
+customers that the airline will get them where they need to go. 
+What if … flights were planned days, not months, in advance? 
+Imagine a world where itineraries can adjust far more dynamically to changing conditions. 
+Months out, customers with more flexibility would purchase arrival windows instead of to-the-
+minute schedules that might change several times before they actually fly. Block times would 
+be far more dynamic and could adjust to changing congestion or airport conditions. Instead 
+of locking the schedule more than two months in advance to account for crew bidding, crews 
+would be flexibly assigned as the day of operation approached, allowing their quality of life to 
+be preserved through enhanced open-time and trading systems. When weather drives large 
+cancellation packages, the aircraft and crew would be reassigned to help route customers 
+around the disruption. While this end state would require contractual and technological 
+enhancements to be realized, the possibilities it offers for utilization, customer satisfaction, 
+and cost efficiency could be transformative. 
+The path forward 
+While the vision of fully integrated airline planning holds great promise, realizing it could 
+require overcoming entrenched mindsets and outdated tech. Many of the airline industry’s 
+traditional ways of working are deeply embedded in siloed team structures and legacy 
+optimization tools. A successful transformation will involve bold, deliberate, and sustained 
+effort across three critical dimensions: data-driven technology, analytics for integrated 
+processes, and organizational structures. 
+38 The State of Aviation 2025 
+Building the tech and data foundation 
+Any effective future planning process will be underpinned by accurate and reliable data. Today, 
+airline data is often fragmented and not organized in a way that enables a constant feedback 
+--- p41 ---
+loop. For instance, operational data, such as indications of consistent disruptions occurring 
+on a specific route, are often not fully integrated into future planning cycles, undermining 
+schedule reliability. 
+To address this, airlines should look for ways to create dynamic and interconnected systems 
+to close data gaps and enable continuous learning—particularly around underlying operating 
+constraints and interactions. Better understanding of, for instance, airport staffing approaches 
+(such as part-time options or rules relating to overtime) or the playbooks used by operations 
+control centers (governing which flights to delay or prioritize) could provide valuable inputs for 
+more effective planning. A clear strategic vision and collaboration with technology providers 
+could accelerate new simulation capabilities. Digital-twin technology  that constructs replica 
+environments where experiments can be run could enable testing different scenarios and 
+adapting operations in real time. 
+Establishing analytically integrated processes 
+The fragmented workflows employed by traditional planning software tools are rooted in 
+airlines’ historical reliance on separate, siloed systems for scheduling, crew management, 
+and aircraft maintenance. While these technological tools have served airlines well in the 
+past, they are not equipped to handle the complexities of integrated planning. Disjointed 
+priorities and misaligned KPIs (such as revenue-focused metrics that ignore operational costs) 
+lead to inferior process creation and hinder analytics outputs. To unlock the full potential of 
+digital tools and their teams, airlines should consider how to develop end-to-end processes, 
+supported by shared objectives and KPIs. 
+After identifying the company-wide and within-workgroup metrics that matter, executives and 
+operators with profit-and-loss responsibilities can make those metrics the focus of weekly, 
+monthly, and quarterly performance discussions. This shift in emphasis can be accelerated by 
+equipping teams and decision-makers with real-time information while building analytics and 
+reporting capabilities that are rooted in the proper data. 
+Reorganizing planning structures 
+Achieving integrated planning will require a fundamental rethink of how airline planning is 
+organized. Traditional organizational structures, which separate commercial and operational 
+functions, often reinforce silos and hinder collaboration. Some airlines, such as Air New 
+Zealand, have already implemented agile methodologies in cross-functional teams that focus 
+on end-to-end decision flows instead of departmental boundaries. By breaking down silos, 
+integrated planning can become a core function of an organization, spanning both commercial 
+and operational priorities. Supported by technology, these changes foster collaboration and 
+shared accountability, delivering reliable schedules and consistent service. 
+The future of airline planning lies in integration—bringing together commercial and operational 
+priorities to create a more nimble, efficient, and customer-centric process. But achieving this 
+vision could require comprehensive technological and organizational transformations. The 
+journey to integrated planning might be full of obstacles, but the potential rewards—greater 
+operational reliability, enhanced customer satisfaction, and improved financial performance— 
+make it a goal worth pursuing. 
+Taylor Cornwall is a partner in McKinsey’s Dallas office, Vik Krishnan is a senior partner in the Bay Area office, 
+and Mark Keane is a consultant in the Dublin office. 
+39 The State of Aviation 2025 
+This article was edited by Seth Stevenson, a senior editor in the New York office. 
+--- p42 ---
+Chapter 5 
+How severe is the 
+aircraft shortage—and 
+what happens next? 
+
+--- p43 ---
+Rebounding air travel demand is 
+bumping up against a constrained 
+supply of new aircraft. Assessing 
+the size of this gap—and how 
+it could grow or shrink—can 
+help inform solutions. 
+There’s been a growing gap between air travel demand and the aviation industry’s supply of 
+new aircraft to meet it. While passenger demand has rebounded from pandemic-era lows and 
+is projected to keep growing, delivery times for newly manufactured aircraft—and maintenance 
+turnaround times for aircraft in existing fleets—have slowed. 
+What are the implications of this aircraft shortage for key stakeholders along the aviation value 
+chain? What future scenarios are possible? What useful steps could industry players take to 
+help level this imbalance and minimize risks? 
+And, finally, how big is this aircraft shortage, really? Our analysis—using a novel framework and 
+set of data points—indicates that, while significant, it could be less severe than some industry 
+observers might assume. 
+There’s an ongoing struggle to align passenger demand with 
+aircraft supply 
+For the past few years, the commercial aviation industry has dealt with uncoordinated swings 
+in travel demand and aircraft supply. Balancing these two variables is a tricky equation. 
+Passenger demand is highly dynamic and can change quickly. Since the COVID-19 pandemic, 
+it’s been on a rapid rise. Commercial air travel demand, measured in revenue passenger 
+kilometers (RPKs), grew by 10.4 percent from 2023 to 2024 and is projected to grow at an 
+annual rate of 4.2 percent through 2030. 
+Conversely, the production system for new aircraft can be slow to ramp up due to its 
+complexity. There has been long-standing turbulence in aerospace supply chains , and 
+OEMs have struggled to secure adequate quantities of manufacturing components such as 
+semiconductors and finished castings and forgings. Shortages in both skilled labor
+41 The State of Aviation 2025 
+ and raw 
+--- p44 ---
+materials persist in the wake of the demand whiplash induced by pandemic-era air travel 
+slowdowns. Some aircraft models have been unexpectedly grounded, and some new-engine 
+introductions have encountered early hiccups. These combined challenges, which are 
+unlikely to subside in the near term, have caused delays in both new-aircraft deliveries and 
+maintenance turnaround times. 
+These delays could potentially be exacerbated by global events. The aviation supply chain—for 
+new and aftermarket needs—is highly international and interconnected. An aircraft’s engine 
+might be produced through a joint venture between companies in two different countries; its 
+avionics might come from a third country; its landing gear might come from a fourth. Ongoing 
+geopolitical tensions and trade concerns  could affect critical suppliers, amplifying disruptions. 
+How severe is the aircraft shortage, really? 
+There is, without doubt, a current shortage of new aircraft. This is in part due to a monthslong, 
+near-total production halt during the pandemic. Only about 7,000 aircraft were delivered in 
+the six-year period from 2019 through 2024—far below the prepandemic trajectory, which, if it 
+had continued, would have resulted in the delivery of about 12,000 aircraft over that same time 
+frame. By that measure, one might assume a supply shortage of about 5,000 aircraft. 
+But lost aircraft deliveries don’t, on their own, provide a fully accurate picture of the aircraft 
+shortage in the market. While supply was affected by slowed deliveries, it’s important to 
+remember that the pandemic also interrupted passenger demand, which took years just to 
+recover to 2019 levels. 
+In our view, a more comprehensive analysis of the current aircraft shortage would also consider 
+delayed aircraft retirements. Slowing the phaseout of aircraft is a primary short-term supply 
+lever for both airlines and aircraft lessors. It’s what they do when they’re concerned about 
+having enough aircraft to meet demand. 
+The long-term average rate of global aircraft fleet retirements is 2.8 percent annually. From 
+2019 through 2024, only 1.8 percent of the global fleet was retired annually—nearly 40 percent 
+below the long-term rate. Old aircraft are being kept in service longer because not enough new 
+aircraft are being delivered. 
+When looking at the aircraft shortage through the lens of this higher-than-expected rate of 
+delayed retirements, our analysis finds that the global shortage could be closer to roughly 
+2,000 aircraft (with around 75 percent of the shortage relating to narrow-body aircraft). This is 
+considerably smaller than the roughly 5,000-aircraft gap that might be suggested by focusing 
+on the difference between pre- and postpandemic delivery trajectories. 
+Aircraft shortages affect industry stakeholders in different ways—and 
+not always negatively 
+Although the current aircraft shortage is likely smaller than some measures might suggest, a 
+shortage of any size can still put pressure on the profitability and growth of various parts of 
+the value chain that are reliant on new-aircraft production. But for stakeholders with ties to 
+existing fleets and aftermarket services, shortages can also create opportunities: 
+— Airlines can face growth challenges (because they can’t secure enough new aircraft to 
+meet demand) and incur higher maintenance and fuel costs (because the older aircraft 
+being kept in service longer require more upkeep and burn more fuel per seat). But airlines 
+can collectively benefit from increased load factors (meaning more seats are occupied) 
+and higher yields (meaning ticket prices are higher) if capacity is constrained and markets 
+continue to grow—as in the period directly after the pandemic, when demand suddenly 
+outstripped supply and airlines around the world reported record profits. This can play out 
+differently for each airline, depending on its business model, geography, and competitive 
+dynamics, along with its fleet mix, age, and renewal plans. 
+42 The State of Aviation 2025 
+--- p45 ---
+When looking at the 
+aircraft shortage through 
+the lens of this higher-than-
+expected rate of delayed 
+retirements, our analysis 
+finds that the global 
+shortage could be closer to 
+roughly 2,000 aircraft. 
+4343 The State of Aviation 2025 
+--- p46 ---
+— Aircraft leasing companies can gain leverage, since they own roughly half of the globally 
+available aircraft in a market with limited supply. Airlines are willing to pay a premium in 
+this context—reflected in rising lease rates, particularly in the narrow-body segment. For 
+instance, the industry intelligence group Aircraft Value Analysis Company reports that the 
+monthly lease rate for a new Boeing 737 MAX 8 rose from a low of $283,000 in April 2021 to 
+$452,000 by April 2025, while the corresponding rate for an Airbus A320neo increased from 
+$289,000 to $442,000 over the same period. 
+— Maintenance, repair, and overhaul providers (MROs) can thrive in a capacity-constrained 
+market, as extended operation of aging aircraft boosts demand for additional maintenance 
+services such as retrofits, modifications, and installation of margin-accretive spare parts. 
+— Engine suppliers can benefit from strong demand for both newly manufactured engines and 
+aftermarket services. When aircraft are kept in service longer, they require more engine 
+shop visits—through which suppliers can earn strong margins from selling spare parts. 
+Suppliers can also benefit from nonperformance: Consider that when production rates 
+remained below prepandemic levels in 2024, top engine suppliers’ collective economic 
+performance thrived—earning 18 percent EBITDA margins in 2024 versus 11 percent 
+EBITDA margins from 2017 to 2019. 
+— Aircraft OEMs and (nonengine) suppliers can struggle due to lower-than-expected new-
+aircraft production rates. The challenge can be especially acute for suppliers of systems 
+such as aerostructures, which have less aftermarket demand than more maintenance-
+heavy components. 
+Could this aircraft shortage transform into a surplus? 
+We’ve analyzed a multitude of scenarios that could play out along the axes of aircraft supply 
+and travel demand. For instance, demand and supply could deviate further, amplifying the 
+aircraft shortage—and likely helping lessors (as lease rates soar) and MROs (as older aircraft, 
+which require more maintenance, stay in service longer), while offering mixed results for 
+airlines (which could enjoy healthy yields but be limited in their ability to add capacity). 
+Of all these possibilities, we’ve chosen to focus this article’s analysis on two scenarios that 
+we assess as both plausible and important to contemplate. The first is a soft landing at 
+equilibrium, and the second is a full reversal to oversupply in the next five to ten years. One 
+could require careful collaboration and calibration, and the other could present significant 
+challenges for the industry. 
+Soft landing at equilibrium 
+In this scenario, stable growth in air travel demand is met with a steady ramp-up of new-
+aircraft supply. New-aircraft production would recover to a level that is in line with demand, 
+and retirements of aircraft would rebalance to historically average levels. This is the most 
+favorable scenario for the aviation ecosystem. 
+The soft-landing scenario could occur in the following circumstances: 
+— OEMs increase their aircraft production rates in a measured and transparent manner. 
+— Aviation supply chain performance improves in line with OEMs’ ramp-up and some specific 
+issues are solved (such as lagging performance from components and subtier suppliers, 
+particularly relating to engine parts). 
+— Air travel demand grows steadily (as per current long-term outlooks) and doesn’t encounter 
+negative shocks relating to, for example, geopolitical tension or economic uncertainty. 
+44 The State of Aviation 2025 
+--- p47 ---
+— Decelerated fleet renewal at the world’s leading airlines (which could face increased costs 
+and stabilizing yields as capacity development comes in line with travel demand growth) is 
+offset by aircraft demand from fast-growing airlines in developing countries. 
+A soft landing could be positive for many players in the industry. Aircraft OEMs, engine 
+suppliers, MROs, and airlines could all benefit from equilibrium and stability as OEM 
+production grows in line with demand and the ecosystem is able to plan effectively. 
+Lessors and some niche players—such as late-life-cycle MRO suppliers—could experience 
+recalibration as current, highly favorable conditions settle back to long-term averages. 
+A reversal straight to oversupply 
+In this scenario, passenger demand deteriorates at the same time that new-aircraft supply 
+ramps up aggressively. Aviation is a highly cyclical industry, and elements of it can sometimes 
+overcorrect (as has happened in previous downturns). This scenario could create headwinds 
+for many industry players. 
+The reversal-to-oversupply scenario could occur in the following circumstances: 
+— OEMs (which have already announced ambitious production growth plans) overcorrect and 
+aggressively increase production in an uncontrolled and uncoordinated manner.  
+— Air travel demand weakens significantly versus current forecasts—for instance, as a result 
+of a global economic recession—with effects especially concentrated in the highest-
+yielding flows. 
+— Airlines’ performance outlook weakens further as a result of rising costs and inflation, while 
+yields dilute as industry capacity grows beyond prepandemic levels (and, in response, airlines 
+decelerate fleet renewal plans). 
+— In response to ramped-up delivery of new aircraft, a large wave of both overdue and early 
+retirements of existing aircraft hits the market. 
+A reversal to oversupply could affect various industry stakeholders in the following ways: 
+— Aircraft OEMs could initially benefit from a large backlog of orders. Eventually, however, 
+overproduction could affect pricing and suppress long-term demand for new aircraft, thus 
+hurting longer-term financials. OEMs could also face downside risks resulting from worsened 
+aftermarket economics. 
+— Engine suppliers could also benefit from a large increase in orders. However, new engines 
+are often sold at cost or even at a loss. Meanwhile, engine aftermarket services such as 
+maintenance and repair are often a significant component of engine suppliers’ businesses, 
+providing margin-accretive revenue streams. A market oversupplied with many new engines, 
+which tend to need less maintenance and repair, could mean reduced aftermarket business 
+for engine suppliers. 
+— MROs are likely to suffer as older, maintenance-heavy aircraft are retired. This could be 
+especially hard on MROs that specialize in late-life-cycle services or platforms. 
+— Airlines could face financial challenges as fewer passengers meet with excess capacity 
+in the market. Overcapacity very frequently leads to fierce competition, lower yields, and 
+higher unit costs for airlines. 
+— Lessors could be disadvantaged as lease rates fall when aircraft availability becomes plentiful. 
+45 The State of Aviation 2025 
+Taking steps to encourage equilibrium 
+To avoid the risks inherent in an oversupply scenario—and to help ensure a balanced outcome 
+for the ecosystem—the industry can consider taking a few proactive, coordinated steps. 
+--- p48 ---
+Align stakeholders in a controlled production ramp-up 
+The aviation supply chain is highly interconnected, with only a very small number of producers 
+for many important components. Some players can benefit from a supply–demand gap and 
+thus have little incentive to help right the imbalance (particularly if that would involve deploying 
+capital). Trust among suppliers, OEMs, and airlines—if aligned on a realistic production ramp-
+up—could be restored through steps such as the following: 
+— ensuring that senior decision-makers at important suppliers are positioned to manage the 
+scale-up road map, align on production plans, and be the first points of contact who can 
+quickly solve escalations 
+— creating incentives—using agreed-upon processes and transparent performance 
+management, including dashboards that are accessible to all parties—that will encourage 
+adherence to planning 
+— establishing engineering and supply chain management centers of excellence to 
+collaboratively assess and close structural capability gaps at suppliers 
+— carefully weighing trade-offs (such as delaying aircraft production despite large order 
+backlogs) and making decisions by looking through an industry-wide lens that considers 
+knock-on effects 
+Build more flexibility into delivery contracts 
+Delivery contracts can have long durations (ten years, in many cases) and little leeway for 
+readjustment. Given the general uncertainty inherent in the aviation industry, crafting delivery 
+contracts that offer more flexibility could help airlines navigate geopolitical and economic 
+challenges—and, in the end, help prevent a buildup of aircraft oversupply in the market. 
+Rigidly structured delivery slots could also be discarded in favor of more dynamic solutions, 
+which could allow the swapping or trading of delivery slots between airlines and OEMs. 
+OEMs could strengthen customer relationships by helping their customers identify beneficial 
+opportunities to trade delivery slots with other airlines or even with other OEMs. 
+Undertake capital expansions thoughtfully—with copious scenario planning 
+Any aviation industry player contemplating expansion plans should construct them in ways that 
+allow flexible adaptation to varying market conditions. Modeling best-, base-, and worst-case 
+traffic and production forecasts (that account for variables such as macroeconomic changes, 
+fuel price hikes, and geopolitical risks) can help identify different fleet needs under each 
+scenario. Models should include scenarios in which older aircraft are retired early or leased 
+jets are returned, allowing flexibility in the event that demand undershoots expectations. 
+A soft landing that balances supply and demand could offer favorable outcomes across the 
+entire aviation industry. Through careful analysis and collaboration, stakeholders can help 
+navigate the industry toward a healthy equilibrium. 
+Frank Coleman is a partner in McKinsey’s Atlanta office; Vik Krishnan
+46 The State of Aviation 2025 
+A
+ is a senior partner in the Bay Area 
+office; Arthur Knol is a consultant in the Amsterdam office, where Geert Mulder is an associate partner; Niklas 
+Schumacher is a senior knowledge analyst in the Munich office; and Tore Johnston is a knowledge expert in the 
+Denver office. 
+This article was edited by Seth Stevenson, a senior editor in the New York office. 
+rthur Knol
+--- p49 ---
+Acknowledgments 
+Alex Cosmas is a senior partner in 
+McKinsey’s New York office, specializing 
+in artificial intelligence across the travel, 
+transportation, and logistics sectors. Alex has 
+consulted organizations globally in the areas 
+of cognitive modeling, consumer choice, 
+network modeling, revenue management, 
+and pricing. He is a recognized expert in the 
+use of predictive and probabilistic models 
+to perform both deductive and inductive 
+reasoning from large data sets. 
+Andrew Curley is a partner in McKinsey’s 
+Chicago office and a member of the Travel, 
+Logistics & Infrastructure Practice. He has 
+served airlines, airports, hotels, railroads, 
+trucking companies, gaming companies, and 
+rental car companies globally, with extensive 
+experience in Europe, North America, and 
+South America. 
+Arthur Knol is a consultant in McKinsey’s 
+Amsterdam office, specializing in 
+transformations across the airline and 
+broader transportation and infrastructure 
+sectors. Arthur supports technical and 
+operational organizations in Europe to 
+reshape their strategies and operating 
+models. 
+Darren Rivas is a global director of 
+McKinsey’s Travel, Logistics & Infrastructure 
+Practice in the Atlanta office. He has over 15 
+years of experience in the airline and aviation 
+industry, having partnered with more than 20 
+airlines, OEMs, and operators. 
+Frank Coleman is a partner in McKinsey’s 
+Atlanta office and coleads the North 
+American Aerospace & Defense Practice. 
+With more than a decade of experience 
+in the sector, he focuses on driving major 
+change for his clients by combining technical 
+insights with distinctive value creation theses 
+around growth, M&A, commercial, and 
+operational topics. Prior to joining McKinsey, 
+Frank worked as an aerospace engineer at 
+two of the largest aerospace and defense 
+manufacturers in the world. 
+Geert Mulder is an associate partner in 
+McKinsey’s Amsterdam office. He is a 
+member of McKinsey’s Travel, Logistics 
+& Infrastructure Practice and coleads the 
+aviation maintenance, repair, and overhaul 
+service line. A former airline leader and 
+entrepreneur prior to joining McKinsey, he 
+serves airlines and investors across the globe 
+on holistic performance transformations, 
+addressing challenges in MA and fleet, 
+network, crew, and maintenance operations. 
+Jaap Bouwer is a senior knowledge expert 
+in McKinsey’s Amsterdam office. He leads 
+McKinsey’s European aviation research 
+and serves clients across the aviation value 
+chain on topics such as corporate strategy, 
+commercial improvement, and turnaround 
+strategy. 
+Jean Petersen is a capabilities and insights 
+analyst in McKinsey’s Düsseldorf office. 
+He specializes in the aviation, travel, and 
+shipping sectors, supporting clients in growth 
+strategies and transformation programs 
+across commercial and operational topics. 
+Kahan Parekh is a consultant in McKinsey’s 
+Atlanta office. He is a member of the Travel, 
+Logistics & Infrastructure Practice, with 
+extensive experience in the aviation industry. 
+Alex Cosmas 
+ Andrew Curley 
+ Arthur Knol 
+ Darren Rivas 
+ Frank Coleman 
+Geert Mulder 
+ Jaap Bouwer 
+ Jean Petersen 
+47 The State of Aviation 2025 
+Kahan Parekh 
+--- p50 ---
+He has served multiple airlines across the 
+globe, focusing on trends and strategies 
+within their commercial functions. Beyond 
+aviation, Kahan advises clients across a range 
+of industries on operations, logistics, and 
+global supply chain optimization. 
+Mark Keane is a consultant in McKinsey’s 
+Dublin office, with deep aviation insights from 
+his career as an airline pilot flying B747s and 
+A380s. He focuses on airline operations, 
+including fleet strategy, process and digital 
+planning, integrated planning, and operations 
+control centers, alongside training, workforce 
+strategy, and engagement. Mark also advises 
+on corporate group strategy and full-cost 
+transformation, helping airlines achieve 
+operational efficiency and sustainable 
+growth. 
+Niklas Schumacher  is a senior knowledge 
+analyst in McKinsey’s Munich office. He 
+focuses on the commercial aerospace sector, 
+with expertise in aircraft manufacturing 
+and maintenance, repair, and overhaul 
+services. Niklas partners with clients across 
+the value chain to drive impact on critical 
+topics, including operational performance 
+improvement and value creation strategies. 
+Nils Hübel is an associate partner in 
+McKinsey’s Atlanta office, with deep 
+expertise in travel and an emphasis on 
+commercial growth in airlines and hospitality. 
+His focus is on helping major travel brands 
+chart their long-term growth trajectories 
+through organic investments, alliance and 
+partnership strategies, and M&A-related 
+engagements, drawing on a global set of 
+knowledge and experiences. 
+Nina Lind is a partner in McKinsey’s 
+Stuttgart office. Her areas of expertise 
+include growth strategy, digital business 
+building, commercial topics, partnership 
+strategies, and M&A and divestments, with 
+a focus on aviation, travel, and technology. 
+Nina helps shape McKinsey’s Travel, 
+Logistics & Infrastructure Practice’s 
+knowledge and innovation agenda and its 
+tools and capabilities. She has worked with 
+organizations in Western Europe, the United 
+States, Canada, and China. 
+Steve Saxon, a partner and coleader of the 
+Travel, Logistics & Infrastructure Practice, 
+joined McKinsey’s London office in 2000. 
+After transferring to Asia and serving clients 
+there for 20 years, he rejoined the London 
+office in 2024. Steve serves clients across 
+aviation, travel and tourism, shipping, ports, 
+and logistics. He also leads research on 
+profitability in the aviation value chain. 
+Taylor Cornwall is a partner in McKinsey’s 
+Dallas office. He has worked extensively with 
+travel and logistics companies around the 
+world, helping to drive operational efficiency 
+and reliability and workforce productivity 
+across large, distributed workforces. His 
+focus is on network design, operations 
+strategy and planning, operations execution, 
+and the digital capabilities that underpin 
+these functions. 
+Tore Johnston is a knowledge expert in 
+McKinsey’s Denver office. Tore’s expertise 
+focuses on the civil aircraft manufacturing 
+industry, working with clients on critical 
+topics from growth strategy to supply chain. 
+He also coleads the Aerospace & Defense 
+Practice’s research team. 
+Vik Krishnan is a senior partner in 
+McKinsey’s Bay Area office. He serves clients 
+in the aviation, aerospace, hospitality, cruise, 
+mobility, travel, and tourism sectors and 
+supports private equity investors in diligence 
+and value creation in related assets. He 
+supports clients on the topics of operational 
+excellence, digital transformation, and tech-
+enabled growth. 
+Mark Keane 
+ Niklas Schumacher 
+ Nils Hübel 
+ Nina Lind 
+Steve Saxon 
+ Taylor Cornwall 
+ Tore Joh
+nston 
+48 The State of Aviation 2025 
+Vik Krishnan 
+--- p51 ---
+May 2025 
+Copyright © McKinsey & Company 
+Designed by McKinsey Gl
+obal Publishing 
+www.McKinsey.com 

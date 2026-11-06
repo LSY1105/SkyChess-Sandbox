@@ -1,0 +1,16 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - link "Dashboard":
+    - /url: https://www.skychess.com/play/airline/833
+  - text: Quarter Closed

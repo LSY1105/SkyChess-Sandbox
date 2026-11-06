@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-11-03T08:26:35.745Z",
+  "tag": "【模拟产出·非一手数据】",
+  "anchors": [
+    {
+      "code": "ARM",
+      "km": 3780,
+      "K": 65860,
+      "note": "原版 CA Q3'2028 notes「Armstrong LF 100%」反解"
+    },
+    {
+      "code": "GEE",
+      "km": 5265,
+      "K": 59332,
+      "note": "原版 VA Q2'2028 独飞 McGee（fare 825 / pretax 6.40M / margin 40.2%）反解"
+    }
+  ],
+  "target": {
+    "code": "BZY",
+    "km": 4473,
+    "cargo": 30,
+    "note": "原版无 Broonzy 经营记录 → 无一手锚点"
+  },
+  "logPosition": 0.492,
+  "center": 62563,
+  "range": [
+    35661,
+    91968
+  ],
+  "current": 26953,
+  "note": "不落地：区间宽 4×，无一手锚点；保留为教学点"
+}

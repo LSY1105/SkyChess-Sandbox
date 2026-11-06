@@ -1,0 +1,1034 @@
+{
+  "_meta": {
+    "title": "SkyChess 原版真实经营基线数据集（裁判端/小组端一手材料提取）",
+    "purpose": "沙盘引擎标定与验收的黄金基线；U4 Reports / 数值复现验收的对照源",
+    "extracted_at": "2026-10-31",
+    "extraction_method": "逐份阅读一手材料原文（docx/pdf 文本提取 + 截图读数），不依赖二手转述",
+    "sources": [
+      "主截图/Reports(VIEW REPORTS)-Summary.jpg",
+      "主截图/Reports(VIEW REPORTS)-ECONOMICS-NETWORK ECONOMICS.jpg",
+      "output/2964ed01-.../stage3/SkyChess执行过程关键信息报告V2.docx（CA 队 Q1–Q4）",
+      "小组复盘/VisionAir_SkyChess_经营复盘报告（2027Q4 -2028Q3）.docx（VA 队 6 季度）",
+      "主截图/flyte Q2 volcano.pdf / flyte Q3 hailstorm CA.pdf / flyte Q4 SAF.pdf",
+      "_min/纪要_ 航空业战略模拟（Sky Chess）*.txt（裁判演练规则）",
+      "_extracted/SkyChess Cost Data 2022 v5.txt / SkyChess Role Guide_v3（CH）.txt"
+    ],
+    "caveat": "AB（Air Ballistic）队仅有零散数据（见 ab_scattered），未获得完整运行报告；本文件不含任何推断值"
+  },
+  "quarter_semantics": {
+    "quarter": "1 回合 = 1 季度（沙盘 DAYS_PER_QUARTER=90，与 VA「4 班/日 × 2 线 × 90 天 = 720 频次/季」一致）",
+    "period_of_full_match": "Q4 2027 – Q3 2028，共 6 个季度（与「3 个小组 6 个季度的运行报告」一致）",
+    "base_quarter": 4,
+    "base_year": 2027
+  },
+  "global_baseline_q4_2027": {
+    "_source": "Reports-Summary.jpg + Reports-ECONOMICS-NETWORK ECONOMICS.jpg（CA 真实首季报告）",
+    "kpi": {
+      "average_load_factor": 0.56,
+      "qsi": 4.5,
+      "market_share": 0.3591,
+      "break_even_load_factor": 0.56,
+      "margin": 0.0013,
+      "closing_cash": 2000000
+    },
+    "operating_costs_statement": {
+      "revenues": {
+        "Passenger Revenue": 11573329,
+        "Cargo Revenue": 258928,
+        "Ancillary Revenue": 154800,
+        "TOTAL REVENUE": 11987057
+      },
+      "direct_cash_operating_costs": {
+        "Fuel": 1929780,
+        "Sustainable Aviation Fuel": 0,
+        "Carbon": 458843,
+        "Maintenance": 1074352,
+        "Flight Crew": 689583,
+        "Cabin Crew": 521460,
+        "Landing": 497250,
+        "Navigation": 294781,
+        "Aircraft Handling": 612450,
+        "Traffic Handling": 588240,
+        "Cargo Handling": 35135,
+        "DIRECT CASH OPERATING COSTS": 6701874
+      },
+      "indirect_operating_costs": {
+        "Passenger Services": 623260,
+        "Ticketing, Sales and Promotion": 359600,
+        "General & Administration": 1130112,
+        "Cargo Overheads": 244125,
+        "INDIRECT OPERATING COSTS": 2357097
+      },
+      "total_ownership_costs": {
+        "Depreciation on Owned Assets": 1866600,
+        "Depreciation on Right of Use Assets": 0,
+        "Wet Lease Payments": 0,
+        "Insurance": 152500,
+        "TOTAL OWNERSHIP COSTS": 2019100
+      },
+      "totals": {
+        "TOTAL OPERATING COSTS": 11078071,
+        "OPERATING PROFIT/LOSS": 908986,
+        "PROFIT/LOSS ON ASSET SALES": 0,
+        "Interest Receivable": 0,
+        "Interest on Owned Assets": 892838,
+        "Interest on Right of Use Assets": 0,
+        "NET FINANCE CHARGES": 892838,
+        "PROFIT/LOSS BEFORE TAX": 16148,
+        "Pre-tax Profit Margin": 0.0013,
+        "Tax charge": 0,
+        "PROFIT/LOSS AFTER TAX": 16148,
+        "Net Profit Margin": 0.0013
+      }
+    },
+    "cash_flow_statement": {
+      "Cash brought forward": 2687673,
+      "CASH FLOW FROM OPERATING ACTIVITIES": {
+        "Operating Profit or Loss": 908986,
+        "Depreciation on Owned Assets": 1866600,
+        "Depreciation on Right of Use Assets": 0,
+        "Interest Paid": -892838,
+        "Taxation": 0,
+        "Cash flow from operating activities": 1882748
+      },
+      "CASH FLOW FROM INVESTING ACTIVITIES": 0,
+      "CASH FLOW FROM FINANCING ACTIVITIES": {
+        "Fuel hedge fees": 0,
+        "Repayments on Right of Use Assets": 0,
+        "Loan Repayments": -2570420,
+        "Cash flow from financing activities": -2570420
+      },
+      "INCREASE OR DECREASE IN CASH FOR THE PERIOD": -687673,
+      "CASH IN HAND CARRIED FORWARD": 2000000
+    },
+    "derived_ratios": {
+      "_note": "由上述原值直接计算，非估计",
+      "ancillary_share_of_revenue": 0.01291,
+      "cargo_share_of_revenue": 0.0216,
+      "fuel_share_of_revenue": 0.16098,
+      "carbon_share_of_revenue": 0.03827,
+      "doc_share_of_revenue": 0.55901,
+      "ioc_share_of_revenue": 0.19656,
+      "ownership_share_of_revenue": 0.1685,
+      "interest_to_operating_profit": 0.98193
+    },
+    "open_question": "Loan Repayments $2,570,420 是否含利息？经营活动的 Interest Paid -$892,838 与之是否重叠？两种口径都与现金流闭合一致，无法从报表区分 → 须裁判确认（沙盘还款口径依赖此项）"
+  },
+  "capital_airways": {
+    "_team": "Capital Airways（CA，我方/低成本定位）",
+    "_source": "SkyChess执行过程关键信息报告V2.docx 第四章 + 第八章",
+    "quarters": {
+      "Q1_2028": {
+        "revenue": 13950000,
+        "net_margin": 0.0742,
+        "closing_cash": 2049088,
+        "load_factor": 0.57,
+        "break_even_lf": 0.53,
+        "market_share": 0.4092,
+        "qsi": -0.2,
+        "fuel_cost": 2370000,
+        "carbon_cost": 526000,
+        "route_lf": {
+          "SIM": 0.79,
+          "LEW": 0.683,
+          "ETN": 0.478
+        },
+        "notes": "Simone 垄断；Lewis 提前开线（开线费 $200k）"
+      },
+      "Q2_2028": {
+        "revenue": 24060000,
+        "net_margin": 0.0216,
+        "closing_cash": 2917559,
+        "load_factor": 0.59,
+        "break_even_lf": 0.57,
+        "market_share": 0.3395,
+        "qsi": 6.1,
+        "fuel_cost": 3880000,
+        "carbon_cost": 843000,
+        "lease_payments": 8360000,
+        "notes": "火山 4/1 喷发致 ETN 需求崩塌；租机付款成为最大成本异动"
+      },
+      "Q3_2028": {
+        "revenue": 30940000,
+        "net_margin": 0.146,
+        "ytd_margin": 0.0881,
+        "closing_cash": 4512841,
+        "load_factor": 0.761,
+        "market_share": 0.3213,
+        "qsi": 7.38,
+        "fuel_cost": 4640000,
+        "carbon_cost": 2380000,
+        "fuel_gallons": 1765000,
+        "fuel_applied_price": 2.63,
+        "market_fuel_price_range": [
+          4.2,
+          4.7
+        ],
+        "carbon_tonnes": 392,
+        "carbon_price_per_tonne": 6072,
+        "revenue_split": {
+          "passenger": 28070000,
+          "cargo": 820000,
+          "ancillary": 2050000
+        },
+        "notes": "Joplin LF 83% 份额 100%；Armstrong LF 100%；套保省约 $3M"
+      },
+      "Q4_2028": {
+        "revenue": 25000000,
+        "net_margin_target": 0.12,
+        "cash_floor_target": 2500000,
+        "notes": "执行中；SAF 令（2029-01-01 起 5%）公布；裁判暂停提供套保"
+      }
+    }
+  },
+  "vision_air": {
+    "_team": "VisionAir（VA，全服务定位）",
+    "_source": "小组复盘/VisionAir_SkyChess_经营复盘报告（2027Q4 -2028Q3）.docx",
+    "quarters": {
+      "Q4_2027": {
+        "revenue": 12870000,
+        "total_cost": 11620000,
+        "operating_profit": 1250000,
+        "net_profit": 320000,
+        "net_margin": 0.0253,
+        "closing_cash": 2000000,
+        "cash_brought_forward": 2400000,
+        "load_factor": 0.52,
+        "break_even_lf": 0.51,
+        "market_share": 0.3194,
+        "qsi": 4.5,
+        "interest": 922000,
+        "loan_repayment": 2650000,
+        "routes": 2,
+        "fleet": [
+          "APT100",
+          "G200"
+        ],
+        "freq_per_quarter": 720,
+        "route_detail": {
+          "ETN": {
+            "pretax": 475000,
+            "margin": 0.0537
+          },
+          "FTZ": {
+            "pretax": -150000,
+            "margin": -0.0375
+          }
+        }
+      },
+      "Q1_2028": {
+        "revenue": 15150000,
+        "total_cost": 15740000,
+        "operating_profit": -590000,
+        "net_profit": -1480000,
+        "net_margin": -0.0976,
+        "closing_cash": -703245,
+        "load_factor": 0.44,
+        "break_even_lf": 0.49,
+        "market_share": 0.3,
+        "qsi": 9.5,
+        "interest": 889000,
+        "loan_repayment": 2690000,
+        "intel_purchase": 90000,
+        "freq_per_quarter": 1080,
+        "adu": 19.92,
+        "notes": "加频撞需求墙；G200(192座) 飞 FTZ 单班 LF 6–26%，单机亏 $3.68M；现金穿仓但未触发破产"
+      },
+      "Q2_2028": {
+        "revenue": 26070000,
+        "total_cost": 22140000,
+        "operating_profit": 3930000,
+        "net_profit": 3140000,
+        "net_margin": 0.1206,
+        "closing_cash": 2830000,
+        "load_factor": 0.53,
+        "break_even_lf": 0.47,
+        "market_share": 0.2569,
+        "qsi": 8.77,
+        "asset_sale": {
+          "type": "G200",
+          "gross": 55830000,
+          "settlement": 51890000,
+          "net": 3940000
+        },
+        "lease_deposit": 810000,
+        "new_route_fee": 200000,
+        "route_detail": {
+          "MCG": {
+            "fare": 825,
+            "pretax": 6400000,
+            "margin": 0.402,
+            "lf": 0.66,
+            "share": 1.0
+          },
+          "FTZ": {
+            "pretax": -3430000,
+            "margin": -1.4134,
+            "lf": 0.226
+          }
+        }
+      },
+      "Q3_2028": {
+        "revenue": 44150000,
+        "total_cost": 33070000,
+        "operating_profit": 11080000,
+        "net_profit": 10670000,
+        "net_margin": 0.2416,
+        "closing_cash": 11660000,
+        "operating_cash_flow": 15960000,
+        "net_cash_increase": 8840000,
+        "load_factor": 0.61,
+        "break_even_lf": 0.46,
+        "market_share": 0.2962,
+        "qsi": 21.96,
+        "fuel_gallons": 2590000,
+        "fuel_applied_price": 2.43,
+        "market_fuel_price_range": [
+          4.2,
+          4.7
+        ],
+        "route_detail": {
+          "MCG": {
+            "fare": 888,
+            "pretax": 6680000,
+            "margin": 0.4,
+            "lf": 0.629,
+            "share": 1.0
+          },
+          "BRO": {
+            "fare": 700,
+            "pretax": 2870000,
+            "margin": 0.239,
+            "lf": 0.63,
+            "share": 1.0
+          },
+          "FTZ": {
+            "fare": 189,
+            "pretax": 700000,
+            "margin": 0.261,
+            "lf": 0.68,
+            "share": 0.26
+          },
+          "ETN": {
+            "fare": 239,
+            "pretax": 500000,
+            "margin": 0.057,
+            "lf": 0.482,
+            "share": 0.749
+          },
+          "CHA": {
+            "fare": 200,
+            "pretax": 120000,
+            "margin": 0.028,
+            "lf": 0.689,
+            "share": 0.53
+          }
+        },
+        "notes": "燃油 call $2.43 兑现，油价 $4.20–4.70 下省约 $4.5–5.9M"
+      }
+    }
+  },
+  "air_ballistic_scattered": {
+    "_note": "AB 队仅有零散数据（来自 CA/VA 复盘中的对手侧描述），无完整运行报告",
+    "intel_price_q1": 105000,
+    "entered_lewis_q2": {
+      "fares": [
+        105,
+        110.25
+      ]
+    },
+    "entered_charles_city_q3": {
+      "fare": 220
+    },
+    "entered_lewis_ftz_q4": {
+      "fare": 110
+    },
+    "entered_parker_q4": {
+      "fare": 295
+    },
+    "fleet_q6_growth": "+54%",
+    "hacked_q2": true
+  },
+  "mechanics_extracted": {
+    "_source": "执行过程关键信息报告V2.docx 第五章/第六章 + 三份裁判纪要 + 三份 flyte 事件稿 + Role Guide + Cost Data",
+    "fuel_hedge": {
+      "options": [
+        {
+          "id": "swap",
+          "premium": 50000,
+          "settle_price": 2.63,
+          "quarters": 2,
+          "rule": "双向固定结算价"
+        },
+        {
+          "id": "call",
+          "premium": 350000,
+          "cap_price": 2.43,
+          "quarters": 2,
+          "rule": "市价低于封顶按市价结算"
+        }
+      ],
+      "gm_can_refuse": true,
+      "gm_refusal_evidence": "Q4 2028：裁判以「当季油价极高」为由不提供套保，改为建议 Q5 为 Q6 锁价",
+      "strike_price_negotiable": false,
+      "signed_seasonally": true
+    },
+    "turnaround": {
+      "baseline_min": 60,
+      "slot_multiple": 15,
+      "options": [
+        {
+          "min": 45,
+          "cost": 0,
+          "cargo": "全额保留"
+        },
+        {
+          "min": 30,
+          "cost": 0,
+          "cargo": "全部放弃"
+        }
+      ],
+      "long_haul_adjustable": false,
+      "gm_quote": "调整初期不要加太多新航班，避免市场增长不足导致低客座率"
+    },
+    "heavy_check": {
+      "rule": "当季只需飞上季轮挡小时的一半即可完成；当季完成、下季可售",
+      "case": {
+        "block_hours_last_season": 9.52,
+        "block_hours_this_season_required": 4.76,
+        "sale_after_check": 3768973,
+        "sale_without_check": "~900000",
+        "gm_advice": "不要现在卖，先做大修，下个季度再卖"
+      }
+    },
+    "lease": {
+      "wet": "按轮挡小时计价",
+      "dry": "固定租金",
+      "dry_exit": "租期内可随时无费退租（运力期权价值）",
+      "real_cases": {
+        "G160XLR_P3": {
+          "list_price": 106000000,
+          "discount": 0.2,
+          "monthly": 848000,
+          "quarterly": 2500000
+        },
+        "APT100_006": {
+          "list_monthly": 400000,
+          "discount": 0.2,
+          "monthly": 320000
+        },
+        "APT100_007": {
+          "monthly": 310000,
+          "quarterly": 930000
+        }
+      }
+    },
+    "interest_rate": {
+      "negotiable": true,
+      "case": {
+        "from": 5.0,
+        "to": 4.0
+      },
+      "market_floating": true
+    },
+    "network_security_service": {
+      "price_per_quarter": 250000,
+      "negotiable": false,
+      "consequence": "不购买则面临黑客攻击风险（AB 队设备已被黑）"
+    },
+    "new_route_fee": {
+      "amount": 200000,
+      "negotiable": false,
+      "config_by": "裁判后台完成权限配置"
+    },
+    "cabin_rules": {
+      "premium_economy": "须至少增配 1 名乘务员并提供专用高端餐食；除商务舱配置外仅高端经济舱服务需单独付费；经济舱旅客可付费购餐",
+      "seat_layout_negotiable": true
+    },
+    "damaged_aircraft": {
+      "utilization_cap_bh_per_day": 4,
+      "duration_months": 3,
+      "grounded_weeks": 6,
+      "no_penalty_when_filled": true,
+      "replacement_aircraft": "需裁判确认替换机安排",
+      "hangar_protection": "投资了机库（hangar）的航司在冰雹中幸免"
+    },
+    "events": {
+      "volcano": {
+        "quarter": "Q2 2028",
+        "date": "2028-04-01",
+        "market": "ETN",
+        "effect": "需求崩塌，持续约 3 个月（= 1 季度）",
+        "flyte_source": "主截图/flyte Q2 volcano.pdf"
+      },
+      "hailstorm": {
+        "quarter": "Q3 2028",
+        "date": "2028-06-28",
+        "market": "HUB",
+        "effect": "露天停放飞机受损，停飞 6 周 + 3 个月限产 4 BH/日；有机库者幸免",
+        "flyte_source": "主截图/flyte Q3 hailstorm CA.pdf"
+      },
+      "saf_mandate": {
+        "quarter": "Q4 2028 公布",
+        "effective": "2029-01-01",
+        "rule": "5% 的燃油 uplift 必须为 SAF；SAF 价约为常规航油的 2.5 倍",
+        "estimated_impact": "+$0.5M/季",
+        "flyte_source": "主截图/flyte Q4 SAF.pdf"
+      },
+      "cyber": {
+        "quarter": "Q2 2028",
+        "effect": "AB 队设备被黑；CA 购买网安服务规避"
+      }
+    },
+    "new_market_openings": {
+      "Q3_2028": [
+        "JOP",
+        "CHA",
+        "BZY"
+      ],
+      "eco_clearance": "CHA（Charles City）需环保形象 clearance 才可进入",
+      "market_intel_contents": "13 页报告，含未飞航线的潜在需求（McGee 70–140 人/日、代表性票价 $825、需 ETOPS、「不指望维持超过一家承运人」）、Parker 货运收益 $0.08/tkm、Ellington 火山黑天鹅预警"
+    },
+    "distance_km": {
+      "ETN": 1150,
+      "FTZ": 784,
+      "MCG": 5265,
+      "BRO": 4473,
+      "CHA": 1409
+    },
+    "schedule_model": {
+      "one_way_outbound_only": true,
+      "evidence": "Role Guide v3：「你只需要对航班进行单向编排，即从枢纽至目的地。回程航班是[镜像]」；演练规则：「参与者仅能分析从枢纽机场出发的 outbound 航班」",
+      "return_mirror": true,
+      "overnight_rule": "所有飞机每晚必须返回基地枢纽，除非使用具备过夜能力的特定长程机型",
+      "connecting_window_hours": [
+        2,
+        4
+      ],
+      "time_shape": "日内需求有形状：早高峰 / 午间低谷 / 晚间高峰（Fitzgerald 18:30 晚高峰峰值约 12 人/日）"
+    },
+    "crew_rules": {
+      "flight_crew_max_hours_per_year": 900,
+      "cabin_crew_per_passengers": 50,
+      "source": "Cost Data 2022 v5"
+    },
+    "fuel_reference_price": {
+      "document_baseline": 1.9,
+      "note": "官方文档用价，非模拟实际价；模拟中 Q1 市价约 $2.65–3.00，Q3 涨至 $4.20–4.70"
+    },
+    "cost_data_standard_assumptions": {
+      "_source": "SkyChess Cost Data 2022 v5（通用机型表，非模拟实际）",
+      "traffic_handling_basis_load_factor": 0.75,
+      "table": {
+        "APT100": {
+          "seats": 100,
+          "payload_t": 12.6,
+          "structural_price_musd": 40,
+          "mtow_t": 45,
+          "fuel_kg_per_bh": 1565,
+          "dmc_per_cycle": 220,
+          "dmc_per_fh": 260,
+          "cabin_crew": 2
+        },
+        "G130": {
+          "seats": 132,
+          "payload_t": 16.9,
+          "structural_price_musd": 84.24,
+          "mtow_t": 63,
+          "fuel_kg_per_bh": 2020,
+          "dmc_per_cycle": 355,
+          "dmc_per_fh": 288,
+          "cabin_crew": 3
+        },
+        "G160": {
+          "seats": 159,
+          "payload_t": 18.8,
+          "structural_price_musd": 95.04,
+          "mtow_t": 74,
+          "fuel_kg_per_bh": 2200,
+          "dmc_per_cycle": 390,
+          "dmc_per_fh": 330,
+          "cabin_crew": 4
+        },
+        "G160XLR": {
+          "seats": 159,
+          "payload_t": 17.7,
+          "structural_price_musd": 102,
+          "mtow_t": 80,
+          "fuel_kg_per_bh": 2100,
+          "dmc_per_cycle": 400,
+          "dmc_per_fh": 340,
+          "cabin_crew": 4
+        },
+        "G200": {
+          "seats": 192,
+          "payload_t": 24,
+          "structural_price_musd": 107,
+          "mtow_t": 92,
+          "fuel_kg_per_bh": 2420,
+          "dmc_per_cycle": 420,
+          "dmc_per_fh": 370,
+          "cabin_crew": 4
+        },
+        "G200LR": {
+          "seats": 192,
+          "payload_t": 21.2,
+          "structural_price_musd": 120,
+          "mtow_t": 99,
+          "fuel_kg_per_bh": 2420,
+          "dmc_per_cycle": 420,
+          "dmc_per_fh": 370,
+          "cabin_crew": 4
+        },
+        "G250": {
+          "seats": 272,
+          "payload_t": 29.9,
+          "structural_price_musd": 132,
+          "mtow_t": 224,
+          "fuel_kg_per_bh": 3300,
+          "dmc_per_cycle": 495,
+          "dmc_per_fh": 450,
+          "cabin_crew": 6
+        },
+        "APT300": {
+          "seats": 264,
+          "payload_t": 34.1,
+          "structural_price_musd": 136.96,
+          "mtow_t": 231,
+          "fuel_kg_per_bh": 3050,
+          "dmc_per_cycle": 480,
+          "dmc_per_fh": 425,
+          "cabin_crew": 6
+        }
+      }
+    },
+    "accounting": {
+      "ifrs16": "租赁飞机由运营成本改为资本化（折旧 on Right of Use Assets + 融资现金流），属「近期会计政策变更」；但 Q4 2027 真实报表中 Depreciation on RoU Assets = 0、Wet Lease Payments = 0，说明该局尚未适用",
+      "provision": "大修费用在经济学分析中按准备金机制分摊到各年度平滑（教学纪要第4节）",
+      "economy_vs_finance": "经济分析=静态快照（经营利润）；财务分析=动态现金流连续性（教学纪要第2节）"
+    },
+    "role_guide": {
+      "roles": [
+        "首席执行官（及副职）",
+        "航班计划者",
+        "财务与经济",
+        "网络与营销",
+        "航线发展/投资",
+        "竞争对手分析",
+        "谈判代表",
+        "机队规划",
+        "目标管理"
+      ],
+      "ceo_decisions": [
+        "机队与商业战略",
+        "是否签署燃油套保合同",
+        "是否停飞起始飞机做定检大修",
+        "是否开通长航线（需 ETOPS）"
+      ],
+      "ordering_principle": "成本调整、定价、座位布局、营销投资必须按正确顺序；大幅降低票价之前应先与 GM 协商削减成本",
+      "targets_deadline": "第三季度结束前提交目标"
+    },
+    "intel_visibility_boundary": {
+      "visible": [
+        "竞争对手航班时刻",
+        "竞争对手整体载运率",
+        "竞争对手票价"
+      ],
+      "invisible": [
+        "竞争对手单班载运率",
+        "竞争对手财务明细"
+      ],
+      "inferable": [
+        "对手战略定位（LCC/混合/全服务）"
+      ],
+      "own_visible": [
+        "自身单班载运率"
+      ]
+    },
+    "carbon_model": {
+      "_source": "Reports-ECONOMICS-ROUTE ECONOMICS.jpg（Q4/2027 两条航线独立交叉验证）",
+      "rule": "碳成本 = 燃油加仑数 × $0.5707/gal（等价：碳成本 ≈ 燃油成本 × 0.2378）",
+      "cross_check": {
+        "SIM": {
+          "fuel_cost": 754380,
+          "fuel_price": 2.4,
+          "gallons": 314325,
+          "carbon": 179358,
+          "per_gallon": 0.57061
+        },
+        "ETN": {
+          "fuel_cost": 1175400,
+          "fuel_price": 2.4,
+          "gallons": 489750,
+          "carbon": 279485,
+          "per_gallon": 0.57067
+        }
+      },
+      "sandboxes_status": "沙盘 engine.js carbonCost(pax, cargo, price) 按旅客数计量 → Q4/2027 实算 $2,651 vs 原版 $458,843，差约 173 倍（P0 待修）",
+      "original_defect": "原版 FUEL 页 CARBON 块 'Total Carbon Emissions 178 tonnes' 与 gCO2/ASK 63.2g 互相矛盾（原版报表缺陷，不应复刻）",
+      "sandbox_status": "已修（2026-11-02）：carbonCost(fuelGallons, pricePerTonne) = 加仑 × 0.00022146 t/gal × \\$/t；g.carbonPrice 语义改为 \\$/吨（基准 2577）；回归断言见 ruletest.mjs CARB 组"
+    },
+    "market_distance_km": {
+      "_source": "Fare Manager（YIELD = fare/km 反解）+ ROUTE METRICS（ASK 反解）+ VA 复盘，三方一致",
+      "SIM": 525,
+      "ETN": 1150,
+      "FTZ": 784,
+      "MCG": 5265,
+      "BRO": 4473,
+      "CHA": 1409,
+      "sandbox_status": "已修（2026-11-02）：BZY 2100 → 4473（VA 复盘实证）；ARM 3780 与碳排放反推的 ~8876km 不符，已在 data.js 标注待核"
+    },
+    "yield_definition": {
+      "rule": "YIELD = 票价 ÷ 航段公里（每座公里票价）",
+      "check": {
+        "SIM": "120/525 = 0.2286 → 显示 $0.23",
+        "ETN": "250/1150 = 0.2174 → 显示 $0.22"
+      },
+      "note": "沙盘 MARKETS 缺 km 字段 → 缺 YIELD / ASK / 碳排放 / 中转的关键输入"
+    },
+    "full_match_quarters": {
+      "value": 7,
+      "periods": "Q4 2027 → Q2 2029",
+      "evidence": "Reports 季度选择器 7 项（Q2 2029 截图）+ Fleet Plans X 轴 Q0–Q6",
+      "sandbox_status": "已修：GM.max_turns 6 → 7"
+    },
+    "initial_fleet": {
+      "_source": "Fleet Plans 堆叠图（Q0 起始）",
+      "Capital Airways": {
+        "G160": 159,
+        "APT100": 100,
+        "total_seats": 260
+      },
+      "Air Ballistic": {
+        "G130": 132,
+        "G160": 159,
+        "total_seats": 292
+      },
+      "VisionAir": {
+        "G200": 192,
+        "APT100": 100,
+        "total_seats": 291
+      },
+      "sandbox_status": "沙盘 newGame 起始机队 APT100 + G160 ✓ 与 CA 一致"
+    },
+    "intraday_demand_shape": {
+      "_source": "Reports-ROUTE DEMAND.jpg（LEWIS）+ VA 复盘",
+      "rule": "市场需求按 06:00–23:00 逐时刻分布（早晚双峰 + 午间低谷）",
+      "observed_peaks": {
+        "LEW": "09:00 峰≈6、13:30 峰≈5、18:30 总需求峰≈9"
+      },
+      "sandbox_status": "沙盘 engine.js demand() 无时间维度 → 选时刻决策无经营差异（P0 待修）"
+    },
+    "loan_system": {
+      "_source": "Reports-ECONOMICS 截图（Loan Repayments −$2,570,420 / Interest on Owned Assets $892,838）+ VA 复盘（贷款 12 年期 5%）+ 裁判谈判记录（利率 5%→4% 可谈）",
+      "terms": {
+        "loan_years": 12,
+        "initial_rate_pct": 5.0,
+        "negotiable": true,
+        "negotiated_case": "5% → 4%"
+      },
+      "repayment_basis": "VERIFIED 含利息（本金+利息）。验证脚本 rebuild/verify_loan_repayment.py：两支队伍独立数据一致支持 —— CA 含息口径总本金偏差 4.6% vs 不含息 46.2%；VA 9.7% vs 38.4%；且 VA 首季还款 $2,650,000 = 等额本金 $1,728,000 + 当季利息 $922,000（误差 0）",
+      "sandbox_status": "已实现（2026-11-02）：12 年等额本金 + 季息（含息），季息 \\$892,838 与原版 CA 实测完全一致；超额现金强制还贷（仅当有未偿贷款）；报表呈现只列一次利息",
+      "repayment_algorithm": {
+        "formula": "每季还款 = 等额本金(总本金/48) + 当季利息(期初余额 × 利率/4)",
+        "extra_repayment": "存在小幅额外还本（次季 +$61,600 / 2.3%）→ 与「期末现金下限 $2,000,000、超额现金强制还贷」吻合",
+        "implied_balance": {
+          "CA": 71427040,
+          "VA": 73760000
+        },
+        "implied_balance_share_of_nbv": {
+          "CA": 0.846,
+          "VA": 0.803
+        },
+        "residual_note": "与账面净值仍有 4.6%/9.7% 残差 → 初始机龄/折旧细节或贷款覆盖率差异，未完全解释"
+      },
+      "original_report_defect": "原版现金流量表第 4 处呈现缺陷：经营活动单列 Interest Paid −$892,838，融资活动 Loan Repayments 又含利息 → 同一笔利息被列示两次。沙盘实现：还款额含利息，但现金流量表呈现层只列一次利息（不复刻该缺陷）"
+    },
+    "fuel_price_by_market": {
+      "_source": "Reports-FUEL.jpg（Q4/2027）+ FLIGHT INFORMATION 弹窗（Q2 2029）",
+      "Q4_2027": {
+        "ARM": 2.6,
+        "MCG": 2.6,
+        "ETN": 2.4,
+        "FTZ": 2.4,
+        "LEW": 2.4,
+        "PKR": 2.4,
+        "SIM": 2.4
+      },
+      "Q2_2029_market_price": {
+        "ARM": 3.0,
+        "LEW": 2.78,
+        "FTZ": 2.75,
+        "LEW2": 2.65,
+        "JOP": 2.6
+      },
+      "sandbox_status": "沙盘为单一全局油价，无分市场油价"
+    },
+    "seat_config_variants": {
+      "_source": "Reports-FLIGHTS.jpg（Q2 2029）",
+      "observed": {
+        "G160XLR": [
+          159,
+          147
+        ],
+        "G160XLR P1": [
+          135
+        ],
+        "G160XLR P3": [
+          129
+        ]
+      },
+      "note": "同机型不同子版本座位数不同 → 座位布局协商（U19）的真实数据；沙盘机型座位未带子版本"
+    },
+    "fuel_price_model": {
+      "_source": "Reports-FUEL（Q4/2027）+ FLIGHT INFORMATION 弹窗（Q2/2029）+ 课程主持方说明（油价为裁判设定）",
+      "layers": [
+        "市场级（裁判逐市场设定，marketParams）",
+        "定向（谈判条款 fuelPrice）",
+        "系统派生（基准 + 长程加价）"
+      ],
+      "system_derivation": {
+        "base": 2.4,
+        "long_haul_km": 3000,
+        "long_haul_premium": 0.2,
+        "evidence": "Q4/2027：ARM $2.60、MCG $2.60（长程 +$0.20），其余 $2.40",
+        "note": "后期（Q2/2029）市价 ARM $3.00 / LEW $2.78 / FTZ $2.75 / JOP $2.60 已非整齐加价 → 后期由裁判逐市场设定"
+      },
+      "hedge_window": {
+        "gm_has_single_turn_decision": true,
+        "real_case": "Q1 签定 swap $2.63 覆盖 Q2–Q3（涨跌均按 2.63）；Q2/Q3 油价上涨（Q3 市价 $4.20–4.70）；Q4 与 Q5 裁判以「油价过高」为由不提供套保",
+        "already_signed_unaffected": true,
+        "sandbox_status": "已实现：server.mjs setHedgeWindow + game.js hedgeWindowOpen；已签套保按原约定到期"
+      }
+    },
+    "intraday_demand_curve": {
+      "_source": "Reports-ROUTE DEMAND（Lewis 曲线读数）+ 培训纪要「早高峰、午间低谷及晚间高峰」；原版为模拟数据",
+      "assumed_shape": "24 项相对权重，09 时峰 1.00 / 18 时 0.90（晚峰）/ 14 时 0.60（午峰）/ 12 时 0.25（低谷），深夜趋 0",
+      "mechanism": "市场日需求按起飞时刻分池；同时刻多班按座位比例分池；单班承运 = min(座位, 该池×份额)；总量不超过市场需求",
+      "sandbox_status": "已实现：engine.js dayShape() + game.js computeTurn 时刻分配；实测同一班容量 09:00 承运为 12:00 的 4.0 倍",
+      "teaching_value": "「选起飞时刻」首次产生经营意义（原实现按班均匀分配，时刻无差异）"
+    }
+  },
+  "route_economics_q4_2027": {
+    "_source": "Reports-ECONOMICS-ROUTE ECONOMICS.jpg",
+    "SIM": {
+      "pax_rev": 3473257,
+      "cargo_rev": 165375,
+      "anc_rev": 73350,
+      "total_rev": 3711982,
+      "dcoc": 2813492,
+      "ioc": 916601,
+      "ownership": 562700,
+      "depreciation": 520200,
+      "insurance": 42500,
+      "op": -580812,
+      "interest": 248824,
+      "pbt": -829636,
+      "margin": -0.2235
+    },
+    "ETN": {
+      "pax_rev": 8100072,
+      "cargo_rev": 93553,
+      "anc_rev": 81450,
+      "total_rev": 8275075,
+      "dcoc": 3888382,
+      "ioc": 1440496,
+      "ownership": 1456400,
+      "depreciation": 1346400,
+      "insurance": 110000,
+      "op": 1489798,
+      "interest": 644014,
+      "pbt": 845783,
+      "margin": 0.1022
+    },
+    "cross_check": "两航线合计 = 网络报表 TOTAL REVENUE $11,987,057 / DCOC $6,701,874 / 折旧 $1,866,600 / 利息 $892,838（全部吻合）"
+  },
+  "user_adjudications_2026_10_31": {
+    "1_loan_repayment_includes_interest": "课程主持人的理论猜想 → 已用数据验证成立（见 loan_system.repayment_basis 与 rebuild/verify_loan_repayment.py）。沙盘按「还款额含利息」实现，报表呈现只列一次利息",
+    "2_ask_bh_basis": "裁判裁定：按往返（一次排班 = 一个往返班次）→ 沙盘现状即为此口径，无需改引擎；仅排班 UI 可优化为「只编排去程、回程自动镜像」",
+    "3_intel_material": "情报报告无更详细一手材料可提供 → 情报模块不再期待补充材料，按现有要素（潜在需求、代表性票价、ETOPS 要求、独家承运预期、货运收益率、黑天鹅预警）实现"
+  },
+  "implementation_2026_11_02": {
+    "rule_unlock_framework": {
+      "desc": "分季规则开启表（progressive rule unlocking）：17 条机制逐季引入，裁判可覆盖开启回合",
+      "file": "sandbox/data.js RULE_SCHEDULE + game.js isRuleOn/ruleStatus + server.mjs setRule + teacher.html ⑩ 区块 + player.html 本季新机制与贷款台账",
+      "schedule": {
+        "T0": 7,
+        "T1": 3,
+        "T2": 6,
+        "T5": 1
+      },
+      "basis_policy": "每条规则标注 [证据]/[裁定]/[推断]；碳相关条款依课程裁定自 T2 开放，SAF 依 flyte 证据 T5"
+    },
+    "carbon_cost_model": "按燃油加仑数计量（原版口径），修掉原按旅客数计量的约 173 倍偏差",
+    "market_distance": "补 BZY 4473km；YIELD = 票价÷航段km 可复现原版显示值",
+    "loan_system": "等额本金 + 季息（含息口径）+ 超额现金强制还贷 + 起始机队按官方目录价入账（APT100 40 + G160 95.04 = 135.04M）",
+    "self_correction": "此前把「现金 $2,000,000」判为硬下限，被 VA Q1 穿仓 -$703,245 与 CA Q2/Q3 高于该值否证；实为「有未偿贷款且现金充裕时优先还贷」",
+    "tests": "新增 ruletest.mjs（36 项）→ 总基线 131 → 167；sim3 6×1500 0 不变量违反 / 0 破产",
+    "demand_calibration": {
+      "script": "rebuild/calibrate_demand_js.mjs（标定）+ sandbox/demandtest.mjs（回归）",
+      "observation_used": "原版 CA Q4/2027 首季（唯一完全自洽的观测：机型×班次×票价×ASK×RPK×LF×旅客×份额齐全）",
+      "config_reproduction": "540 班×100 座×525km = 28.35MM ≈ 原版 ASK 28.4MM；360×159×1150 = 65.83MM ≈ 65.8MM（误差 <0.2%）",
+      "demandK": {
+        "Simone": {
+          "old": 9868,
+          "new": 7188,
+          "ratio": 0.728
+        },
+        "Ellington": {
+          "old": 11603,
+          "new": 31729,
+          "ratio": 2.735
+        },
+        "others": "Armstrong/Broonzy/Joplin/Lewis/Fitzgerald 维持现值（未标定，缺自洽观测）"
+      },
+      "share_not_changed": "Ellington target 保持长期均衡位 0.3383（首季单季观测 0.4840 不替代均衡位——两者皆真）",
+      "leave_one_out": {
+        "Simone→Ellington": "-27.2%",
+        "Ellington→Simone": "+173.4%",
+        "conclusion": "K 的相对结构确有偏差，单靠两市场反解不足 → 需补齐自洽观测后重建 DEMAND_K"
+      },
+      "verified_after": "真实首季配置下沙盘：ASK 28.4/65.8/94.2MM 与原版完全一致；局地需求 28,673 vs 真实 29,300（0.2%）",
+      "residual_gap": "旅客合计 91,581 vs 原版 61,900（高 48%）→ 差额来自**中转填补空座**（沙盘中转口径偏强），非需求总量问题",
+      "open": "中转口径标定（需原版中转旅客数）+ 其余 5 个市场 K 的自洽观测补齐"
+    },
+    "intraday_curve_model": {
+      "final_formula": "市场该时刻日需求池 = (市场日总需求) × wUsed[h]；wUsed 在「运营小时集合」上归一化（运营小时 <3 时退回 24 小时基准）；玩家班次承运 = min(座位×90, 池 × 玩家份额 × 该时刻座位比 × 90)；总量受 pax ≤ 玩家需求保护",
+      "three_corrections": [
+        "① 初版把季总需求摊到 24 小时、每班只取自己那一格 → 未被覆盖时刻的需求凭空流失（LF 塌到 5%）",
+        "② 改按班次分配后，除数误用玩家班次数 → 单班独吞整份需求（时刻差异被座位上限吸收）",
+        "③ 除数须用**市场全网班次数** al.marketFreq；形状系数不得按玩家班次归一化（否则高峰收益被完全抵消）"
+      ],
+      "verified": "同一班容量 09:00 承运为 12:00 的 4.0×；总量守恒（pax ≤ 需求）",
+      "new_fields": "detail[code].local_pax（局地承运，不含中转）、detail[code].flights[]（逐班承运与时段）",
+      "corrections": [
+        "① 季总需求摊到 24 小时、每班只取自己那一格 → 未覆盖时刻需求凭空流失（LF 塌到 5%）",
+        "② 改按班次分配但除数用玩家班次数 → 单班独吞整份需求（时刻差异被座位上限吸收）",
+        "③ 除数改市场全网班次 al.marketFreq；形状系数不按玩家班次归一化",
+        "④ 最终改为「市场需求池 + 运营小时归一化基准」→ 首季复现达成（网络旅客 −2.6%）"
+      ]
+    },
+    "first_season_reproduction": {
+      "goal": "方案 M11 验收标准：沙盘在原版真实首季配置下产出与原版同量级",
+      "config": "CA Q4/2027：APT100 飞 SIM 6 班/日($120)、G160 飞 ETN 4 班/日($250)；SIM 独占，ETN 玩家份额 48.40%",
+      "result": {
+        "ASK": "28.35 / 65.83 / 94.18 MM vs 原版 28.4 / 65.8 / 94.2 MM（完全一致）",
+        "ETN 玩家旅客": "32,600 vs 32,600（0.0%）",
+        "网络旅客": "60,311 vs 61,900（−2.6%）",
+        "网络 LF": "55.3% vs 56.1%（−0.8pp）"
+      },
+      "regression": "sandbox/demandtest.mjs E2E 组（6 项断言）",
+      "key_model": "日内需求池 = 市场日需求 × 时刻形状权重，权重在**实际运营小时**上归一化；玩家按份额与座位比分取"
+    },
+    "connections_handling": {
+      "finding": "原版 CA Q4/2027 旅客 61,900 = 局地需求之和（SIM 29,300 + ETN 玩家 32,600）⇒ 该季中转≈0",
+      "action": "中转改为分季规则（connections，T2 起开放）+ 默认关闭（connectingDemand 0）；已签条款与承接率逻辑保留",
+      "known_gap": "共享市场时池的归一化基准只含本方运营小时（缺竞品班次时刻）→ 近似，待补竞品时刻后修正"
+    },
+    "market_hours_from_competitors": {
+      "change": "竞品班次起飞时刻汇入 allocateMarkets → al.marketHours（该市场全部承运人的运营小时集合）",
+      "effect": "日内需求池的归一化基准由「仅本方小时」升级为「全市场运营小时」→ 消除共享市场（ETN 等）的基准近似",
+      "files": "sandbox/engine.js allocateMarket（收集 slots → marketHours）、sandbox/game.js allocateMarkets（各家带 slots）、computeTurn（基准优先用 marketHours）",
+      "known_gap": "共享市场的基准仍只含沙盘内可见的承运人（AI 竞品 + 玩家）；原版对手时刻不可见 → 已尽可能接近"
+    },
+    "sim3_competition": {
+      "change": "sim3 三家改为真实互为竞品：settlePlayer 接收 rivals → fake.competitors；结算前先 G.allocateMarkets(fake)",
+      "before": "直接 computeTurn → __alloc 为空 → 各家独占市场（与原版不符，份额失真）",
+      "after": "三家同市场竞争（份额由 softmax 分配）；旅客数由 38,252 → 26,441（份额被真实分割）",
+      "status": "sim3 仍 3/3 破产：根因是策略的「运力配置」而非引擎 —— 三家把班次分散到 3–4 条航线，每线每机型班次少 → 单班需求小 → LF 16–17%；而首季复现（单队对原版格局）已达成 ⇒ 引擎口径正确",
+      "next": "sim3 策略重写（航线-机型-班次密度对齐原版 CA/VA）—— 独立工作项"
+    },
+    "night_return_rule": {
+      "rule": "演练规则原文：所有飞机每晚必须返回基地枢纽，除非使用具备过夜能力的特定长程机型",
+      "implementation": "game.js canAddFlight：短程须 06:00 后起飞且 22:00 前返航；长程（航段≥1000km 或 ac.long）允许过夜，但相邻班次间隔须 ≥ 往返时长 + 过站时间（过夜后次日归位）",
+      "impact": "长程航线不再被「当日返航」拒绝；sim3 的 VA 型（远程机飞 McGee/Broonzy/Armstrong）得以运营"
+    },
+    "sim3_strategy_rewrite": {
+      "problem": "旧排班「每架飞机在每条航线都排 n 班」把运力摊薄到 3–4 条航线 → 每线每机型班次过少 → 每班分得需求小 → LF 塌陷、收入不足覆盖固定成本",
+      "fix": "改为**显式班次配置**（对齐原版实录的航线-机型-班次密度）：LCC: SIM 6 班/日($135, APT100) + ETN 4 班/日($220, G160)；HYB: SIM 4 + ETN 3 + FTZ 3；FSC: McGee 1 + Broonzy 1 + Armstrong 1（需 ETOPS + 过夜）",
+      "result": {
+        "LCC_turn0": "收入 $10.95M（原版 CA $11.99M 同量级）、旅客 56,202（原版 61,900）、现金 +$3.73M",
+        "multi_season": "客座率 66–67%、累计利润 +$19M~$28.9M、不变量 0 违反",
+        "FSC": "仍不可行：McGee/Broonzy/Armstrong 的 DEMAND_K 未标定（沿用旧拟合值）→ 长程市场需求过小"
+      },
+      "remaining": "FSC 的根因是**标定缺口**而非引擎：这三个市场的 K 需用其分航线 ASK/RPK/LF 标定"
+    },
+    "calibration_data_sources": {
+      "usable_exact": [
+        {
+          "source": "主截图/Reports(VIEW REPORTS)-ROUTE METRICS.jpg（Q4/2027）",
+          "content": "分市场 ASK / RPK / LF / 旅客 / 班次 / Route Share（**精确数值表**）",
+          "covered": [
+            "Simone",
+            "Ellington"
+          ],
+          "use": "首季标定已完成"
+        },
+        {
+          "source": "主截图/Reports(VIEW REPORTS)-ROUTE DEMAND.jpg（长图，7 个市场各一图）",
+          "content": "图题给出**每市场单班承运量与班次数**（如 LEWIS「0 passengers carried」、PARKER「182」、SIMONE「163」）；柱高=单班承运、柱数=每日班次；红=本方、绿=总需求",
+          "use": "每班需求的一手观测；SIMONE 交叉验证：163/3班=54.3 人/班 × 6 班/日 × 90 = 29,300 ✓ 与首季标定一致"
+        },
+        {
+          "source": "主截图/Reports(VIEW REPORTS)-ECONOMICS-ROUTE ECONOMICS.jpg",
+          "content": "分航线完整损益（11 项直接 + 4 项间接 + 4 项所有权 + 财务费用）",
+          "use": "分航线成本/份额交叉校验"
+        }
+      ],
+      "not_usable_exact": [
+        {
+          "source": "主截图/T. SkyChess.pdf 的 P60–P99（_pdfpages/*.png 本地已有）",
+          "content": "P69 旅客运量-航司、P70 旅客运量-航线、P73 市场份额饼图、P77 客座率、P79 加权票价",
+          "issue": "**均为无数据标签的图形**，仅能目测（±2–5%），不足以支撑与首季同精度的标定",
+          "partial_use": "P73 市场份额可作为 ±2pp 的份额估计，配合 ROUTE DEMAND 的每班承运量做**近似标定**（误差 ≤±5%）"
+        }
+      ],
+      "blocking_issue_for_remaining_markets": "剩余 5 个市场（Armstrong/Broonzy/Joplin/Lewis/Fitzgerald）的 K 反解需要「市场总需求 = 该市场每班承运量 × 市场班次数」，而 CA 在这些市场的**份额**只能从 P73 饼图目测（±2pp）→ 标定误差约 ±5%。已精确对齐的 Simone/Ellington **不使用目测数据**，以免污染首季复现基线。"
+    },
+    "route_release_and_negotiation": {
+      "mechanism": "航线由**裁判逐季释放**；各团队须与裁判洽谈（申请）→ 裁判批准 → 支付固定开线费 $200,000 → 才可开通并排班",
+      "initial_routes": [
+        "SIM",
+        "ETN"
+      ],
+      "release_schedule": {
+        "turn0": [
+          "SIM",
+          "ETN"
+        ],
+        "turn2(Q2)": [
+          "FTZ",
+          "JOP"
+        ],
+        "turn3": [
+          "CHA",
+          "BZY"
+        ],
+        "turn4": [
+          "ARM",
+          "GEE"
+        ],
+        "turn5": [
+          "LEW",
+          "PKR"
+        ]
+      },
+      "flow": "小组 openRoute → pending（routeRequests）→ 裁判 approveRoute（可驳回）→ 即时扣 $200k 开线（route.feePaid 防双扣）→ 结算期不再扣",
+      "configurable": "GM.routeReleaseTurn 为裁判参数（可提前/延后释放）",
+      "night_rule_fix": "过夜资格按**机型能力**（ac.long）判定，**不可用航段距离** —— Ellington 1150km 由 SR 型 G160 执飞且原版飞 4 班/日（此前误判为过夜航线导致一天只能 1 班、收入减半）",
+      "tests": "sandbox/routetest.mjs（27 项）",
+      "regression_caught": "本轮改动曾把 ETOPS 费误加回 oneoff（F10 修复被破坏 → 双扣），已由 investtest 捕获并修复"
+    }
+  },
+  "open_issues_2026_11_02": {
+    "sim3_bankruptcy": {
+      "symptom": "sim3 由 0/6 破产变为 6/6 破产（新增碳成本口径、贷款、日内曲线后）",
+      "root_cause_measured": "沙盘市场需求总量约为原版的 1/3：ASK 相当（沙盘 85.7MM vs 原版 94.2MM），但旅客 19,066 vs 原版 61,900 → LF 11.7% vs 56.1%",
+      "interpretation": "非日内曲线或碳成本模型的缺陷；日内曲线只是把长期存在的「需求总量偏低」暴露出来",
+      "evidence": "Reports-ROUTE METRICS（Q4/2027 CA：ASK 94.2MM、RPK 52.9MM、LF 56.1%、旅客 61.9K）",
+      "action": "P0：需求总量标定（用 baseline_real.json 的真实 ASK/RPK/LF 做回归目标），标定前 sim3 破产数不作为回归护栏",
+      "not_done_here": "未在本轮修正需求模型（属独立标定任务，避免与本轮机制改动混在一起难以归因）",
+      "status_after_calibration": "首季复现已达成（网络旅客 −2.6%、LF −0.8pp），但 sim3 仍 3/3 破产：sim3 是简化三队模拟（不含真实竞品格局、无融资/租赁状态、FSC 长航线被 ETOPS 挡住），其破产反映「固定成本 vs 收入规模」与策略设定，不代表标定失败。→ 判据改为：以「首季复现断言」作为标定护栏，sim3 破产数仅作诊断输出"
+    }
+  }
+}

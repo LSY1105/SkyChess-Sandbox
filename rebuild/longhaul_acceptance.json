@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-11-03T08:06:56.743Z",
+  "qsi": {
+    "CA": 10.1,
+    "AB": 9.8,
+    "VA": 24.7
+  },
+  "result": {
+    "GEE": {
+      "demand": 17978,
+      "base": {
+        "AB": 0.21789014111174984,
+        "VA": 0.7821098588882501
+      },
+      "caSwingPp": null,
+      "maxSwingPp": 5.862
+    },
+    "BZY": {
+      "demand": 10840,
+      "base": {
+        "AB": 0.21882114521773274,
+        "VA": 0.7811788547822673
+      },
+      "caSwingPp": null,
+      "maxSwingPp": 5.88
+    },
+    "ARM": {
+      "demand": 38914,
+      "base": {
+        "CA": 0.4115249511614964,
+        "VA": 0.5884750488385037
+      },
+      "caSwingPp": 8.312,
+      "maxSwingPp": 8.312
+    }
+  },
+  "maxSwingPp": 8.312,
+  "tolerancePp": 4.3,
+  "pass": false
+}

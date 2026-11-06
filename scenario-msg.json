@@ -1,0 +1,152 @@
+{
+ "browser": {
+  "mode": "connect",
+  "cdp_endpoint": "http://127.0.0.1:9222",
+  "target_id": "E7C39874F7BE0D73D41548A91B3A3A66"
+ },
+ "start_url": {
+  "url": "https://www.skychess.com/play/airline/833"
+ },
+ "capture": {
+  "after_each_step": [
+   "accessibility",
+   "url"
+  ],
+  "events": [],
+  "network": {
+   "request_body": true,
+   "response_body": true,
+   "header_values": false
+  },
+  "limits": {
+   "max_events": 50000,
+   "max_event_allocation_bytes": 33554432,
+   "max_total_event_allocation_bytes": 536870912,
+   "max_network_transactions": 8192,
+   "max_network_body_bytes": 67108864,
+   "max_network_body_allocation_bytes": 268435456,
+   "max_network_header_allocation_bytes": 8388608,
+   "max_network_metadata_allocation_bytes": 16777216
+  }
+ },
+ "actions": [
+  {
+   "action": "goto",
+   "step_id": "g1",
+   "destination": {
+    "url": "https://www.skychess.com/play/airline/833"
+   },
+   "wait_until": "load"
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "w0",
+   "duration_ms": 3500
+  },
+  {
+   "action": "click",
+   "step_id": "openmsg",
+   "locator": {
+    "kind": "role",
+    "role": "button",
+    "name": "Read Messages"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "w1",
+   "duration_ms": 4000
+  },
+  {
+   "action": "click",
+   "step_id": "m1",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(1)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm1",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m2",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(2)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm2",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m3",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(3)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm3",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m4",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(4)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm4",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m5",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(5)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm5",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m6",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(6)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm6",
+   "duration_ms": 2500
+  },
+  {
+   "action": "click",
+   "step_id": "m7",
+   "locator": {
+    "kind": "css",
+    "selector": "button[aria-label*=\"Q2 2028\"]:nth-of-type(7)"
+   }
+  },
+  {
+   "action": "wait_for_timeout",
+   "step_id": "wm7",
+   "duration_ms": 2500
+  }
+ ]
+}

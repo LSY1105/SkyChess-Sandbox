@@ -1,0 +1,196 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "10"
+  - button "Read Messages"
+  - text: Daily Schedule
+  - img "A chart.": APT100 Starter G160 Starter 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 Simone Simone Simone Simone Lewis Lewis Ellington Ellington Lewis Lewis Ellington Ellington
+  - table:
+    - rowgroup:
+      - row "Aircraft Flight Departure Return":
+        - columnheader "Aircraft"
+        - columnheader "Flight"
+        - columnheader "Departure"
+        - columnheader "Return"
+    - rowgroup:
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+  - text: Scheduler & Flight Management
+  - tablist:
+    - tab "Flight List" [selected]
+    - tab "Scheduler"
+  - tabpanel:
+    - tablist:
+      - tab "Select Aircraft" [selected]
+      - tab "Select Route"
+    - tabpanel:
+      - img
+      - text: APT100 (Starter)
+      - button "Select"
+      - img
+      - text: G160 (Starter)
+      - button "Select"
+    - tabpanel:
+      - img
+      - text: Simone (SIM)
+      - button "Select"
+      - img
+      - text: Ellington (ETN)
+      - button "Select"
+      - img
+      - text: Lewis (LEW)
+      - button "Select"
+    - text: "Select an aircraft and route to schedule a flight. Aircraft Selected: Route Selected:"
+    - button "Reset Scheduler"
+  - tabpanel:
+    - table:
+      - rowgroup:
+        - row "Flight Aircraft Departure Route Cargo":
+          - columnheader "Flight"
+          - columnheader "Aircraft"
+          - columnheader "Departure"
+          - columnheader "Route"
+          - columnheader "Cargo"
+          - columnheader
+      - rowgroup:
+        - row "CA-8203 G160 06:45 ETN Ellington 2.90t Cancel Flight":
+          - cell "CA-8203":
+            - strong: CA-8203
+          - cell "G160"
+          - cell "06:45"
+          - cell "ETN"
+          - cell "Ellington"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4291 APT100 09:00 SIM Simone 2.60t Cancel Flight":
+          - cell "CA-4291":
+            - strong: CA-4291
+          - cell "APT100"
+          - cell "09:00"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "2.60t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-9083 APT100 13:00 LEW Lewis 4.24t Cancel Flight":
+          - cell "CA-9083":
+            - strong: CA-9083
+          - cell "APT100"
+          - cell "13:00"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4932 G160 13:00 ETN Ellington 2.90t Cancel Flight":
+          - cell "CA-4932":
+            - strong: CA-4932
+          - cell "G160"
+          - cell "13:00"
+          - cell "ETN"
+          - cell "Ellington"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-2913 G160 19:00 LEW Lewis 2.90t Cancel Flight":
+          - cell "CA-2913":
+            - strong: CA-2913
+          - cell "G160"
+          - cell "19:00"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "2.90t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4423 APT100 19:15 SIM Simone 2.60t Cancel Flight":
+          - cell "CA-4423":
+            - strong: CA-4423
+          - cell "APT100"
+          - cell "19:15"
+          - cell "SIM"
+          - cell "Simone"
+          - cell "2.60t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"

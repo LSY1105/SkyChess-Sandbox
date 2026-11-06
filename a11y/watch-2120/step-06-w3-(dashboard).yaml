@@ -1,0 +1,268 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q3 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "23"
+  - button "Read Messages"
+  - text: Daily Schedule
+  - img "A chart.": APT100 (CA:Starter) G160XLR P3 (CA:005) APT100 (CA:006) APT100 (CA:007) G130 (AB:Starter) G160 (AB:Starter) APT100 (AB:001) APT100 (VA:Starter) G160XLR (VA:003) G160XLR P1 (VA:004) 08:00 10:00 12:00 14:00 16:00 18:00 20:00 22:00 Ellington Ellington Armstrong Armstrong Simone Simone Lewis Lewis Ellington Ellington Simone Simone Joplin Joplin Joplin Joplin Charles City Charles City Lewis Lewis Lewis Lewis Parker Parker Parker Parker Fitzger… Fitzger… Fitzger… Fitzger… Fitzgerald Fitzger… Fitzger… Fitzger… Ellington Ellington Ellington Ellington Ellington Ellington McGee McGee Broonzy Broonzy Charles City Charles City
+  - table:
+    - rowgroup:
+      - row "Aircraft Flight Departure Return":
+        - columnheader "Aircraft"
+        - columnheader "Flight"
+        - columnheader "Departure"
+        - columnheader "Return"
+    - rowgroup:
+      - row "APT100 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Armstrong Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Armstrong"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Armstrong Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Armstrong"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P3 (CA:005) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P3 (CA:005)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:006) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:006)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:006) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:006)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:006) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:006)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:006) Simone Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:006)"
+        - cell "Simone"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:007) Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:007)"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:007) Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:007)"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:007) Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:007)"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (CA:007) Joplin Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (CA:007)"
+        - cell "Joplin"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Charles City Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Charles City"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Charles City Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Charles City"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G130 (AB:Starter) Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "G130 (AB:Starter)"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160 (AB:Starter) Parker Dec 31, 1899 Dec 31, 1899":
+        - cell "G160 (AB:Starter)"
+        - cell "Parker"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (AB:001) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (AB:001)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 (VA:Starter) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 (VA:Starter)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR (VA:003) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR (VA:003)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR (VA:003) Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR (VA:003)"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR (VA:003) McGee Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR (VA:003)"
+        - cell "McGee"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR (VA:003) McGee Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR (VA:003)"
+        - cell "McGee"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P1 (VA:004) Broonzy Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P1 (VA:004)"
+        - cell "Broonzy"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P1 (VA:004) Broonzy Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P1 (VA:004)"
+        - cell "Broonzy"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P1 (VA:004) Charles City Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P1 (VA:004)"
+        - cell "Charles City"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "G160XLR P1 (VA:004) Charles City Dec 31, 1899 Dec 31, 1899":
+        - cell "G160XLR P1 (VA:004)"
+        - cell "Charles City"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"

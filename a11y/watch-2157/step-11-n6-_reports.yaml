@@ -1,0 +1,6240 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "24"
+  - button "Read Messages"
+  - button "Q4 2027"
+  - button "Q1 2028"
+  - button "Q2 2028"
+  - button "Q3 2028"
+  - button "Q4 2028" [disabled]
+  - text: Reports
+  - heading "End of Q3/2028 Report" [level=2]
+  - tablist:
+    - tab "Summary"
+    - tab "Economics"
+    - tab "Fuel"
+    - tab "Route Metrics"
+    - tab "Investments"
+    - tab "Flights"
+    - tab "Route Demand"
+  - tabpanel:
+    - heading "Capital Airways Quarter Summary" [level=3]
+    - text: Average Load Factor 76% Quality Service Indicator 7.38 Market Share 32.13% Break-even Load Factor 65% Margin 14.60% Closing Cash $7,241,519
+    - heading "Costs Summary" [level=3]
+    - img "A chart.": Passenger Revenue Quarter Cargo Revenue Ancillary Revenue Fuel Costs Maintenance Costs Crew Costs Handling Costs Nav and Landing Costs Total Indirect Operating Costs Total Ownership Costs Profit
+    - table:
+      - rowgroup:
+        - row "From To Weight":
+          - columnheader "From"
+          - columnheader "To"
+          - columnheader "Weight"
+      - rowgroup:
+        - row "Passenger Revenue Quarter 28,037,341.8":
+          - cell "Passenger Revenue"
+          - cell "Quarter"
+          - cell "28,037,341.8"
+        - row "Cargo Revenue Quarter 815,894.768":
+          - cell "Cargo Revenue"
+          - cell "Quarter"
+          - cell "815,894.768"
+        - row "Ancillary Revenue Quarter 2,050,290":
+          - cell "Ancillary Revenue"
+          - cell "Quarter"
+          - cell "2,050,290"
+        - row "Quarter Fuel Costs 4,641,840":
+          - cell "Quarter"
+          - cell "Fuel Costs"
+          - cell "4,641,840"
+        - row "Quarter Maintenance Costs 2,269,360.8":
+          - cell "Quarter"
+          - cell "Maintenance Costs"
+          - cell "2,269,360.8"
+        - row "Quarter Crew Costs 2,798,629.548":
+          - cell "Quarter"
+          - cell "Crew Costs"
+          - cell "2,798,629.548"
+        - row "Quarter Handling Costs 2,389,327.861":
+          - cell "Quarter"
+          - cell "Handling Costs"
+          - cell "2,389,327.861"
+        - row "Quarter Nav and Landing Costs 1,695,641.733":
+          - cell "Quarter"
+          - cell "Nav and Landing Costs"
+          - cell "1,695,641.733"
+        - row "Quarter Total Indirect Operating Costs 4,654,055":
+          - cell "Quarter"
+          - cell "Total Indirect Operating Costs"
+          - cell "4,654,055"
+        - row "Quarter Total Ownership Costs 5,203,814.847":
+          - cell "Quarter"
+          - cell "Total Ownership Costs"
+          - cell "5,203,814.847"
+        - row "Quarter Profit 4,512,841.432":
+          - cell "Quarter"
+          - cell "Profit"
+          - cell "4,512,841.432"
+  - tabpanel:
+    - heading "Network Metrics" [level=3]
+    - text: Network Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 1440 / 3780 212.0 / 515.9 161.2 / 338.2 76.1% / 65.5% 101.3 / 268.2 1817 / 4391 32.13% / 35.16% 7.38 / 4.79 33.00":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "1440 / 3780"
+          - cell "212.0 / 515.9"
+          - cell "161.2 / 338.2"
+          - cell "76.1% / 65.5%"
+          - cell "101.3 / 268.2"
+          - cell "1817 / 4391"
+          - cell "32.13% / 35.16%"
+          - cell "7.38 / 4.79"
+          - cell "33.00"
+        - row "Total 4140 / 10800 782.3 / 1825.1 519.7 / 1085.0 315.4 / 762.8 4975 / 11351":
+          - cell "Total"
+          - cell "4140 / 10800"
+          - cell "782.3 / 1825.1"
+          - cell "519.7 / 1085.0"
+          - cell
+          - cell "315.4 / 762.8"
+          - cell "4975 / 11351"
+          - cell
+          - cell
+          - cell
+    - heading "Route Metrics" [level=3]
+    - text: Lewis Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 180 / 900 9.6 / 48.3 4.4 / 24.7 45.7% / 51.2% 10.6 / 59.6 225 / 1398 25.65% / 52.88% 8.10 / 3.98 2.00":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "180 / 900"
+          - cell "9.6 / 48.3"
+          - cell "4.4 / 24.7"
+          - cell "45.7% / 51.2%"
+          - cell "10.6 / 59.6"
+          - cell "225 / 1398"
+          - cell "25.65% / 52.88%"
+          - cell "8.10 / 3.98"
+          - cell "2.00"
+        - row "Total 540 / 1620 29.4 / 87.8 17.2 / 46.8 41.4 / 112.7 891 / 2614":
+          - cell "Total"
+          - cell "540 / 1620"
+          - cell "29.4 / 87.8"
+          - cell "17.2 / 46.8"
+          - cell
+          - cell "41.4 / 112.7"
+          - cell "891 / 2614"
+          - cell
+          - cell
+          - cell
+    - text: Joplin Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 360 / 360 51.6 / 51.6 42.8 / 42.8 83.0% / 83.0% 29.9 / 29.9 763 / 763 100.00% / 100.00% 8.40 / 8.40 8.88":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "360 / 360"
+          - cell "51.6 / 51.6"
+          - cell "42.8 / 42.8"
+          - cell "83.0% / 83.0%"
+          - cell "29.9 / 29.9"
+          - cell "763 / 763"
+          - cell "100.00% / 100.00%"
+          - cell "8.40 / 8.40"
+          - cell "8.88"
+        - row "Total 360 / 360 51.6 / 51.6 42.8 / 42.8 29.9 / 29.9 763 / 763":
+          - cell "Total"
+          - cell "360 / 360"
+          - cell "51.6 / 51.6"
+          - cell "42.8 / 42.8"
+          - cell
+          - cell "29.9 / 29.9"
+          - cell "763 / 763"
+          - cell
+          - cell
+          - cell
+    - text: Simone Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 360 / 900 21.6 / 55.6 14.3 / 41.0 65.9% / 73.8% 27.2 / 78.1 450 / 1161 100.00% / 100.00% 7.10 / 3.98 4.52":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "360 / 900"
+          - cell "21.6 / 55.6"
+          - cell "14.3 / 41.0"
+          - cell "65.9% / 73.8%"
+          - cell "27.2 / 78.1"
+          - cell "450 / 1161"
+          - cell "100.00% / 100.00%"
+          - cell "7.10 / 3.98"
+          - cell "4.52"
+        - row "Total 360 / 900 21.6 / 55.6 14.3 / 41.0 27.2 / 78.1 450 / 1161":
+          - cell "Total"
+          - cell "360 / 900"
+          - cell "21.6 / 55.6"
+          - cell "14.3 / 41.0"
+          - cell
+          - cell "27.2 / 78.1"
+          - cell "450 / 1161"
+          - cell
+          - cell
+          - cell
+    - text: Armstrong Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 180 / 360 87.8 / 196.0 87.8 / 168.7 100.0% / 86.1% 23.2 / 44.6 225 / 486 100.00% / 100.00% 7.70 / 6.90 10.08":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "180 / 360"
+          - cell "87.8 / 196.0"
+          - cell "87.8 / 168.7"
+          - cell "100.0% / 86.1%"
+          - cell "23.2 / 44.6"
+          - cell "225 / 486"
+          - cell "100.00% / 100.00%"
+          - cell "7.70 / 6.90"
+          - cell "10.08"
+        - row "Total 180 / 360 87.8 / 196.0 87.8 / 168.7 23.2 / 44.6 225 / 486":
+          - cell "Total"
+          - cell "180 / 360"
+          - cell "87.8 / 196.0"
+          - cell "87.8 / 168.7"
+          - cell
+          - cell "23.2 / 44.6"
+          - cell "225 / 486"
+          - cell
+          - cell
+          - cell
+    - text: Ellington Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 360 / 900 41.4 / 127.9 12.0 / 53.4 29.0% / 41.7% 10.4 / 46.4 154 / 361 25.11% / 30.82% 6.10 / 3.58 7.52":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "360 / 900"
+          - cell "41.4 / 127.9"
+          - cell "12.0 / 53.4"
+          - cell "29.0% / 41.7%"
+          - cell "10.4 / 46.4"
+          - cell "154 / 361"
+          - cell "25.11% / 30.82%"
+          - cell "6.10 / 3.58"
+          - cell "7.52"
+        - row "Total 900 / 2520 115.7 / 357.7 47.8 / 173.3 41.6 / 150.7 360 / 1080":
+          - cell "Total"
+          - cell "900 / 2520"
+          - cell "115.7 / 357.7"
+          - cell "47.8 / 173.3"
+          - cell
+          - cell "41.6 / 150.7"
+          - cell "360 / 1080"
+          - cell
+          - cell
+          - cell
+    - text: Fitzgerald Q / YTD
+    - table:
+      - rowgroup:
+        - row "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)":
+          - columnheader "Airline"
+          - columnheader "Frequencies"
+          - columnheader "ASK (MM)"
+          - columnheader "RPK (MM)"
+          - columnheader "Load Factor"
+          - columnheader "Passengers (000)"
+          - columnheader "Cargo (tonnes)"
+          - columnheader "Route Share"
+          - columnheader "QSI"
+          - columnheader "ADU (BH)"
+      - rowgroup:
+        - row "Capital Airways 0 / 360 0.0 / 36.6 0.0 / 7.5 0.0% / 20.5% 0.0 / 9.5 0 / 222 0.00% / 9.62% 0.00 / 6.10 0.00":
+          - cell "Capital Airways":
+            - strong: Capital Airways
+          - cell "0 / 360"
+          - cell "0.0 / 36.6"
+          - cell "0.0 / 7.5"
+          - cell "0.0% / 20.5%"
+          - cell "0.0 / 9.5"
+          - cell "0 / 222"
+          - cell "0.00% / 9.62%"
+          - cell "0.00 / 6.10"
+          - cell "0.00"
+        - row "Total 720 / 2880 56.4 / 282.1 36.7 / 113.5 46.8 / 144.7 900 / 2700":
+          - cell "Total"
+          - cell "720 / 2880"
+          - cell "56.4 / 282.1"
+          - cell "36.7 / 113.5"
+          - cell
+          - cell "46.8 / 144.7"
+          - cell "900 / 2700"
+          - cell
+          - cell
+          - cell
+  - tabpanel:
+    - tablist:
+      - tab "Network Economics"
+      - tab "Route Economics"
+    - tabpanel:
+      - heading "Operating Costs" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $28,037,342 $63,869,855"':
+            - cell "Passenger Revenue:"
+            - cell "$28,037,342"
+            - cell "$63,869,855"
+          - 'row "Cargo Revenue: $815,895 $1,798,443"':
+            - cell "Cargo Revenue:"
+            - cell "$815,895"
+            - cell "$1,798,443"
+          - 'row "Ancillary Revenue: $2,050,290 $3,243,870"':
+            - cell "Ancillary Revenue:"
+            - cell "$2,050,290"
+            - cell "$3,243,870"
+          - 'row "Total Revenue: $30,903,527 $68,912,169"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$30,903,527":
+              - strong: $30,903,527
+            - cell "$68,912,169":
+              - strong: $68,912,169
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $4,641,840 $10,899,720"':
+            - cell "Fuel:"
+            - cell "$4,641,840"
+            - cell "$10,899,720"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $2,380,454 $3,749,614"':
+            - cell "Carbon:"
+            - cell "$2,380,454"
+            - cell "$3,749,614"
+          - 'row "Maintenance: $2,269,361 $4,277,146"':
+            - cell "Maintenance:"
+            - cell "$2,269,361"
+            - cell "$4,277,146"
+          - 'row "Flight Crew: $1,785,662 $3,072,240"':
+            - cell "Flight Crew:"
+            - cell "$1,785,662"
+            - cell "$3,072,240"
+          - 'row "Cabin Crew: $1,012,968 $1,940,688"':
+            - cell "Cabin Crew:"
+            - cell "$1,012,968"
+            - cell "$1,940,688"
+          - 'row "Landing: $981,000 $2,444,040"':
+            - cell "Landing:"
+            - cell "$981,000"
+            - cell "$2,444,040"
+          - 'row "Navigation: $714,642 $1,627,056"':
+            - cell "Navigation:"
+            - cell "$714,642"
+            - cell "$1,627,056"
+          - 'row "Aircraft Handling: $1,113,863 $2,931,143"':
+            - cell "Aircraft Handling:"
+            - cell "$1,113,863"
+            - cell "$2,931,143"
+          - 'row "Traffic Handling: $1,166,450 $2,795,990"':
+            - cell "Traffic Handling:"
+            - cell "$1,166,450"
+            - cell "$2,795,990"
+          - 'row "Cargo Handling: $109,015 $263,482"':
+            - cell "Cargo Handling:"
+            - cell "$109,015"
+            - cell "$263,482"
+          - 'row "Direct Cash Operating Costs: $16,175,254 $34,001,118"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$16,175,254":
+              - strong: $16,175,254
+            - cell "$34,001,118":
+              - strong: $34,001,118
+          - row:
+            - cell
+          - 'row "Passenger Services: $1,307,550 $2,300,870"':
+            - cell "Passenger Services:"
+            - cell "$1,307,550"
+            - cell "$2,300,870"
+          - 'row "Ticketing, Sales and Promotion: $279,800 $367,300"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$279,800"
+            - cell "$367,300"
+          - 'row "General & Administration: $2,410,938 $5,300,210"':
+            - cell "General & Administration:"
+            - cell "$2,410,938"
+            - cell "$5,300,210"
+          - 'row "Cargo Overheads: $655,767 $1,413,846"':
+            - cell "Cargo Overheads:"
+            - cell "$655,767"
+            - cell "$1,413,846"
+          - 'row "Indirect Operating Costs: $4,654,055 $9,382,226"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$4,654,055":
+              - strong: $4,654,055
+            - cell "$9,382,226":
+              - strong: $9,382,226
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $520,200 $4,253,400"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$520,200"
+            - cell "$4,253,400"
+          - 'row "Depreciation on Right of Use Assets: $4,408,615 $4,408,615"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$4,408,615"
+            - cell "$4,408,615"
+          - 'row "Wet Lease Payments: $0 $8,355,780"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$8,355,780"
+          - 'row "Insurance: $275,000 $580,000"':
+            - cell "Insurance:"
+            - cell "$275,000"
+            - cell "$580,000"
+          - 'row "Total Ownership Costs: $5,203,815 $17,597,795"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$5,203,815":
+              - strong: $5,203,815
+            - cell "$17,597,795":
+              - strong: $17,597,795
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $26,033,124 $60,981,139"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$26,033,124":
+              - strong: $26,033,124
+            - cell "$60,981,139":
+              - strong: $60,981,139
+          - row:
+            - cell
+          - row "Operating Profit/Loss $4,870,403 $7,931,029":
+            - cell "Operating Profit/Loss"
+            - cell "$4,870,403":
+              - strong: $4,870,403
+            - cell "$7,931,029":
+              - strong: $7,931,029
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $172,213 $1,677,188"':
+            - cell "Interest on Owned Assets:"
+            - cell "$172,213"
+            - cell "$1,677,188"
+          - 'row "Interest on Right of Use Assets: $185,349 $185,349"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$185,349"
+            - cell "$185,349"
+          - 'row "Net Finance Charges: $357,561 $1,862,537"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$357,561":
+              - strong: $357,561
+            - cell "$1,862,537":
+              - strong: $1,862,537
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: $4,512,841 $6,068,493"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "$4,512,841":
+              - strong: $4,512,841
+            - cell "$6,068,493":
+              - strong: $6,068,493
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: 14.6% 8.81%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "14.6%"
+            - cell "8.81%"
+          - 'row "Tax charge: $0 $0"':
+            - cell "Tax charge:"
+            - cell "$0"
+            - cell "$0"
+          - row:
+            - cell
+          - 'row "Profit/Loss After Tax: $4,512,841 $6,068,493"':
+            - cell "Profit/Loss After Tax:"
+            - cell "$4,512,841":
+              - strong: $4,512,841
+            - cell "$6,068,493":
+              - strong: $6,068,493
+          - 'row "Net Profit Margin: 14.6% 8.81%"':
+            - cell "Net Profit Margin:"
+            - cell "14.6%"
+            - cell "8.81%"
+      - heading "Cash Flow" [level=3]
+      - text: Cash Flow Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - 'row "Cash brought forward: $2,917,559"':
+            - cell "Cash brought forward:":
+              - strong: "Cash brought forward:"
+            - cell "$2,917,559"
+          - row:
+            - cell
+            - cell
+          - row "Cash flow from operating activities":
+            - cell "Cash flow from operating activities"
+            - cell
+          - 'row "Operating Profit or Loss: $4,870,403"':
+            - cell "Operating Profit or Loss:"
+            - cell "$4,870,403"
+          - 'row "Depreciation on Owned Assets: $520,200"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$520,200"
+          - 'row "Depreciation on Right Of Use Assets: $4,408,615"':
+            - cell "Depreciation on Right Of Use Assets:"
+            - cell "$4,408,615"
+          - 'row "Interest Paid: -$172,213"':
+            - cell "Interest Paid:"
+            - cell "-$172,213"
+          - 'row "Taxation: $0"':
+            - cell "Taxation:"
+            - cell "$0"
+          - 'row "Fee for joining Joplin: -$200,000"':
+            - cell "Fee for joining Joplin:"
+            - cell "-$200,000"
+          - 'row "Cash flow from operating activities: $9,427,005"':
+            - cell "Cash flow from operating activities:":
+              - strong: Cash flow from operating activities
+              - text: ":"
+            - cell "$9,427,005"
+          - row:
+            - cell
+            - cell
+          - row "Cash flow from investing activities":
+            - cell "Cash flow from investing activities"
+            - cell
+          - 'row "Premium Economy Class (G160XLR P3 005): -$200,000"':
+            - cell "Premium Economy Class (G160XLR P3 005):"
+            - cell "-$200,000"
+          - 'row "Cash flow from investing activities: -$200,000"':
+            - cell "Cash flow from investing activities:":
+              - strong: "Cash flow from investing activities:"
+            - cell "-$200,000"
+          - row:
+            - cell
+            - cell
+          - row "Cash flow from financing activities":
+            - cell "Cash flow from financing activities"
+            - cell
+          - 'row "Fuel hedge fees: $0"':
+            - cell "Fuel hedge fees:"
+            - cell "$0"
+          - 'row "Repayment of lease deposit of Aircraft G160XLR: $1,830,000"':
+            - cell "Repayment of lease deposit of Aircraft G160XLR:"
+            - cell "$1,830,000"
+          - 'row "Deposit for asset: $0"':
+            - cell "Deposit for asset:"
+            - cell "$0"
+          - 'row "Deposit for lease of Aircraft G160XLR P3: -$848,000"':
+            - cell "Deposit for lease of Aircraft G160XLR P3:"
+            - cell "-$848,000"
+          - 'row "Deposit for lease of Aircraft APT100: -$310,000"':
+            - cell "Deposit for lease of Aircraft APT100:"
+            - cell "-$310,000"
+          - 'row "Deposit for lease of Aircraft APT100: -$310,000"':
+            - cell "Deposit for lease of Aircraft APT100:"
+            - cell "-$310,000"
+          - 'row "Repayments on Right of Use Assets: -$4,524,000"':
+            - cell "Repayments on Right of Use Assets:"
+            - cell "-$4,524,000"
+          - 'row "Loan Repayments: -$741,045"':
+            - cell "Loan Repayments:"
+            - cell "-$741,045"
+          - 'row "Cash flow from financing activities: -$4,903,045"':
+            - cell "Cash flow from financing activities:":
+              - strong: "Cash flow from financing activities:"
+            - cell "-$4,903,045"
+          - row:
+            - cell
+            - cell
+          - row "Increase or decrease in cash for the period $4,323,960":
+            - cell "Increase or decrease in cash for the period"
+            - cell "$4,323,960"
+          - row:
+            - cell
+            - cell
+          - row "Cash in hand carried forward $7,241,519":
+            - cell "Cash in hand carried forward"
+            - cell "$7,241,519"
+    - tabpanel:
+      - heading "Lewis" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $1,111,277 $6,353,102"':
+            - cell "Passenger Revenue:"
+            - cell "$1,111,277"
+            - cell "$6,353,102"
+          - 'row "Cargo Revenue: $63,495 $394,500"':
+            - cell "Cargo Revenue:"
+            - cell "$63,495"
+            - cell "$394,500"
+          - 'row "Ancillary Revenue: $172,845 $469,350"':
+            - cell "Ancillary Revenue:"
+            - cell "$172,845"
+            - cell "$469,350"
+          - 'row "Total Revenue: $1,347,617 $7,216,952"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$1,347,617":
+              - strong: $1,347,617
+            - cell "$7,216,952":
+              - strong: $7,216,952
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $327,150 $1,489,050"':
+            - cell "Fuel:"
+            - cell "$327,150"
+            - cell "$1,489,050"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $167,745 $422,262"':
+            - cell "Carbon:"
+            - cell "$167,745"
+            - cell "$422,262"
+          - 'row "Maintenance: $215,460 $899,640"':
+            - cell "Maintenance:"
+            - cell "$215,460"
+            - cell "$899,640"
+          - 'row "Flight Crew: $96,445 $482,226"':
+            - cell "Flight Crew:"
+            - cell "$96,445"
+            - cell "$482,226"
+          - 'row "Cabin Crew: $72,000 $360,000"':
+            - cell "Cabin Crew:"
+            - cell "$72,000"
+            - cell "$360,000"
+          - 'row "Landing: $122,400 $486,540"':
+            - cell "Landing:"
+            - cell "$122,400"
+            - cell "$486,540"
+          - 'row "Navigation: $40,947 $188,393"':
+            - cell "Navigation:"
+            - cell "$40,947"
+            - cell "$188,393"
+          - 'row "Aircraft Handling: $172,800 $686,880"':
+            - cell "Aircraft Handling:"
+            - cell "$172,800"
+            - cell "$686,880"
+          - 'row "Traffic Handling: $87,827 $479,507"':
+            - cell "Traffic Handling:"
+            - cell "$87,827"
+            - cell "$479,507"
+          - 'row "Cargo Handling: $13,500 $83,877"':
+            - cell "Cargo Handling:"
+            - cell "$13,500"
+            - cell "$83,877"
+          - 'row "Direct Cash Operating Costs: $1,316,274 $5,578,375"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$1,316,274":
+              - strong: $1,316,274
+            - cell "$5,578,375":
+              - strong: $5,578,375
+          - row:
+            - cell
+          - 'row "Passenger Services: $144,721 $406,191"':
+            - cell "Passenger Services:"
+            - cell "$144,721"
+            - cell "$406,191"
+          - 'row "Ticketing, Sales and Promotion: $18,935 $32,470"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$18,935"
+            - cell "$32,470"
+          - 'row "General & Administration: $147,906 $612,241"':
+            - cell "General & Administration:"
+            - cell "$147,906"
+            - cell "$612,241"
+          - 'row "Cargo Overheads: $26,145 $130,725"':
+            - cell "Cargo Overheads:"
+            - cell "$26,145"
+            - cell "$130,725"
+          - 'row "Indirect Operating Costs: $337,707 $1,181,627"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$337,707":
+              - strong: $337,707
+            - cell "$1,181,627":
+              - strong: $1,181,627
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $0 $1,909,244"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$0"
+            - cell "$1,909,244"
+          - 'row "Depreciation on Right of Use Assets: $346,116 $346,116"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$346,116"
+            - cell "$346,116"
+          - 'row "Wet Lease Payments: $0 $0"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Insurance: $18,480 $174,464"':
+            - cell "Insurance:"
+            - cell "$18,480"
+            - cell "$174,464"
+          - 'row "Total Ownership Costs: $364,596 $2,429,824"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$364,596":
+              - strong: $364,596
+            - cell "$2,429,824":
+              - strong: $2,429,824
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $2,018,577 $9,189,825"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$2,018,577":
+              - strong: $2,018,577
+            - cell "$9,189,825":
+              - strong: $9,189,825
+          - row:
+            - cell
+          - row "Operating Profit/Loss -$670,960 -$1,972,874":
+            - cell "Operating Profit/Loss"
+            - cell "-$670,960":
+              - strong: "-$670,960"
+            - cell "-$1,972,874":
+              - strong: "-$1,972,874"
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $0 $710,288"':
+            - cell "Interest on Owned Assets:"
+            - cell "$0"
+            - cell "$710,288"
+          - 'row "Interest on Right of Use Assets: $13,845 $13,845"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$13,845"
+            - cell "$13,845"
+          - 'row "Net Finance Charges: $13,845 $724,132"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$13,845":
+              - strong: $13,845
+            - cell "$724,132":
+              - strong: $724,132
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: -$684,805 -$2,697,006"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "-$684,805":
+              - strong: "-$684,805"
+            - cell "-$2,697,006":
+              - strong: "-$2,697,006"
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: -50.82% -37.37%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "-50.82%"
+            - cell "-37.37%"
+      - heading "Joplin" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $4,975,535 $4,975,535"':
+            - cell "Passenger Revenue:"
+            - cell "$4,975,535"
+            - cell "$4,975,535"
+          - 'row "Cargo Revenue: $327,871 $327,871"':
+            - cell "Cargo Revenue:"
+            - cell "$327,871"
+            - cell "$327,871"
+          - 'row "Ancillary Revenue: $634,950 $634,950"':
+            - cell "Ancillary Revenue:"
+            - cell "$634,950"
+            - cell "$634,950"
+          - 'row "Total Revenue: $5,938,356 $5,938,356"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$5,938,356":
+              - strong: $5,938,356
+            - cell "$5,938,356":
+              - strong: $5,938,356
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $1,082,160 $1,082,160"':
+            - cell "Fuel:"
+            - cell "$1,082,160"
+            - cell "$1,082,160"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $554,945 $554,945"':
+            - cell "Carbon:"
+            - cell "$554,945"
+            - cell "$554,945"
+          - 'row "Maintenance: $504,403 $504,403"':
+            - cell "Maintenance:"
+            - cell "$504,403"
+            - cell "$504,403"
+          - 'row "Flight Crew: $428,217 $428,217"':
+            - cell "Flight Crew:"
+            - cell "$428,217"
+            - cell "$428,217"
+          - 'row "Cabin Crew: $159,840 $159,840"':
+            - cell "Cabin Crew:"
+            - cell "$159,840"
+            - cell "$159,840"
+          - 'row "Landing: $226,800 $226,800"':
+            - cell "Landing:"
+            - cell "$226,800"
+            - cell "$226,800"
+          - 'row "Navigation: $171,920 $171,920"':
+            - cell "Navigation:"
+            - cell "$171,920"
+            - cell "$171,920"
+          - 'row "Aircraft Handling: $218,700 $218,700"':
+            - cell "Aircraft Handling:"
+            - cell "$218,700"
+            - cell "$218,700"
+          - 'row "Traffic Handling: $373,500 $373,500"':
+            - cell "Traffic Handling:"
+            - cell "$373,500"
+            - cell "$373,500"
+          - 'row "Cargo Handling: $45,792 $45,792"':
+            - cell "Cargo Handling:"
+            - cell "$45,792"
+            - cell "$45,792"
+          - 'row "Direct Cash Operating Costs: $3,766,276 $3,766,276"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$3,766,276":
+              - strong: $3,766,276
+            - cell "$3,766,276":
+              - strong: $3,766,276
+          - row:
+            - cell
+          - 'row "Passenger Services: $295,204 $295,204"':
+            - cell "Passenger Services:"
+            - cell "$295,204"
+            - cell "$295,204"
+          - 'row "Ticketing, Sales and Promotion: $121,307 $121,307"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$121,307"
+            - cell "$121,307"
+          - 'row "General & Administration: $618,624 $618,624"':
+            - cell "General & Administration:"
+            - cell "$618,624"
+            - cell "$618,624"
+          - 'row "Cargo Overheads: $180,432 $180,432"':
+            - cell "Cargo Overheads:"
+            - cell "$180,432"
+            - cell "$180,432"
+          - 'row "Indirect Operating Costs: $1,215,567 $1,215,567"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$1,215,567":
+              - strong: $1,215,567
+            - cell "$1,215,567":
+              - strong: $1,215,567
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $0 $0"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Depreciation on Right of Use Assets: $907,207 $907,207"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$907,207"
+            - cell "$907,207"
+          - 'row "Wet Lease Payments: $0 $0"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Insurance: $50,000 $50,000"':
+            - cell "Insurance:"
+            - cell "$50,000"
+            - cell "$50,000"
+          - 'row "Total Ownership Costs: $957,207 $957,207"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$957,207":
+              - strong: $957,207
+            - cell "$957,207":
+              - strong: $957,207
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $5,939,050 $5,939,050"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$5,939,050":
+              - strong: $5,939,050
+            - cell "$5,939,050":
+              - strong: $5,939,050
+          - row:
+            - cell
+          - row "Operating Profit/Loss -$695 -$695":
+            - cell "Operating Profit/Loss"
+            - cell "-$695":
+              - strong: "-$695"
+            - cell "-$695":
+              - strong: "-$695"
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $0 $0"':
+            - cell "Interest on Owned Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Right of Use Assets: $36,288 $36,288"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$36,288"
+            - cell "$36,288"
+          - 'row "Net Finance Charges: $36,288 $36,288"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$36,288":
+              - strong: $36,288
+            - cell "$36,288":
+              - strong: $36,288
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: -$36,983 -$36,983"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "-$36,983":
+              - strong: "-$36,983"
+            - cell "-$36,983":
+              - strong: "-$36,983"
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: -0.62% -0.62%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "-0.62%"
+            - cell "-0.62%"
+      - heading "Simone" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $4,607,480 $11,879,842"':
+            - cell "Passenger Revenue:"
+            - cell "$4,607,480"
+            - cell "$11,879,842"
+          - 'row "Cargo Revenue: $165,375 $426,668"':
+            - cell "Cargo Revenue:"
+            - cell "$165,375"
+            - cell "$426,668"
+          - 'row "Ancillary Revenue: $455,400 $805,095"':
+            - cell "Ancillary Revenue:"
+            - cell "$455,400"
+            - cell "$805,095"
+          - 'row "Total Revenue: $5,228,255 $13,111,604"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$5,228,255":
+              - strong: $5,228,255
+            - cell "$13,111,604":
+              - strong: $13,111,604
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $644,940 $1,548,630"':
+            - cell "Fuel:"
+            - cell "$644,940"
+            - cell "$1,548,630"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $330,778 $530,508"':
+            - cell "Carbon:"
+            - cell "$330,778"
+            - cell "$530,508"
+          - 'row "Maintenance: $377,244 $667,397"':
+            - cell "Maintenance:"
+            - cell "$377,244"
+            - cell "$667,397"
+          - 'row "Flight Crew: $217,966 $435,932"':
+            - cell "Flight Crew:"
+            - cell "$217,966"
+            - cell "$435,932"
+          - 'row "Cabin Crew: $122,040 $244,080"':
+            - cell "Cabin Crew:"
+            - cell "$122,040"
+            - cell "$244,080"
+          - 'row "Landing: $247,950 $572,850"':
+            - cell "Landing:"
+            - cell "$247,950"
+            - cell "$572,850"
+          - 'row "Navigation: $87,955 $215,406"':
+            - cell "Navigation:"
+            - cell "$87,955"
+            - cell "$215,406"
+          - 'row "Aircraft Handling: $300,150 $693,450"':
+            - cell "Aircraft Handling:"
+            - cell "$300,150"
+            - cell "$693,450"
+          - 'row "Traffic Handling: $294,498 $831,978"':
+            - cell "Traffic Handling:"
+            - cell "$294,498"
+            - cell "$831,978"
+          - 'row "Cargo Handling: $27,000 $69,660"':
+            - cell "Cargo Handling:"
+            - cell "$27,000"
+            - cell "$69,660"
+          - 'row "Direct Cash Operating Costs: $2,650,521 $5,809,891"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$2,650,521":
+              - strong: $2,650,521
+            - cell "$5,809,891":
+              - strong: $5,809,891
+          - row:
+            - cell
+          - 'row "Passenger Services: $224,612 $492,742"':
+            - cell "Passenger Services:"
+            - cell "$224,612"
+            - cell "$492,742"
+          - 'row "Ticketing, Sales and Promotion: $44,244 $51,891"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$44,244"
+            - cell "$51,891"
+          - 'row "General & Administration: $300,510 $707,616"':
+            - cell "General & Administration:"
+            - cell "$300,510"
+            - cell "$707,616"
+          - 'row "Cargo Overheads: $66,150 $165,375"':
+            - cell "Cargo Overheads:"
+            - cell "$66,150"
+            - cell "$165,375"
+          - 'row "Indirect Operating Costs: $635,516 $1,417,624"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$635,516":
+              - strong: $635,516
+            - cell "$1,417,624":
+              - strong: $1,417,624
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $0 $360,629"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$0"
+            - cell "$360,629"
+          - 'row "Depreciation on Right of Use Assets: $731,690 $731,690"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$731,690"
+            - cell "$731,690"
+          - 'row "Wet Lease Payments: $0 $1,240,740"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$1,240,740"
+          - 'row "Insurance: $39,653 $69,116"':
+            - cell "Insurance:"
+            - cell "$39,653"
+            - cell "$69,116"
+          - 'row "Total Ownership Costs: $771,343 $2,402,176"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$771,343":
+              - strong: $771,343
+            - cell "$2,402,176":
+              - strong: $2,402,176
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $4,057,381 $9,629,691"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$4,057,381":
+              - strong: $4,057,381
+            - cell "$9,629,691":
+              - strong: $9,629,691
+          - row:
+            - cell
+          - row "Operating Profit/Loss $1,170,874 $3,481,913":
+            - cell "Operating Profit/Loss"
+            - cell "$1,170,874":
+              - strong: $1,170,874
+            - cell "$3,481,913":
+              - strong: $3,481,913
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $0 $166,290"':
+            - cell "Interest on Owned Assets:"
+            - cell "$0"
+            - cell "$166,290"
+          - 'row "Interest on Right of Use Assets: $29,268 $29,268"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$29,268"
+            - cell "$29,268"
+          - 'row "Net Finance Charges: $29,268 $195,557"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$29,268":
+              - strong: $29,268
+            - cell "$195,557":
+              - strong: $195,557
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: $1,141,606 $3,286,355"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "$1,141,606":
+              - strong: $1,141,606
+            - cell "$3,286,355":
+              - strong: $3,286,355
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: 21.84% 25.06%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "21.84%"
+            - cell "25.06%"
+      - heading "Armstrong" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $15,022,876 $28,852,270"':
+            - cell "Passenger Revenue:"
+            - cell "$15,022,876"
+            - cell "$28,852,270"
+          - 'row "Cargo Revenue: $153,090 $330,674"':
+            - cell "Cargo Revenue:"
+            - cell "$153,090"
+            - cell "$330,674"
+          - 'row "Ancillary Revenue: $551,205 $802,890"':
+            - cell "Ancillary Revenue:"
+            - cell "$551,205"
+            - cell "$802,890"
+          - 'row "Total Revenue: $15,727,171 $29,985,835"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$15,727,171":
+              - strong: $15,727,171
+            - cell "$29,985,835":
+              - strong: $29,985,835
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $1,648,350 $3,296,700"':
+            - cell "Fuel:"
+            - cell "$1,648,350"
+            - cell "$3,296,700"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $845,353 $1,203,002"':
+            - cell "Carbon:"
+            - cell "$845,353"
+            - cell "$1,203,002"
+          - 'row "Maintenance: $734,681 $734,681"':
+            - cell "Maintenance:"
+            - cell "$734,681"
+            - cell "$734,681"
+          - 'row "Flight Crew: $680,400 $680,400"':
+            - cell "Flight Crew:"
+            - cell "$680,400"
+            - cell "$680,400"
+          - 'row "Cabin Crew: $489,888 $489,888"':
+            - cell "Cabin Crew:"
+            - cell "$489,888"
+            - cell "$489,888"
+          - 'row "Landing: $201,600 $403,200"':
+            - cell "Landing:"
+            - cell "$201,600"
+            - cell "$403,200"
+          - 'row "Navigation: $270,794 $541,587"':
+            - cell "Navigation:"
+            - cell "$270,794"
+            - cell "$541,587"
+          - 'row "Aircraft Handling: $194,400 $388,800"':
+            - cell "Aircraft Handling:"
+            - cell "$194,400"
+            - cell "$388,800"
+          - 'row "Traffic Handling: $301,163 $568,913"':
+            - cell "Traffic Handling:"
+            - cell "$301,163"
+            - cell "$568,913"
+          - 'row "Cargo Handling: $13,500 $29,160"':
+            - cell "Cargo Handling:"
+            - cell "$13,500"
+            - cell "$29,160"
+          - 'row "Direct Cash Operating Costs: $5,380,129 $8,336,332"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$5,380,129":
+              - strong: $5,380,129
+            - cell "$8,336,332":
+              - strong: $8,336,332
+          - row:
+            - cell
+          - 'row "Passenger Services: $485,075 $616,125"':
+            - cell "Passenger Services:"
+            - cell "$485,075"
+            - cell "$616,125"
+          - 'row "Ticketing, Sales and Promotion: $60,376 $94,483"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$60,376"
+            - cell "$94,483"
+          - 'row "General & Administration: $847,098 $1,388,016"':
+            - cell "General & Administration:"
+            - cell "$847,098"
+            - cell "$1,388,016"
+          - 'row "Cargo Overheads: $238,140 $476,280"':
+            - cell "Cargo Overheads:"
+            - cell "$238,140"
+            - cell "$476,280"
+          - 'row "Indirect Operating Costs: $1,630,689 $2,574,904"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$1,630,689":
+              - strong: $1,630,689
+            - cell "$2,574,904":
+              - strong: $2,574,904
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $0 $0"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Depreciation on Right of Use Assets: $1,744,423 $1,744,423"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$1,744,423"
+            - cell "$1,744,423"
+          - 'row "Wet Lease Payments: $0 $5,533,920"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$5,533,920"
+          - 'row "Insurance: $93,138 $93,138"':
+            - cell "Insurance:"
+            - cell "$93,138"
+            - cell "$93,138"
+          - 'row "Total Ownership Costs: $1,837,562 $7,371,482"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$1,837,562":
+              - strong: $1,837,562
+            - cell "$7,371,482":
+              - strong: $7,371,482
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $8,848,379 $18,282,717"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$8,848,379":
+              - strong: $8,848,379
+            - cell "$18,282,717":
+              - strong: $18,282,717
+          - row:
+            - cell
+          - row "Operating Profit/Loss $6,878,791 $11,703,117":
+            - cell "Operating Profit/Loss"
+            - cell "$6,878,791":
+              - strong: $6,878,791
+            - cell "$11,703,117":
+              - strong: $11,703,117
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $0 $0"':
+            - cell "Interest on Owned Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Right of Use Assets: $69,777 $69,777"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$69,777"
+            - cell "$69,777"
+          - 'row "Net Finance Charges: $69,777 $69,777"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$69,777":
+              - strong: $69,777
+            - cell "$69,777":
+              - strong: $69,777
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: $6,809,014 $11,633,340"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "$6,809,014":
+              - strong: $6,809,014
+            - cell "$11,633,340":
+              - strong: $11,633,340
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: 43.29% 38.8%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "43.29%"
+            - cell "38.8%"
+      - heading "Ellington" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $2,320,175 $10,208,563"':
+            - cell "Passenger Revenue:"
+            - cell "$2,320,175"
+            - cell "$10,208,563"
+          - 'row "Cargo Revenue: $106,064 $249,001"':
+            - cell "Cargo Revenue:"
+            - cell "$106,064"
+            - cell "$249,001"
+          - 'row "Ancillary Revenue: $180,090 $363,690"':
+            - cell "Ancillary Revenue:"
+            - cell "$180,090"
+            - cell "$363,690"
+          - 'row "Total Revenue: $2,606,329 $10,821,254"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$2,606,329":
+              - strong: $2,606,329
+            - cell "$10,821,254":
+              - strong: $10,821,254
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $939,240 $2,661,120"':
+            - cell "Fuel:"
+            - cell "$939,240"
+            - cell "$2,661,120"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $481,633 $860,536"':
+            - cell "Carbon:"
+            - cell "$481,633"
+            - cell "$860,536"
+          - 'row "Maintenance: $437,573 $1,295,482"':
+            - cell "Maintenance:"
+            - cell "$437,573"
+            - cell "$1,295,482"
+          - 'row "Flight Crew: $362,634 $906,585"':
+            - cell "Flight Crew:"
+            - cell "$362,634"
+            - cell "$906,585"
+          - 'row "Cabin Crew: $169,200 $609,120"':
+            - cell "Cabin Crew:"
+            - cell "$169,200"
+            - cell "$609,120"
+          - 'row "Landing: $182,250 $529,650"':
+            - cell "Landing:"
+            - cell "$182,250"
+            - cell "$529,650"
+          - 'row "Navigation: $143,026 $390,836"':
+            - cell "Navigation:"
+            - cell "$143,026"
+            - cell "$390,836"
+          - 'row "Aircraft Handling: $227,813 $662,063"':
+            - cell "Aircraft Handling:"
+            - cell "$227,813"
+            - cell "$662,063"
+          - 'row "Traffic Handling: $109,462 $451,462"':
+            - cell "Traffic Handling:"
+            - cell "$109,462"
+            - cell "$451,462"
+          - 'row "Cargo Handling: $9,223 $21,652"':
+            - cell "Cargo Handling:"
+            - cell "$9,223"
+            - cell "$21,652"
+          - 'row "Direct Cash Operating Costs: $3,062,053 $8,388,504"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$3,062,053":
+              - strong: $3,062,053
+            - cell "$8,388,504":
+              - strong: $8,388,504
+          - row:
+            - cell
+          - 'row "Passenger Services: $127,328 $358,648"':
+            - cell "Passenger Services:"
+            - cell "$127,328"
+            - cell "$358,648"
+          - 'row "Ticketing, Sales and Promotion: $34,937 $47,659"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$34,937"
+            - cell "$47,659"
+          - 'row "General & Administration: $496,800 $1,535,112"':
+            - cell "General & Administration:"
+            - cell "$496,800"
+            - cell "$1,535,112"
+          - 'row "Cargo Overheads: $144,900 $362,250"':
+            - cell "Cargo Overheads:"
+            - cell "$144,900"
+            - cell "$362,250"
+          - 'row "Indirect Operating Costs: $803,965 $2,303,670"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$803,965":
+              - strong: $803,965
+            - cell "$2,303,670":
+              - strong: $2,303,670
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $520,200 $1,810,126"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$520,200"
+            - cell "$1,810,126"
+          - 'row "Depreciation on Right of Use Assets: $566,628 $566,628"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$566,628"
+            - cell "$566,628"
+          - 'row "Wet Lease Payments: $0 $0"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Insurance: $73,729 $179,115"':
+            - cell "Insurance:"
+            - cell "$73,729"
+            - cell "$179,115"
+          - 'row "Total Ownership Costs: $1,160,557 $2,555,869"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$1,160,557":
+              - strong: $1,160,557
+            - cell "$2,555,869":
+              - strong: $2,555,869
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $5,026,575 $13,248,043"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$5,026,575":
+              - strong: $5,026,575
+            - cell "$13,248,043":
+              - strong: $13,248,043
+          - row:
+            - cell
+          - row "Operating Profit/Loss -$2,420,246 -$2,426,788":
+            - cell "Operating Profit/Loss"
+            - cell "-$2,420,246":
+              - strong: "-$2,420,246"
+            - cell "-$2,426,788":
+              - strong: "-$2,426,788"
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $172,213 $740,760"':
+            - cell "Interest on Owned Assets:"
+            - cell "$172,213"
+            - cell "$740,760"
+          - 'row "Interest on Right of Use Assets: $22,665 $22,665"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$22,665"
+            - cell "$22,665"
+          - 'row "Net Finance Charges: $194,878 $763,426"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$194,878":
+              - strong: $194,878
+            - cell "$763,426":
+              - strong: $763,426
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: -$2,615,124 -$3,190,214"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "-$2,615,124":
+              - strong: "-$2,615,124"
+            - cell "-$3,190,214":
+              - strong: "-$3,190,214"
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: -100.34% -29.48%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "-100.34%"
+            - cell "-29.48%"
+      - heading "Fitzgerald" [level=3]
+      - text: Operating Costs Statement
+      - link "csv":
+        - /url: "#"
+      - table:
+        - rowgroup:
+          - row "Q3 2028 2028 YTD":
+            - cell
+            - cell "Q3 2028":
+              - strong: Q3 2028
+            - cell "2028 YTD":
+              - strong: 2028 YTD
+          - row "Revenues":
+            - cell "Revenues"
+            - cell
+            - cell
+          - 'row "Passenger Revenue: $0 $1,600,544"':
+            - cell "Passenger Revenue:"
+            - cell "$0"
+            - cell "$1,600,544"
+          - 'row "Cargo Revenue: $0 $69,730"':
+            - cell "Cargo Revenue:"
+            - cell "$0"
+            - cell "$69,730"
+          - 'row "Ancillary Revenue: $0 $112,095"':
+            - cell "Ancillary Revenue:"
+            - cell "$0"
+            - cell "$112,095"
+          - 'row "Total Revenue: $0 $1,782,369"':
+            - cell "Total Revenue:":
+              - strong: "Total Revenue:"
+            - cell "$0":
+              - strong: $0
+            - cell "$1,782,369":
+              - strong: $1,782,369
+          - row:
+            - cell
+          - row "Operating Costs":
+            - cell "Operating Costs"
+            - cell
+            - cell
+          - 'row "Fuel: $0 $822,060"':
+            - cell "Fuel:"
+            - cell "$0"
+            - cell "$822,060"
+          - 'row "Sustainable Aviation Fuel: $0 $0"':
+            - cell "Sustainable Aviation Fuel:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Carbon: $0 $178,360"':
+            - cell "Carbon:"
+            - cell "$0"
+            - cell "$178,360"
+          - 'row "Maintenance: $0 $175,543"':
+            - cell "Maintenance:"
+            - cell "$0"
+            - cell "$175,543"
+          - 'row "Flight Crew: $0 $138,881"':
+            - cell "Flight Crew:"
+            - cell "$0"
+            - cell "$138,881"
+          - 'row "Cabin Crew: $0 $77,760"':
+            - cell "Cabin Crew:"
+            - cell "$0"
+            - cell "$77,760"
+          - 'row "Landing: $0 $225,000"':
+            - cell "Landing:"
+            - cell "$0"
+            - cell "$225,000"
+          - 'row "Navigation: $0 $118,915"':
+            - cell "Navigation:"
+            - cell "$0"
+            - cell "$118,915"
+          - 'row "Aircraft Handling: $0 $281,250"':
+            - cell "Aircraft Handling:"
+            - cell "$0"
+            - cell "$281,250"
+          - 'row "Traffic Handling: $0 $90,630"':
+            - cell "Traffic Handling:"
+            - cell "$0"
+            - cell "$90,630"
+          - 'row "Cargo Handling: $0 $13,341"':
+            - cell "Cargo Handling:"
+            - cell "$0"
+            - cell "$13,341"
+          - 'row "Direct Cash Operating Costs: $0 $2,121,741"':
+            - cell "Direct Cash Operating Costs:":
+              - strong: "Direct Cash Operating Costs:"
+            - cell "$0":
+              - strong: $0
+            - cell "$2,121,741":
+              - strong: $2,121,741
+          - row:
+            - cell
+          - 'row "Passenger Services: $0 $101,350"':
+            - cell "Passenger Services:"
+            - cell "$0"
+            - cell "$101,350"
+          - 'row "Ticketing, Sales and Promotion: $0 $19,490"':
+            - cell "Ticketing, Sales and Promotion:"
+            - cell "$0"
+            - cell "$19,490"
+          - 'row "General & Administration: $0 $438,601"':
+            - cell "General & Administration:"
+            - cell "$0"
+            - cell "$438,601"
+          - 'row "Cargo Overheads: $0 $98,784"':
+            - cell "Cargo Overheads:"
+            - cell "$0"
+            - cell "$98,784"
+          - 'row "Indirect Operating Costs: $0 $658,225"':
+            - cell "Indirect Operating Costs:":
+              - strong: "Indirect Operating Costs:"
+            - cell "$0":
+              - strong: $0
+            - cell "$658,225":
+              - strong: $658,225
+          - row:
+            - cell
+          - 'row "Depreciation on Owned Assets: $0 $173,400"':
+            - cell "Depreciation on Owned Assets:"
+            - cell "$0"
+            - cell "$173,400"
+          - 'row "Depreciation on Right of Use Assets: $0 $0"':
+            - cell "Depreciation on Right of Use Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Wet Lease Payments: $0 $1,581,120"':
+            - cell "Wet Lease Payments:"
+            - cell "$0"
+            - cell "$1,581,120"
+          - 'row "Insurance: $0 $14,167"':
+            - cell "Insurance:"
+            - cell "$0"
+            - cell "$14,167"
+          - 'row "Total Ownership Costs: $0 $1,768,687"':
+            - cell "Total Ownership Costs:":
+              - strong: Total Ownership Costs
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$1,768,687":
+              - strong: $1,768,687
+          - row:
+            - cell
+          - 'row "Total Operating Costs: $0 $4,548,652"':
+            - cell "Total Operating Costs:":
+              - strong: Total Operating Costs
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$4,548,652":
+              - strong: $4,548,652
+          - row:
+            - cell
+          - row "Operating Profit/Loss $0 -$2,766,283":
+            - cell "Operating Profit/Loss"
+            - cell "$0":
+              - strong: $0
+            - cell "-$2,766,283":
+              - strong: "-$2,766,283"
+          - row:
+            - cell
+          - 'row "Profit/Loss on Asset Sales: $0 $0"':
+            - cell "Profit/Loss on Asset Sales:":
+              - strong: Profit/Loss on Asset Sales
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$0":
+              - strong: $0
+          - row:
+            - cell
+          - 'row "Interest Receivable: $0 $0"':
+            - cell "Interest Receivable:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Interest on Owned Assets: $0 $59,850"':
+            - cell "Interest on Owned Assets:"
+            - cell "$0"
+            - cell "$59,850"
+          - 'row "Interest on Right of Use Assets: $0 $0"':
+            - cell "Interest on Right of Use Assets:"
+            - cell "$0"
+            - cell "$0"
+          - 'row "Net Finance Charges: $0 $59,850"':
+            - cell "Net Finance Charges:":
+              - strong: Net Finance Charges
+              - text: ":"
+            - cell "$0":
+              - strong: $0
+            - cell "$59,850":
+              - strong: $59,850
+          - row:
+            - cell
+          - 'row "Profit/Loss Before Tax: $0 -$2,826,133"':
+            - cell "Profit/Loss Before Tax:"
+            - cell "$0":
+              - strong: $0
+            - cell "-$2,826,133":
+              - strong: "-$2,826,133"
+          - row:
+            - cell
+          - 'row "Pre-tax Profit Margin: 0% -158.56%"':
+            - cell "Pre-tax Profit Margin:"
+            - cell "0%"
+            - cell "-158.56%"
+  - tabpanel:
+    - heading "Fuel Prices & Carbon" [level=3]
+    - text: Fuel Prices, Usage & Costs
+    - table:
+      - rowgroup:
+        - row "Location Price Hedged Applied Price Fuel Used Fuel Cost SAF Used SAF Cost":
+          - columnheader "Location"
+          - columnheader "Price"
+          - columnheader "Hedged"
+          - columnheader "Applied Price"
+          - columnheader "Fuel Used"
+          - columnheader "Fuel Cost"
+          - columnheader "SAF Used"
+          - columnheader "SAF Cost"
+      - rowgroup:
+        - row "Armstrong ARM $4.70 USG Yes $2.63 USG 626,760 gal $1,648,379 -- --":
+          - cell "Armstrong ARM"
+          - cell "$4.70 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "626,760 gal"
+          - cell "$1,648,379"
+          - cell "--"
+          - cell "--"
+        - row "Ellington ETN $4.20 USG Yes $2.63 USG 357,120 gal $939,226 -- --":
+          - cell "Ellington ETN"
+          - cell "$4.20 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "357,120 gal"
+          - cell "$939,226"
+          - cell "--"
+          - cell "--"
+        - row "Fitzgerald FTZ $4.35 USG Yes $2.63 USG -- -- -- --":
+          - cell "Fitzgerald FTZ"
+          - cell "$4.35 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+        - row "Lewis LEW $4.35 USG Yes $2.63 USG 124,380 gal $327,119 -- --":
+          - cell "Lewis LEW"
+          - cell "$4.35 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "124,380 gal"
+          - cell "$327,119"
+          - cell "--"
+          - cell "--"
+        - row "McGee GEE $4.60 USG Yes $2.63 USG -- -- -- --":
+          - cell "McGee GEE"
+          - cell "$4.60 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+        - row "Parker PKR $4.55 USG Yes $2.63 USG -- -- -- --":
+          - cell "Parker PKR"
+          - cell "$4.55 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+        - row "Simone SIM $4.50 USG Yes $2.63 USG 245,250 gal $645,008 -- --":
+          - cell "Simone SIM"
+          - cell "$4.50 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "245,250 gal"
+          - cell "$645,008"
+          - cell "--"
+          - cell "--"
+        - row "Joplin JOP $4.70 USG Yes $2.63 USG 411,480 gal $1,082,192 -- --":
+          - cell "Joplin JOP"
+          - cell "$4.70 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "411,480 gal"
+          - cell "$1,082,192"
+          - cell "--"
+          - cell "--"
+        - row "Charles City CHA $4.35 USG Yes $2.63 USG -- -- -- --":
+          - cell "Charles City CHA"
+          - cell "$4.35 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+        - row "Broonzy BZY $4.70 USG Yes $2.63 USG -- -- -- --":
+          - cell "Broonzy BZY"
+          - cell "$4.70 USG"
+          - cell "Yes"
+          - cell "$2.63 USG"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+          - cell "--"
+    - text: Carbon
+    - table:
+      - rowgroup:
+        - row "Total Cost $2,380,454":
+          - cell "Total Cost"
+          - cell "$2,380,454"
+        - row "Unit Cost per ASK $0.011":
+          - cell "Unit Cost per ASK"
+          - cell "$0.011"
+        - row "Total Revenue $0":
+          - cell "Total Revenue"
+          - cell "$0"
+        - row "Unit Revenue per ASK $0.000":
+          - cell "Unit Revenue per ASK"
+          - cell "$0.000"
+        - row "Unit Revenue per ASK $0.000":
+          - cell "Unit Revenue per ASK"
+          - cell "$0.000"
+        - row "gCO2/ASK 61.6 g":
+          - cell "gCO2/ASK"
+          - cell "61.6 g"
+        - row "gCO2/RPK 81.0 g":
+          - cell "gCO2/RPK"
+          - cell "81.0 g"
+        - row "Total Carbon Emissions 392 tonnes":
+          - cell "Total Carbon Emissions"
+          - cell "392 tonnes"
+  - tabpanel:
+    - heading "Investments" [level=3]
+    - text: Quality Service Indicator
+    - table:
+      - rowgroup:
+        - 'row "Airline QSI: 7.38"':
+          - cell "Airline QSI:":
+            - strong: "Airline QSI:"
+          - cell "7.38"
+    - text: Capital Airways Investments
+    - table:
+      - rowgroup:
+        - row "Advertising (Agents, Website)":
+          - cell "Advertising (Agents, Website)"
+        - row "Advertising (Social Media)":
+          - cell "Advertising (Social Media)"
+        - row "IT upgrade":
+          - cell "IT upgrade"
+        - row "Overweight Baggage":
+          - cell "Overweight Baggage"
+        - row "Preferred Seats":
+          - cell "Preferred Seats"
+        - row "Priority Boarding":
+          - cell "Priority Boarding"
+        - row "Self-service check-in":
+          - cell "Self-service check-in"
+        - row "On Board F&B Sales (Basic) (Simone)":
+          - cell "On Board F&B Sales (Basic) (Simone)"
+        - row "On Board F&B Sales (Basic) (Ellington)":
+          - cell "On Board F&B Sales (Basic) (Ellington)"
+        - row "On Board F&B Sales (Basic) (Lewis)":
+          - cell "On Board F&B Sales (Basic) (Lewis)"
+        - row "On Board F&B Sales (Basic) (Armstrong)":
+          - cell "On Board F&B Sales (Basic) (Armstrong)"
+        - row "On Board F&B Sales (Superior) (Armstrong)":
+          - cell "On Board F&B Sales (Superior) (Armstrong)"
+        - row "On Board F&B Sales (Basic) (Fitzgerald)":
+          - cell "On Board F&B Sales (Basic) (Fitzgerald)"
+        - row "On Board F&B Sales (Superior) (Joplin)":
+          - cell "On Board F&B Sales (Superior) (Joplin)"
+        - row "Advertising (Billboards) (Joplin)":
+          - cell "Advertising (Billboards) (Joplin)"
+        - row "Premium Economy Class (G160XLR P3 005)":
+          - cell "Premium Economy Class (G160XLR P3 005)"
+        - row "007 (APT100 007)":
+          - cell "007 (APT100 007)"
+    - text: VisionAir Investments
+    - table:
+      - rowgroup:
+        - row "Advertising (Agents, Website)":
+          - cell "Advertising (Agents, Website)"
+        - row "On Line Travel Agents":
+          - cell "On Line Travel Agents"
+        - row "Advertising (Social Media)":
+          - cell "Advertising (Social Media)"
+        - row "Self-service check-in":
+          - cell "Self-service check-in"
+        - row "Overweight Baggage":
+          - cell "Overweight Baggage"
+        - row "Lounge (VIP) shared":
+          - cell "Lounge (VIP) shared"
+        - row "IT upgrade":
+          - cell "IT upgrade"
+        - row "Priority Boarding":
+          - cell "Priority Boarding"
+        - row "Preferred Seats":
+          - cell "Preferred Seats"
+        - row "On Line Booking":
+          - cell "On Line Booking"
+        - row "Loyalty Programme":
+          - cell "Loyalty Programme"
+        - row "Giveaways":
+          - cell "Giveaways"
+        - row "Extra Bags":
+          - cell "Extra Bags"
+        - row "eNewsletters":
+          - cell "eNewsletters"
+        - row "On Board F&B Sales (Basic) (Fitzgerald)":
+          - cell "On Board F&B Sales (Basic) (Fitzgerald)"
+        - row "On Board F&B Sales (Basic) (Ellington)":
+          - cell "On Board F&B Sales (Basic) (Ellington)"
+        - row "On Board F&B Sales (Basic) (McGee)":
+          - cell "On Board F&B Sales (Basic) (McGee)"
+        - row "On Board F&B Sales (Superior) (Broonzy)":
+          - cell "On Board F&B Sales (Superior) (Broonzy)"
+        - row "On Board F&B Sales (Basic) (Charles City)":
+          - cell "On Board F&B Sales (Basic) (Charles City)"
+        - row "In Flight Connectivity (WiFi) (G160XLR 003)":
+          - cell "In Flight Connectivity (WiFi) (G160XLR 003)"
+        - row "Premium Economy Class (G160XLR P1 004)":
+          - cell "Premium Economy Class (G160XLR P1 004)"
+    - text: Air Ballistic Investments
+    - table:
+      - rowgroup:
+        - row "Advertising (Agents, Website)":
+          - cell "Advertising (Agents, Website)"
+        - row "On Line Travel Agents":
+          - cell "On Line Travel Agents"
+        - row "Business Partnership":
+          - cell "Business Partnership"
+        - row "Advertising (Social Media)":
+          - cell "Advertising (Social Media)"
+        - row "Overweight Baggage":
+          - cell "Overweight Baggage"
+        - row "Self-service check-in":
+          - cell "Self-service check-in"
+        - row "Preferred Seats":
+          - cell "Preferred Seats"
+        - row "Priority Boarding":
+          - cell "Priority Boarding"
+        - row "On Board F&B Sales (Basic) (Fitzgerald)":
+          - cell "On Board F&B Sales (Basic) (Fitzgerald)"
+        - row "Provided Catering (Economy) (Parker)":
+          - cell "Provided Catering (Economy) (Parker)"
+        - row "On Board F&B Sales (Basic) (Lewis)":
+          - cell "On Board F&B Sales (Basic) (Lewis)"
+        - row "In Flight Connectivity Hi-Connex (G130 Starter)":
+          - cell "In Flight Connectivity Hi-Connex (G130 Starter)"
+        - row "In Flight Connectivity Hi-Connex (G160 Starter)":
+          - cell "In Flight Connectivity Hi-Connex (G160 Starter)"
+        - row "In Flight Connectivity Hi-Connex (APT100 001)":
+          - cell "In Flight Connectivity Hi-Connex (APT100 001)"
+    - heading "Assets" [level=3]
+    - text: Capital Airways Assets
+    - table:
+      - rowgroup:
+        - row "Hangar single aisle":
+          - cell "Hangar single aisle"
+    - text: VisionAir Assets
+    - table:
+      - rowgroup:
+        - row "Hangar single aisle":
+          - cell "Hangar single aisle"
+    - text: Air Ballistic Assets
+    - table:
+      - rowgroup:
+        - row "No assets":
+          - cell "No assets"
+  - tabpanel:
+    - heading "Flights and Utilisation" [level=3]
+    - text: Capital Airways Flights Detailed
+    - table:
+      - rowgroup:
+        - row "Flight Departure Market Fare Aircraft Passengers Seats Load Factor Data":
+          - columnheader "Flight"
+          - columnheader "Departure"
+          - columnheader "Market"
+          - columnheader "Fare"
+          - columnheader "Aircraft"
+          - columnheader "Passengers"
+          - columnheader "Seats"
+          - columnheader "Load Factor"
+          - columnheader "Data"
+      - rowgroup:
+        - row "CA-4162 06:30 Joplin $170.00 APT100 81 100 81%":
+          - cell "CA-4162"
+          - cell "06:30"
+          - cell "Joplin"
+          - cell "$170.00"
+          - cell "APT100"
+          - cell "81"
+          - cell "100"
+          - cell "81%"
+          - cell:
+            - button
+        - row "CA-1441 07:30 Ellington $220.00 APT100 34 100 34%":
+          - cell "CA-1441"
+          - cell "07:30"
+          - cell "Ellington"
+          - cell "$220.00"
+          - cell "APT100"
+          - cell "34"
+          - cell "100"
+          - cell "34%"
+          - cell:
+            - button
+        - row "CA-5552 10:15 Simone $173.25 G160XLR P3 72 129 56%":
+          - cell "CA-5552"
+          - cell "10:15"
+          - cell "Simone"
+          - cell "$173.25"
+          - cell "G160XLR P3"
+          - cell "72"
+          - cell "129"
+          - cell "56%"
+          - cell:
+            - button
+        - row "CA-2031 10:45 Ellington $231.00 APT100 24 100 24%":
+          - cell "CA-2031"
+          - cell "10:45"
+          - cell "Ellington"
+          - cell "$231.00"
+          - cell "APT100"
+          - cell "24"
+          - cell "100"
+          - cell "24%"
+          - cell:
+            - button
+        - row "CA-0972 12:30 Joplin $170.00 APT100 85 100 85%":
+          - cell "CA-0972"
+          - cell "12:30"
+          - cell "Joplin"
+          - cell "$170.00"
+          - cell "APT100"
+          - cell "85"
+          - cell "100"
+          - cell "85%"
+          - cell:
+            - button
+        - row "CA-4523 14:15 Lewis $105.00 G160XLR P3 59 129 46%":
+          - cell "CA-4523"
+          - cell "14:15"
+          - cell "Lewis"
+          - cell "$105.00"
+          - cell "G160XLR P3"
+          - cell "59"
+          - cell "129"
+          - cell "46%"
+          - cell:
+            - button
+        - row "CA-2882 14:30 Simone $165.00 APT100 79 100 79%":
+          - cell "CA-2882"
+          - cell "14:30"
+          - cell "Simone"
+          - cell "$165.00"
+          - cell "APT100"
+          - cell "79"
+          - cell "100"
+          - cell "79%"
+          - cell:
+            - button
+        - row "CA-5171 20:00 Armstrong $650.00 G160XLR P3 129 129 100%":
+          - cell "CA-5171"
+          - cell "20:00"
+          - cell "Armstrong"
+          - cell "$650.00"
+          - cell "G160XLR P3"
+          - cell "129"
+          - cell "129"
+          - cell "100%"
+          - cell:
+            - button
+        - row "76%":
+          - cell
+          - cell "76%"
+          - cell
+    - text: Capital Airways Aircraft Utilisation
+    - table:
+      - rowgroup:
+        - row "Aircraft Type Average Daily BH":
+          - columnheader "Aircraft Type"
+          - columnheader "Average Daily BH"
+      - rowgroup:
+        - row "APT100 6.22":
+          - cell "APT100"
+          - cell "6.22"
+        - row "G160XLR P3 14.34":
+          - cell "G160XLR P3"
+          - cell "14.34"
+    - heading "Competitor Flights and Utilisation" [level=3]
+    - text: VisionAir Flights
+    - table:
+      - rowgroup:
+        - row "Flight Departure Market Fare Aircraft Passengers Seats Load Factor":
+          - columnheader "Flight"
+          - columnheader "Departure"
+          - columnheader "Market"
+          - columnheader "Fare"
+          - columnheader "Aircraft"
+          - columnheader "Passengers"
+          - columnheader "Seats"
+          - columnheader "Load Factor"
+      - rowgroup:
+        - row "VA-8562 06:15 Fitzgerald $189.00 APT100 - 100 -":
+          - cell "VA-8562"
+          - cell "06:15"
+          - cell "Fitzgerald"
+          - cell "$189.00"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "VA-0351 06:15 Ellington $239.00 G160XLR - 159 -":
+          - cell "VA-0351"
+          - cell "06:15"
+          - cell "Ellington"
+          - cell "$239.00"
+          - cell "G160XLR"
+          - cell "-"
+          - cell "159"
+          - cell "-"
+        - row "VA-9962 06:45 Charles City $200.00 G160XLR P1 - 135 -":
+          - cell "VA-9962"
+          - cell "06:45"
+          - cell "Charles City"
+          - cell "$200.00"
+          - cell "G160XLR P1"
+          - cell "-"
+          - cell "135"
+          - cell "-"
+        - row "VA-1373 11:00 Ellington $250.95 APT100 - 100 -":
+          - cell "VA-1373"
+          - cell "11:00"
+          - cell "Ellington"
+          - cell "$250.95"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "VA-0682 12:00 McGee $888.00 G160XLR - 159 -":
+          - cell "VA-0682"
+          - cell "12:00"
+          - cell "McGee"
+          - cell "$888.00"
+          - cell "G160XLR"
+          - cell "-"
+          - cell "159"
+          - cell "-"
+        - row "VA-6441 15:00 Broonzy $700.00 G160XLR P1 - 135 -":
+          - cell "VA-6441"
+          - cell "15:00"
+          - cell "Broonzy"
+          - cell "$700.00"
+          - cell "G160XLR P1"
+          - cell "-"
+          - cell "135"
+          - cell "-"
+        - row "VA-4323 18:00 Ellington $250.95 APT100 - 100 -":
+          - cell "VA-4323"
+          - cell "18:00"
+          - cell "Ellington"
+          - cell "$250.95"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "61%":
+          - cell
+          - cell "61%"
+    - text: VisionAir Aircraft Utilisation
+    - table:
+      - rowgroup:
+        - row "Aircraft Type Average Daily BH":
+          - columnheader "Aircraft Type"
+          - columnheader "Average Daily BH"
+      - rowgroup:
+        - row "APT100 10.40":
+          - cell "APT100"
+          - cell "10.40"
+        - row "G160XLR 17.40":
+          - cell "G160XLR"
+          - cell "17.40"
+        - row "G160XLR P1 16.12":
+          - cell "G160XLR P1"
+          - cell "16.12"
+    - text: Air Ballistic Flights
+    - table:
+      - rowgroup:
+        - row "Flight Departure Market Fare Aircraft Passengers Seats Load Factor":
+          - columnheader "Flight"
+          - columnheader "Departure"
+          - columnheader "Market"
+          - columnheader "Fare"
+          - columnheader "Aircraft"
+          - columnheader "Passengers"
+          - columnheader "Seats"
+          - columnheader "Load Factor"
+      - rowgroup:
+        - row "AB-4082 07:30 Charles City $220.00 G130 - 132 -":
+          - cell "AB-4082"
+          - cell "07:30"
+          - cell "Charles City"
+          - cell "$220.00"
+          - cell "G130"
+          - cell "-"
+          - cell "132"
+          - cell "-"
+        - row "AB-9822 07:30 Parker $295.00 G160 - 159 -":
+          - cell "AB-9822"
+          - cell "07:30"
+          - cell "Parker"
+          - cell "$295.00"
+          - cell "G160"
+          - cell "-"
+          - cell "159"
+          - cell "-"
+        - row "AB-0463 08:15 Fitzgerald $180.00 APT100 - 100 -":
+          - cell "AB-0463"
+          - cell "08:15"
+          - cell "Fitzgerald"
+          - cell "$180.00"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "AB-0233 13:30 Fitzgerald $180.00 APT100 - 100 -":
+          - cell "AB-0233"
+          - cell "13:30"
+          - cell "Fitzgerald"
+          - cell "$180.00"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "AB-4592 14:00 Lewis $110.00 G130 - 132 -":
+          - cell "AB-4592"
+          - cell "14:00"
+          - cell "Lewis"
+          - cell "$110.00"
+          - cell "G130"
+          - cell "-"
+          - cell "132"
+          - cell "-"
+        - row "AB-8722 14:30 Parker $295.00 G160 - 159 -":
+          - cell "AB-8722"
+          - cell "14:30"
+          - cell "Parker"
+          - cell "$295.00"
+          - cell "G160"
+          - cell "-"
+          - cell "159"
+          - cell "-"
+        - row "AB-4743 18:15 Lewis $115.50 G130 - 132 -":
+          - cell "AB-4743"
+          - cell "18:15"
+          - cell "Lewis"
+          - cell "$115.50"
+          - cell "G130"
+          - cell "-"
+          - cell "132"
+          - cell "-"
+        - row "AB-9693 18:30 Fitzgerald $189.00 APT100 - 100 -":
+          - cell "AB-9693"
+          - cell "18:30"
+          - cell "Fitzgerald"
+          - cell "$189.00"
+          - cell "APT100"
+          - cell "-"
+          - cell "100"
+          - cell "-"
+        - row "67%":
+          - cell
+          - cell "67%"
+    - text: Air Ballistic Aircraft Utilisation
+    - table:
+      - rowgroup:
+        - row "Aircraft Type Average Daily BH":
+          - columnheader "Aircraft Type"
+          - columnheader "Average Daily BH"
+      - rowgroup:
+        - row "G130 8.38":
+          - cell "G130"
+          - cell "8.38"
+        - row "G160 9.76":
+          - cell "G160"
+          - cell "9.76"
+        - row "APT100 8.64":
+          - cell "APT100"
+          - cell "8.64"
+  - tabpanel:
+    - heading "Flights & Demand Charts" [level=3]
+    - heading "Lewis" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (230 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0.211":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.211"
+        - row "06:45 0 0 0.843":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.843"
+        - row "07:00 0 0 1.476":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.476"
+        - row "07:15 0 0 2.108":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.108"
+        - row "07:30 0 0 2.741":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.741"
+        - row "07:45 0 0 3.584":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.584"
+        - row "08:00 0 0 4.849":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.849"
+        - row "08:15 0 0 6.114":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "6.114"
+        - row "08:30 0 0 6.957":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "6.957"
+        - row "08:45 0 0 6.325":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "6.325"
+        - row "09:00 0 0 4.638":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.638"
+        - row "09:15 0 0 3.162":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.162"
+        - row "09:30 0 0 2.108":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.108"
+        - row "09:45 0 0 1.476":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.476"
+        - row "10:00 0 0 1.054":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.054"
+        - row "10:15 0 0 0.632":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.632"
+        - row "10:30 0 0 0.422":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.422"
+        - row "10:45 0 0 0.422":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.422"
+        - row "11:00 0 0 0.422":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.422"
+        - row "11:15 0 0 0.632":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.632"
+        - row "11:30 0 0 0.843":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.843"
+        - row "11:45 0 0 1.265":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.265"
+        - row "12:00 0 0 1.687":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.687"
+        - row "12:15 0 0 2.108":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.108"
+        - row "12:30 0 0 2.952":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.952"
+        - row "12:45 0 0 3.584":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.584"
+        - row "13:00 0 0 4.427":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.427"
+        - row "13:15 0 0 4.849":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.849"
+        - row "13:30 0 0 5.482":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.482"
+        - row "13:45 0 0 5.482":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.482"
+        - row "14:00 0 132 5.482":
+          - cell "14:00"
+          - cell "0"
+          - cell "132"
+          - cell "5.482"
+        - row "14:15 59 70 4.638":
+          - cell "14:15"
+          - cell "59"
+          - cell "70"
+          - cell "4.638"
+        - row "14:30 0 0 3.162":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.162"
+        - row "14:45 0 0 2.319":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.319"
+        - row "15:00 0 0 1.476":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.476"
+        - row "15:15 0 0 1.054":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.054"
+        - row "15:30 0 0 1.265":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.265"
+        - row "15:45 0 0 1.687":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.687"
+        - row "16:00 0 0 2.108":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.108"
+        - row "16:15 0 0 2.53":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.53"
+        - row "16:30 0 0 3.584":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.584"
+        - row "16:45 0 0 5.06":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.06"
+        - row "17:00 0 0 6.325":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "6.325"
+        - row "17:15 0 0 8.012":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "8.012"
+        - row "17:30 0 0 9.698":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "9.698"
+        - row "17:45 0 0 10.542":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "10.542"
+        - row "18:00 0 0 11.174":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "11.174"
+        - row "18:15 0 132 11.174":
+          - cell "18:15"
+          - cell "0"
+          - cell "132"
+          - cell "11.174"
+        - row "18:30 0 0 10.331":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "10.331"
+        - row "18:45 0 0 8.855":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "8.855"
+        - row "19:00 0 0 6.325":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "6.325"
+        - row "19:15 0 0 4.427":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.427"
+        - row "19:30 0 0 3.162":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.162"
+        - row "19:45 0 0 2.108":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.108"
+        - row "20:00 0 0 1.897":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.897"
+        - row "20:15 0 0 1.476":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.476"
+        - row "20:30 0 0 1.265":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.265"
+        - row "20:45 0 0 1.054":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.054"
+        - row "21:00 0 0 0.843":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.843"
+        - row "21:15 0 0 0.632":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.632"
+        - row "21:30 0 0 0.422":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.422"
+        - row "21:45 0 0 0.422":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.422"
+        - row "22:00 0 0 0.211":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.211"
+        - row "22:15 0 0 0.211":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.211"
+        - row "22:30 0 0 0.211":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.211"
+        - row "22:45 0 0 0":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:00 0 0 0":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:15 0 0 0":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:30 0 0 0":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:45 0 0 0":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+    - heading "Lewis" [level=3]
+    - heading "McGee" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (100 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 180 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:45 0 0 0":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:00 0 0 0":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:15 0 0 0.133":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.133"
+        - row "07:30 0 0 0.133":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.133"
+        - row "07:45 0 0 0.265":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.265"
+        - row "08:00 0 0 0.398":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.398"
+        - row "08:15 0 0 0.53":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.53"
+        - row "08:30 0 0 0.663":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.663"
+        - row "08:45 0 0 0.795":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.795"
+        - row "09:00 0 0 0.928":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.928"
+        - row "09:15 0 0 0.928":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.928"
+        - row "09:30 0 0 0.928":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.928"
+        - row "09:45 0 0 0.928":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.928"
+        - row "10:00 0 0 1.06":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "10:15 0 0 1.193":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.193"
+        - row "10:30 0 0 1.326":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "10:45 0 0 1.458":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.458"
+        - row "11:00 0 0 1.591":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.591"
+        - row "11:15 0 0 1.723":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "11:30 0 0 1.723":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "11:45 0 0 1.723":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "12:00 0 159 1.856":
+          - cell "12:00"
+          - cell "0"
+          - cell "159"
+          - cell "1.856"
+        - row "12:15 0 0 2.121":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.121"
+        - row "12:30 0 0 2.253":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.253"
+        - row "12:45 0 0 2.519":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.519"
+        - row "13:00 0 0 3.049":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.049"
+        - row "13:15 0 0 3.579":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.579"
+        - row "13:30 0 0 3.977":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.977"
+        - row "13:45 0 0 4.242":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.242"
+        - row "14:00 0 0 4.507":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.507"
+        - row "14:15 0 0 4.639":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.639"
+        - row "14:30 0 0 4.639":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.639"
+        - row "14:45 0 0 4.507":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.507"
+        - row "15:00 0 0 3.977":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.977"
+        - row "15:15 0 0 3.446":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "15:30 0 0 2.916":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.916"
+        - row "15:45 0 0 2.519":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.519"
+        - row "16:00 0 0 2.121":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.121"
+        - row "16:15 0 0 1.856":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.856"
+        - row "16:30 0 0 1.591":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.591"
+        - row "16:45 0 0 1.326":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "17:00 0 0 1.06":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "17:15 0 0 1.06":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "17:30 0 0 0.928":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.928"
+        - row "17:45 0 0 1.06":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "18:00 0 0 1.06":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "18:15 0 0 1.06":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.06"
+        - row "18:30 0 0 1.193":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.193"
+        - row "18:45 0 0 1.326":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "19:00 0 0 1.458":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.458"
+        - row "19:15 0 0 1.591":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.591"
+        - row "19:30 0 0 1.723":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "19:45 0 0 1.988":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.988"
+        - row "20:00 0 0 2.121":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.121"
+        - row "20:15 0 0 2.253":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.253"
+        - row "20:30 0 0 2.519":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.519"
+        - row "20:45 0 0 2.651":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.651"
+        - row "21:00 0 0 2.916":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.916"
+        - row "21:15 0 0 3.181":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.181"
+        - row "21:30 0 0 3.446":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "21:45 0 0 3.579":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.579"
+        - row "22:00 0 0 3.314":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.314"
+        - row "22:15 0 0 3.049":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.049"
+        - row "22:30 0 0 2.784":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.784"
+        - row "22:45 0 0 2.519":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.519"
+        - row "23:00 0 0 2.121":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.121"
+        - row "23:15 0 0 1.856":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.856"
+        - row "23:30 0 0 1.326":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "23:45 0 0 0.795":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.795"
+    - heading "McGee" [level=3]
+    - heading "Joplin" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (166 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 81 19 0.306":
+          - cell "06:30"
+          - cell "81"
+          - cell "19"
+          - cell "0.306"
+        - row "06:45 0 0 0.306":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.306"
+        - row "07:00 0 0 0.306":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.306"
+        - row "07:15 0 0 0.459":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.459"
+        - row "07:30 0 0 0.611":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.611"
+        - row "07:45 0 0 0.917":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.917"
+        - row "08:00 0 0 1.223":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.223"
+        - row "08:15 0 0 1.376":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.376"
+        - row "08:30 0 0 1.681":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.681"
+        - row "08:45 0 0 1.987":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.987"
+        - row "09:00 0 0 2.446":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.446"
+        - row "09:15 0 0 2.751":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.751"
+        - row "09:30 0 0 3.057":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.057"
+        - row "09:45 0 0 3.515":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.515"
+        - row "10:00 0 0 4.127":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.127"
+        - row "10:15 0 0 4.433":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.433"
+        - row "10:30 0 0 4.891":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.891"
+        - row "10:45 0 0 5.197":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.197"
+        - row "11:00 0 0 5.044":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.044"
+        - row "11:15 0 0 4.433":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.433"
+        - row "11:30 0 0 3.821":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.821"
+        - row "11:45 0 0 3.21":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.21"
+        - row "12:00 0 0 2.598":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.598"
+        - row "12:15 0 0 2.293":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.293"
+        - row "12:30 85 15 2.14":
+          - cell "12:30"
+          - cell "85"
+          - cell "15"
+          - cell "2.14"
+        - row "12:45 0 0 1.987":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.987"
+        - row "13:00 0 0 1.834":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.834"
+        - row "13:15 0 0 1.834":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.834"
+        - row "13:30 0 0 1.681":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.681"
+        - row "13:45 0 0 1.528":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.528"
+        - row "14:00 0 0 1.681":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.681"
+        - row "14:15 0 0 1.681":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.681"
+        - row "14:30 0 0 1.681":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.681"
+        - row "14:45 0 0 1.834":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.834"
+        - row "15:00 0 0 2.14":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.14"
+        - row "15:15 0 0 2.293":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.293"
+        - row "15:30 0 0 2.598":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.598"
+        - row "15:45 0 0 2.904":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.904"
+        - row "16:00 0 0 3.21":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.21"
+        - row "16:15 0 0 3.515":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.515"
+        - row "16:30 0 0 3.821":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.821"
+        - row "16:45 0 0 4.127":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.127"
+        - row "17:00 0 0 4.433":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.433"
+        - row "17:15 0 0 4.585":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.585"
+        - row "17:30 0 0 4.738":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.738"
+        - row "17:45 0 0 4.891":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.891"
+        - row "18:00 0 0 4.738":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.738"
+        - row "18:15 0 0 4.28":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.28"
+        - row "18:30 0 0 3.821":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.821"
+        - row "18:45 0 0 3.515":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.515"
+        - row "19:00 0 0 3.21":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.21"
+        - row "19:15 0 0 2.904":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.904"
+        - row "19:30 0 0 2.446":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.446"
+        - row "19:45 0 0 1.987":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.987"
+        - row "20:00 0 0 1.376":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.376"
+        - row "20:15 0 0 1.07":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.07"
+        - row "20:30 0 0 0.764":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.764"
+        - row "20:45 0 0 0.459":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.459"
+        - row "21:00 0 0 0.306":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.306"
+        - row "21:15 0 0 0":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "21:30 0 0 0":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "21:45 0 0 0":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:00 0 0 0":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:15 0 0 0":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:30 0 0 0":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:45 0 0 0":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:00 0 0 0":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:15 0 0 0":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:30 0 0 0":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:45 0 0 0":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+    - heading "Joplin" [level=3]
+    - heading "Parker" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (225 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 180 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:45 0 0 0":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:00 0 0 0":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:15 0 0 0.215":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.215"
+        - row "07:30 0 159 0.215":
+          - cell "07:30"
+          - cell "0"
+          - cell "159"
+          - cell "0.215"
+        - row "07:45 0 0 0.431":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.431"
+        - row "08:00 0 0 0.646":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.646"
+        - row "08:15 0 0 0.862":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.862"
+        - row "08:30 0 0 1.077":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.077"
+        - row "08:45 0 0 1.292":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.292"
+        - row "09:00 0 0 1.508":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.508"
+        - row "09:15 0 0 1.508":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.508"
+        - row "09:30 0 0 1.508":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.508"
+        - row "09:45 0 0 1.508":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.508"
+        - row "10:00 0 0 1.723":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "10:15 0 0 1.939":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.939"
+        - row "10:30 0 0 2.154":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "10:45 0 0 2.369":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.369"
+        - row "11:00 0 0 2.585":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.585"
+        - row "11:15 0 0 2.8":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.8"
+        - row "11:30 0 0 2.8":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.8"
+        - row "11:45 0 0 2.8":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.8"
+        - row "12:00 0 0 3.016":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.016"
+        - row "12:15 0 0 3.446":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "12:30 0 0 3.662":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.662"
+        - row "12:45 0 0 4.093":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.093"
+        - row "13:00 0 0 4.954":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.954"
+        - row "13:15 0 0 5.816":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.816"
+        - row "13:30 0 0 6.462":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "6.462"
+        - row "13:45 0 0 6.893":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "6.893"
+        - row "14:00 0 0 7.324":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "7.324"
+        - row "14:15 0 0 7.539":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "7.539"
+        - row "14:30 0 159 7.539":
+          - cell "14:30"
+          - cell "0"
+          - cell "159"
+          - cell "7.539"
+        - row "14:45 0 0 7.324":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "7.324"
+        - row "15:00 0 0 6.462":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "6.462"
+        - row "15:15 0 0 5.6":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.6"
+        - row "15:30 0 0 4.739":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.739"
+        - row "15:45 0 0 4.093":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.093"
+        - row "16:00 0 0 3.446":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "16:15 0 0 3.016":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.016"
+        - row "16:30 0 0 2.585":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.585"
+        - row "16:45 0 0 2.154":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "17:00 0 0 1.723":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "17:15 0 0 1.723":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "17:30 0 0 1.508":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.508"
+        - row "17:45 0 0 1.723":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "18:00 0 0 1.723":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "18:15 0 0 1.723":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.723"
+        - row "18:30 0 0 1.939":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.939"
+        - row "18:45 0 0 2.154":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "19:00 0 0 2.369":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.369"
+        - row "19:15 0 0 2.585":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.585"
+        - row "19:30 0 0 2.8":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.8"
+        - row "19:45 0 0 3.231":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.231"
+        - row "20:00 0 0 3.446":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "20:15 0 0 3.662":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.662"
+        - row "20:30 0 0 4.093":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.093"
+        - row "20:45 0 0 4.308":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.308"
+        - row "21:00 0 0 4.739":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.739"
+        - row "21:15 0 0 5.17":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.17"
+        - row "21:30 0 0 5.6":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.6"
+        - row "21:45 0 0 5.816":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.816"
+        - row "22:00 0 0 5.385":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.385"
+        - row "22:15 0 0 4.954":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.954"
+        - row "22:30 0 0 4.523":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.523"
+        - row "22:45 0 0 4.093":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.093"
+        - row "23:00 0 0 3.446":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.446"
+        - row "23:15 0 0 3.016":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.016"
+        - row "23:30 0 0 2.154":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "23:45 0 0 1.292":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.292"
+    - heading "Parker" [level=3]
+    - heading "Simone" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (151 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:45 0 0 0":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:00 0 0 0":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:15 0 0 0.159":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.159"
+        - row "07:30 0 0 0.159":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.159"
+        - row "07:45 0 0 0.318":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.318"
+        - row "08:00 0 0 0.477":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.477"
+        - row "08:15 0 0 0.635":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.635"
+        - row "08:30 0 0 0.794":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.794"
+        - row "08:45 0 0 0.953":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.953"
+        - row "09:00 0 0 1.112":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.112"
+        - row "09:15 0 0 1.112":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.112"
+        - row "09:30 0 0 1.112":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.112"
+        - row "09:45 0 0 1.112":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.112"
+        - row "10:00 0 0 1.271":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "10:15 72 57 1.43":
+          - cell "10:15"
+          - cell "72"
+          - cell "57"
+          - cell "1.43"
+        - row "10:30 0 0 1.589":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.589"
+        - row "10:45 0 0 1.748":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.748"
+        - row "11:00 0 0 1.906":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.906"
+        - row "11:15 0 0 2.065":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.065"
+        - row "11:30 0 0 2.065":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.065"
+        - row "11:45 0 0 2.065":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.065"
+        - row "12:00 0 0 2.224":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.224"
+        - row "12:15 0 0 2.542":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.542"
+        - row "12:30 0 0 2.701":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.701"
+        - row "12:45 0 0 3.019":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.019"
+        - row "13:00 0 0 3.654":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.654"
+        - row "13:15 0 0 4.289":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.289"
+        - row "13:30 0 0 4.766":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.766"
+        - row "13:45 0 0 5.084":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.084"
+        - row "14:00 0 0 5.402":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.402"
+        - row "14:15 0 0 5.56":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.56"
+        - row "14:30 79 21 5.56":
+          - cell "14:30"
+          - cell "79"
+          - cell "21"
+          - cell "5.56"
+        - row "14:45 0 0 5.402":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.402"
+        - row "15:00 0 0 4.766":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.766"
+        - row "15:15 0 0 4.131":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.131"
+        - row "15:30 0 0 3.495":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.495"
+        - row "15:45 0 0 3.019":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.019"
+        - row "16:00 0 0 2.542":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.542"
+        - row "16:15 0 0 2.224":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.224"
+        - row "16:30 0 0 1.906":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.906"
+        - row "16:45 0 0 1.589":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.589"
+        - row "17:00 0 0 1.271":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "17:15 0 0 1.271":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "17:30 0 0 1.112":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.112"
+        - row "17:45 0 0 1.271":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "18:00 0 0 1.271":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "18:15 0 0 1.271":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.271"
+        - row "18:30 0 0 1.43":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.43"
+        - row "18:45 0 0 1.589":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.589"
+        - row "19:00 0 0 1.748":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.748"
+        - row "19:15 0 0 1.906":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.906"
+        - row "19:30 0 0 2.065":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.065"
+        - row "19:45 0 0 2.383":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.383"
+        - row "20:00 0 0 2.542":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.542"
+        - row "20:15 0 0 2.701":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.701"
+        - row "20:30 0 0 3.019":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.019"
+        - row "20:45 0 0 3.177":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.177"
+        - row "21:00 0 0 3.495":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.495"
+        - row "21:15 0 0 3.813":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.813"
+        - row "21:30 0 0 4.131":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.131"
+        - row "21:45 0 0 4.289":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.289"
+        - row "22:00 0 0 3.972":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.972"
+        - row "22:15 0 0 3.654":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.654"
+        - row "22:30 0 0 3.336":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.336"
+        - row "22:45 0 0 3.019":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.019"
+        - row "23:00 0 0 2.542":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.542"
+        - row "23:15 0 0 2.224":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.224"
+        - row "23:30 0 0 1.589":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.589"
+        - row "23:45 0 0 0.953":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.953"
+    - heading "Simone" [level=3]
+    - heading "Broonzy" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (85 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:45 0 0 0":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:00 0 0 0":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:15 0 0 0.106":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.106"
+        - row "07:30 0 0 0.106":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.106"
+        - row "07:45 0 0 0.212":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.212"
+        - row "08:00 0 0 0.319":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.319"
+        - row "08:15 0 0 0.425":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.425"
+        - row "08:30 0 0 0.531":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.531"
+        - row "08:45 0 0 0.637":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.637"
+        - row "09:00 0 0 0.744":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.744"
+        - row "09:15 0 0 0.744":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.744"
+        - row "09:30 0 0 0.744":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.744"
+        - row "09:45 0 0 0.744":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.744"
+        - row "10:00 0 0 0.85":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "10:15 0 0 0.956":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.956"
+        - row "10:30 0 0 1.062":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.062"
+        - row "10:45 0 0 1.169":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.169"
+        - row "11:00 0 0 1.275":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.275"
+        - row "11:15 0 0 1.381":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.381"
+        - row "11:30 0 0 1.381":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.381"
+        - row "11:45 0 0 1.381":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.381"
+        - row "12:00 0 0 1.487":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.487"
+        - row "12:15 0 0 1.7":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.7"
+        - row "12:30 0 0 1.806":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.806"
+        - row "12:45 0 0 2.019":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.019"
+        - row "13:00 0 0 2.443":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.443"
+        - row "13:15 0 0 2.868":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.868"
+        - row "13:30 0 0 3.187":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.187"
+        - row "13:45 0 0 3.4":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.4"
+        - row "14:00 0 0 3.612":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.612"
+        - row "14:15 0 0 3.718":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.718"
+        - row "14:30 0 0 3.718":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.718"
+        - row "14:45 0 0 3.612":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.612"
+        - row "15:00 0 135 3.187":
+          - cell "15:00"
+          - cell "0"
+          - cell "135"
+          - cell "3.187"
+        - row "15:15 0 0 2.762":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.762"
+        - row "15:30 0 0 2.337":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.337"
+        - row "15:45 0 0 2.019":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.019"
+        - row "16:00 0 0 1.7":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.7"
+        - row "16:15 0 0 1.487":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.487"
+        - row "16:30 0 0 1.275":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.275"
+        - row "16:45 0 0 1.062":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.062"
+        - row "17:00 0 0 0.85":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "17:15 0 0 0.85":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "17:30 0 0 0.744":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.744"
+        - row "17:45 0 0 0.85":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "18:00 0 0 0.85":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "18:15 0 0 0.85":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.85"
+        - row "18:30 0 0 0.956":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.956"
+        - row "18:45 0 0 1.062":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.062"
+        - row "19:00 0 0 1.169":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.169"
+        - row "19:15 0 0 1.275":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.275"
+        - row "19:30 0 0 1.381":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.381"
+        - row "19:45 0 0 1.594":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.594"
+        - row "20:00 0 0 1.7":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.7"
+        - row "20:15 0 0 1.806":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.806"
+        - row "20:30 0 0 2.019":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.019"
+        - row "20:45 0 0 2.125":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.125"
+        - row "21:00 0 0 2.337":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.337"
+        - row "21:15 0 0 2.55":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.55"
+        - row "21:30 0 0 2.762":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.762"
+        - row "21:45 0 0 2.868":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.868"
+        - row "22:00 0 0 2.656":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.656"
+        - row "22:15 0 0 2.443":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.443"
+        - row "22:30 0 0 2.231":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.231"
+        - row "22:45 0 0 2.019":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.019"
+        - row "23:00 0 0 1.7":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.7"
+        - row "23:15 0 0 1.487":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.487"
+        - row "23:30 0 0 1.062":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.062"
+        - row "23:45 0 0 0.637":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.637"
+    - heading "Broonzy" [level=3]
+    - heading "Armstrong" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (129 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:45 0 0 0":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:00 0 0 0":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "07:15 0 0 0.166":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.166"
+        - row "07:30 0 0 0.166":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.166"
+        - row "07:45 0 0 0.331":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.331"
+        - row "08:00 0 0 0.497":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.497"
+        - row "08:15 0 0 0.663":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.663"
+        - row "08:30 0 0 0.828":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.828"
+        - row "08:45 0 0 0.994":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.994"
+        - row "09:00 0 0 1.16":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.16"
+        - row "09:15 0 0 1.16":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.16"
+        - row "09:30 0 0 1.16":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.16"
+        - row "09:45 0 0 1.16":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.16"
+        - row "10:00 0 0 1.326":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "10:15 0 0 1.491":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.491"
+        - row "10:30 0 0 1.657":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.657"
+        - row "10:45 0 0 1.823":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.823"
+        - row "11:00 0 0 1.988":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.988"
+        - row "11:15 0 0 2.154":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "11:30 0 0 2.154":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "11:45 0 0 2.154":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "12:00 0 0 2.32":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.32"
+        - row "12:15 0 0 2.651":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.651"
+        - row "12:30 0 0 2.817":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.817"
+        - row "12:45 0 0 3.148":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.148"
+        - row "13:00 0 0 3.811":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.811"
+        - row "13:15 0 0 4.474":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.474"
+        - row "13:30 0 0 4.971":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.971"
+        - row "13:45 0 0 5.302":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.302"
+        - row "14:00 0 0 5.634":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.634"
+        - row "14:15 0 0 5.799":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.799"
+        - row "14:30 0 0 5.799":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.799"
+        - row "14:45 0 0 5.634":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.634"
+        - row "15:00 0 0 4.971":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.971"
+        - row "15:15 0 0 4.308":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.308"
+        - row "15:30 0 0 3.645":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.645"
+        - row "15:45 0 0 3.148":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.148"
+        - row "16:00 0 0 2.651":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.651"
+        - row "16:15 0 0 2.32":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.32"
+        - row "16:30 0 0 1.988":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.988"
+        - row "16:45 0 0 1.657":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.657"
+        - row "17:00 0 0 1.326":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "17:15 0 0 1.326":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "17:30 0 0 1.16":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.16"
+        - row "17:45 0 0 1.326":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "18:00 0 0 1.326":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "18:15 0 0 1.326":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.326"
+        - row "18:30 0 0 1.491":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.491"
+        - row "18:45 0 0 1.657":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.657"
+        - row "19:00 0 0 1.823":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.823"
+        - row "19:15 0 0 1.988":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.988"
+        - row "19:30 0 0 2.154":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.154"
+        - row "19:45 0 0 2.485":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.485"
+        - row "20:00 129 0 2.651":
+          - cell "20:00"
+          - cell "129"
+          - cell "0"
+          - cell "2.651"
+        - row "20:15 0 0 2.817":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.817"
+        - row "20:30 0 0 3.148":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.148"
+        - row "20:45 0 0 3.314":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.314"
+        - row "21:00 0 0 3.645":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.645"
+        - row "21:15 0 0 3.977":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.977"
+        - row "21:30 0 0 4.308":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.308"
+        - row "21:45 0 0 4.474":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.474"
+        - row "22:00 0 0 4.142":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.142"
+        - row "22:15 0 0 3.811":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.811"
+        - row "22:30 0 0 3.48":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.48"
+        - row "22:45 0 0 3.148":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.148"
+        - row "23:00 0 0 2.651":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.651"
+        - row "23:15 0 0 2.32":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.32"
+        - row "23:30 0 0 1.657":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.657"
+        - row "23:45 0 0 0.994":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.994"
+    - heading "Armstrong" [level=3]
+    - heading "Ellington" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (228 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 180 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 159 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "159"
+          - cell "0"
+        - row "06:30 0 0 0.418":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.418"
+        - row "06:45 0 0 0.418":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.418"
+        - row "07:00 0 0 0.418":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.418"
+        - row "07:15 0 0 0.626":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.626"
+        - row "07:30 34 66 0.835":
+          - cell "07:30"
+          - cell "34"
+          - cell "66"
+          - cell "0.835"
+        - row "07:45 0 0 1.253":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.253"
+        - row "08:00 0 0 1.67":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.67"
+        - row "08:15 0 0 1.879":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.879"
+        - row "08:30 0 0 2.297":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.297"
+        - row "08:45 0 0 2.714":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.714"
+        - row "09:00 0 0 3.341":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.341"
+        - row "09:15 0 0 3.758":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.758"
+        - row "09:30 0 0 4.176":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.176"
+        - row "09:45 0 0 4.802":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.802"
+        - row "10:00 0 0 5.637":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.637"
+        - row "10:15 0 0 6.055":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "6.055"
+        - row "10:30 0 0 6.681":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "6.681"
+        - row "10:45 24 76 7.099":
+          - cell "10:45"
+          - cell "24"
+          - cell "76"
+          - cell "7.099"
+        - row "11:00 0 100 6.89":
+          - cell "11:00"
+          - cell "0"
+          - cell "100"
+          - cell "6.89"
+        - row "11:15 0 0 6.055":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "6.055"
+        - row "11:30 0 0 5.22":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.22"
+        - row "11:45 0 0 4.385":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.385"
+        - row "12:00 0 0 3.549":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.549"
+        - row "12:15 0 0 3.132":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.132"
+        - row "12:30 0 0 2.923":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.923"
+        - row "12:45 0 0 2.714":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.714"
+        - row "13:00 0 0 2.505":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.505"
+        - row "13:15 0 0 2.505":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.505"
+        - row "13:30 0 0 2.297":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.297"
+        - row "13:45 0 0 2.088":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.088"
+        - row "14:00 0 0 2.297":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.297"
+        - row "14:15 0 0 2.297":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.297"
+        - row "14:30 0 0 2.297":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.297"
+        - row "14:45 0 0 2.505":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.505"
+        - row "15:00 0 0 2.923":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.923"
+        - row "15:15 0 0 3.132":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.132"
+        - row "15:30 0 0 3.549":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.549"
+        - row "15:45 0 0 3.967":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.967"
+        - row "16:00 0 0 4.385":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.385"
+        - row "16:15 0 0 4.802":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.802"
+        - row "16:30 0 0 5.22":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.22"
+        - row "16:45 0 0 5.637":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.637"
+        - row "17:00 0 0 6.055":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "6.055"
+        - row "17:15 0 0 6.264":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "6.264"
+        - row "17:30 0 0 6.473":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "6.473"
+        - row "17:45 0 0 6.681":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "6.681"
+        - row "18:00 0 100 6.473":
+          - cell "18:00"
+          - cell "0"
+          - cell "100"
+          - cell "6.473"
+        - row "18:15 0 0 5.846":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.846"
+        - row "18:30 0 0 5.22":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.22"
+        - row "18:45 0 0 4.802":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.802"
+        - row "19:00 0 0 4.385":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.385"
+        - row "19:15 0 0 3.967":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.967"
+        - row "19:30 0 0 3.341":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.341"
+        - row "19:45 0 0 2.714":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.714"
+        - row "20:00 0 0 1.879":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.879"
+        - row "20:15 0 0 1.462":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.462"
+        - row "20:30 0 0 1.044":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.044"
+        - row "20:45 0 0 0.626":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.626"
+        - row "21:00 0 0 0.418":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.418"
+        - row "21:15 0 0 0":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "21:30 0 0 0":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "21:45 0 0 0":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:00 0 0 0":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:15 0 0 0":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:30 0 0 0":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "22:45 0 0 0":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:00 0 0 0":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:15 0 0 0":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:30 0 0 0":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:45 0 0 0":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+    - heading "Ellington" [level=3]
+    - heading "Fitzgerald" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (254 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 100 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "100"
+          - cell "0"
+        - row "06:30 0 0 0.24":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.24"
+        - row "06:45 0 0 0.959":
+          - cell "06:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.959"
+        - row "07:00 0 0 1.679":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.679"
+        - row "07:15 0 0 2.398":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.398"
+        - row "07:30 0 0 3.118":
+          - cell "07:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.118"
+        - row "07:45 0 0 4.077":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.077"
+        - row "08:00 0 0 5.516":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.516"
+        - row "08:15 0 100 6.956":
+          - cell "08:15"
+          - cell "0"
+          - cell "100"
+          - cell "6.956"
+        - row "08:30 0 0 7.915":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "7.915"
+        - row "08:45 0 0 7.195":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "7.195"
+        - row "09:00 0 0 5.277":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.277"
+        - row "09:15 0 0 3.598":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.598"
+        - row "09:30 0 0 2.398":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.398"
+        - row "09:45 0 0 1.679":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.679"
+        - row "10:00 0 0 1.199":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.199"
+        - row "10:15 0 0 0.72":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.72"
+        - row "10:30 0 0 0.48":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.48"
+        - row "10:45 0 0 0.48":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.48"
+        - row "11:00 0 0 0.48":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.48"
+        - row "11:15 0 0 0.72":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.72"
+        - row "11:30 0 0 0.959":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.959"
+        - row "11:45 0 0 1.439":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.439"
+        - row "12:00 0 0 1.919":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.919"
+        - row "12:15 0 0 2.398":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.398"
+        - row "12:30 0 0 3.358":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.358"
+        - row "12:45 0 0 4.077":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.077"
+        - row "13:00 0 0 5.037":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "5.037"
+        - row "13:15 0 0 5.516":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.516"
+        - row "13:30 0 100 6.236":
+          - cell "13:30"
+          - cell "0"
+          - cell "100"
+          - cell "6.236"
+        - row "13:45 0 0 6.236":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "6.236"
+        - row "14:00 0 0 6.236":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "6.236"
+        - row "14:15 0 0 5.277":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.277"
+        - row "14:30 0 0 3.598":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.598"
+        - row "14:45 0 0 2.638":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.638"
+        - row "15:00 0 0 1.679":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.679"
+        - row "15:15 0 0 1.199":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.199"
+        - row "15:30 0 0 1.439":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.439"
+        - row "15:45 0 0 1.919":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.919"
+        - row "16:00 0 0 2.398":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.398"
+        - row "16:15 0 0 2.878":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.878"
+        - row "16:30 0 0 4.077":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.077"
+        - row "16:45 0 0 5.756":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "5.756"
+        - row "17:00 0 0 7.195":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "7.195"
+        - row "17:15 0 0 9.114":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "9.114"
+        - row "17:30 0 0 11.033":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "11.033"
+        - row "17:45 0 0 11.992":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "11.992"
+        - row "18:00 0 0 12.712":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "12.712"
+        - row "18:15 0 0 12.712":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "12.712"
+        - row "18:30 0 100 11.752":
+          - cell "18:30"
+          - cell "0"
+          - cell "100"
+          - cell "11.752"
+        - row "18:45 0 0 10.074":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "10.074"
+        - row "19:00 0 0 7.195":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "7.195"
+        - row "19:15 0 0 5.037":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "5.037"
+        - row "19:30 0 0 3.598":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "3.598"
+        - row "19:45 0 0 2.398":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.398"
+        - row "20:00 0 0 2.159":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "2.159"
+        - row "20:15 0 0 1.679":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.679"
+        - row "20:30 0 0 1.439":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.439"
+        - row "20:45 0 0 1.199":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.199"
+        - row "21:00 0 0 0.959":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.959"
+        - row "21:15 0 0 0.72":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.72"
+        - row "21:30 0 0 0.48":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.48"
+        - row "21:45 0 0 0.48":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.48"
+        - row "22:00 0 0 0.24":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.24"
+        - row "22:15 0 0 0.24":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.24"
+        - row "22:30 0 0 0.24":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.24"
+        - row "22:45 0 0 0":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:00 0 0 0":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:15 0 0 0":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:30 0 0 0":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:45 0 0 0":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+    - heading "Fitzgerald" [level=3]
+    - heading "Charles City" [level=3]
+    - img "A chart.": Flight Capacity and Actual Loads - (175 passengers carried) 06:00 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 0 20 40 60 80 100 120 140 160 Departure Time Capacity and actual loads
+    - table:
+      - rowgroup:
+        - row "Departure Passengers Spare Capacity Curve":
+          - columnheader "Departure"
+          - columnheader "Passengers"
+          - columnheader "Spare Capacity"
+          - columnheader "Curve"
+      - rowgroup:
+        - row "06:00 0 0 0":
+          - cell "06:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:15 0 0 0":
+          - cell "06:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "06:30 0 0 0.162":
+          - cell "06:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.162"
+        - row "06:45 0 135 0.65":
+          - cell "06:45"
+          - cell "0"
+          - cell "135"
+          - cell "0.65"
+        - row "07:00 0 0 1.137":
+          - cell "07:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.137"
+        - row "07:15 0 0 1.625":
+          - cell "07:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.625"
+        - row "07:30 0 132 2.112":
+          - cell "07:30"
+          - cell "0"
+          - cell "132"
+          - cell "2.112"
+        - row "07:45 0 0 2.762":
+          - cell "07:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.762"
+        - row "08:00 0 0 3.737":
+          - cell "08:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.737"
+        - row "08:15 0 0 4.712":
+          - cell "08:15"
+          - cell "0"
+          - cell "0"
+          - cell "4.712"
+        - row "08:30 0 0 5.362":
+          - cell "08:30"
+          - cell "0"
+          - cell "0"
+          - cell "5.362"
+        - row "08:45 0 0 4.874":
+          - cell "08:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.874"
+        - row "09:00 0 0 3.574":
+          - cell "09:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.574"
+        - row "09:15 0 0 2.437":
+          - cell "09:15"
+          - cell "0"
+          - cell "0"
+          - cell "2.437"
+        - row "09:30 0 0 1.625":
+          - cell "09:30"
+          - cell "0"
+          - cell "0"
+          - cell "1.625"
+        - row "09:45 0 0 1.137":
+          - cell "09:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.137"
+        - row "10:00 0 0 0.812":
+          - cell "10:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.812"
+        - row "10:15 0 0 0.487":
+          - cell "10:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.487"
+        - row "10:30 0 0 0.325":
+          - cell "10:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.325"
+        - row "10:45 0 0 0.325":
+          - cell "10:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.325"
+        - row "11:00 0 0 0.325":
+          - cell "11:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.325"
+        - row "11:15 0 0 0.487":
+          - cell "11:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.487"
+        - row "11:30 0 0 0.65":
+          - cell "11:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.65"
+        - row "11:45 0 0 0.975":
+          - cell "11:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.975"
+        - row "12:00 0 0 1.3":
+          - cell "12:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.3"
+        - row "12:15 0 0 1.625":
+          - cell "12:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.625"
+        - row "12:30 0 0 2.275":
+          - cell "12:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.275"
+        - row "12:45 0 0 2.762":
+          - cell "12:45"
+          - cell "0"
+          - cell "0"
+          - cell "2.762"
+        - row "13:00 0 0 3.412":
+          - cell "13:00"
+          - cell "0"
+          - cell "0"
+          - cell "3.412"
+        - row "13:15 0 0 3.737":
+          - cell "13:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.737"
+        - row "13:30 0 0 4.224":
+          - cell "13:30"
+          - cell "0"
+          - cell "0"
+          - cell "4.224"
+        - row "13:45 0 0 4.224":
+          - cell "13:45"
+          - cell "0"
+          - cell "0"
+          - cell "4.224"
+        - row "14:00 0 0 4.224":
+          - cell "14:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.224"
+        - row "14:15 0 0 3.574":
+          - cell "14:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.574"
+        - row "14:30 0 0 2.437":
+          - cell "14:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.437"
+        - row "14:45 0 0 1.787":
+          - cell "14:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.787"
+        - row "15:00 0 0 1.137":
+          - cell "15:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.137"
+        - row "15:15 0 0 0.812":
+          - cell "15:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.812"
+        - row "15:30 0 0 0.975":
+          - cell "15:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.975"
+        - row "15:45 0 0 1.3":
+          - cell "15:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.3"
+        - row "16:00 0 0 1.625":
+          - cell "16:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.625"
+        - row "16:15 0 0 1.95":
+          - cell "16:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.95"
+        - row "16:30 0 0 2.762":
+          - cell "16:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.762"
+        - row "16:45 0 0 3.899":
+          - cell "16:45"
+          - cell "0"
+          - cell "0"
+          - cell "3.899"
+        - row "17:00 0 0 4.874":
+          - cell "17:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.874"
+        - row "17:15 0 0 6.174":
+          - cell "17:15"
+          - cell "0"
+          - cell "0"
+          - cell "6.174"
+        - row "17:30 0 0 7.474":
+          - cell "17:30"
+          - cell "0"
+          - cell "0"
+          - cell "7.474"
+        - row "17:45 0 0 8.124":
+          - cell "17:45"
+          - cell "0"
+          - cell "0"
+          - cell "8.124"
+        - row "18:00 0 0 8.611":
+          - cell "18:00"
+          - cell "0"
+          - cell "0"
+          - cell "8.611"
+        - row "18:15 0 0 8.611":
+          - cell "18:15"
+          - cell "0"
+          - cell "0"
+          - cell "8.611"
+        - row "18:30 0 0 7.961":
+          - cell "18:30"
+          - cell "0"
+          - cell "0"
+          - cell "7.961"
+        - row "18:45 0 0 6.824":
+          - cell "18:45"
+          - cell "0"
+          - cell "0"
+          - cell "6.824"
+        - row "19:00 0 0 4.874":
+          - cell "19:00"
+          - cell "0"
+          - cell "0"
+          - cell "4.874"
+        - row "19:15 0 0 3.412":
+          - cell "19:15"
+          - cell "0"
+          - cell "0"
+          - cell "3.412"
+        - row "19:30 0 0 2.437":
+          - cell "19:30"
+          - cell "0"
+          - cell "0"
+          - cell "2.437"
+        - row "19:45 0 0 1.625":
+          - cell "19:45"
+          - cell "0"
+          - cell "0"
+          - cell "1.625"
+        - row "20:00 0 0 1.462":
+          - cell "20:00"
+          - cell "0"
+          - cell "0"
+          - cell "1.462"
+        - row "20:15 0 0 1.137":
+          - cell "20:15"
+          - cell "0"
+          - cell "0"
+          - cell "1.137"
+        - row "20:30 0 0 0.975":
+          - cell "20:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.975"
+        - row "20:45 0 0 0.812":
+          - cell "20:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.812"
+        - row "21:00 0 0 0.65":
+          - cell "21:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.65"
+        - row "21:15 0 0 0.487":
+          - cell "21:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.487"
+        - row "21:30 0 0 0.325":
+          - cell "21:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.325"
+        - row "21:45 0 0 0.325":
+          - cell "21:45"
+          - cell "0"
+          - cell "0"
+          - cell "0.325"
+        - row "22:00 0 0 0.162":
+          - cell "22:00"
+          - cell "0"
+          - cell "0"
+          - cell "0.162"
+        - row "22:15 0 0 0.162":
+          - cell "22:15"
+          - cell "0"
+          - cell "0"
+          - cell "0.162"
+        - row "22:30 0 0 0.162":
+          - cell "22:30"
+          - cell "0"
+          - cell "0"
+          - cell "0.162"
+        - row "22:45 0 0 0":
+          - cell "22:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:00 0 0 0":
+          - cell "23:00"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:15 0 0 0":
+          - cell "23:15"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:30 0 0 0":
+          - cell "23:30"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+        - row "23:45 0 0 0":
+          - cell "23:45"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+    - heading "Charles City" [level=3]

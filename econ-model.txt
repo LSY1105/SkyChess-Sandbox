@@ -1,0 +1,201 @@
+==========================================================================
+SkyChess 航空公司经营模型 — 领域字段分组
+==========================================================================
+
+### 机队 / 租赁经济  (16 个字段)
+    depreciation_years                     14
+    residual_value                         12
+    lease_type                             12
+    lease_rate                             10
+    leased_at_turn                         10
+    leased_to_turn                          8
+    lease_rate_bh                           7
+    current_period                          6
+    salb_leased_to_turn                     5
+    current_quarter                         4
+    total_depreciation                      2
+    years_depreciated                       2
+    annual_depreciation                     2
+    salb_lease_rate                         2
+    current_page                            1
+    salb_lease_type                         1
+
+### 融资 / 对冲  (5 个字段)
+    interest_rate                          13
+    effective_funding_rate                  8
+    strike_price                            6
+    interest_years                          4
+    interest_outstanding                    2
+
+### 机型容量  (25 个字段)
+    cargo_capacity                         14
+    seats_standard                          8
+    seats_business                          8
+    seats_premium                           7
+    cargo_handling_fee                      7
+    minimum_bh                              7
+    lease_rate_bh                           7
+    maximum_cargo_payload                   5
+    payload_range_id                        3
+    max_bh                                  3
+    market_cargo_demand                     2
+    market_cargo_yield                      2
+    payload_range                           2
+    pax_range                               2
+    structural_payload                      1
+    cargo_volume                            1
+    cargo_containers                        1
+    cargo_pallets                           1
+    interpolate_range                       1
+    density_of_cargo_per_cm                 1
+    container_cargo_volume_sh               1
+    container_cargo_volume_lh               1
+    flight_crew_max_bh                      1
+    flight_crew_max_bh_lh                   1
+    cargo_overhead                          1
+
+### 运行成本  (23 个字段)
+    fuel_burn                               7
+    landing_fee                             7
+    handling_fee                            7
+    traffic_handling_fee                    7
+    cargo_handling_fee                      7
+    total_price                             6
+    strike_price                            6
+    cost_ac                                 5
+    cost_annual                             5
+    cost_pax                                5
+    premium_cost_pax                        4
+    business_cost_pax                       4
+    fuel_price                              4
+    joining_fee                             3
+    sell_price                              2
+    fuel_prices                             2
+    fuel_price_next                         2
+    aircraft_cost                           1
+    new_aircraft_introduction_cost          1
+    fuel_density                            1
+    saf_fuel_price_multiplier               1
+    carbon_price                            1
+    introduction_cost                       1
+
+### 需求 / 收益  (24 个字段)
+    connecting_demand                       6
+    peak_pricing                            6
+    maximum_cargo_payload                   5
+    peak_revenue                            5
+    fare_lock_active                        5
+    payload_range_id                        3
+    attachment_download_url                 3
+    average_load                            3
+    population_demand                       2
+    gdp_demand                              2
+    market_cargo_demand                     2
+    market_cargo_yield                      2
+    market_demand_curve_id                  2
+    payload_range                           2
+    market_demand_1                         2
+    structural_payload                      1
+    cd_revenue_modifier                     1
+    initial_demand                          1
+    market_demand_2                         1
+    ped_demand                              1
+    qsi_demand                              1
+    post_qsi_demand                         1
+    market_demand_3                         1
+    average_load_factor                     1
+
+### 时间 / 回合  (26 个字段)
+    from_turn                              27
+    to_turn                                16
+    minutes_remaining                      11
+    available_from_turn                    10
+    leased_at_turn                         10
+    max_turns                               8
+    leased_to_turn                          8
+    sell_at_turn                            6
+    open_minutes                            6
+    run_for_minutes                         6
+    salb_leased_to_turn                     5
+    left_at_turn                            5
+    airline_turn_aircraft_id                3
+    invested_turn                           3
+    postpone_turns                          2
+    sale_sell_at_turn                       2
+    airline_turn_id                         2
+    bypass_slot_check                       2
+    acquired_at_turn                        2
+    total_departures                        2
+    sell_from_turn                          1
+    sh_turnaround                           1
+    lh_turnaround                           1
+    board_show_departures                   1
+    added_at_turn                           1
+    departures_per_board                    1
+
+### 航线 / 市场  (13 个字段)
+    sector_length                           8
+    game_market_id                          7
+    connecting_demand                       6
+    action_route                            3
+    market_id                               3
+    market_cargo_demand                     2
+    market_cargo_yield                      2
+    market_demand_curve_id                  2
+    market_transfer_model_id                2
+    market_demand_1                         2
+    market_type                             1
+    market_demand_2                         1
+    market_demand_3                         1
+
+### 其他领域字段  (115 个)
+    airline_id                             21
+    additional_cabin_crew                  12
+    aircraft_id                             9
+    game_id                                 9
+    games_count                             8
+    operational_status                      6
+    asset_id                                6
+    dmc_cycle                               5
+    dmc_fh                                  5
+    rev_pax                                 5
+    peak_landing                            5
+    peak_handling                           5
+    peak_traffic                            5
+    business_modifier                       5
+    business_handling                       5
+    premium_modifier                        5
+    premium_handling                        5
+    sent_to_airline                         5
+    sent_during                             5
+    cabin_crew                              4
+    premium_rev_pax                         4
+    business_rev_pax                        4
+    aircraft_fleet_type                     4
+    acquired_at_age                         4
+    target_cash                             4
+    game_status                             4
+    opened_at                               4
+    location_main                           4
+    population_growth                       3
+    display_subject                         3
+
+==========================================================================
+识别到的计算方法名 (compute/calculate/resolve/derive 形态)
+==========================================================================
+    airlineturn                                 175
+    airlineturnid                                38
+    airlineturns                                 12
+    timelinetype                                  6
+    hasNetBookValue                               4
+    bynetwork                                     4
+    computedValue                                 4
+    computeStyles                                 3
+    calculateHedgePrice                           3
+    calculateAircraftPrice                        2
+    calculateAircraftFinance                      2
+    calculateProfitOfLoss                         2
+    calculateAircraftAge                          2
+    computeBoards                                 2
+    calculateYield                                2
+    calculateAssetAge                             1

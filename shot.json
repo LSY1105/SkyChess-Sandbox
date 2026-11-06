@@ -1,0 +1,1 @@
+{"code":"provider_timeout","category":"timeout","message":"CDP command Page.captureScreenshot exceeded its 20000 ms response deadline.","retryable":true,"remediation":{"action":"CDP command Page.captureScreenshot exceeded its 20000 ms response deadline."},"details":{"operation":"capture_web_screenshot","reason":"timeout"}}

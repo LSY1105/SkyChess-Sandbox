@@ -1,0 +1,47 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - link "Dashboard":
+    - /url: https://www.skychess.com/play/airline/833
+  - progressbar: "Minutes Remaining: 33"
+  - text: Departures Q1 2029 08:11 33 min remaining
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 06:15 Joplin CA-8142 Departed
+    - listitem: 06:15 Fitzgerald AB-6851 Departed
+    - listitem: 06:15 Parker VA-1361 Departed
+    - listitem: 06:30 Fitzgerald VA-3883 Departed
+    - listitem: 06:45 Simone CA-5041 Departed
+    - listitem: 07:00 Lewis CA-1762 Departed
+    - listitem: 07:30 Charles City AB-4082 Departed
+    - listitem: 07:30 Parker AB-6121 Departed
+    - listitem: 08:00 Ellington VA-3381 Departed
+    - listitem: 10:15 Simone CA-5552 Check-in open
+    - listitem: 11:00 Joplin CA-9902 Check-in open
+    - listitem: 11:45 Ellington VA-7842 On time
+    - listitem: 12:00 Fitzgerald AB-7022 On time
+    - listitem: 12:30 Ellington CA-0732 On time
+    - listitem: 13:45 Broonzy CA-6282 On time
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 14:00 Lewis AB-4592 On time
+    - listitem: 14:00 McGee VA-3562 On time
+    - listitem: 14:00 Armstrong VA-1862 On time
+    - listitem: 14:15 Lewis CA-4523 On time
+    - listitem: 14:30 Parker AB-6262 On time
+    - listitem: 16:30 Ellington VA-6632 On time
+    - listitem: 17:15 Parker VA-7973 On time
+    - listitem: 18:15 Lewis AB-4743 On time
+    - listitem: 18:15 Fitzgerald AB-7233 On time
+    - listitem: 20:00 Armstrong CA-5171 On time
+    - listitem: 22:00 Broonzy VA-6101 On time

@@ -1,0 +1,69 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q1 2029" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "27"
+  - button "Read Messages"
+  - text: Asset Catalogue
+  - img
+  - heading "Hangar single aisle" [level=3]
+  - text: "For two aircraft. Includes heating, insulation, electric sliding doors, security, offices. Sustainable. Lead time: 6 months. Rental opportunities. Investing in a hangar might protect your aircraft from inclement weather as well as contribute to lower maintenance costs."
+  - heading "$1,935,000" [level=3]
+  - img
+  - heading "Hangar twin aisle" [level=3]
+  - text: "For two aircraft. Includes heating, insulation, electric sliding doors, security, offices. Sustainable. Lead time: 6 months. Rental opportunities. Investing in a hangar might protect your aircraft from inclement weather as well as contribute to lower maintenance costs."
+  - heading "$4,192,500" [level=3]
+  - img
+  - heading "Hotel" [level=3]
+  - text: Midscale, 115 rooms, 325 sq ft average size per room. The Gamemaster can propose a price structure for a variety of hotel configurations and quality levels.
+  - heading "$17,304,625" [level=3]
+  - img
+  - heading "Simulator single aisle" [level=3]
+  - text: Includes technical support package, spares package, availability guarantee. If you purchase a simulator you may be able to sell simulator time to other airlines.
+  - heading "$14,000,000" [level=3]
+  - img
+  - heading "Simulator twin aisle" [level=3]
+  - text: Includes technical support package, spares package, availability guarantee. If you purchase a simulator you may be able to sell simulator time to other airlines.
+  - heading "$16,000,000" [level=3]
+  - img
+  - heading "Spare engine APT100" [level=3]
+  - text: Includes support package and Quick Engine Change kit. ADs incorporated. A spare engine may protect you from potential reliability problems with your existing engines.
+  - heading "$7,000,000" [level=3]
+  - img
+  - heading "Spare engine APT300" [level=3]
+  - text: Includes spares package and Quick Engine Change kit. ADs incorporated. A spare engine may protect you from potential reliability problems with your existing engines.
+  - heading "$22,000,000" [level=3]
+  - img
+  - heading "Spare engine G250" [level=3]
+  - text: Includes spares package and Quick Engine Change kit. ADs incorporated. A spare engine may protect you from potential reliability problems with your existing engines.
+  - heading "$23,000,000" [level=3]
+  - img
+  - heading "Spare engine G130 & G160" [level=3]
+  - text: Price is for G130 or G160. Includes support package and Quick Engine Change kit. ADs incorporated. A spare engine may protect you from potential reliability problems with your existing engines.
+  - heading "$10,000,000" [level=3]
+  - img
+  - heading "Spare engine G200 & G200LR" [level=3]
+  - text: Includes spares package and Quick Engine Change kit. ADs incorporated. A spare engine may protect you from potential reliability problems with your existing engines.
+  - heading "$15,000,000" [level=3]

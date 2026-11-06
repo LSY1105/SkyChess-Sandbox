@@ -1,0 +1,97 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "10"
+  - button "Read Messages"
+  - heading "Fare Matrix" [level=2]
+  - text: Q2/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+    - rowgroup:
+      - row "Capital Airways $220.00 VisionAir $239.00 Air Ballistic $180.00 VisionAir $189.00 Capital Airways $110.00 Air Ballistic $289.00 Capital Airways $135.00":
+        - cell
+        - cell "Capital Airways $220.00 VisionAir $239.00":
+          - text: Capital Airways
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Air Ballistic $180.00 VisionAir $189.00":
+          - text: Air Ballistic
+          - strong: $180.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $110.00":
+          - text: Capital Airways
+          - strong: $110.00
+        - cell
+        - cell "Air Ballistic $289.00":
+          - text: Air Ballistic
+          - strong: $289.00
+        - cell "Capital Airways $135.00":
+          - text: Capital Airways
+          - strong: $135.00
+  - text: Q1/2028
+  - table:
+    - rowgroup:
+      - row "Armstrong Ellington Fitzgerald Lewis McGee Parker Simone":
+        - columnheader "Armstrong"
+        - columnheader "Ellington"
+        - columnheader "Fitzgerald"
+        - columnheader "Lewis"
+        - columnheader "McGee"
+        - columnheader "Parker"
+        - columnheader "Simone"
+    - rowgroup:
+      - row "Capital Airways $220.00 VisionAir $239.00 Air Ballistic $180.00 VisionAir $189.00 Capital Airways $110.00 Air Ballistic $289.00 Capital Airways $135.00":
+        - cell
+        - cell "Capital Airways $220.00 VisionAir $239.00":
+          - text: Capital Airways
+          - strong: $220.00
+          - text: VisionAir
+          - strong: $239.00
+        - cell "Air Ballistic $180.00 VisionAir $189.00":
+          - text: Air Ballistic
+          - strong: $180.00
+          - text: VisionAir
+          - strong: $189.00
+        - cell "Capital Airways $110.00":
+          - text: Capital Airways
+          - strong: $110.00
+        - cell
+        - cell "Air Ballistic $289.00":
+          - text: Air Ballistic
+          - strong: $289.00
+        - cell "Capital Airways $135.00":
+          - text: Capital Airways
+          - strong: $135.00

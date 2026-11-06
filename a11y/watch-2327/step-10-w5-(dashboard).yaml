@@ -1,0 +1,644 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "27"
+  - button "Read Messages"
+  - text: Airline Investment Manager
+  - button "Investment Catalogue"
+  - tablist:
+    - tab "Airline Investments"
+    - tab "Fleet Investments"
+    - tab "Route Investments"
+  - tabpanel:
+    - text: Airline
+    - heading "Current Airline Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Agents, Website)"
+      - option "Advertising (Print)"
+      - option "Advertising (Social Media)"
+      - option "Advertising (TV and Cinema)"
+      - option "eNewsletters"
+      - option "Extra Bags"
+      - option "Giveaways"
+      - option "Lounge (VIP)"
+      - option "Lounge (VIP) shared"
+      - option "Loyalty Programme"
+      - option "On Line Booking"
+      - option "On Line Travel Agents"
+      - option "Overweight Baggage"
+      - option "Preferred Seats"
+      - option "Priority Boarding"
+      - option "Self-service check-in"
+    - button "Submit"
+    - img
+    - heading "Advertising (Agents, Website)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $100,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$100,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "Advertising (Social Media)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $250,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$250,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $4.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$4.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "IT upgrade" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $1,000,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$1,000,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "Overweight Baggage" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $0":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$0"
+        - row "Costs $0.50 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.50 per passenger"
+        - row "Revenue $1.75 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$1.75 per passenger"
+    - button "Remove"
+    - img
+    - heading "Preferred Seats" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $25,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$25,000"
+        - row "Costs $1.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$1.00 per passenger"
+        - row "Revenue $2.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$2.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "Priority Boarding" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $25,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$25,000"
+        - row "Costs $1.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$1.00 per passenger"
+        - row "Revenue $1.50 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$1.50 per passenger"
+    - button "Remove"
+    - img
+    - heading "Self-service check-in" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $80,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$80,000"
+        - row "Costs $1.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$1.00 per passenger"
+        - row "Revenue $2.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$2.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "eNewsletters" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $75,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$75,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.50 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.50 per passenger"
+    - button "Remove"
+    - img
+    - heading "Hotel partnership" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $100,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$100,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+  - tabpanel:
+    - text: APT100 (Starter)
+    - heading "Current Aircraft Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Cabin Upgrade (Galaxy)"
+      - option "Cabin Upgrade (New Seats)"
+      - option "Cabin Upgrade (Refresh)"
+      - option "IFE (Basic Video)"
+      - option "IFE (Enhanced Video)"
+      - option "In Flight Connectivity (WiFi)"
+      - option "In Flight Connectivity Hi-Connex"
+    - button "Submit"
+    - text: There are no investments for this aircraft. G160XLR P3 (005)
+    - heading "Current Aircraft Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Cabin Upgrade (Galaxy)"
+      - option "Cabin Upgrade (New Seats)"
+      - option "Cabin Upgrade (Refresh)"
+      - option "IFE (Basic Video)"
+      - option "IFE (Enhanced Video)"
+      - option "In Flight Connectivity (WiFi)"
+      - option "In Flight Connectivity Hi-Connex"
+    - button "Submit"
+    - img
+    - heading "Premium Economy Class" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $200,000":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$200,000"
+        - row "Annual cost $200,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$200,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.00 per passenger"
+    - button "Remove"
+    - text: APT100 (007)
+    - heading "Current Aircraft Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Cabin Upgrade (Galaxy)"
+      - option "Cabin Upgrade (New Seats)"
+      - option "Cabin Upgrade (Refresh)"
+      - option "IFE (Basic Video)"
+      - option "IFE (Enhanced Video)"
+      - option "In Flight Connectivity (WiFi)"
+      - option "In Flight Connectivity Hi-Connex"
+    - button "Submit"
+    - img
+    - heading "007" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $50,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$50,000"
+        - row "Costs $1.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$1.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - text: G160XLR (009)
+    - heading "Current Aircraft Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Cabin Upgrade (Galaxy)"
+      - option "Cabin Upgrade (New Seats)"
+      - option "Cabin Upgrade (Refresh)"
+      - option "IFE (Basic Video)"
+      - option "IFE (Enhanced Video)"
+      - option "In Flight Connectivity (WiFi)"
+      - option "In Flight Connectivity Hi-Connex"
+    - button "Submit"
+    - text: There are no investments for this aircraft.
+  - tabpanel:
+    - text: Simone
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Basic)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $310,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$310,000"
+        - row "Costs $2.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$2.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - text: Ellington
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Basic)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $310,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$310,000"
+        - row "Costs $2.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$2.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - text: Lewis
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Basic)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $310,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$310,000"
+        - row "Costs $2.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$2.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - text: Armstrong
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Basic)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $310,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$310,000"
+        - row "Costs $2.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$2.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "Provided Catering (Biz and PE)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $2,000,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$2,000,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.00 per passenger"
+    - button "Remove"
+    - text: Fitzgerald
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Basic)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $310,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$310,000"
+        - row "Costs $2.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$2.00 per passenger"
+        - row "Revenue $3.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$3.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "QSI Route Modifier" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $0":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$0"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.00 per passenger"
+    - button "Remove"
+    - text: Joplin
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Superior)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $510,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$510,000"
+        - row "Costs $3.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$3.00 per passenger"
+        - row "Revenue $7.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$7.00 per passenger"
+    - button "Remove"
+    - img
+    - heading "Advertising (Billboards)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $250,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$250,000"
+        - row "Costs $0.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$0.00 per passenger"
+        - row "Revenue $0.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$0.00 per passenger"
+    - button "Remove"
+    - text: Broonzy
+    - heading "Current Route Investments" [level=5]
+    - heading "Invest in:" [level=4]
+    - combobox:
+      - option "Please Select" [selected]
+      - option "Advertising (Billboards)"
+      - option "Lounge (Basic)"
+      - option "Lounge (Basic) shared"
+      - option "On Board F&B Sales (Basic)"
+      - option "On Board F&B Sales (Superior)"
+      - option "Provided Catering (Biz and PE)"
+      - option "Provided Catering (Economy)"
+    - button "Submit"
+    - img
+    - heading "On Board F&B Sales (Superior)" [level=4]
+    - table:
+      - rowgroup:
+        - row "Initial cost $0":
+          - cell "Initial cost":
+            - strong: Initial cost
+          - cell "$0"
+        - row "Annual cost $510,000":
+          - cell "Annual cost":
+            - strong: Annual cost
+          - cell "$510,000"
+        - row "Costs $3.00 per passenger":
+          - cell "Costs":
+            - strong: Costs
+          - cell "$3.00 per passenger"
+        - row "Revenue $7.00 per passenger":
+          - cell "Revenue":
+            - strong: Revenue
+          - cell "$7.00 per passenger"
+    - button "Remove"

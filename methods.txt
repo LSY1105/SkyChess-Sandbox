@@ -1,0 +1,195 @@
+==============================================================================
+SkyChess 计算/解析方法体  (resolve* / compute* / prepare* / calculate*)
+==============================================================================
+识别到 66 个方法：
+
+   - calculateAircraftAge
+   - calculateAircraftFinance
+   - calculateAircraftPrice
+   - calculateAssetAge
+   - calculateHedgePrice
+   - calculateProfitOfLoss
+   - calculateYield
+   - computeBoards
+   - computedValue
+   - prepareAdjustmentPayload
+   - prepareAircraftPayload
+   - prepareAirlinePayload
+   - prepareAirlineUserPayload
+   - prepareAllInvestmentPayload
+   - prepareAssetPayload
+   - prepareClonePayload
+   - prepareDataForLeaseType
+   - prepareDepartureTimePayload
+   - prepareFarePayload
+   - prepareGameAircraftPayload
+   - prepareGameAssetPayload
+   - prepareGameInvestmentPayload
+   - prepareGameMarketPayload
+   - prepareGamePayload
+   - prepareInvestmentPayload
+   - prepareLeasePayload
+   - prepareLogoPayload
+   - prepareMarketPayload
+   - prepareNewLeasedPayload
+   - prepareNewPayload
+   - preparePayload
+   - preparePayloadRangePayload
+   - prepareTagPayload
+   - prepareUpdatePayload
+   - prepareUserPayload
+   - resolveAdditionalCrew
+   - resolveAircraftConfiguration
+   - resolveAircraftImage
+   - resolveAircraftInput
+   - resolveAircraftName
+   - resolveAircraftType
+   - resolveAirline
+   - resolveAirlineLogo
+   - resolveAssetImage
+   - resolveAssetPrice
+   - resolveCapacityMin
+   - resolveDefault
+   - resolveDisplayBoard
+   - resolveImageUrl
+   - resolveInvestmentImage
+   - resolveLogoImage
+   - resolveMarketFuelPrice
+   - resolveMarketImage
+   - resolveMessagingState
+   - resolveOnOrderStatus
+   - resolveOwner
+   - resolvePriceColor
+   - resolveRoute
+   - resolveTermText
+   - resolveTimeDiff
+   - resolveTimeUntilAvailabile
+   - resolveTotalCrew
+   - resolveTurnId
+   - resolvedBoardColumnClass
+   - resolvedChartId
+   - resolvedFromTurn
+
+==============================================================================
+方法实现 (最多 40 条)
+==============================================================================
+--- calculateAircraftAge(e,t)  [51 字符]
+    {return e.acquired_at_age+(t-e.acquired_at_turn)/4}
+
+--- calculateAircraftFinance(e)  [53 字符]
+    {return e.total_finance+e.total_price*(e.spares/100)}
+
+--- calculateAssetAge(e,t)  [29 字符]
+    {return(t-e.added_at_turn)/4}
+
+--- calculateHedgePrice(e)  [126 字符]
+    {return parseFloat(this.currentHedge.strike_price*this.currentHedge.uplift/100+e*(1-this.currentHedge.uplift/100)).toFixed(2)}
+
+--- calculateProfitOfLoss()  [221 字符]
+    {var e=this;return e.pandl.profitOrLoss>0?["Quarter","Profit",e.pandl.profitOrLoss,e.createTooltip("Profit",e.pandl.profitOrLoss)]:["Loss","Quarter",-1*e.pandl.profitOrLoss,e.createTooltip("Profit",e.pandl.profitOrLoss)]}
+
+--- calculateYield(e,t)  [12 字符]
+    {return e/t}
+
+--- computeBoards()  [441 字符]
+    {this.totalDepartures=this.departures.length,this.totalBoards=Math.ceil(this.totalDepartures/this.departuresPerBoard);for(var e=1;e<=this.totalBoards;e++){var t=e*this.departuresPerBoard-this.departuresPerBoard,n=(e===this.totalBoards&&e*this.departuresPerBoard>this.totalDepartures?this.totalDepartures:e*this.departuresPerBoard)-1,r={index_in:t,index_out:n,total_departures:n+1-t,departures:this.departures.slice(t,n+1)};this.boards[e]=r}}
+
+--- computedValue()  [82 字符]
+    {return this.fivalue?String(this.fivalue).replace(/\B(?=(\d{3})+(?!\d))/g,","):""}
+
+--- prepareAdjustmentPayload()  [162 字符]
+    {return null==this.localCosts&&(this.localCosts=[]),this.validateCostPush()&&this.localCosts.push(this.newAdjustment),JSON.parse(JSON.stringify(this.localCosts))}
+
+--- prepareAircraftPayload()  [25 字符]
+    {return this.newAircraft}
+
+--- prepareAirlinePayload()  [61 字符]
+    {return this.newAirline.game_id=this.game.id,this.newAirline}
+
+--- prepareAirlineUserPayload(e)  [146 字符]
+    {return this.newAirlineUser.user_id=e,this.newAirlineUser.airline_id=this.airline.id,this.newAirlineUser.game_id=this.game.id,this.newAirlineUser}
+
+--- prepareAllInvestmentPayload()  [30 字符]
+    {return{game_id:this.game.id}}
+
+--- prepareClonePayload()  [34 字符]
+    {return{clonename:this.clonename}}
+
+--- prepareDataForLeaseType()  [279 字符]
+    {1==this.newLeasedAircraft.lease_type&&(this.newLeasedAircraft.minimum_bh="",this.newLeasedAircraft.lease_rate_bh=""),2==this.newLeasedAircraft.lease_type&&(this.newLeasedAircraft.lease_rate="",this.newLeasedAircraft.effective_funding_rate="",this.newLeasedAircraft.quarters="")}
+
+--- prepareFarePayload(e)  [16 字符]
+    {return{fare:e}}
+
+--- prepareGameAircraftPayload(e)  [106 字符]
+    {return this.newGameAircraft.aircraft_id=e,this.newGameAircraft.game_id=this.game.id,this.newGameAircraft}
+
+--- prepareGamePayload()  [59 字符]
+    {return this.newGame.game_id=this.clonegameid,this.newGame}
+
+--- prepareLeasePayload()  [263 字符]
+    {return{lease_rate:this.localLease.lease_rate,lease_type:this.localLease.lease_type,lease_rate_bh:this.localLease.lease_rate_bh,minimum_bh:this.localLease.minimum_bh,quarters:this.localLease.quarters,effective_funding_rate:this.localLease.effective_funding_rate}}
+
+--- prepareNewLeasedPayload()  [133 字符]
+    {return this.newLeasedAircraft.airline_id=this.airline.id,this.newLeasedAircraft.game_id=this.airline.game.id,this.newLeasedAircraft}
+
+--- preparePayload()  [450 字符]
+    {return function(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?Ie(Object(n),!0).forEach((function(t){Ue(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):Ie(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}({payload_range:this.payloadRange,pax_range:this.paxRange},this.payloadRangeAttributes)}
+
+--- prepareUpdatePayload(e)  [71 字符]
+    {return{caption:e.caption,active:e.active,configurator:e.configurator}}
+
+--- resolveAdditionalCrew(e)  [140 字符]
+    {return null!=e.additional_cabin_crew?e.additional_cabin_crew:e.airlineaircraft.aircraft?e.airlineaircraft.aircraft.additional_cabin_crew:0}
+
+--- resolveAircraftConfiguration(e,t)  [216 字符]
+    {var n=this.availableGameAircraft.filter((function(e){return e.id==t}));0!==n.length&&(e.seats=n[0].seats,e.seats_business=n[0].seats_business,e.seats_standard=n[0].seats_standard,e.seats_premium=n[0].seats_premium)}
+
+--- resolveAircraftImage(e)  [43 字符]
+    {return e.images.length>0?e.images[0]:null}
+
+--- resolveAircraftInput(e,t)  [62 字符]
+    {return null!=e[t]?e[t]:this.getLatestAirlineTurnEconomics(t)}
+
+--- resolveAircraftName(e,t)  [28 字符]
+    {return e+(t?" ("+t+")":"")}
+
+--- resolveAircraftType(e)  [58 字符]
+    {return 1==e.aircraft_fleet_type?"Short Haul":"Long Haul"}
+
+--- resolveAirline(e)  [63 字符]
+    {return this.airlines.filter((function(t){return t.id==e}))[0]}
+
+--- resolveAirlineLogo(e)  [97 字符]
+    {return e.logo&&e.logo.images&&e.logo&&e.logo.images&&e.logo.images.length>0?e.logo.images[0]:{}}
+
+--- resolveAssetPrice(e)  [100 字符]
+    {this.hasAvailableAssets&&null!==this.selectedAsset&&(this.newAsset.price=this.selectedAsset.price)}
+
+--- resolveCapacityMin()  [63 字符]
+    {return 0===this.minCapacityFound?120:this.minCapacityFound+40}
+
+--- resolveDefault(e)  [62 字符]
+    {return""!=this.default?this.default:"/"+this.defaultImage[e]}
+
+--- resolveDisplayBoard()  [48 字符]
+    {this.computeBoards(),this.selectDisplayBoard()}
+
+--- resolveImageUrl()  [188 字符]
+    {var e="location_"+this.size;return null!=this.image&&null!=this.image[e]?(this.display=!0,"/"+this.image[e]):this.usedefault?(this.display=!0,this.resolveDefault(e)):(this.display=!1,"")}
+
+--- resolveMarketFuelPrice(e)  [162 字符]
+    {var t=this.getLatestTurnEconomics("fuel_price");return t?null!=e.fuel_price?((parseFloat(e.fuel_price)+parseFloat(t))/2).toFixed(2):parseFloat(t,2).toFixed(2):0}
+
+--- resolveMessagingState()  [88 字符]
+    {var e=this;e.latestLogAt==e.getLatestLogRead()?e.markViewAsRead():e.markViewAsUnread()}
+
+--- resolveOnOrderStatus(e,t)  [37 字符]
+    {return e<=t?"In Service":"On Order"}
+
+--- resolveOwner(e,t,n)  [116 字符]
+    {return this.aircraftIsLeased(e)?this.aircraftIsSaleAndLeaseBack(e)&&e.leased_at_turn>=n?t:"White Knight Leasing":t}
+
+--- resolvePriceColor(e,t)  [106 字符]
+    {return"call"==this.currentHedge.type?t==e?"text-warning":"text-success":t<e?"text-danger":"text-success"}
+

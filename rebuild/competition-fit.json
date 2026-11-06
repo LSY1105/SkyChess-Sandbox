@@ -1,0 +1,9 @@
+{
+  "note": "从真实 CA Route Share 序列反推的二航司 logit 份额模型权重",
+  "price_weight": -0.5623,
+  "freq_weight": 1.1596,
+  "qsi_weight": 0.086,
+  "log_odds_rms": 0.3764,
+  "n_transitions": 16,
+  "usage": "V_i = price_weight·ln(p_i) + freq_weight·ln(f_i) + qsi_weight·q_i，share_i = softmax(V) over 同一市场的所有航司"
+}

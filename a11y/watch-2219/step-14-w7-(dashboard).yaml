@@ -1,0 +1,29 @@
+- document:
+  - progressbar: "Minutes Remaining: 39"
+  - text: Departures Q4 2028 14:20 39 min remaining
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 06:15 Fitzgerald VA-6492 Departed
+    - listitem: 06:15 Parker VA-1361 Departed
+    - listitem: 06:45 Parker VA-3472 Departed
+    - listitem: 06:45 Charles City VA-9962 Departed
+    - listitem: 07:30 Ellington CA-1441 Departed
+    - listitem: 07:30 Charles City AB-4082 Departed
+    - listitem: 07:30 Parker AB-9822 Departed
+    - listitem: 08:15 Fitzgerald AB-0463 Departed
+    - listitem: 10:15 Simone CA-5552 Departed
+    - listitem: 10:45 Ellington CA-2031 Departed
+    - listitem: 12:30 McGee VA-5222 Departed
+    - listitem: 13:30 Fitzgerald AB-0233 Departed
+    - listitem: 14:00 Lewis AB-4592 Departed
+    - listitem: 14:00 Armstrong VA-1862 Departed
+    - listitem: 14:15 Lewis CA-4523 Departed
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 14:30 Simone CA-2882 Gate closed
+    - listitem: 14:30 Parker AB-8722 Gate closed
+    - listitem: 15:00 Broonzy VA-6441 Boarding
+    - listitem: 18:00 Ellington VA-4323 On time
+    - listitem: 18:15 Lewis AB-4743 On time
+    - listitem: 18:30 Fitzgerald AB-9693 On time
+    - listitem: 20:00 Armstrong CA-5171 On time

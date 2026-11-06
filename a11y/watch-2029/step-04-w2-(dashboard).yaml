@@ -1,0 +1,142 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q3 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "22"
+  - button "Read Messages"
+  - text: Daily Schedule
+  - img "A chart.": APT100 Starter 07:00 08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 22:00 23:00 Ellington Ellington Fitzgerald Fitzgera… Lewis Lewis
+  - table:
+    - rowgroup:
+      - row "Aircraft Flight Departure Return":
+        - columnheader "Aircraft"
+        - columnheader "Flight"
+        - columnheader "Departure"
+        - columnheader "Return"
+    - rowgroup:
+      - row "APT100 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Ellington Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Ellington"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Fitzgerald Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Fitzgerald"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+      - row "APT100 Starter Lewis Dec 31, 1899 Dec 31, 1899":
+        - cell "APT100 Starter"
+        - cell "Lewis"
+        - cell "Dec 31, 1899"
+        - cell "Dec 31, 1899"
+  - text: Scheduler & Flight Management
+  - tablist:
+    - tab "Flight List" [selected]
+    - tab "Scheduler"
+  - tabpanel:
+    - tablist:
+      - tab "Select Aircraft" [selected]
+      - tab "Select Route"
+    - tabpanel:
+      - img
+      - text: APT100 (Starter)
+      - button "Select"
+    - tabpanel:
+      - img
+      - text: Simone (SIM)
+      - button "Select"
+      - img
+      - text: Ellington (ETN)
+      - button "Select"
+      - img
+      - text: Lewis (LEW)
+      - button "Select"
+      - img
+      - text: Armstrong (ARM)
+      - button "Select"
+      - img
+      - text: Fitzgerald (FTZ)
+      - button "Select"
+      - img
+      - text: Joplin (JOP)
+      - button "Select"
+    - text: "Select an aircraft and route to schedule a flight. Aircraft Selected: Route Selected:"
+    - button "Reset Scheduler"
+  - tabpanel:
+    - table:
+      - rowgroup:
+        - row "Flight Aircraft Departure Route Cargo":
+          - columnheader "Flight"
+          - columnheader "Aircraft"
+          - columnheader "Departure"
+          - columnheader "Route"
+          - columnheader "Cargo"
+          - columnheader
+      - rowgroup:
+        - row "CA-3483 APT100 06:15 ETN Ellington 4.24t Cancel Flight":
+          - cell "CA-3483":
+            - strong: CA-3483
+          - cell "APT100"
+          - cell "06:15"
+          - cell "ETN"
+          - cell "Ellington"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4313 APT100 15:45 FTZ Fitzgerald 4.24t Cancel Flight":
+          - cell "CA-4313":
+            - strong: CA-4313
+          - cell "APT100"
+          - cell "15:45"
+          - cell "FTZ"
+          - cell "Fitzgerald"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"
+        - row "CA-4474 APT100 20:15 LEW Lewis 4.24t Cancel Flight":
+          - cell "CA-4474":
+            - strong: CA-4474
+          - cell "APT100"
+          - cell "20:15"
+          - cell "LEW"
+          - cell "Lewis"
+          - cell "4.24t"
+          - cell "Cancel Flight":
+            - button "Cancel Flight"

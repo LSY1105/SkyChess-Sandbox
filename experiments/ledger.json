@@ -1,0 +1,20 @@
+[
+ {
+  "seq": 1,
+  "experiment": "EXP-01",
+  "variable": "fare",
+  "baseline": "120",
+  "value": "145",
+  "ts": "2026-10-21T15:47:40",
+  "note": "Simone提价 - turn1已开放"
+ },
+ {
+  "seq": 2,
+  "experiment": "EXP-01",
+  "variable": "fare",
+  "baseline": "250",
+  "value": "220",
+  "ts": "2026-10-21T15:47:40",
+  "note": "Ellington降价 - 对照组"
+ }
+]

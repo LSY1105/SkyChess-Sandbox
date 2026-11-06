@@ -1,0 +1,900 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q2 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "10"
+  - button "Read Messages"
+  - text: Investment Catalogue
+  - img
+  - heading "Advertising (Agents, Website)" [level=3]
+  - text: This investment consists of a bundle of commissions paid to travel agents and the costs of running and maintaining the company website. The cost includes a full support package from an outsourced IT company, along with system upgrades and updates.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$150,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Advertising (Billboards)" [level=3]
+  - text: The Billboard selection comprises large digital displays at all airports served, along with strategic sites in each city served. The cost includes all design and configuration work, as well as a full maintenance package for the screens to ensure a minimum of 99% availability.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$250,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Advertising (Print)" [level=3]
+  - text: Print advertising extends to specific publications for in-flight distribution, advertising space in major business and leisure journals, newspapers and periodicals. The work is sub-contracted to a specialist marketing agency and includes design, bespoke photography, copy proofing and publication rights and fees.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$650,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Advertising (Social Media)" [level=3]
+  - text: This investment consists of the establishment of a 5-person social media team to monitor your airline’s Twitter and Facebook accounts, as well as blogs on the company website. Costs of maintaining the systems are also included. Revenue is generated through paid advertisements for third parties.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$350,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $2.00 $0.00 $2.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$2.00"
+        - cell "$0.00"
+        - cell "$2.00"
+  - img
+  - heading "Advertising (TV and Cinema)" [level=3]
+  - text: The investment covers the full production costs of a 30-second advertisement, together with show fees for a national television station and cinema chain. Further options are available, such as use of celebrities for product endorsement. Please consult the Gamemaster.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$500,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Cabin Upgrade (Galaxy)" [level=3]
+  - text: A full cabin upgrade involves the installation of the new ‘Galaxy’ cabin. Elements include high-quality ergonomic seats with improved recline and high-definition seat-back screens. Extensive LED lighting with programmable multiple mood selections, improved galley design and lavatories. In addition, the overhead bin capacity has been increased, allowing larger bags to be carried on board. Impact is deferred by one Quarter.
+  - heading "$3,700,000" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Cabin Upgrade (Low Cost)" [level=3]
+  - text: This is a cabin upgrade suitable for low-cost carriers. The installation consists of new light-weight ‘slim line’ seats which are re-pitched, allowing for a modest increase in seat count with negligible impact on aircraft weight. Impact is deferred by one Quarter.
+  - heading "$1,375,000" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - paragraph:
+    - strong: "Please note:"
+    - text: To invest in Cabin Upgrade (Low Cost) you will need to speak to your GM to negotiate the terms.
+  - img
+  - heading "Cabin Upgrade (New Seats)" [level=3]
+  - text: Installation of ergonomic seats equipped with USB ports and large seat-back screens. Impact is deferred by one Quarter.
+  - heading "$2,550,000" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Cabin Upgrade (Refresh)" [level=3]
+  - text: Refresh cabin with new sidewall panels, improved PSUs (passenger service units) and basic LED lighting. Impact is deferred by one Quarter.
+  - heading "$2,150,000" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "eNewsletters" [level=3]
+  - text: An eNewsletter strategy would normally be coupled with other promotional activities. The costs cover research and design of the eNewsletters and access to a simplified content management system. Modest revenue generation is available through advertising revenues from third parties.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$75,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.50 $2.00 $3.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.50"
+        - cell "$2.00"
+        - cell "$3.00"
+  - img
+  - heading "Extra Bags" [level=3]
+  - text: Excess baggage fees are available for carrying checked-in bags above the airline’s limit on the number of individual pieces. The additional cost per passenger is owing to higher handling costs.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.25 $1.25 $1.25":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.25"
+        - cell "$1.25"
+        - cell "$1.25"
+      - row "Revenue per passenger $2.50 $2.50 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$2.50"
+        - cell "$2.50"
+        - cell "$0.00"
+  - img
+  - heading "Giveaways" [level=3]
+  - text: For those airlines wishing to generate loyalty, giveaways might be considered a good option. Small gifts may be offered to premium as well as regular travellers. The annual cost includes an allowance for one full-time employee to manage the activity.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$20,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.50 $3.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.50"
+        - cell "$3.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "IFE (Basic Video)" [level=3]
+  - text: Consists of seat-back video screens with a choice of 20 feature films and 10 television programmes. Includes ‘Airshow’ moving maps, incorporating customised safety briefings, passenger greetings and promotional video content. There is no WiFi access. The revenues are from advertising. The annual cost includes access to a Content Management System, ensuring up-to-date and relevant content.
+  - heading "$1,450,000" [level=3]
+  - text: Upfront cost
+  - heading "$175,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $3.00 $3.00 $3.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$3.00"
+        - cell "$3.00"
+        - cell "$3.00"
+      - row "Revenue per passenger $5.00 $5.00 $5.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$5.00"
+        - cell "$5.00"
+        - cell "$5.00"
+  - img
+  - heading "IFE (Enhanced Video)" [level=3]
+  - text: Consists of high definition seat-back video screens with a choice of 700 feature films and 65 television programmes, all with video-on-demand capability. Includes ‘Airshow’ moving maps, live feed from external cameras, games, customised safety briefings, passenger greetings and promotional video content. The revenues are from advertising. The annual cost includes access to a Content Management System, ensuring up-to-date and relevant content.
+  - heading "$1,600,000" [level=3]
+  - text: Upfront cost
+  - heading "$190,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $4.00 $4.00 $4.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$4.00"
+        - cell "$4.00"
+        - cell "$4.00"
+      - row "Revenue per passenger $6.50 $7.00 $7.50":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$6.50"
+        - cell "$7.00"
+        - cell "$7.50"
+  - img
+  - heading "In Flight Connectivity (WiFi)" [level=3]
+  - text: This system provides satellite powered and seamless broadband connectivity for email, video calling, VoIP, VPN and large file transfers. Apple, Android and Microsoft software are supported. The revenues are from advertising. The annual cost includes 24/7 global technical support.
+  - heading "$1,450,000" [level=3]
+  - text: Upfront cost
+  - heading "$150,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $2.00 $2.00 $2.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$2.00"
+        - cell "$2.00"
+        - cell "$2.00"
+      - row "Revenue per passenger $3.00 $3.00 $4.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$3.00"
+        - cell "$3.00"
+        - cell "$4.00"
+  - img
+  - heading "In Flight Connectivity Hi-Connex" [level=3]
+  - text: Hi-Connex is a low-latency, high-speed, low earth orbit satellite network offering download speeds of up to 1Gbps per aircraft facilitating 4K streaming, gaming, and VPN access for all passengers. Hi-Connex hardware is a Line Replaceable Unit. Mean Time Between Failure performance is high.
+  - heading "$330,000" [level=3]
+  - text: Upfront cost
+  - heading "$120,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $2.00 $2.00 $2.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$2.00"
+        - cell "$2.00"
+        - cell "$2.00"
+      - row "Revenue per passenger $3.00 $3.00 $4.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$3.00"
+        - cell "$3.00"
+        - cell "$4.00"
+  - img
+  - heading "Lounge (Basic)" [level=3]
+  - text: This 370 square metre lounge, available at destination airports only, comprises basic café-style seating with social distancing, with a small catering area providing free soft drinks and snacks. A bar is also included, but patrons pay for their own drinks. Periodicals and newspapers are available, along with charging stations. Revenue generation is through paid advertising from third parties.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$1,455,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $2.00 $2.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$2.00"
+        - cell "$2.00"
+      - row "Revenue per passenger $1.00 $3.00 $3.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$1.00"
+        - cell "$3.00"
+        - cell "$3.00"
+  - img
+  - heading "Lounge (Basic) shared" [level=3]
+  - text: This shared 370 square metre lounge, available at destination airports only, comprises basic café-style seating with social distancing, with a small catering area providing free soft drinks and snacks. A bar is also included, but patrons pay for their own drinks. Periodicals and newspapers are available, along with charging stations.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$191,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.00 $2.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.00"
+        - cell "$2.00"
+      - row "Revenue per passenger $1.00 $1.50 $2.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$1.00"
+        - cell "$1.50"
+        - cell "$2.00"
+  - img
+  - heading "Lounge (VIP)" [level=3]
+  - text: A truly sumptuous 1,100 square metre ‘VIP’ level lounge for the Hub, offering quality seating with social distancing, charging points, a dedicated kitchen managed round the clock by a renowned chef and service directly to any seat. A business centre offers secretarial services and internet connected screens. All catering services, including drinks, are free of charge. Shower facilities are also free of charge. A complete range of international journals and newspapers is offered. Revenue generation is through paid advertising from third parties.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$2,924,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.00 $4.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.00"
+        - cell "$4.00"
+      - row "Revenue per passenger $4.00 $4.00 $8.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$4.00"
+        - cell "$4.00"
+        - cell "$8.00"
+  - img
+  - heading "Lounge (VIP) shared" [level=3]
+  - text: Shared access to a truly sumptuous 1,100 square metre ‘VIP’ level lounge for the Hub, offering quality seating with social distancing, charging points, a dedicated kitchen managed round the clock by a renowned chef and service directly to any seat. A business centre offers secretarial services and internet connected screens. All catering services, including drinks, are free of charge. Shower facilities are also free of charge. A complete range of international journals and newspapers is offered.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$945,500" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $2.00 $5.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$2.00"
+        - cell "$5.00"
+      - row "Revenue per passenger $1.50 $2.50 $6.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$1.50"
+        - cell "$2.50"
+        - cell "$6.00"
+  - img
+  - heading "Loyalty Programme" [level=3]
+  - text: The loyalty programme is administered for an annual fee, plus a cost per passenger. Rewards are offered only on a space-available basis and reward tickets are classified as non-revenue. Revenues are generated through partnerships with retail and travel companies, and sports facilities.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$1,750,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $5.00 $5.00 $7.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$5.00"
+        - cell "$5.00"
+        - cell "$7.00"
+      - row "Revenue per passenger $8.00 $8.00 $10.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$8.00"
+        - cell "$8.00"
+        - cell "$10.00"
+  - img
+  - heading "On Board F&B Sales (Basic)" [level=3]
+  - text: This is the basic level of food and beverage offered for on board sale. The menu is limited to sandwiches and cold bacon butties served in environmentally friendly paper bags. The service complies with post-COVID health regulations. Hot teas and coffees are also on sale. Menus are only available via the airline website and payment must be made electronically in advance. Overhead costs are charged on an annual basis. Note that this option is available on a route by route basis.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$310,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $2.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$2.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $3.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$3.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "On Board F&B Sales (Superior)" [level=3]
+  - text: The superior level of food and beverage catering is menu-driven. A selection of hot and cold dishes are on offer, along with a paid bar service and hot beverages. The service complies with post-COVID health regulations. Menus are only available via the airline website and payment must be made electronically in advance. Overhead costs are charged on an annual basis. Note that this option is available on a route by route basis.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$510,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $3.00 $5.00 $7.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$3.00"
+        - cell "$5.00"
+        - cell "$7.00"
+      - row "Revenue per passenger $7.00 $10.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$7.00"
+        - cell "$10.00"
+        - cell "$0.00"
+  - img
+  - heading "On Line Booking" [level=3]
+  - text: The on line booking facility is provided by the airline and is completely web-driven. The cost covers a dedicated team of pricing and revenue management analysts, as well as round-the-clock technical support.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$550,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.50 $0.50 $0.50":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.50"
+        - cell "$0.50"
+        - cell "$0.50"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "On Line Travel Agents" [level=3]
+  - text: On Line Travel Agents, or OTAs, include the major global travel groups and global distribution systems. OTAs are critical in gaining access to a broad population, in return for a commission.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$50,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $5.00 $5.00 $5.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$5.00"
+        - cell "$5.00"
+        - cell "$5.00"
+      - row "Revenue per passenger $2.50 $2.50 $2.50":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$2.50"
+        - cell "$2.50"
+        - cell "$2.50"
+  - img
+  - heading "Overweight Baggage" [level=3]
+  - text: Overweight baggage fees are available for carrying checked-in bags above the airline’s weight limit. The additional cost per passenger is due to higher handling costs, as well as provision for medical costs in the event of industrial injuries.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$0" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.50 $1.00 $2.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.50"
+        - cell "$1.00"
+        - cell "$2.00"
+      - row "Revenue per passenger $1.75 $2.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$1.75"
+        - cell "$2.00"
+        - cell "$0.00"
+  - img
+  - heading "Preferred Seats" [level=3]
+  - text: Preferred seats may be defined as seats close to aircraft doors and emergency exits, seats with extra legroom and may even extend to window seats and any seat not adjacent to a galley or lavatory.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$25,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.00 $1.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.00"
+        - cell "$1.00"
+      - row "Revenue per passenger $2.00 $2.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$2.00"
+        - cell "$2.00"
+        - cell "$0.00"
+  - img
+  - heading "Priority Boarding" [level=3]
+  - text: Priority boarding is another useful ancillary revenue. Costs relate to the designation of priority boarding lanes at gates, as well as ensuring adequate staff on hand to manage the process.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$25,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.00 $5.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.00"
+        - cell "$5.00"
+      - row "Revenue per passenger $1.50 $1.50 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$1.50"
+        - cell "$1.50"
+        - cell "$0.00"
+  - img
+  - heading "Provided Catering (Biz and PE)" [level=3]
+  - text: This option should only be selected if you have Business or Premium Economy Class. This catering package is more expensive than the basic offering, but the market attraction may be expected to be much stronger. This option consists of a menu-driven choice, with meals designed by a celebrity chef. Service standards are high, with customised crockery and stainless steel cutlery. Meals are accompanied by an extensive drinks trolley service. The service complies with post-COVID health regulations. Menus are only available via the airline website and payment must be made electronically in advance. Note that this option is available on a route by route basis.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$2,000,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $0.00 $10.00 $15.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$0.00"
+        - cell "$10.00"
+        - cell "$15.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Provided Catering (Economy)" [level=3]
+  - text: The basic level of catering, for Economy Class passengers, consists of a choice of meals served in foil containers, accompanied by a drinks trolley plus hot tea and coffee. The service complies with post-COVID health regulations. Menus are only available via the airline website and payment must be made electronically in advance. Note that this option is available on a route by route basis.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$875,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $3.00 $0.00 $0.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$3.00"
+        - cell "$0.00"
+        - cell "$0.00"
+      - row "Revenue per passenger $0.00 $0.00 $0.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$0.00"
+        - cell "$0.00"
+        - cell "$0.00"
+  - img
+  - heading "Self-service check-in" [level=3]
+  - text: The revenues are from advertising.
+  - heading "$0" [level=3]
+  - text: Upfront cost
+  - heading "$80,000" [level=3]
+  - text: Annual cost
+  - heading "Passenger Costs & Revenues" [level=5]
+  - table:
+    - rowgroup:
+      - row "Economy Premium Economy Business":
+        - columnheader
+        - columnheader "Economy"
+        - columnheader "Premium Economy"
+        - columnheader "Business"
+    - rowgroup:
+      - row "Cost per passenger $1.00 $1.00 $1.00":
+        - cell "Cost per passenger":
+          - strong: Cost per passenger
+        - cell "$1.00"
+        - cell "$1.00"
+        - cell "$1.00"
+      - row "Revenue per passenger $2.00 $2.00 $2.00":
+        - cell "Revenue per passenger":
+          - strong: Revenue per passenger
+        - cell "$2.00"
+        - cell "$2.00"
+        - cell "$2.00"

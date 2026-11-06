@@ -1,0 +1,36 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - heading "Current Period" [level=5]
+  - heading "Q4 2028" [level=1]
+  - link:
+    - /url: "#"
+    - img
+  - link "Go To Dashboard":
+    - /url: "#"
+    - strong: Go To Dashboard
+  - text: "|"
+  - link "Go To Departure Board":
+    - /url: "#"
+    - strong: Go To Departure Board
+  - text: Information & Alerts No new messages | Messages
+  - strong: "24"
+  - button "Read Messages"
+  - button "Q4 2027"
+  - button "Q1 2028"
+  - button "Q2 2028"
+  - button "Q3 2028" [disabled]
+  - button "Q4 2028" [disabled]
+  - text: Reports
+  - heading "No report loaded" [level=4]
+  - paragraph: Please select a report period.

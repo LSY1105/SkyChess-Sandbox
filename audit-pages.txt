@@ -1,0 +1,63 @@
+================================================================================
+1) app.js 中的页面路由字符串
+================================================================================
+   /play/airline/
+   /play/liveboard/
+
+================================================================================
+2) app.js 中出现的报表/视图标识 (reports 相关)
+================================================================================
+  report           384
+  Report            94
+  summary          120
+  Summary           93
+  metric            32
+  Metric            14
+  economics         57
+  Economics        127
+  demand           109
+  Demand            57
+  liveboard          6
+  csv               40
+  export            20
+  chart            253
+  Chart            285
+  graph              3
+
+================================================================================
+3) 前端路由 path 定义 (vue-router 风格 path:"..." )
+================================================================================
+
+================================================================================
+4) app.js 中的组件/视图 name 标识
+================================================================================
+  共 251 个 name 字段; 展示含关键词的:
+   aircraft_id                        3
+   aircraft_fleet_type                3
+   fuel_burn                          2
+   market_cargo_demand                2
+   market_cargo_yield                 2
+   market_demand_curve_id             2
+   market_transfer_model_id           2
+   game_market_id                     2
+   fare                               2
+   fuel_price                         2
+   fuel_price_next                    2
+   Aircraft                           1
+   Investment                         1
+   Asset                              1
+   catalogue                          1
+   cash_investment                    1
+   market_type                        1
+   asset_id                           1
+   aircraft_cost                      1
+   new_aircraft_introduction_cost     1
+   Investing                          1
+   investment_id                      1
+   invested_amount                    1
+   board_show_departures              1
+   board_refresh_rate                 1
+   board_utc_offset                   1
+   board_players                      1
+   fuel_density                       1
+   saf_fuel_price_multiplier          1

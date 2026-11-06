@@ -1,0 +1,306 @@
+{
+ "- document:\n  - navigation:\n    - link \"SkyChess Logo\":\n      - /url: https://www.skychess.com/play/lounge\n      - img \"SkyChess Logo\"\n    - list:\n      - listitem:\n        - button \"CA RR 20 Oct 26 China Eastern\"\n  - list:\n    - listitem: SkyChess\n    - listitem:\n      - link \"Player Lounge\":\n        - /url: https://www.skychess.com/play/lounge\n  - heading \"Current Period\" [level=5]\n  - heading \"Q1 2028\" [level=1]\n  - link:\n    - /url: \"#\"\n    - img\n  - link \"Go To Dashboard\":\n    - /url: \"#\"\n    - strong: Go To Dashboard\n  - text: \"|\"\n  - link \"Go To Departure Board\":\n    - /url: \"#\"\n    - strong: Go To Departure Board\n  - text: Information & Alerts No new messages | Messages\n  - strong: \"6\"\n  - button \"Read Messages\"\n  - button \"Q4 2027\"\n  - button \"Q1 2028\" [disabled]\n  - text: Reports\n  - heading \"End of Q4/2027 Report\" [level=2]\n  - tablist:\n    - tab \"Summary\"\n    - tab \"Economics\"\n    - tab \"Fuel\"\n    - tab \"Route Metrics\"\n    - tab \"Investments\"\n    - tab \"Flights\"\n    - tab \"Route Demand\"\n  - tabpanel:": {},
+ "Capital Airways Quarter Summary": {
+  "headers": [],
+  "rows": []
+ },
+ "Costs Summary": {
+  "headers": [
+   "From",
+   "To",
+   "Weight"
+  ],
+  "rows": [
+   "From To Weight",
+   "Passenger Revenue Quarter 11,573,328.6",
+   "Cargo Revenue Quarter 258,928.247",
+   "Ancillary Revenue Quarter 154,800",
+   "Quarter Fuel Costs 1,929,780",
+   "Quarter Maintenance Costs 1,074,351.6",
+   "Quarter Crew Costs 1,211,042.903",
+   "Quarter Handling Costs 1,235,825.065",
+   "Quarter Nav and Landing Costs 792,031.336",
+   "Quarter Total Indirect Operating Costs 2,357,097",
+   "Quarter Total Ownership Costs 2,019,100",
+   "Quarter Profit 16,147.577"
+  ]
+ },
+ "Network Metrics": {
+  "headers": [
+   "Airline",
+   "Frequencies",
+   "ASK (MM)",
+   "RPK (MM)",
+   "Load Factor",
+   "Passengers (000)",
+   "Cargo (tonnes)",
+   "Route Share",
+   "QSI",
+   "ADU (BH)"
+  ],
+  "rows": [
+   "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)",
+   "Capital Airways 900 / 900 94.2 / 94.2 52.9 / 52.9 56.1% / 56.1% 61.9 / 61.9 586 / 586 35.91% / 35.91% 4.50 / 4.50 14.30",
+   "Total 2340 / 2340 331.9 / 331.9 179.6 / 179.6 172.4 / 172.4 2160 / 2160"
+  ]
+ },
+ "Route Metrics": {
+  "headers": [
+   "Airline",
+   "Frequencies",
+   "ASK (MM)",
+   "RPK (MM)",
+   "Load Factor",
+   "Passengers (000)",
+   "Cargo (tonnes)",
+   "Route Share",
+   "QSI",
+   "ADU (BH)",
+   "Airline",
+   "Frequencies",
+   "ASK (MM)",
+   "RPK (MM)",
+   "Load Factor",
+   "Passengers (000)",
+   "Cargo (tonnes)",
+   "Route Share",
+   "QSI",
+   "ADU (BH)"
+  ],
+  "rows": [
+   "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)",
+   "Capital Airways 540 / 540 28.4 / 28.4 15.4 / 15.4 54.3% / 54.3% 29.3 / 29.3 450 / 450 100.00% / 100.00% 4.50 / 4.50 6.78",
+   "Total 540 / 540 28.4 / 28.4 15.4 / 15.4 29.3 / 29.3 450 / 450",
+   "Airline Frequencies ASK (MM) RPK (MM) Load Factor Passengers (000) Cargo (tonnes) Route Share QSI ADU (BH)",
+   "Capital Airways 360 / 360 65.8 / 65.8 37.5 / 37.5 56.9% / 56.9% 32.6 / 32.6 136 / 136 48.40% / 48.40% 4.50 / 4.50 7.52",
+   "Total 720 / 720 145.3 / 145.3 77.4 / 77.4 67.3 / 67.3 360 / 360"
+  ]
+ },
+ "Operating Costs": {
+  "headers": [],
+  "rows": [
+   "Q4 2027 2027 YTD",
+   "Revenues",
+   "Passenger Revenue: $11,573,329 $11,573,329",
+   "Cargo Revenue: $258,928 $258,928",
+   "Ancillary Revenue: $154,800 $154,800",
+   "Total Revenue: $11,987,057 $11,987,057",
+   "Operating Costs",
+   "Fuel: $1,929,780 $1,929,780",
+   "Sustainable Aviation Fuel: $0 $0",
+   "Carbon: $458,843 $458,843",
+   "Maintenance: $1,074,352 $1,074,352",
+   "Flight Crew: $689,583 $689,583",
+   "Cabin Crew: $521,460 $521,460",
+   "Landing: $497,250 $497,250",
+   "Navigation: $294,781 $294,781",
+   "Aircraft Handling: $612,450 $612,450",
+   "Traffic Handling: $588,240 $588,240",
+   "Cargo Handling: $35,135 $35,135",
+   "Direct Cash Operating Costs: $6,701,874 $6,701,874",
+   "Passenger Services: $623,260 $623,260",
+   "Ticketing, Sales and Promotion: $359,600 $359,600",
+   "General & Administration: $1,130,112 $1,130,112",
+   "Cargo Overheads: $244,125 $244,125",
+   "Indirect Operating Costs: $2,357,097 $2,357,097",
+   "Depreciation on Owned Assets: $1,866,600 $1,866,600",
+   "Depreciation on Right of Use Assets: $0 $0",
+   "Wet Lease Payments: $0 $0",
+   "Insurance: $152,500 $152,500",
+   "Total Ownership Costs: $2,019,100 $2,019,100",
+   "Total Operating Costs: $11,078,071 $11,078,071",
+   "Operating Profit/Loss $908,986 $908,986",
+   "Profit/Loss on Asset Sales: $0 $0",
+   "Interest Receivable: $0 $0",
+   "Interest on Owned Assets: $892,838 $892,838",
+   "Interest on Right of Use Assets: $0 $0",
+   "Net Finance Charges: $892,838 $892,838",
+   "Profit/Loss Before Tax: $16,148 $16,148",
+   "Pre-tax Profit Margin: 0.13% 0.13%",
+   "Tax charge: $0 $0",
+   "Profit/Loss After Tax: $16,148 $16,148",
+   "Net Profit Margin: 0.13% 0.13%"
+  ]
+ },
+ "Cash Flow": {
+  "headers": [],
+  "rows": [
+   "Cash brought forward: $2,687,673",
+   "Cash flow from operating activities",
+   "Operating Profit or Loss: $908,986",
+   "Depreciation on Owned Assets: $1,866,600",
+   "Depreciation on Right Of Use Assets: $0",
+   "Interest Paid: -$892,838",
+   "Taxation: $0",
+   "Cash flow from operating activities: $1,882,748",
+   "Cash flow from investing activities",
+   "Cash flow from investing activities: $0",
+   "Cash flow from financing activities",
+   "Fuel hedge fees: $0",
+   "Repayments on Right of Use Assets: $0",
+   "Loan Repayments: -$2,570,420",
+   "Cash flow from financing activities: -$2,570,420",
+   "Increase or decrease in cash for the period -$687,673",
+   "Cash in hand carried forward $2,000,000"
+  ]
+ },
+ "Simone": {
+  "headers": [],
+  "rows": []
+ },
+ "Ellington": {
+  "headers": [],
+  "rows": []
+ },
+ "Fuel Prices & Carbon": {
+  "headers": [
+   "Location",
+   "Price",
+   "Hedged",
+   "Applied Price",
+   "Fuel Used",
+   "Fuel Cost",
+   "SAF Used",
+   "SAF Cost"
+  ],
+  "rows": [
+   "Location Price Hedged Applied Price Fuel Used Fuel Cost SAF Used SAF Cost",
+   "Armstrong ARM $2.60 USG No $2.60 USG -- -- -- --",
+   "Ellington ETN $2.40 USG No $2.40 USG 489,780 gal $1,175,472 -- --",
+   "Fitzgerald FTZ $2.40 USG No $2.40 USG -- -- -- --",
+   "Lewis LEW $2.40 USG No $2.40 USG -- -- -- --",
+   "McGee GEE $2.60 USG No $2.60 USG -- -- -- --",
+   "Parker PKR $2.40 USG No $2.40 USG -- -- -- --",
+   "Simone SIM $2.40 USG No $2.40 USG 314,280 gal $754,272 -- --",
+   "Total Cost $458,843",
+   "Unit Cost per ASK $0.005",
+   "Total Revenue $0",
+   "Unit Revenue per ASK $0.000",
+   "Unit Revenue per ASK $0.000",
+   "gCO2/ASK 63.2 g",
+   "gCO2/RPK 112.5 g",
+   "Total Carbon Emissions 178 tonnes"
+  ]
+ },
+ "Investments": {
+  "headers": [],
+  "rows": [
+   "Airline QSI: 4.50",
+   "Advertising (Agents, Website)",
+   "On Line Travel Agents",
+   "Provided Catering (Economy) (Simone)",
+   "Provided Catering (Economy) (Ellington)",
+   "Advertising (Agents, Website)",
+   "On Line Travel Agents",
+   "Provided Catering (Economy) (Fitzgerald)",
+   "Provided Catering (Economy) (Ellington)",
+   "Advertising (Agents, Website)",
+   "On Line Travel Agents",
+   "Provided Catering (Economy) (Fitzgerald)",
+   "Provided Catering (Economy) (Parker)"
+  ]
+ },
+ "Assets": {
+  "headers": [],
+  "rows": [
+   "No assets",
+   "No assets",
+   "No assets"
+  ]
+ },
+ "Flights and Utilisation": {
+  "headers": [
+   "Flight",
+   "Departure",
+   "Market",
+   "Fare",
+   "Aircraft",
+   "Passengers",
+   "Seats",
+   "Load Factor",
+   "Data",
+   "Aircraft Type",
+   "Average Daily BH"
+  ],
+  "rows": [
+   "Flight Departure Market Fare Aircraft Passengers Seats Load Factor Data",
+   "CA-4841 07:00 Ellington $250.00 G160 104 159 65%",
+   "CA-4291 09:00 Simone $120.00 APT100 54 100 54%",
+   "CA-4932 13:00 Ellington $250.00 G160 77 159 48%",
+   "CA-4352 14:00 Simone $120.00 APT100 61 100 61%",
+   "CA-4423 19:15 Simone $120.00 APT100 48 100 48%",
+   "56%",
+   "Aircraft Type Average Daily BH",
+   "APT100 6.78",
+   "G160 7.52"
+  ]
+ },
+ "Competitor Flights and Utilisation": {
+  "headers": [
+   "Flight",
+   "Departure",
+   "Market",
+   "Fare",
+   "Aircraft",
+   "Passengers",
+   "Seats",
+   "Load Factor",
+   "Aircraft Type",
+   "Average Daily BH",
+   "Flight",
+   "Departure",
+   "Market",
+   "Fare",
+   "Aircraft",
+   "Passengers",
+   "Seats",
+   "Load Factor",
+   "Aircraft Type",
+   "Average Daily BH"
+  ],
+  "rows": [
+   "Flight Departure Market Fare Aircraft Passengers Seats Load Factor",
+   "VA-6601 06:30 Ellington $250.00 G200 - 192 -",
+   "VA-6331 11:00 Fitzgerald $189.00 APT100 - 100 -",
+   "VA-6702 16:30 Ellington $250.00 G200 - 192 -",
+   "VA-6392 18:45 Fitzgerald $189.00 APT100 - 100 -",
+   "52%",
+   "Aircraft Type Average Daily BH",
+   "APT100 5.76",
+   "G200 7.52",
+   "Flight Departure Market Fare Aircraft Passengers Seats Load Factor",
+   "AB-5481 08:00 Fitzgerald $180.00 G130 - 132 -",
+   "AB-5811 08:00 Parker $299.00 G160 - 159 -",
+   "AB-5872 16:45 Parker $299.00 G160 - 159 -",
+   "AB-5552 18:00 Fitzgerald $189.00 G130 - 132 -",
+   "55%",
+   "Aircraft Type Average Daily BH",
+   "G130 5.76",
+   "G160 9.76"
+  ]
+ },
+ "Flights & Demand Charts": {
+  "headers": [],
+  "rows": []
+ },
+ "Lewis": {
+  "headers": [],
+  "rows": []
+ },
+ "McGee": {
+  "headers": [],
+  "rows": []
+ },
+ "Parker": {
+  "headers": [],
+  "rows": []
+ },
+ "Armstrong": {
+  "headers": [],
+  "rows": []
+ },
+ "Fitzgerald": {
+  "headers": [],
+  "rows": []
+ }
+}

@@ -1,0 +1,68 @@
+============================================================================
+后端技术栈判定
+============================================================================
+  语言/框架   : PHP / Laravel (Eloquent ORM)
+  命名空间     : App\            <- 由 imageable_type 泄漏证实
+  反向代理     : Cloudflare       <- Server/CF-RAY/cf-cache-status 响应头
+  认证         : Cookie Session + XSRF-TOKEN (Laravel EncryptCookies)
+  模板引擎     : Blade            <- 报表页服务端渲染，页面 0 XHR
+  已泄漏模型类 : App\Aircraft, App\Investment, App\Logo, App\Market
+
+============================================================================
+外键关系图 (由 API 响应中的 *_id 字段反推)
+============================================================================
+  aircraft_id                    -> aircraft
+  airline_aircraft_id            -> airline_aircraft
+  airline_id                     -> airlines
+  airline_turn_aircraft_id       -> airline_turn_aircraft
+  airline_turn_id                -> airline_quarters
+  airline_turn_market_id         -> airline_turn_markets
+  game_id                        -> games
+  game_market_id                 -> game_markets
+  imageable_id                   -> (polymorphic)
+  investment_id                  -> investments
+  logo_id                        -> logos
+  market_demand_curve_id         -> market_demand_curves
+  market_id                      -> markets
+  market_transfer_model_id       -> market_transfer_models
+  payload_range_id               -> payload_ranges
+  turn_id                        -> quarters
+
+============================================================================
+时间戳 / 生命周期字段
+============================================================================
+  acquired_at_turn, available_from_turn, created_at, depreciation_years, from_turn, interest_years, leased_at_turn, leased_to_turn, left_at_turn, opened_at, sell_at_turn, sell_from_turn, updated_at
+
+============================================================================
+推定的数据模型 (ERD)
+============================================================================
+
+  games (id=285)
+    ├──< quarters            (turn 0..5, year/quarter/open/fare_lock_active)
+    ├──< game_markets        (game_id + market_id, from_turn, initial_size, fuel_prices[])
+    ├──< gameinvestments ─┐
+    ├──< gameaircraft     ─┤ 对局实体(裁判配置)
+    ├──< gameassets       ─┘
+    └──< airlines         (id=833/AB/VA, starting_cash, attack_ransom, logo_id)
+              │
+              ├──< airline_aircraft      (nickname, total_price, spares, acquired_at_turn/age)
+              │          └──> aircraft   (机型目录: fuel_burn, dmc_cycle, seats_*, payload_range_id)
+              │                    └──> payload_ranges
+              ├──< airline_quarters      (id=5205, airline_id, turn_id)  「一个回合的快照」
+              │          ├──< airline_turn_aircraft (seats, interest_rate, ...)
+              │          ├──< airline_turn_markets  (fare, fees, peak_*, business/premium_modifier)
+              │          │        └──> game_markets ──> markets
+              │          │                    ├──> market_demand_curves   (仅外键 id=3)
+              │          │                    └──> market_transfer_models(仅外键 id=1)
+              │          └──< investments
+              └──< players (roles[])
+
+  多态表: images (imageable_id, imageable_type='App\Market', image_type, location_*)
+
+============================================================================
+关键结论
+============================================================================
+  1. airlineturns 是「回合快照」—— 每回合冻结一份机队/航线/投资状态
+  2. 市场默认参数 (market) 与玩家设置 (airlineturn_market) 是两层数据
+  3. 需求曲线/转移模型只有外键,表内容在服务端,玩家侧不可见
+  4. 财务计算全部服务端权威,客户端仅 7 个派生值预演

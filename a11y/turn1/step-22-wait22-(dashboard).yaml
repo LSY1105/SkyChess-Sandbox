@@ -1,0 +1,37 @@
+- document:
+  - navigation:
+    - link "SkyChess Logo":
+      - /url: https://www.skychess.com/play/lounge
+      - img "SkyChess Logo"
+    - list:
+      - listitem:
+        - button "CA RR 20 Oct 26 China Eastern"
+  - list:
+    - listitem: SkyChess
+    - listitem:
+      - link "Player Lounge":
+        - /url: https://www.skychess.com/play/lounge
+  - link "Dashboard":
+    - /url: https://www.skychess.com/play/airline/833
+  - progressbar: "Minutes Remaining: 14"
+  - text: Departures Q1 2028 08:31 14 min remaining
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 06:15 Ellington VA-2801 Departed
+    - listitem: 06:30 Ellington VA-1222 Departed
+    - listitem: 07:00 Ellington CA-4841 Departed
+    - listitem: 07:30 Parker AB-9822 Departed
+    - listitem: 08:00 Fitzgerald AB-5481 Departed
+    - listitem: 09:00 Simone CA-4291 Last call
+    - listitem: 11:45 Fitzgerald VA-3812 On time
+    - listitem: 12:00 Fitzgerald VA-2443 On time
+    - listitem: 13:00 Ellington CA-4932 On time
+    - listitem: 14:00 Simone CA-4352 On time
+    - listitem: 14:30 Parker AB-8722 On time
+    - listitem: 16:15 Ellington VA-4293 On time
+    - listitem: 17:30 Fitzgerald VA-1503 On time
+    - listitem: 18:00 Fitzgerald AB-5552 On time
+    - listitem: 19:00 Lewis CA-2913 On time
+  - list:
+    - listitem: Time Destination Flight Status
+    - listitem: 19:15 Simone CA-4423 On time
