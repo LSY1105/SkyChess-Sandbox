@@ -1101,7 +1101,7 @@ function applyGMAction(a) {
           const base = (D.GM.style_turnaround || {})[st] || 60;
           const opts = (D.GM.style_turnaround_options || {})[st] || [60];
           const num = Number(v);
-          if (!opts.includes(num) || num < base)
+          if (!opts.includes(num))   /* 基准 60；低于基准属裁判特批（裁判即设定者） */
             return `过站时间档位不适用于 ${st}（基线 ${base} 分钟，可选 ${opts.join('/')}）`;
         }
         if (spec.type === 'perMarket') {
