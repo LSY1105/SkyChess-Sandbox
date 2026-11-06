@@ -281,7 +281,19 @@ for (let turn = 0; turn < MAX_TURNS; turn++) {
     prompts[s] = buildPrompt(s, g, turn, state);
     try {
       const joint = G.estimateScaleJoint(g, 4);
-      if (joint && joint.best) {
+      const hasHist = !!(g.lastDetail && Object.keys(g.lastDetail).length);
+      if (!hasHist) {
+        /* T0 无历史 → 测算不可用。此时若只注入「+0 架 净 $0」是**误导**：
+           LLM 会退回自己的先验（航空业常见「降价抢份额」）→ 而沙盘单班次燃油成本高于收入 → 降价即加速死亡
+           → 给出保底指引：先按指导价/略高试探，每线 1 班，不要降价 */
+        const NL0 = String.fromCharCode(10);
+        prompts[s] += NL0 + NL0
+          + '【本季无历史数据，测算器暂不可用 —— 请按以下保底原则行动】' + NL0
+          + '1) **不要降价**：本沙盘单班次燃油+机组成本很高，降价会直接放大单班亏损；' + NL0
+          + '2) 先按指导价或略高于指导价开价，每条已开航线只开 1 班，验证需求与客座率；' + NL0
+          + '3) 不要此刻买机——没有数据时无法判断扩张是否划算；' + NL0
+          + '4) 拿到一季结算后，沙盘测算器会给出「现价 vs 提价」的扩机测算，再据此决策。';
+      } else if (joint && joint.best) {
         const b = joint.best;
         const c = joint.bestAtCurrentFare || b;
         const f2 = v => (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString();
