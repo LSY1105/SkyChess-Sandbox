@@ -98,6 +98,12 @@ td[data-seat="VA"]{--dot:var(--va)}
 .topmore[open]>summary{border-color:var(--acc);color:var(--tx)}
 .topmore>.kv{display:inline-flex;margin:8px 16px 0 0}
 
+
+/* ── 负现金主动提示：裁判一眼看到「该组需要减负」，并给出建议 ── */
+.negcash{color:var(--bad);font-weight:600}
+.negcash::after{content:' 减负';font-size:11px;font-weight:400;color:var(--dim);
+ border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:6px}
+
 </style>
 </head>
 <body>
@@ -1247,6 +1253,15 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
     document.querySelectorAll('table td:first-child').forEach(td => {
       const m = (td.textContent || '').trim().match(/^(CA|AB|VA|G\d+)/);
       if (m) td.setAttribute('data-seat', m[1]); else td.removeAttribute('data-seat');
+    });
+    /* ★ 负现金主动提示：裁判端席位表里现金为负的单元格标红并标注「减负」，
+       悬停给出建议动作（退还租赁 / 卖出飞机）—— 课堂即时提示 */
+    document.querySelectorAll('table td').forEach(td => {
+      const raw = (td.textContent || '').trim();
+      const isNeg = /^-\$[\d,]+(\.\d+)?$/.test(raw);
+      td.classList.toggle('negcash', isNeg);
+      if (isNeg) td.title = '该组现金为负 → 建议考虑退还租赁（押金退回）或卖出飞机以削减固定成本';
+      else if (td.title && td.title.indexOf('该组现金为负') === 0) td.removeAttribute('title');
     });
   }
   mark();
