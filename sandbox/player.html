@@ -509,7 +509,7 @@ function routes() {
     row.appendChild(lfc);
     const tdA = el('td');
     const b1 = el('button', null, '最优价');
-    b1.onclick = () => alert(`${m.name_cn} 最优运价 ≈ $${E.optimalFare(m.name, fl.length * 90, Math.max(seats, 1)).toFixed(0)}`);
+    b1.onclick = () => alert(`${m.name_cn || m.code || r.code} 最优运价 ≈ $${E.optimalFare(m.name, fl.length * 90, Math.max(seats, 1)).toFixed(0)}`);
     tdA.appendChild(b1);
     if (m.etops && !r.etopsPaid) {
       const b2 = el('button', null, '购ETOPS');
@@ -985,7 +985,7 @@ function renderConnBox() {
   for (const r of g.routes) {
     const f = flags[r.code] || {};
     const row = el('tr');
-    row.appendChild(el('td', null, (MARKETS[r.code] ? MARKETS[r.code].name_c : r.code) + '（' + r.code + '）'));
+    row.appendChild(el('td', null, (MARKETS[r.code] ? (MARKETS[r.code].name_cn || r.code) : r.code) + '（' + r.code + '）'));
     for (const k of ['hub', 'feed']) {
       const td = el('td');
       const cb = el('input'); cb.type = 'checkbox'; cb.checked = f[k] !== false;
