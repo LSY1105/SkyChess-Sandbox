@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T03:55:07.595Z",
+  "generatedAt": "2026-11-09T07:33:04.774Z",
   "turns": 7,
   "seasons": [
     {
@@ -21,7 +21,48 @@
       "decisions": [
         {
           "seat": "CA",
-          "note": "两线各开一班验证需求；无结算数据，暂不扩张",
+          "fallback": "rule-after-reject",
+          "applied": [
+            {
+              "type": "setFare",
+              "code": "SIM",
+              "fare": 142
+            },
+            {
+              "type": "setFare",
+              "code": "ETN",
+              "fare": 201
+            },
+            {
+              "type": "addFlight",
+              "acId": 1,
+              "code": "SIM",
+              "departure": "06:00"
+            },
+            {
+              "type": "addFlight",
+              "acId": 1,
+              "code": "SIM",
+              "departure": "09:00"
+            },
+            {
+              "type": "addFlight",
+              "acId": 2,
+              "code": "SIM",
+              "departure": "12:00"
+            },
+            {
+              "type": "addFlight",
+              "acId": 2,
+              "code": "SIM",
+              "departure": "15:00"
+            }
+          ],
+          "rejected": []
+        },
+        {
+          "seat": "CA",
+          "note": "两线各试飞一班，按指导价积累需求数据",
           "applied": [
             {
               "type": "setFare",
@@ -32,25 +73,28 @@
               "type": "setFare",
               "code": "ETN",
               "fare": 250
-            },
-            {
-              "type": "addFlight",
-              "acId": 1,
-              "code": "SIM",
-              "departure": "08:00"
-            },
-            {
-              "type": "addFlight",
-              "acId": 2,
-              "code": "ETN",
-              "departure": "08:00"
             }
           ],
-          "rejected": []
+          "rejected": [
+            {
+              "type": "addFlight",
+              "acId": "#1",
+              "code": "SIM",
+              "departure": "08:00",
+              "why": "no ac"
+            },
+            {
+              "type": "addFlight",
+              "acId": "#2",
+              "code": "ETN",
+              "departure": "07:00",
+              "why": "no ac"
+            }
+          ]
         },
         {
           "seat": "AB",
-          "note": "两线各开一班验证需求，维持指导价以兼顾客座率",
+          "note": "按指导价在两条现有航线各试一班，暂不扩张",
           "applied": [
             {
               "type": "setFare",
@@ -64,24 +108,22 @@
             },
             {
               "type": "addFlight",
+              "acId": 1,
+              "code": "ETN",
+              "departure": "08:00"
+            },
+            {
+              "type": "addFlight",
               "acId": 2,
               "code": "PKR",
               "departure": "09:00"
             }
           ],
-          "rejected": [
-            {
-              "type": "addFlight",
-              "acId": 1,
-              "code": "ETN",
-              "departure": "08:00",
-              "why": "该时刻已被 CA 抢占（ETN 08:00 已成为其独飞航班）"
-            }
-          ]
+          "rejected": []
         },
         {
           "seat": "VA",
-          "note": "两线各开一班验证需求，暂不购机",
+          "note": "按指导价各试飞一班，验证需求后扩张",
           "applied": [
             {
               "type": "setFare",
@@ -95,18 +137,18 @@
             },
             {
               "type": "addFlight",
-              "acId": 2,
+              "acId": 1,
               "code": "FTZ",
-              "departure": "08:00"
+              "departure": "07:00"
             }
           ],
           "rejected": [
             {
               "type": "addFlight",
-              "acId": 1,
+              "acId": 2,
               "code": "ETN",
               "departure": "08:00",
-              "why": "该时刻已被 CA 抢占（ETN 08:00 已成为其独飞航班）"
+              "why": "该时刻已被 AB 抢占（ETN 08:00 已成为其独飞航班）"
             }
           ]
         },
@@ -131,134 +173,87 @@
             "SIM": {
               "market": "Simone",
               "code": "SIM",
-              "freq": 90,
-              "bh": 101.69999999999999,
-              "ask": 4725000,
-              "pax": 1375.3739098070869,
-              "rpk": 722071.3026487206,
-              "lf": 0.15281932331189854,
-              "cargo": 96.46260901929132,
-              "local_pax": 1375.3739098070869,
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 6531.536001904158,
+              "rpk": 3429056.400999683,
+              "lf": 0.14010158734243153,
+              "cargo": 450,
+              "local_pax": 6531.536001904158,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 1375.3739098070869,
-                  "slot": 8
+                  "departureMin": 360,
+                  "served": 559.8459430203563,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 3732.306286802376,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 933.076571700594,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1306.3072003808315,
+                  "slot": 15
                 }
               ],
-              "demand": 5206.7726585554,
-              "fare": 120,
+              "demand": 13809.53326116879,
+              "fare": 142,
               "qsi": 4.5,
-              "share": 0.20573914425145567,
-              "marketDemand": 25307.642245228988,
+              "share": 0.6191751891073333,
+              "marketDemand": 22303.111468465064,
               "rivals": [
                 {
                   "key": "AB",
-                  "share": 0.7942608557485443
+                  "share": 0.3808248108926667
                 }
               ],
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 183443.01490552298,
-                "Cargo Revenue": 20165.990728527948,
-                "Ancillary Revenue": 3541.587817753249,
-                "Total Revenue": 207150.5934518042
+                "Passenger Revenue": 927780.6927297375,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 16818.70520490321,
+                "Total Revenue": 1038674.1479346408
               },
               "cabin": {},
               "cost": {
-                "Fuel": 152452.368,
+                "Fuel": 609809.472,
                 "Sustainable Aviation Fuel": 0,
-                "Carbon": 36252.0563968044,
-                "Maintenance": 60165.719999999994,
-                "Flight Crew": 22546.889999999996,
-                "Cabin Crew": 32615.999999999996,
-                "Landing": 47817.00000000001,
-                "Navigation": 4091.0393794168563,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 13414.02174234852,
-                "Cargo Handling": 5019.79963076731,
-                "Cargo Overheads": 29441.575,
-                "General & Administration": 176958.35,
-                "Passenger Services": 97848.71506281925,
-                "Ticketing, Sales and Promotion": 53922.08
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 19428.004851143905,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 63702.07062657125,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 126453.61202160381,
+                "Ticketing, Sales and Promotion": 124827.31999999999
               },
-              "dco": 451368.89514933707,
-              "ind": 358170.72006281925,
-              "operating_profit": -602389.0217603522,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            },
-            "ETN": {
-              "market": "Ellington",
-              "code": "ETN",
-              "freq": 90,
-              "bh": 169.2,
-              "ask": 16456500,
-              "pax": 2575.929744272768,
-              "rpk": 2962319.205913683,
-              "lf": 0.180009066685728,
-              "cargo": 3.407025572723197,
-              "local_pax": 2575.929744272768,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 2575.929744272768,
-                  "slot": 8
-                }
-              ],
-              "demand": 9751.734031889766,
-              "fare": 250,
-              "qsi": 4.5,
-              "share": 0.21961212633469793,
-              "marketDemand": 44404.35141103147,
-              "rivals": [
-                {
-                  "key": "VA",
-                  "share": 0.780387873665302
-                }
-              ],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 715769.4765534832,
-                "Cargo Revenue": 1560.1792205171337,
-                "Ancillary Revenue": 6633.019091502378,
-                "Total Revenue": 723962.6748655027
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 253637.56799999997,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 60313.1557752144,
-                "Maintenance": 100098.72,
-                "Flight Crew": 37511.63999999999,
-                "Cabin Crew": 81432,
-                "Landing": 52598.700000000004,
-                "Navigation": 16783.611924945155,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 25123.042795892303,
-                "Cargo Handling": 1173.8123669206498,
-                "Cargo Overheads": 55098.3655,
-                "General & Administration": 284489.279,
-                "Passenger Services": 118306.02098395035,
-                "Ticketing, Sales and Promotion": 69609.08
-              },
-              "dco": 705666.2508629725,
-              "ind": 527502.7454839504,
-              "operating_profit": -509206.3214814201,
+              "dco": 1825889.7130649327,
+              "ind": 681908.2835216038,
+              "operating_profit": -1469123.8486518958,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "revenue": 931113.2683173069,
-          "cost": 4128030.051559079,
-          "operating_profit": -3196916.783241772,
+          "revenue": 1038674.1479346408,
+          "cost": 4593119.4365865365,
+          "operating_profit": -3554445.2886518957,
           "oneoff": 400000,
           "financing": -1488063.3333333333,
-          "cash_end": -3084980.116575105,
+          "cash_end": -3442508.6219852287,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -267,20 +262,82 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 3951.303654079855,
-          "askTotal": 21181500,
-          "load_factor": 0.17394379569730206,
+          "paxTotal": 6531.536001904158,
+          "askTotal": 24475500,
+          "load_factor": 0.14010158734243153,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0.010927356805518425,
-          "gross_margin": -3.4334348913523587,
-          "market_share": 0.06811862608429393,
+          "ancillary_share": 0.01619247503015887,
+          "gross_margin": -3.422098543339852,
+          "market_share": 0.04604619510705652,
           "leasePayments": 0
         },
         "AB": {
           "period": "Q1 2028",
           "turn": 0,
           "detail": {
+            "ETN": {
+              "market": "Ellington",
+              "code": "ETN",
+              "freq": 90,
+              "bh": 169.2,
+              "ask": 10350000,
+              "pax": 2771.1290164299253,
+              "rpk": 3186798.368894414,
+              "lf": 0.3079032240477695,
+              "cargo": 0,
+              "local_pax": 2771.1290164299253,
+              "flights": [
+                {
+                  "departureMin": 480,
+                  "served": 2771.1290164299253,
+                  "slot": 8
+                }
+              ],
+              "demand": 10490.702705056148,
+              "fare": 250,
+              "qsi": 6.2,
+              "share": 0.23625393394328284,
+              "marketDemand": 44404.35141103147,
+              "rivals": [
+                {
+                  "key": "VA",
+                  "share": 0.7637460660567171
+                }
+              ],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 770009.1859889571,
+                "Cargo Revenue": 0,
+                "Ancillary Revenue": 8784.478982082863,
+                "Total Revenue": 778793.66497104
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 253637.56799999997,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 60313.1557752144,
+                "Maintenance": 100098.72,
+                "Flight Crew": 37511.63999999999,
+                "Cabin Crew": 40716,
+                "Landing": 52598.700000000004,
+                "Navigation": 18055.443518645083,
+                "Aircraft Handling": 76994,
+                "Traffic Handling": 27026.82129724106,
+                "Cargo Handling": 1033,
+                "Cargo Overheads": 41743.45,
+                "General & Administration": 228517.1,
+                "Passenger Services": 120390.45301755561,
+                "Ticketing, Sales and Promotion": 69609.08
+              },
+              "dco": 667985.0485911005,
+              "ind": 460260.0830175556,
+              "operating_profit": -349451.4666376161,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            },
             "PKR": {
               "market": "Parker",
               "code": "PKR",
@@ -339,12 +396,12 @@
               "own": 1367921.44
             }
           },
-          "revenue": 44903.484,
-          "cost": 3499178.1672444274,
-          "operating_profit": -3454274.683244427,
+          "revenue": 823697.14897104,
+          "cost": 4627423.2988530835,
+          "operating_profit": -3803726.1498820437,
           "oneoff": 400000,
           "financing": -1488063.3333333333,
-          "cash_end": -2142338.0165777607,
+          "cash_end": -2491789.4832153767,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -353,14 +410,14 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 0,
-          "askTotal": 23182200,
-          "load_factor": 0,
+          "paxTotal": 2771.1290164299253,
+          "askTotal": 33532200,
+          "load_factor": 0.09503696056013068,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0,
-          "gross_margin": -76.92665191067195,
-          "market_share": 0,
+          "ancillary_share": 0.010664695140752165,
+          "gross_margin": -4.617869753019841,
+          "market_share": 0.06549128965651839,
           "leasePayments": 0
         },
         "VA": {
@@ -372,17 +429,17 @@
               "code": "FTZ",
               "freq": 90,
               "bh": 129.6,
-              "ask": 11219040,
-              "pax": 624.0567701971427,
-              "rpk": 489260.50783455983,
-              "lf": 0.043609837190576005,
-              "cargo": 198.5943229802857,
-              "local_pax": 624.0567701971427,
+              "ask": 7056000,
+              "pax": 267.45290151306114,
+              "rpk": 209683.07478623994,
+              "lf": 0.029716989057006794,
+              "cargo": 207.25470984869386,
+              "local_pax": 267.45290151306114,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 624.0567701971427,
-                  "slot": 8
+                  "departureMin": 420,
+                  "served": 267.45290151306114,
+                  "slot": 7
                 }
               ],
               "demand": 6998.3509229250985,
@@ -394,10 +451,10 @@
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 113060.48787098873,
-                "Cargo Revenue": 41322.235722070785,
-                "Ancillary Revenue": 1716.1561180421422,
-                "Total Revenue": 156098.87971110168
+                "Passenger Revenue": 48454.49480185231,
+                "Cargo Revenue": 43124.23359517319,
+                "Ancillary Revenue": 735.4954791609181,
+                "Total Revenue": 92314.22387618641
               },
               "cabin": {},
               "cost": {
@@ -406,31 +463,31 @@
                 "Carbon": 46197.31080654721,
                 "Maintenance": 76671.36,
                 "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
+                "Cabin Crew": 35964,
                 "Landing": 52598.700000000004,
-                "Navigation": 2772.003259238266,
+                "Navigation": 1188.0013968163996,
                 "Aircraft Handling": 76994,
-                "Traffic Handling": 6086.4256797327325,
-                "Cargo Handling": 9240.903368775209,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95143.9145488821,
+                "Traffic Handling": 2608.468148456885,
+                "Cargo Handling": 9598.837158046517,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92661.10623523519,
                 "Ticketing, Sales and Promotion": 60406.04
               },
-              "dco": 565496.6071142934,
-              "ind": 435676.7156688821,
-              "operating_profit": -845074.4430720739,
+              "dco": 524828.581509867,
+              "ind": 385930.9142352352,
+              "operating_profit": -818445.2718689158,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "revenue": 156098.87971110168,
-          "cost": 3086494.7627831753,
-          "operating_profit": -2930395.8830720736,
+          "revenue": 92314.22387618641,
+          "cost": 2996080.9357451024,
+          "operating_profit": -2903766.7118689157,
           "oneoff": 400000,
           "financing": -1488063.3333333333,
-          "cash_end": -1218459.2164054068,
+          "cash_end": -1191830.045202249,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -439,31 +496,61 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 624.0567701971427,
-          "askTotal": 11219040,
-          "load_factor": 0.043609837190576005,
+          "paxTotal": 267.45290151306114,
+          "askTotal": 7056000,
+          "load_factor": 0.029716989057006794,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0.010994032251982203,
-          "gross_margin": -18.772690031443354,
-          "market_share": 0.009744723793023383,
+          "ancillary_share": 0.007967303935170148,
+          "gross_margin": -31.45524698082825,
+          "market_share": 0.004199695840426977,
           "leasePayments": 0
         }
       },
       "seats": {
         "CA": {
-          "cash": -3084980,
+          "cash": -3442509,
           "qsi": 4.5,
-          "revenue": 931113,
-          "cost": 4128030,
-          "operating_profit": -3196917,
-          "pax": 3951,
-          "load_factor": 0.1739,
-          "ask": 21181500,
-          "share": 0.0681,
+          "revenue": 1038674,
+          "cost": 4593119,
+          "operating_profit": -3554445,
+          "pax": 6532,
+          "load_factor": 0.1401,
+          "ask": 24475500,
+          "share": 0.046,
           "routes": [
             "SIM",
             "ETN"
+          ],
+          "schedules": 4,
+          "bankrupt": false,
+          "reduced": "",
+          "fleet": 2,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "SIM": {
+              "pax": 6532,
+              "lf": 0.14,
+              "rev": 1038674,
+              "op": -1469124,
+              "share": 0.619
+            }
+          }
+        },
+        "AB": {
+          "cash": -2491789,
+          "qsi": 6.2,
+          "revenue": 823697,
+          "cost": 4627423,
+          "operating_profit": -3803726,
+          "pax": 2771,
+          "load_factor": 0.095,
+          "ask": 33532200,
+          "share": 0.0655,
+          "routes": [
+            "ETN",
+            "PKR"
           ],
           "schedules": 2,
           "bankrupt": false,
@@ -472,43 +559,13 @@
           "loans": 0,
           "investments": [],
           "detail": {
-            "SIM": {
-              "pax": 1375,
-              "lf": 0.153,
-              "rev": 207151,
-              "op": -602389,
-              "share": 0.206
-            },
             "ETN": {
-              "pax": 2576,
-              "lf": 0.18,
-              "rev": 723963,
-              "op": -509206,
-              "share": 0.22
-            }
-          }
-        },
-        "AB": {
-          "cash": -2142338,
-          "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
-          "routes": [
-            "ETN",
-            "PKR"
-          ],
-          "schedules": 1,
-          "bankrupt": false,
-          "reduced": "",
-          "fleet": 2,
-          "loans": 0,
-          "investments": [],
-          "detail": {
+              "pax": 2771,
+              "lf": 0.308,
+              "rev": 778794,
+              "op": -349451,
+              "share": 0.236
+            },
             "PKR": {
               "pax": 0,
               "lf": 0,
@@ -519,15 +576,15 @@
           }
         },
         "VA": {
-          "cash": -1218459,
+          "cash": -1191830,
           "qsi": 5,
-          "revenue": 156099,
-          "cost": 3086495,
-          "operating_profit": -2930396,
-          "pax": 624,
-          "load_factor": 0.0436,
-          "ask": 11219040,
-          "share": 0.0097,
+          "revenue": 92314,
+          "cost": 2996081,
+          "operating_profit": -2903767,
+          "pax": 267,
+          "load_factor": 0.0297,
+          "ask": 7056000,
+          "share": 0.0042,
           "routes": [
             "ETN",
             "FTZ"
@@ -540,10 +597,10 @@
           "investments": [],
           "detail": {
             "FTZ": {
-              "pax": 624,
-              "lf": 0.044,
-              "rev": 156099,
-              "op": -845074,
+              "pax": 267,
+              "lf": 0.03,
+              "rev": 92314,
+              "op": -818445,
               "share": 1
             }
           }
@@ -571,17 +628,17 @@
       "decisions": [
         {
           "seat": "CA",
-          "note": "先解封，按最优测算提价并增购窄体机",
+          "note": "先解封并降价拓客，融资增购小飞机投入SIM",
           "applied": [
             {
               "type": "setFare",
               "code": "SIM",
-              "fare": 144
+              "fare": 114
             },
             {
               "type": "setFare",
               "code": "ETN",
-              "fare": 300
+              "fare": 161
             }
           ],
           "rejected": [
@@ -593,6 +650,13 @@
               "type": "buyAircraft",
               "acType": "APT100",
               "why": "现金不足"
+            },
+            {
+              "type": "addFlight",
+              "acId": 3,
+              "code": "SIM",
+              "departure": "06:30",
+              "why": "no ac"
             }
           ]
         },
@@ -610,17 +674,17 @@
         },
         {
           "seat": "VA",
-          "note": "两线降价20%争取需求，暂不扩机以保现金",
+          "note": "需求近零，降价试增客流；负现金下不扩机",
           "applied": [
-            {
-              "type": "setFare",
-              "code": "FTZ",
-              "fare": 130
-            },
             {
               "type": "setFare",
               "code": "ETN",
               "fare": 200
+            },
+            {
+              "type": "setFare",
+              "code": "FTZ",
+              "fare": 130
             }
           ],
           "rejected": []
@@ -646,129 +710,87 @@
             "SIM": {
               "market": "Simone",
               "code": "SIM",
-              "freq": 90,
-              "bh": 101.69999999999999,
-              "ask": 4725000,
-              "pax": 963.5328044042025,
-              "rpk": 505854.7223122063,
-              "lf": 0.10705920048935583,
-              "cargo": 137.64671955957974,
-              "local_pax": 963.5328044042025,
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 8983.817399531363,
+              "rpk": 4716504.134753966,
+              "lf": 0.19270307592302366,
+              "cargo": 450,
+              "local_pax": 8983.817399531363,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 963.5328044042025,
-                  "slot": 8
+                  "departureMin": 360,
+                  "served": 770.0414913884025,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 5133.60994258935,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 1283.4024856473375,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1796.7634799062726,
+                  "slot": 15
                 }
               ],
-              "demand": 3647.659902387338,
-              "fare": 144,
+              "demand": 18994.356787580597,
+              "fare": 114,
               "qsi": 4.5,
-              "share": 0.23944714061394304,
-              "marketDemand": 15233.674927312682,
+              "share": 0.5581569255154764,
+              "marketDemand": 34030.49558157624,
               "rivals": [
                 {
                   "key": "AB",
-                  "share": 0.7605528593860569
+                  "share": 0.4418430744845237
                 }
               ],
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 154215.5435754098,
-                "Cargo Revenue": 28775.73495752794,
-                "Ancillary Revenue": 2481.0969713408217,
-                "Total Revenue": 185472.37550427858
+                "Passenger Revenue": 1024489.3039336555,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 23133.32980379326,
+                "Total Revenue": 1141697.3837374486
               },
               "cabin": {},
               "cost": {
-                "Fuel": 152452.368,
+                "Fuel": 609809.472,
                 "Sustainable Aviation Fuel": 0,
-                "Carbon": 36252.0563968044,
-                "Maintenance": 60165.719999999994,
-                "Flight Crew": 22546.889999999996,
-                "Cabin Crew": 32615.999999999996,
-                "Landing": 47817.00000000001,
-                "Navigation": 2866.021100204267,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 9397.335441354186,
-                "Cargo Handling": 6721.93891939743,
-                "Cargo Overheads": 29441.575,
-                "General & Administration": 176958.35,
-                "Passenger Services": 96725.503339603,
-                "Ticketing, Sales and Promotion": 53922.08
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 26722.297476275544,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 87619.17109762937,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 130170.12395017038,
+                "Ticketing, Sales and Promotion": 124827.31999999999
               },
-              "dco": 447829.3298577603,
-              "ind": 357047.508339603,
-              "operating_profit": -619404.4626930847,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            },
-            "ETN": {
-              "market": "Ellington",
-              "code": "ETN",
-              "freq": 90,
-              "bh": 169.2,
-              "ask": 16456500,
-              "pax": 1753.5178884378001,
-              "rpk": 2016545.57170347,
-              "lf": 0.12253793769656185,
-              "cargo": 85.64821115621996,
-              "local_pax": 1753.5178884378001,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 1753.5178884378001,
-                  "slot": 8
-                }
-              ],
-              "demand": 19664.450606052473,
-              "fare": 300,
-              "qsi": 4.5,
-              "share": 1,
-              "marketDemand": 19664.450606052473,
-              "rivals": [],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 584696.6520379081,
-                "Cargo Revenue": 39220.8853347678,
-                "Ancillary Revenue": 4515.308562727336,
-                "Total Revenue": 628432.8459354031
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 253637.56799999997,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 60313.1557752144,
-                "Maintenance": 100098.72,
-                "Flight Crew": 37511.63999999999,
-                "Cabin Crew": 81432,
-                "Landing": 52598.700000000004,
-                "Navigation": 11425.142245600351,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 17102.059965933862,
-                "Cargo Handling": 4572.84056708657,
-                "Cargo Overheads": 55098.3655,
-                "General & Administration": 284489.279,
-                "Passenger Services": 113268.89233781681,
-                "Ticketing, Sales and Promotion": 69609.08
-              },
-              "dco": 695685.8265538352,
-              "ind": 522465.61683781684,
-              "operating_profit": -589718.597456249,
+              "dco": 1857101.1061611227,
+              "ind": 685624.7954501703,
+              "operating_profit": -1401028.5178738444,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "revenue": 813905.2214396817,
-          "cost": 4108349.7215890153,
-          "operating_profit": -3294444.500149334,
+          "revenue": 1141697.3837374486,
+          "cost": 4628047.341611292,
+          "operating_profit": -3486349.9578738436,
           "oneoff": 0,
           "financing": -1488063.3333333333,
-          "cash_end": -7867487.950057772,
+          "cash_end": -8416921.913192406,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -777,20 +799,82 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 2717.0506928420027,
-          "askTotal": 21181500,
-          "load_factor": 0.11908506451458473,
+          "paxTotal": 8983.817399531363,
+          "askTotal": 24475500,
+          "load_factor": 0.19270307592302366,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0.008596093684830426,
-          "gross_margin": -4.0477004119987505,
-          "market_share": 0.14985789104517203,
+          "ancillary_share": 0.020262225466492912,
+          "gross_margin": -3.053655029374741,
+          "market_share": 0.2263483710829028,
           "leasePayments": 0
         },
         "AB": {
           "period": "Q2 2028",
           "turn": 1,
           "detail": {
+            "ETN": {
+              "market": "Ellington",
+              "code": "ETN",
+              "freq": 90,
+              "bh": 169.2,
+              "ask": 10350000,
+              "pax": 2919.32402674583,
+              "rpk": 3357222.6307577044,
+              "lf": 0.32436933630509224,
+              "cargo": 0,
+              "local_pax": 2919.32402674583,
+              "flights": [
+                {
+                  "departureMin": 480,
+                  "served": 2919.32402674583,
+                  "slot": 8
+                }
+              ],
+              "demand": 11051.726672680645,
+              "fare": 250,
+              "qsi": 6.2,
+              "share": 0.20856403362283246,
+              "marketDemand": 52989.60938138838,
+              "rivals": [
+                {
+                  "key": "VA",
+                  "share": 0.7914359663771675
+                }
+              ],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 811187.896393421,
+                "Cargo Revenue": 0,
+                "Ancillary Revenue": 9254.257164784281,
+                "Total Revenue": 820442.1535582052
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 253637.56799999997,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 60313.1557752144,
+                "Maintenance": 100098.72,
+                "Flight Crew": 37511.63999999999,
+                "Cabin Crew": 40716,
+                "Landing": 52598.700000000004,
+                "Navigation": 19021.016259083925,
+                "Aircraft Handling": 76994,
+                "Traffic Handling": 28472.167232852076,
+                "Cargo Handling": 1033,
+                "Cargo Overheads": 41743.45,
+                "General & Administration": 228517.1,
+                "Passenger Services": 121972.95085839917,
+                "Ticketing, Sales and Promotion": 69609.08
+              },
+              "dco": 670395.9672671503,
+              "ind": 461842.58085839916,
+              "operating_profit": -311796.3945673442,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            },
             "PKR": {
               "market": "Parker",
               "code": "PKR",
@@ -849,12 +933,12 @@
               "own": 1367921.44
             }
           },
-          "revenue": 44903.484,
-          "cost": 3499178.1672444274,
-          "operating_profit": -3454274.683244427,
+          "revenue": 865345.6375582053,
+          "cost": 4631416.715369977,
+          "operating_profit": -3766071.077811772,
           "oneoff": 0,
           "financing": -1488063.3333333333,
-          "cash_end": -7084676.03315552,
+          "cash_end": -7745923.894360482,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -863,14 +947,14 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 0,
-          "askTotal": 23182200,
-          "load_factor": 0,
+          "paxTotal": 2919.32402674583,
+          "askTotal": 33532200,
+          "load_factor": 0.10011936678051855,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0,
-          "gross_margin": -76.92665191067195,
-          "market_share": 0,
+          "ancillary_share": 0.01069428996128939,
+          "gross_margin": -4.352100379726542,
+          "market_share": 0.055935452915858434,
           "leasePayments": 0
         },
         "VA": {
@@ -882,17 +966,17 @@
               "code": "FTZ",
               "freq": 90,
               "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
                 }
               ],
               "demand": 9097.867269609214,
@@ -904,10 +988,10 @@
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
               },
               "cabin": {},
               "cost": {
@@ -916,31 +1000,31 @@
                 "Carbon": 46197.31080654721,
                 "Maintenance": 76671.36,
                 "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
+                "Cabin Crew": 35964,
                 "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
+                "Navigation": 1544.4036950105408,
                 "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
                 "Ticketing, Sales and Promotion": 60406.04
               },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "revenue": 156880.09493828213,
-          "cost": 3088538.4743939135,
-          "operating_profit": -2931658.3794556316,
+          "revenue": 92649.03040212092,
+          "cost": 2996956.8121497044,
+          "operating_profit": -2904307.7817475833,
           "oneoff": 0,
           "financing": -1488063.3333333333,
-          "cash_end": -5638180.929194371,
+          "cash_end": -5584201.160283165,
           "net_finance_charges": 892838,
           "loan_principal": 1488063.3333333333,
           "loan_sweep": 0,
@@ -949,28 +1033,28 @@
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
           "interest_rate": 5,
-          "paxTotal": 811.2747883727963,
-          "askTotal": 11219040,
-          "load_factor": 0.056692857328637054,
+          "paxTotal": 347.6891950169127,
+          "askTotal": 7056000,
+          "load_factor": 0.03863213277965697,
           "connected_total": 0,
           "connect_rate": 0,
-          "ancillary_share": 0.014221088206906587,
-          "gross_margin": -18.68725526083452,
-          "market_share": 0.009179313855992832,
+          "ancillary_share": 0.010320078711526614,
+          "gross_margin": -31.34741690379415,
+          "market_share": 0.003954735514571611,
           "leasePayments": 0
         }
       },
       "seats": {
         "CA": {
-          "cash": -7867488,
+          "cash": -8416922,
           "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
           "routes": [
             "SIM",
             "ETN"
@@ -983,31 +1067,24 @@
           "investments": [],
           "detail": {
             "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
             }
           }
         },
         "AB": {
-          "cash": -7084676,
+          "cash": -7745924,
           "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
           "routes": [
             "ETN",
             "PKR"
@@ -1019,6 +1096,13 @@
           "loans": 0,
           "investments": [],
           "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
             "PKR": {
               "pax": 0,
               "lf": 0,
@@ -1029,15 +1113,15 @@
           }
         },
         "VA": {
-          "cash": -5638181,
+          "cash": -5584201,
           "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
           "routes": [
             "ETN",
             "FTZ"
@@ -1050,10 +1134,10 @@
           "investments": [],
           "detail": {
             "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
               "share": 1
             }
           }
@@ -1092,47 +1176,40 @@
           "fallback": "rule-after-reject",
           "applied": [
             {
+              "type": "setFare",
+              "code": "SIM",
+              "fare": 164
+            },
+            {
+              "type": "setFare",
+              "code": "ETN",
+              "fare": 232
+            },
+            {
               "type": "buyAircraft",
               "acType": "APT100",
               "financed": true
             }
           ],
-          "rejected": [
-            {
-              "type": "setFare",
-              "code": "SIM",
-              "fare": 576,
-              "why": "票价超出上限（指导价 $167 × 3 = $501）"
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 1200,
-              "why": "票价超出上限（指导价 $237 × 3 = $711）"
-            }
-          ]
+          "rejected": []
         },
         {
           "seat": "CA",
-          "note": "ETN受火山冲击停飞，提价并借资增机转投SIM",
+          "note": "提价20%并借资购机，新机只飞SIM规避ETN崩塌",
           "applied": [
-            {
-              "type": "removeFlight",
-              "index": 2
-            },
             {
               "type": "setFare",
               "code": "SIM",
-              "fare": 288
+              "fare": 137
             },
             {
               "type": "setFare",
               "code": "ETN",
-              "fare": 600
+              "fare": 193
             },
             {
               "type": "borrow",
-              "amount": 30000000
+              "amount": 10000000
             }
           ],
           "rejected": [
@@ -1143,9 +1220,16 @@
             },
             {
               "type": "addFlight",
-              "acId": 3,
+              "acId": "#3",
               "code": "SIM",
-              "departure": "07:00",
+              "departure": "08:00",
+              "why": "no ac"
+            },
+            {
+              "type": "addFlight",
+              "acId": "#3",
+              "code": "SIM",
+              "departure": "17:00",
               "why": "no ac"
             }
           ]
@@ -1199,7 +1283,7 @@
         },
         {
           "seat": "VA",
-          "note": "ETN需求崩塌，FTZ亦低于盈亏线，停飞止损",
+          "note": "需求归零，撤销全部在飞班次以止损",
           "applied": [
             {
               "type": "removeFlight",
@@ -1223,17 +1307,17 @@
               "code": "FTZ",
               "freq": 90,
               "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
                 }
               ],
               "demand": 9097.867269609214,
@@ -1245,10 +1329,10 @@
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
               },
               "cabin": {},
               "cost": {
@@ -1257,26 +1341,26 @@
                 "Carbon": 46197.31080654721,
                 "Maintenance": 76671.36,
                 "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
+                "Cabin Crew": 35964,
                 "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
+                "Navigation": 1544.4036950105408,
                 "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
                 "Ticketing, Sales and Promotion": 60406.04
               },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "cash_end": -5638180.929194371,
+          "cash_end": -5584201.160283165,
           "qsi_end": 5,
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
@@ -1287,13 +1371,13 @@
         "CA": {
           "cash": 0,
           "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
           "routes": [
             "SIM",
             "ETN"
@@ -1306,31 +1390,24 @@
           "investments": [],
           "detail": {
             "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
             }
           }
         },
         "AB": {
-          "cash": -7084676,
+          "cash": -7745924,
           "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
           "routes": [
             "ETN",
             "PKR"
@@ -1342,6 +1419,13 @@
           "loans": 0,
           "investments": [],
           "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
             "PKR": {
               "pax": 0,
               "lf": 0,
@@ -1352,15 +1436,15 @@
           }
         },
         "VA": {
-          "cash": -5638181,
+          "cash": -5584201,
           "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
           "routes": [
             "ETN",
             "FTZ"
@@ -1373,10 +1457,10 @@
           "investments": [],
           "detail": {
             "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
               "share": 1
             }
           }
@@ -1412,580 +1496,13 @@
       "decisions": [
         {
           "seat": "CA",
-          "fallback": "rule-after-reject",
-          "applied": [
-            {
-              "type": "buyAircraft",
-              "acType": "APT100",
-              "financed": true
-            }
-          ],
-          "rejected": [
-            {
-              "type": "setFare",
-              "code": "SIM",
-              "fare": 1002,
-              "why": "票价超出上限（指导价 $167 × 3 = $501）"
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 1422,
-              "why": "票价超出上限（指导价 $237 × 3 = $711）"
-            }
-          ]
+          "fallback": true,
+          "note": "规则型策略兜底（LLM 不可用）",
+          "rawTail": "[pi-tdai-client] Not registering the TDAI provider: missing required env var(s): TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID. Set TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID (see MemoryCore/pi-plugin/README.md). TDAI_TASK_ID is optional. Pi will start without the TDAI provider.\nConnection error.\n"
         },
         {
           "seat": "CA",
-          "note": "融资购机并提价，增开两班短程提升贡献",
-          "applied": [
-            {
-              "type": "borrow",
-              "amount": 15000000
-            },
-            {
-              "type": "setFare",
-              "code": "SIM",
-              "fare": 501
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 711
-            }
-          ],
-          "rejected": [
-            {
-              "type": "buyAircraft",
-              "acType": "APT100",
-              "why": "现金不足"
-            },
-            {
-              "type": "addFlight",
-              "acId": 4,
-              "code": "SIM",
-              "departure": "07:00",
-              "why": "no ac"
-            },
-            {
-              "type": "addFlight",
-              "acId": 4,
-              "code": "SIM",
-              "departure": "15:00",
-              "why": "no ac"
-            }
-          ]
-        },
-        {
-          "seat": "AB",
-          "blocked": true,
-          "note": "面板遭勒索覆盖 → 仅允许解封动作",
-          "applied": [],
-          "rejected": [
-            {
-              "type": "buyCyberService",
-              "why": "现金不足（需 $250,000）"
-            }
-          ]
-        },
-        {
-          "seat": "VA",
-          "note": "降价提升需求，先修复LF并验证单班贡献",
-          "applied": [
-            {
-              "type": "setFare",
-              "code": "FTZ",
-              "fare": 130
-            }
-          ],
-          "rejected": []
-        },
-        {
-          "seat": "CA",
-          "autoHedge": "B"
-        },
-        {
-          "seat": "AB",
-          "autoHedge": "A"
-        },
-        {
-          "seat": "VA",
-          "autoHedge": "C"
-        }
-      ],
-      "advance": {
-        "CA": "no flights scheduled",
-        "AB": "no flights scheduled",
-        "VA": {
-          "detail": {
-            "FTZ": {
-              "market": "Fitzgerald",
-              "code": "FTZ",
-              "freq": 90,
-              "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
-                }
-              ],
-              "demand": 9097.867269609214,
-              "fare": 130,
-              "qsi": 5,
-              "share": 1,
-              "marketDemand": 9097.867269609214,
-              "rivals": [],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 194275.584,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 46197.31080654721,
-                "Maintenance": 76671.36,
-                "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
-                "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
-                "Ticketing, Sales and Promotion": 60406.04
-              },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            }
-          },
-          "cash_end": -5638180.929194371,
-          "qsi_end": 5,
-          "fuel_price_next": 2.4,
-          "carbon_price": 2577,
-          "interest_rate": 5
-        }
-      },
-      "seats": {
-        "CA": {
-          "cash": 0,
-          "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
-          "routes": [
-            "SIM",
-            "ETN"
-          ],
-          "schedules": 0,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 4,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
-            }
-          }
-        },
-        "AB": {
-          "cash": -7084676,
-          "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
-          "routes": [
-            "ETN",
-            "PKR"
-          ],
-          "schedules": 0,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 2,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "PKR": {
-              "pax": 0,
-              "lf": 0,
-              "rev": 44903,
-              "op": -1368953,
-              "share": 1
-            }
-          }
-        },
-        "VA": {
-          "cash": -5638181,
-          "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
-          "routes": [
-            "ETN",
-            "FTZ"
-          ],
-          "schedules": 3,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 2,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
-              "share": 1
-            }
-          }
-        }
-      }
-    },
-    {
-      "turn": 4,
-      "period": "T4",
-      "judgeActs": [
-        "rule:connections",
-        "rule:carbonCost",
-        "rule:carbonTerms",
-        "rule:loanSystem",
-        "rule:cashFloor",
-        "rule:intelPurchase",
-        "rule:fuelHedge",
-        "rule:etops",
-        "rule:heavyCheck",
-        "rule:financingChannel",
-        "rule:leaseWet",
-        "rule:leaseDry",
-        "rule:turnaroundNeg",
-        "rule:cyberService",
-        "rule:newMarkets",
-        "rule:hangar",
-        "rule:themedOp",
-        "rule:targetSubmit",
-        "release:ARM+GEE",
-        "event:pandemic"
-      ],
-      "decisions": [
-        {
-          "seat": "CA",
-          "fallback": "rule-after-reject",
-          "applied": [
-            {
-              "type": "buyAircraft",
-              "acType": "APT100",
-              "financed": true
-            }
-          ],
-          "rejected": [
-            {
-              "type": "setFare",
-              "code": "SIM",
-              "fare": 668,
-              "why": "票价超出上限（指导价 $167 × 3 = $501）"
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 948,
-              "why": "票价超出上限（指导价 $237 × 3 = $711）"
-            }
-          ]
-        },
-        {
-          "seat": "CA",
-          "note": "需求骤降且扩容平衡LF高于现值，降价保客座、借款不扩机",
-          "applied": [
-            {
-              "type": "borrow",
-              "amount": 3500000
-            },
-            {
-              "type": "setFare",
-              "code": "SIM",
-              "fare": 334
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 474
-            }
-          ],
-          "rejected": []
-        },
-        {
-          "seat": "AB",
-          "blocked": true,
-          "note": "面板遭勒索覆盖 → 仅允许解封动作",
-          "applied": [],
-          "rejected": [
-            {
-              "type": "buyCyberService",
-              "why": "现金不足（需 $250,000）"
-            }
-          ]
-        },
-        {
-          "seat": "VA",
-          "note": "疫情需求骤降，按测算降至八成价；负现金不扩机",
-          "applied": [
-            {
-              "type": "setFare",
-              "code": "FTZ",
-              "fare": 104
-            },
-            {
-              "type": "setFare",
-              "code": "ETN",
-              "fare": 190
-            }
-          ],
-          "rejected": []
-        }
-      ],
-      "advance": {
-        "CA": "no flights scheduled",
-        "AB": "no flights scheduled",
-        "VA": {
-          "detail": {
-            "FTZ": {
-              "market": "Fitzgerald",
-              "code": "FTZ",
-              "freq": 90,
-              "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
-                }
-              ],
-              "demand": 9097.867269609214,
-              "fare": 130,
-              "qsi": 5,
-              "share": 1,
-              "marketDemand": 9097.867269609214,
-              "rivals": [],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 194275.584,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 46197.31080654721,
-                "Maintenance": 76671.36,
-                "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
-                "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
-                "Ticketing, Sales and Promotion": 60406.04
-              },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            }
-          },
-          "cash_end": -5638180.929194371,
-          "qsi_end": 5,
-          "fuel_price_next": 2.4,
-          "carbon_price": 2577,
-          "interest_rate": 5
-        }
-      },
-      "seats": {
-        "CA": {
-          "cash": 0,
-          "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
-          "routes": [
-            "SIM",
-            "ETN"
-          ],
-          "schedules": 0,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 5,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
-            }
-          }
-        },
-        "AB": {
-          "cash": -7084676,
-          "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
-          "routes": [
-            "ETN",
-            "PKR"
-          ],
-          "schedules": 0,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 2,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "PKR": {
-              "pax": 0,
-              "lf": 0,
-              "rev": 44903,
-              "op": -1368953,
-              "share": 1
-            }
-          }
-        },
-        "VA": {
-          "cash": -5638181,
-          "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
-          "routes": [
-            "ETN",
-            "FTZ"
-          ],
-          "schedules": 3,
-          "bankrupt": true,
-          "reduced": "",
-          "fleet": 2,
-          "loans": 0,
-          "investments": [],
-          "detail": {
-            "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
-              "share": 1
-            }
-          }
-        }
-      }
-    },
-    {
-      "turn": 5,
-      "period": "T5",
-      "judgeActs": [
-        "rule:connections",
-        "rule:carbonCost",
-        "rule:carbonTerms",
-        "rule:safMandate",
-        "rule:loanSystem",
-        "rule:cashFloor",
-        "rule:intelPurchase",
-        "rule:fuelHedge",
-        "rule:etops",
-        "rule:heavyCheck",
-        "rule:financingChannel",
-        "rule:leaseWet",
-        "rule:leaseDry",
-        "rule:turnaroundNeg",
-        "rule:cyberService",
-        "rule:newMarkets",
-        "rule:hangar",
-        "rule:themedOp",
-        "rule:targetSubmit",
-        "release:LEW",
-        "event:fuel_shock",
-        "hedgeQuotes:3"
-      ],
-      "decisions": [
-        {
-          "seat": "CA",
-          "fallback": "rule-after-reject",
+          "note": "规则型策略兜底（LLM 不可用）",
           "applied": [
             {
               "type": "setFare",
@@ -2035,53 +1552,752 @@
               "code": "SIM",
               "departure": "21:00",
               "why": "无法当日返航（起点最晚 20:28，含滑行与清洁保障前的到达时间）"
+            }
+          ]
+        },
+        {
+          "seat": "AB",
+          "blocked": true,
+          "note": "面板遭勒索覆盖 → 仅允许解封动作",
+          "applied": [],
+          "rejected": []
+        },
+        {
+          "seat": "VA",
+          "fallback": true,
+          "note": "规则型策略兜底（LLM 不可用）",
+          "rawTail": "[pi-tdai-client] Not registering the TDAI provider: missing required env var(s): TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID. Set TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID (see MemoryCore/pi-plugin/README.md). TDAI_TASK_ID is optional. Pi will start without the TDAI provider.\nConnection error.\n"
+        },
+        {
+          "seat": "VA",
+          "note": "规则型策略兜底（LLM 不可用）",
+          "applied": [
+            {
+              "type": "setFare",
+              "code": "ETN",
+              "fare": 237
             },
             {
+              "type": "setFare",
+              "code": "FTZ",
+              "fare": 163
+            }
+          ],
+          "rejected": [
+            {
               "type": "addFlight",
-              "acId": 4,
+              "acId": 1,
               "code": "ETN",
               "departure": "06:00",
-              "why": "该时刻已被 VA 抢占（ETN 06:00 已成为其独飞航班）"
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.88h 下的运力上限；长程 1 班/日）"
             },
             {
               "type": "addFlight",
-              "acId": 4,
+              "acId": 1,
               "code": "ETN",
               "departure": "11:00",
-              "why": "该时刻已被 VA 抢占（ETN 11:00 已成为其独飞航班）"
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.88h 下的运力上限；长程 1 班/日）"
             },
             {
               "type": "addFlight",
-              "acId": 5,
+              "acId": 2,
               "code": "ETN",
               "departure": "16:00",
-              "why": "该时刻已被 VA 抢占（ETN 16:00 已成为其独飞航班）"
-            },
-            {
-              "type": "addFlight",
-              "acId": 5,
-              "code": "ETN",
-              "departure": "21:00",
-              "why": "无法当日返航（起点最晚 19:43，含滑行与清洁保障前的到达时间）"
+              "why": "过站时间不足 197 分钟"
             }
           ]
         },
         {
           "seat": "CA",
-          "note": "现金为零、油价高，按上限提价保利润并暂缓扩机",
+          "autoHedge": "B"
+        },
+        {
+          "seat": "AB",
+          "autoHedge": "A"
+        },
+        {
+          "seat": "VA",
+          "autoHedge": "C"
+        }
+      ],
+      "advance": {
+        "CA": {
+          "detail": {
+            "SIM": {
+              "market": "Simone",
+              "code": "SIM",
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 8983.817399531363,
+              "rpk": 4716504.134753966,
+              "lf": 0.19270307592302366,
+              "cargo": 450,
+              "local_pax": 8983.817399531363,
+              "flights": [
+                {
+                  "departureMin": 360,
+                  "served": 770.0414913884025,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 5133.60994258935,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 1283.4024856473375,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1796.7634799062726,
+                  "slot": 15
+                }
+              ],
+              "demand": 18994.356787580597,
+              "fare": 114,
+              "qsi": 4.5,
+              "share": 0.5581569255154764,
+              "marketDemand": 34030.49558157624,
+              "rivals": [
+                {
+                  "key": "AB",
+                  "share": 0.4418430744845237
+                }
+              ],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 1024489.3039336555,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 23133.32980379326,
+                "Total Revenue": 1141697.3837374486
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 609809.472,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 26722.297476275544,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 87619.17109762937,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 130170.12395017038,
+                "Ticketing, Sales and Promotion": 124827.31999999999
+              },
+              "dco": 1857101.1061611227,
+              "ind": 685624.7954501703,
+              "operating_profit": -1401028.5178738444,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            }
+          },
+          "cash_end": 0,
+          "qsi_end": 4.5,
+          "fuel_price_next": 2.4,
+          "carbon_price": 2577,
+          "interest_rate": 5
+        },
+        "AB": "no flights scheduled",
+        "VA": {
+          "detail": {
+            "FTZ": {
+              "market": "Fitzgerald",
+              "code": "FTZ",
+              "freq": 90,
+              "bh": 129.6,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
+              "flights": [
+                {
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
+                }
+              ],
+              "demand": 9097.867269609214,
+              "fare": 130,
+              "qsi": 5,
+              "share": 1,
+              "marketDemand": 9097.867269609214,
+              "rivals": [],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 194275.584,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 46197.31080654721,
+                "Maintenance": 76671.36,
+                "Flight Crew": 28732.319999999996,
+                "Cabin Crew": 35964,
+                "Landing": 52598.700000000004,
+                "Navigation": 1544.4036950105408,
+                "Aircraft Handling": 76994,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
+                "Ticketing, Sales and Promotion": 60406.04
+              },
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            }
+          },
+          "cash_end": -5584201.160283165,
+          "qsi_end": 5,
+          "fuel_price_next": 2.4,
+          "carbon_price": 2577,
+          "interest_rate": 5
+        }
+      },
+      "seats": {
+        "CA": {
+          "cash": 0,
+          "qsi": 4.5,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 5,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 3,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "SIM": {
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
+            }
+          }
+        },
+        "AB": {
+          "cash": -7745924,
+          "qsi": 6.2,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 2,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
+            "PKR": {
+              "pax": 0,
+              "lf": 0,
+              "rev": 44903,
+              "op": -1368953,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -5584201,
+          "qsi": 5,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 3,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 2,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "FTZ": {
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
+              "share": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "period": "T4",
+      "judgeActs": [
+        "rule:connections",
+        "rule:carbonCost",
+        "rule:carbonTerms",
+        "rule:loanSystem",
+        "rule:cashFloor",
+        "rule:intelPurchase",
+        "rule:fuelHedge",
+        "rule:etops",
+        "rule:heavyCheck",
+        "rule:financingChannel",
+        "rule:leaseWet",
+        "rule:leaseDry",
+        "rule:turnaroundNeg",
+        "rule:cyberService",
+        "rule:newMarkets",
+        "rule:hangar",
+        "rule:themedOp",
+        "rule:targetSubmit",
+        "release:ARM+GEE",
+        "event:pandemic"
+      ],
+      "decisions": [
+        {
+          "seat": "CA",
+          "fallback": true,
+          "note": "规则型策略兜底（LLM 不可用）",
+          "rawTail": "[pi-tdai-client] Not registering the TDAI provider: missing required env var(s): TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID. Set TDAI_USER_KEY, TDAI_TEAM_ID, TDAI_AGENT_ID (see MemoryCore/pi-plugin/README.md). TDAI_TASK_ID is optional. Pi will start without the TDAI provider.\nConnection error.\n"
+        },
+        {
+          "seat": "CA",
+          "note": "规则型策略兜底（LLM 不可用）",
           "applied": [
             {
               "type": "setFare",
               "code": "SIM",
-              "fare": 501
+              "fare": 142
             },
             {
               "type": "setFare",
               "code": "ETN",
-              "fare": 711
+              "fare": 201
             }
           ],
+          "rejected": [
+            {
+              "type": "addFlight",
+              "acId": 1,
+              "code": "SIM",
+              "departure": "06:00",
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.13h 下的运力上限；长程 1 班/日）"
+            },
+            {
+              "type": "addFlight",
+              "acId": 1,
+              "code": "SIM",
+              "departure": "09:00",
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.13h 下的运力上限；长程 1 班/日）"
+            },
+            {
+              "type": "addFlight",
+              "acId": 2,
+              "code": "SIM",
+              "departure": "12:00",
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.13h 下的运力上限；长程 1 班/日）"
+            },
+            {
+              "type": "addFlight",
+              "acId": 2,
+              "code": "SIM",
+              "departure": "15:00",
+              "why": "该机每日最多 2 班（过站 60 分钟、航段 1.13h 下的运力上限；长程 1 班/日）"
+            },
+            {
+              "type": "addFlight",
+              "acId": 3,
+              "code": "SIM",
+              "departure": "18:00",
+              "why": "过站时间不足 152 分钟"
+            },
+            {
+              "type": "addFlight",
+              "acId": 3,
+              "code": "SIM",
+              "departure": "21:00",
+              "why": "无法当日返航（起点最晚 20:28，含滑行与清洁保障前的到达时间）"
+            }
+          ]
+        },
+        {
+          "seat": "AB",
+          "blocked": true,
+          "note": "面板遭勒索覆盖 → 仅允许解封动作",
+          "applied": [],
           "rejected": []
+        },
+        {
+          "seat": "VA",
+          "note": "疫情下运价降八成；增量贡献为正，融资自购不租机",
+          "applied": [
+            {
+              "type": "setFare",
+              "code": "ETN",
+              "fare": 190
+            },
+            {
+              "type": "setFare",
+              "code": "FTZ",
+              "fare": 130
+            }
+          ],
+          "rejected": [
+            {
+              "type": "buyAircraft",
+              "acType": "APT100",
+              "why": "现金不足"
+            }
+          ]
+        }
+      ],
+      "advance": {
+        "CA": {
+          "detail": {
+            "SIM": {
+              "market": "Simone",
+              "code": "SIM",
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 8983.817399531363,
+              "rpk": 4716504.134753966,
+              "lf": 0.19270307592302366,
+              "cargo": 450,
+              "local_pax": 8983.817399531363,
+              "flights": [
+                {
+                  "departureMin": 360,
+                  "served": 770.0414913884025,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 5133.60994258935,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 1283.4024856473375,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1796.7634799062726,
+                  "slot": 15
+                }
+              ],
+              "demand": 18994.356787580597,
+              "fare": 114,
+              "qsi": 4.5,
+              "share": 0.5581569255154764,
+              "marketDemand": 34030.49558157624,
+              "rivals": [
+                {
+                  "key": "AB",
+                  "share": 0.4418430744845237
+                }
+              ],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 1024489.3039336555,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 23133.32980379326,
+                "Total Revenue": 1141697.3837374486
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 609809.472,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 26722.297476275544,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 87619.17109762937,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 130170.12395017038,
+                "Ticketing, Sales and Promotion": 124827.31999999999
+              },
+              "dco": 1857101.1061611227,
+              "ind": 685624.7954501703,
+              "operating_profit": -1401028.5178738444,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            }
+          },
+          "cash_end": 0,
+          "qsi_end": 4.5,
+          "fuel_price_next": 2.4,
+          "carbon_price": 2577,
+          "interest_rate": 5
+        },
+        "AB": "no flights scheduled",
+        "VA": {
+          "detail": {
+            "FTZ": {
+              "market": "Fitzgerald",
+              "code": "FTZ",
+              "freq": 90,
+              "bh": 129.6,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
+              "flights": [
+                {
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
+                }
+              ],
+              "demand": 9097.867269609214,
+              "fare": 130,
+              "qsi": 5,
+              "share": 1,
+              "marketDemand": 9097.867269609214,
+              "rivals": [],
+              "connected_pax": 0,
+              "connected_spill": 0,
+              "rev": {
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
+              },
+              "cabin": {},
+              "cost": {
+                "Fuel": 194275.584,
+                "Sustainable Aviation Fuel": 0,
+                "Carbon": 46197.31080654721,
+                "Maintenance": 76671.36,
+                "Flight Crew": 28732.319999999996,
+                "Cabin Crew": 35964,
+                "Landing": 52598.700000000004,
+                "Navigation": 1544.4036950105408,
+                "Aircraft Handling": 76994,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
+                "Ticketing, Sales and Promotion": 60406.04
+              },
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
+              "leasePayments": 0,
+              "companyFixed": 717400,
+              "own": 1367921.44
+            }
+          },
+          "cash_end": -5584201.160283165,
+          "qsi_end": 5,
+          "fuel_price_next": 2.4,
+          "carbon_price": 2577,
+          "interest_rate": 5
+        }
+      },
+      "seats": {
+        "CA": {
+          "cash": 0,
+          "qsi": 4.5,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
+          "routes": [
+            "SIM",
+            "ETN"
+          ],
+          "schedules": 5,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 3,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "SIM": {
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
+            }
+          }
+        },
+        "AB": {
+          "cash": -7745924,
+          "qsi": 6.2,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
+          "routes": [
+            "ETN",
+            "PKR"
+          ],
+          "schedules": 0,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 2,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
+            "PKR": {
+              "pax": 0,
+              "lf": 0,
+              "rev": 44903,
+              "op": -1368953,
+              "share": 1
+            }
+          }
+        },
+        "VA": {
+          "cash": -5584201,
+          "qsi": 5,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
+          "routes": [
+            "ETN",
+            "FTZ"
+          ],
+          "schedules": 3,
+          "bankrupt": true,
+          "reduced": "",
+          "fleet": 2,
+          "loans": 0,
+          "investments": [],
+          "detail": {
+            "FTZ": {
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
+              "share": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "period": "T5",
+      "judgeActs": [
+        "rule:connections",
+        "rule:carbonCost",
+        "rule:carbonTerms",
+        "rule:safMandate",
+        "rule:loanSystem",
+        "rule:cashFloor",
+        "rule:intelPurchase",
+        "rule:fuelHedge",
+        "rule:etops",
+        "rule:heavyCheck",
+        "rule:financingChannel",
+        "rule:leaseWet",
+        "rule:leaseDry",
+        "rule:turnaroundNeg",
+        "rule:cyberService",
+        "rule:newMarkets",
+        "rule:hangar",
+        "rule:themedOp",
+        "rule:targetSubmit",
+        "release:LEW",
+        "event:fuel_shock",
+        "hedgeQuotes:3"
+      ],
+      "decisions": [
+        {
+          "seat": "CA",
+          "note": "提价20%并增购1架APT100，改善亏损",
+          "applied": [
+            {
+              "type": "setFare",
+              "code": "SIM",
+              "fare": 170
+            }
+          ],
+          "rejected": [
+            {
+              "type": "buyAircraft",
+              "acType": "APT100",
+              "why": "现金不足"
+            }
+          ]
         },
         {
           "seat": "AB",
@@ -2097,17 +2313,17 @@
         },
         {
           "seat": "VA",
-          "note": "按测算降价0.8倍，不扩机保现金",
+          "note": "按沙盘最优价八折，现金为负不扩机",
           "applied": [
-            {
-              "type": "setFare",
-              "code": "FTZ",
-              "fare": 83
-            },
             {
               "type": "setFare",
               "code": "ETN",
               "fare": 152
+            },
+            {
+              "type": "setFare",
+              "code": "FTZ",
+              "fare": 104
             }
           ],
           "rejected": []
@@ -2131,118 +2347,76 @@
             "SIM": {
               "market": "Simone",
               "code": "SIM",
-              "freq": 90,
-              "bh": 101.69999999999999,
-              "ask": 4725000,
-              "pax": 963.5328044042025,
-              "rpk": 505854.7223122063,
-              "lf": 0.10705920048935583,
-              "cargo": 137.64671955957974,
-              "local_pax": 963.5328044042025,
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 8983.817399531363,
+              "rpk": 4716504.134753966,
+              "lf": 0.19270307592302366,
+              "cargo": 450,
+              "local_pax": 8983.817399531363,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 963.5328044042025,
-                  "slot": 8
+                  "departureMin": 360,
+                  "served": 770.0414913884025,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 5133.60994258935,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 1283.4024856473375,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1796.7634799062726,
+                  "slot": 15
                 }
               ],
-              "demand": 3647.659902387338,
-              "fare": 144,
+              "demand": 18994.356787580597,
+              "fare": 114,
               "qsi": 4.5,
-              "share": 0.23944714061394304,
-              "marketDemand": 15233.674927312682,
+              "share": 0.5581569255154764,
+              "marketDemand": 34030.49558157624,
               "rivals": [
                 {
                   "key": "AB",
-                  "share": 0.7605528593860569
+                  "share": 0.4418430744845237
                 }
               ],
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 154215.5435754098,
-                "Cargo Revenue": 28775.73495752794,
-                "Ancillary Revenue": 2481.0969713408217,
-                "Total Revenue": 185472.37550427858
+                "Passenger Revenue": 1024489.3039336555,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 23133.32980379326,
+                "Total Revenue": 1141697.3837374486
               },
               "cabin": {},
               "cost": {
-                "Fuel": 152452.368,
+                "Fuel": 609809.472,
                 "Sustainable Aviation Fuel": 0,
-                "Carbon": 36252.0563968044,
-                "Maintenance": 60165.719999999994,
-                "Flight Crew": 22546.889999999996,
-                "Cabin Crew": 32615.999999999996,
-                "Landing": 47817.00000000001,
-                "Navigation": 2866.021100204267,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 9397.335441354186,
-                "Cargo Handling": 6721.93891939743,
-                "Cargo Overheads": 29441.575,
-                "General & Administration": 176958.35,
-                "Passenger Services": 96725.503339603,
-                "Ticketing, Sales and Promotion": 53922.08
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 26722.297476275544,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 87619.17109762937,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 130170.12395017038,
+                "Ticketing, Sales and Promotion": 124827.31999999999
               },
-              "dco": 447829.3298577603,
-              "ind": 357047.508339603,
-              "operating_profit": -619404.4626930847,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            },
-            "ETN": {
-              "market": "Ellington",
-              "code": "ETN",
-              "freq": 90,
-              "bh": 169.2,
-              "ask": 16456500,
-              "pax": 1753.5178884378001,
-              "rpk": 2016545.57170347,
-              "lf": 0.12253793769656185,
-              "cargo": 85.64821115621996,
-              "local_pax": 1753.5178884378001,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 1753.5178884378001,
-                  "slot": 8
-                }
-              ],
-              "demand": 19664.450606052473,
-              "fare": 300,
-              "qsi": 4.5,
-              "share": 1,
-              "marketDemand": 19664.450606052473,
-              "rivals": [],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 584696.6520379081,
-                "Cargo Revenue": 39220.8853347678,
-                "Ancillary Revenue": 4515.308562727336,
-                "Total Revenue": 628432.8459354031
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 253637.56799999997,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 60313.1557752144,
-                "Maintenance": 100098.72,
-                "Flight Crew": 37511.63999999999,
-                "Cabin Crew": 81432,
-                "Landing": 52598.700000000004,
-                "Navigation": 11425.142245600351,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 17102.059965933862,
-                "Cargo Handling": 4572.84056708657,
-                "Cargo Overheads": 55098.3655,
-                "General & Administration": 284489.279,
-                "Passenger Services": 113268.89233781681,
-                "Ticketing, Sales and Promotion": 69609.08
-              },
-              "dco": 695685.8265538352,
-              "ind": 522465.61683781684,
-              "operating_profit": -589718.597456249,
+              "dco": 1857101.1061611227,
+              "ind": 685624.7954501703,
+              "operating_profit": -1401028.5178738444,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
@@ -2262,17 +2436,17 @@
               "code": "FTZ",
               "freq": 90,
               "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
                 }
               ],
               "demand": 9097.867269609214,
@@ -2284,10 +2458,10 @@
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
               },
               "cabin": {},
               "cost": {
@@ -2296,26 +2470,26 @@
                 "Carbon": 46197.31080654721,
                 "Maintenance": 76671.36,
                 "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
+                "Cabin Crew": 35964,
                 "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
+                "Navigation": 1544.4036950105408,
                 "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
                 "Ticketing, Sales and Promotion": 60406.04
               },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "cash_end": -5638180.929194371,
+          "cash_end": -5584201.160283165,
           "qsi_end": 5,
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
@@ -2326,13 +2500,13 @@
         "CA": {
           "cash": 0,
           "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
           "routes": [
             "SIM",
             "ETN"
@@ -2340,36 +2514,29 @@
           "schedules": 5,
           "bankrupt": true,
           "reduced": "",
-          "fleet": 5,
+          "fleet": 3,
           "loans": 0,
           "investments": [],
           "detail": {
             "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
             }
           }
         },
         "AB": {
-          "cash": -7084676,
+          "cash": -7745924,
           "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
           "routes": [
             "ETN",
             "PKR"
@@ -2381,6 +2548,13 @@
           "loans": 0,
           "investments": [],
           "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
             "PKR": {
               "pax": 0,
               "lf": 0,
@@ -2391,15 +2565,15 @@
           }
         },
         "VA": {
-          "cash": -5638181,
+          "cash": -5584201,
           "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
           "routes": [
             "ETN",
             "FTZ"
@@ -2412,10 +2586,10 @@
           "investments": [],
           "detail": {
             "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
               "share": 1
             }
           }
@@ -2449,24 +2623,40 @@
       "decisions": [
         {
           "seat": "CA",
-          "note": "按测算票价翻倍并增购1架，暂不新增冲突班次",
+          "note": "提价20%，借款湿租增1架并新增两班SIM",
           "applied": [
+            {
+              "type": "borrow",
+              "amount": 1100000
+            },
             {
               "type": "setFare",
               "code": "SIM",
-              "fare": 284
+              "fare": 204
             },
             {
               "type": "setFare",
               "code": "ETN",
-              "fare": 402
+              "fare": 241
+            },
+            {
+              "type": "addFlight",
+              "acId": 4,
+              "code": "SIM",
+              "departure": "07:00"
+            },
+            {
+              "type": "addFlight",
+              "acId": 4,
+              "code": "SIM",
+              "departure": "13:00"
             }
           ],
           "rejected": [
             {
-              "type": "buyAircraft",
+              "type": "lease",
               "acType": "APT100",
-              "why": "现金不足"
+              "why": "[object Object]"
             }
           ]
         },
@@ -2484,29 +2674,20 @@
         },
         {
           "seat": "VA",
-          "note": "停飞亏损班次，核验GEE经济性后择机开航",
+          "note": "需求近零，停止扩张并按测算将两线降两成",
           "applied": [
             {
-              "type": "removeFlight",
-              "index": 0
+              "type": "setFare",
+              "code": "ETN",
+              "fare": 122
             },
             {
-              "type": "removeFlight",
-              "index": 1
+              "type": "setFare",
+              "code": "FTZ",
+              "fare": 83
             }
           ],
-          "rejected": [
-            {
-              "type": "buyIntel",
-              "code": "GEE",
-              "why": "裁判尚未就该市场情报报价"
-            },
-            {
-              "type": "propose",
-              "kind": "GEE",
-              "why": "未知提案类型: GEE"
-            }
-          ]
+          "rejected": []
         }
       ],
       "advance": {
@@ -2515,124 +2696,82 @@
             "SIM": {
               "market": "Simone",
               "code": "SIM",
-              "freq": 90,
-              "bh": 101.69999999999999,
-              "ask": 4725000,
-              "pax": 963.5328044042025,
-              "rpk": 505854.7223122063,
-              "lf": 0.10705920048935583,
-              "cargo": 137.64671955957974,
-              "local_pax": 963.5328044042025,
+              "freq": 360,
+              "bh": 406.79999999999995,
+              "ask": 24475500,
+              "pax": 8983.817399531363,
+              "rpk": 4716504.134753966,
+              "lf": 0.19270307592302366,
+              "cargo": 450,
+              "local_pax": 8983.817399531363,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 963.5328044042025,
-                  "slot": 8
+                  "departureMin": 360,
+                  "served": 770.0414913884025,
+                  "slot": 6
+                },
+                {
+                  "departureMin": 540,
+                  "served": 5133.60994258935,
+                  "slot": 9
+                },
+                {
+                  "departureMin": 720,
+                  "served": 1283.4024856473375,
+                  "slot": 12
+                },
+                {
+                  "departureMin": 900,
+                  "served": 1796.7634799062726,
+                  "slot": 15
                 }
               ],
-              "demand": 3647.659902387338,
-              "fare": 144,
+              "demand": 18994.356787580597,
+              "fare": 114,
               "qsi": 4.5,
-              "share": 0.23944714061394304,
-              "marketDemand": 15233.674927312682,
+              "share": 0.5581569255154764,
+              "marketDemand": 34030.49558157624,
               "rivals": [
                 {
                   "key": "AB",
-                  "share": 0.7605528593860569
+                  "share": 0.4418430744845237
                 }
               ],
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 154215.5435754098,
-                "Cargo Revenue": 28775.73495752794,
-                "Ancillary Revenue": 2481.0969713408217,
-                "Total Revenue": 185472.37550427858
+                "Passenger Revenue": 1024489.3039336555,
+                "Cargo Revenue": 94074.75,
+                "Ancillary Revenue": 23133.32980379326,
+                "Total Revenue": 1141697.3837374486
               },
               "cabin": {},
               "cost": {
-                "Fuel": 152452.368,
+                "Fuel": 609809.472,
                 "Sustainable Aviation Fuel": 0,
-                "Carbon": 36252.0563968044,
-                "Maintenance": 60165.719999999994,
-                "Flight Crew": 22546.889999999996,
-                "Cabin Crew": 32615.999999999996,
-                "Landing": 47817.00000000001,
-                "Navigation": 2866.021100204267,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 9397.335441354186,
-                "Cargo Handling": 6721.93891939743,
-                "Cargo Overheads": 29441.575,
-                "General & Administration": 176958.35,
-                "Passenger Services": 96725.503339603,
-                "Ticketing, Sales and Promotion": 53922.08
+                "Carbon": 145008.2255872176,
+                "Maintenance": 240662.87999999998,
+                "Flight Crew": 90187.55999999998,
+                "Cabin Crew": 195695.99999999997,
+                "Landing": 191268.00000000003,
+                "Navigation": 26722.297476275544,
+                "Aircraft Handling": 250496,
+                "Traffic Handling": 87619.17109762937,
+                "Cargo Handling": 19631.5,
+                "Cargo Overheads": 72635.9185,
+                "General & Administration": 357991.433,
+                "Passenger Services": 130170.12395017038,
+                "Ticketing, Sales and Promotion": 124827.31999999999
               },
-              "dco": 447829.3298577603,
-              "ind": 357047.508339603,
-              "operating_profit": -619404.4626930847,
-              "leasePayments": 0,
-              "companyFixed": 717400,
-              "own": 1367921.44
-            },
-            "ETN": {
-              "market": "Ellington",
-              "code": "ETN",
-              "freq": 90,
-              "bh": 169.2,
-              "ask": 16456500,
-              "pax": 1753.5178884378001,
-              "rpk": 2016545.57170347,
-              "lf": 0.12253793769656185,
-              "cargo": 85.64821115621996,
-              "local_pax": 1753.5178884378001,
-              "flights": [
-                {
-                  "departureMin": 480,
-                  "served": 1753.5178884378001,
-                  "slot": 8
-                }
-              ],
-              "demand": 19664.450606052473,
-              "fare": 300,
-              "qsi": 4.5,
-              "share": 1,
-              "marketDemand": 19664.450606052473,
-              "rivals": [],
-              "connected_pax": 0,
-              "connected_spill": 0,
-              "rev": {
-                "Passenger Revenue": 584696.6520379081,
-                "Cargo Revenue": 39220.8853347678,
-                "Ancillary Revenue": 4515.308562727336,
-                "Total Revenue": 628432.8459354031
-              },
-              "cabin": {},
-              "cost": {
-                "Fuel": 253637.56799999997,
-                "Sustainable Aviation Fuel": 0,
-                "Carbon": 60313.1557752144,
-                "Maintenance": 100098.72,
-                "Flight Crew": 37511.63999999999,
-                "Cabin Crew": 81432,
-                "Landing": 52598.700000000004,
-                "Navigation": 11425.142245600351,
-                "Aircraft Handling": 76994,
-                "Traffic Handling": 17102.059965933862,
-                "Cargo Handling": 4572.84056708657,
-                "Cargo Overheads": 55098.3655,
-                "General & Administration": 284489.279,
-                "Passenger Services": 113268.89233781681,
-                "Ticketing, Sales and Promotion": 69609.08
-              },
-              "dco": 695685.8265538352,
-              "ind": 522465.61683781684,
-              "operating_profit": -589718.597456249,
+              "dco": 1857101.1061611227,
+              "ind": 685624.7954501703,
+              "operating_profit": -1401028.5178738444,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "cash_end": 0,
+          "cash_end": 1100000,
           "qsi_end": 4.5,
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
@@ -2646,17 +2785,17 @@
               "code": "FTZ",
               "freq": 90,
               "bh": 129.6,
-              "ask": 11219040,
-              "pax": 811.2747883727963,
-              "rpk": 636039.4340842722,
-              "lf": 0.056692857328637054,
-              "cargo": 179.87252116272037,
-              "local_pax": 811.2747883727963,
+              "ask": 7056000,
+              "pax": 347.6891950169127,
+              "rpk": 272588.3288932596,
+              "lf": 0.03863213277965697,
+              "cargo": 199.23108049830876,
+              "local_pax": 347.6891950169127,
               "flights": [
                 {
-                  "departureMin": 480,
-                  "served": 811.2747883727963,
-                  "slot": 8
+                  "departureMin": 420,
+                  "served": 347.6891950169127,
+                  "slot": 7
                 }
               ],
               "demand": 9097.867269609214,
@@ -2668,10 +2807,10 @@
               "connected_pax": 0,
               "connected_spill": 0,
               "rev": {
-                "Passenger Revenue": 117222.3662508535,
-                "Cargo Revenue": 37426.72301940342,
-                "Ancillary Revenue": 2231.0056680251896,
-                "Total Revenue": 156880.09493828213
+                "Passenger Revenue": 50238.156964651505,
+                "Cargo Revenue": 41454.7281511729,
+                "Ancillary Revenue": 956.14528629651,
+                "Total Revenue": 92649.03040212092
               },
               "cabin": {},
               "cost": {
@@ -2680,26 +2819,26 @@
                 "Carbon": 46197.31080654721,
                 "Maintenance": 76671.36,
                 "Flight Crew": 28732.319999999996,
-                "Cabin Crew": 71928,
+                "Cabin Crew": 35964,
                 "Landing": 52598.700000000004,
-                "Navigation": 3603.6086216912613,
+                "Navigation": 1544.4036950105408,
                 "Aircraft Handling": 76994,
-                "Traffic Handling": 7912.363010999881,
-                "Cargo Handling": 8467.131299655233,
-                "Cargo Overheads": 43644.04048,
-                "General & Administration": 236482.72064,
-                "Passenger Services": 95303.8555350203,
+                "Traffic Handling": 3391.0127189999494,
+                "Cargo Handling": 9267.2205569951,
+                "Cargo Overheads": 34539.472,
+                "General & Administration": 198324.296,
+                "Passenger Services": 92729.65237215156,
                 "Ticketing, Sales and Promotion": 60406.04
               },
-              "dco": 567380.3777388935,
-              "ind": 435836.6566550203,
-              "operating_profit": -846336.9394556317,
+              "dco": 525635.9117775528,
+              "ind": 385999.4603721515,
+              "operating_profit": -818986.3417475834,
               "leasePayments": 0,
               "companyFixed": 717400,
               "own": 1367921.44
             }
           },
-          "cash_end": -5638180.929194371,
+          "cash_end": -5584201.160283165,
           "qsi_end": 5,
           "fuel_price_next": 2.4,
           "carbon_price": 2577,
@@ -2708,52 +2847,45 @@
       },
       "seats": {
         "CA": {
-          "cash": 0,
+          "cash": 1100000,
           "qsi": 4.5,
-          "revenue": 813905,
-          "cost": 4108350,
-          "operating_profit": -3294445,
-          "pax": 2717,
-          "load_factor": 0.1191,
-          "ask": 21181500,
-          "share": 0.1499,
+          "revenue": 1141697,
+          "cost": 4628047,
+          "operating_profit": -3486350,
+          "pax": 8984,
+          "load_factor": 0.1927,
+          "ask": 24475500,
+          "share": 0.2263,
           "routes": [
             "SIM",
             "ETN"
           ],
-          "schedules": 5,
+          "schedules": 7,
           "bankrupt": true,
           "reduced": "",
-          "fleet": 5,
+          "fleet": 4,
           "loans": 0,
           "investments": [],
           "detail": {
             "SIM": {
-              "pax": 964,
-              "lf": 0.107,
-              "rev": 185472,
-              "op": -619404,
-              "share": 0.239
-            },
-            "ETN": {
-              "pax": 1754,
-              "lf": 0.123,
-              "rev": 628433,
-              "op": -589719,
-              "share": 1
+              "pax": 8984,
+              "lf": 0.193,
+              "rev": 1141697,
+              "op": -1401029,
+              "share": 0.558
             }
           }
         },
         "AB": {
-          "cash": -7084676,
+          "cash": -7745924,
           "qsi": 6.2,
-          "revenue": 44903,
-          "cost": 3499178,
-          "operating_profit": -3454275,
-          "pax": 0,
-          "load_factor": 0,
-          "ask": 23182200,
-          "share": 0,
+          "revenue": 865346,
+          "cost": 4631417,
+          "operating_profit": -3766071,
+          "pax": 2919,
+          "load_factor": 0.1001,
+          "ask": 33532200,
+          "share": 0.0559,
           "routes": [
             "ETN",
             "PKR"
@@ -2765,6 +2897,13 @@
           "loans": 0,
           "investments": [],
           "detail": {
+            "ETN": {
+              "pax": 2919,
+              "lf": 0.324,
+              "rev": 820442,
+              "op": -311796,
+              "share": 0.209
+            },
             "PKR": {
               "pax": 0,
               "lf": 0,
@@ -2775,20 +2914,20 @@
           }
         },
         "VA": {
-          "cash": -5638181,
+          "cash": -5584201,
           "qsi": 5,
-          "revenue": 156880,
-          "cost": 3088538,
-          "operating_profit": -2931658,
-          "pax": 811,
-          "load_factor": 0.0567,
-          "ask": 11219040,
-          "share": 0.0092,
+          "revenue": 92649,
+          "cost": 2996957,
+          "operating_profit": -2904308,
+          "pax": 348,
+          "load_factor": 0.0386,
+          "ask": 7056000,
+          "share": 0.004,
           "routes": [
             "ETN",
             "FTZ"
           ],
-          "schedules": 1,
+          "schedules": 3,
           "bankrupt": true,
           "reduced": "",
           "fleet": 2,
@@ -2796,10 +2935,10 @@
           "investments": [],
           "detail": {
             "FTZ": {
-              "pax": 811,
-              "lf": 0.057,
-              "rev": 156880,
-              "op": -846337,
+              "pax": 348,
+              "lf": 0.039,
+              "rev": 92649,
+              "op": -818986,
               "share": 1
             }
           }

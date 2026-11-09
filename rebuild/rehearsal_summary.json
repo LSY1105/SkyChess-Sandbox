@@ -5,17 +5,17 @@
       "judge": "rule:carbonCost、rule:loanSystem、rule:cashFloor、rule:intelPurchase、rule:fuelHedge、rule:etops、rule:heavyCheck、rule:financingChannel、rule:leaseWet、release:SIM+ETN+FTZ+PKR、hedgeQuotes:3",
       "seats": {
         "CA": {
-          "cash": -2901412,
-          "revenue": 1134205,
-          "op": -3013349,
-          "lf": 0.2136,
-          "share": 0.0824,
-          "sched": 2,
+          "cash": -3442509,
+          "revenue": 1038674,
+          "op": -3554445,
+          "lf": 0.1401,
+          "share": 0.046,
+          "sched": 4,
           "routes": "SIM+ETN",
           "blocked": false,
-          "fallback": false,
-          "note": "两条已开航线各一班，按指导价验证需求",
-          "applied": 4,
+          "fallback": true,
+          "note": "",
+          "applied": 6,
           "rejected": 0,
           "rejWhy": []
         },
@@ -29,22 +29,22 @@
           "routes": "ETN+PKR",
           "blocked": false,
           "fallback": false,
-          "note": "两线各开单班验证需求，保留基准运价",
-          "applied": 2,
+          "note": "按指导价在两条现有航线各试一班，暂不扩张",
+          "applied": 4,
           "rejected": 0,
           "rejWhy": []
         },
         "VA": {
-          "cash": -1179387,
-          "revenue": 199724,
-          "op": -2891324,
-          "lf": 0.0623,
-          "share": 0.0139,
+          "cash": -1191830,
+          "revenue": 92314,
+          "op": -2903767,
+          "lf": 0.0297,
+          "share": 0.0042,
           "sched": 1,
           "routes": "ETN+FTZ",
           "blocked": false,
           "fallback": false,
-          "note": "两线各开一班验证需求，维持指导价，暂不扩机。",
+          "note": "按指导价各试飞一班，验证需求后扩张",
           "applied": 3,
           "rejected": 1,
           "rejWhy": [
@@ -58,16 +58,16 @@
       "judge": "rule:carbonCost、rule:loanSystem、rule:cashFloor、rule:intelPurchase、rule:fuelHedge、rule:etops、rule:heavyCheck、rule:financingChannel、rule:leaseWet、rule:turnaroundNeg、rule:cyberService、event:cyber、hedgeQuotes:3",
       "seats": {
         "CA": {
-          "cash": -7484564,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
+          "cash": -8416922,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
           "sched": 0,
           "routes": "SIM+ETN",
           "blocked": false,
           "fallback": false,
-          "note": "先恢复；两线提价20%，增1架APT100飞ETN，扩张依赖融资",
+          "note": "先解封并降价拓客，融资增购小飞机投入SIM",
           "applied": 2,
           "rejected": 3,
           "rejWhy": [
@@ -94,21 +94,19 @@
           ]
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 0,
           "routes": "ETN+FTZ",
           "blocked": false,
           "fallback": false,
-          "note": "降价拉需求，开GEE趁AB故障抢份额",
+          "note": "需求近零，降价试增客流；负现金下不扩机",
           "applied": 2,
-          "rejected": 1,
-          "rejWhy": [
-            "裁判尚未开放该航线"
-          ]
+          "rejected": 0,
+          "rejWhy": []
         }
       }
     },
@@ -118,21 +116,18 @@
       "seats": {
         "CA": {
           "cash": 0,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
           "sched": 0,
           "routes": "SIM+ETN",
           "blocked": false,
           "fallback": true,
           "note": "",
-          "applied": 1,
-          "rejected": 2,
-          "rejWhy": [
-            "票价超出上限（指导价 $167 × 3 = $501）",
-            "票价超出上限（指导价 $237 × 3 = $711）"
-          ]
+          "applied": 3,
+          "rejected": 0,
+          "rejWhy": []
         },
         "AB": {
           "cash": -7745924,
@@ -152,11 +147,11 @@
           ]
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 3,
           "routes": "ETN+FTZ",
           "blocked": false,
@@ -174,21 +169,18 @@
       "seats": {
         "CA": {
           "cash": 0,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
-          "sched": 0,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
+          "sched": 5,
           "routes": "SIM+ETN",
           "blocked": false,
           "fallback": true,
-          "note": "",
-          "applied": 1,
-          "rejected": 2,
-          "rejWhy": [
-            "票价超出上限（指导价 $167 × 3 = $501）",
-            "票价超出上限（指导价 $237 × 3 = $711）"
-          ]
+          "note": "规则型策略兜底（LLM 不可用）",
+          "applied": 0,
+          "rejected": 0,
+          "rejWhy": []
         },
         "AB": {
           "cash": -7745924,
@@ -202,22 +194,20 @@
           "fallback": false,
           "note": "面板遭勒索覆盖 → 仅允许解封动作",
           "applied": 0,
-          "rejected": 1,
-          "rejWhy": [
-            "现金不足（需 $250,000）"
-          ]
+          "rejected": 0,
+          "rejWhy": []
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 3,
           "routes": "ETN+FTZ",
           "blocked": false,
-          "fallback": false,
-          "note": "先核实现有航班与市场状态，避免盲目排班",
+          "fallback": true,
+          "note": "规则型策略兜底（LLM 不可用）",
           "applied": 0,
           "rejected": 0,
           "rejWhy": []
@@ -229,22 +219,19 @@
       "judge": "rule:connections、rule:carbonCost、rule:carbonTerms、rule:loanSystem、rule:cashFloor、rule:intelPurchase、rule:fuelHedge、rule:etops、rule:heavyCheck、rule:financingChannel、rule:leaseWet、rule:leaseDry、rule:turnaroundNeg、rule:cyberService、rule:newMarkets、rule:hangar、rule:themedOp、rule:targetSubmit、release:ARM+GEE、event:pandemic",
       "seats": {
         "CA": {
-          "cash": 23043436,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
-          "sched": 1,
+          "cash": 0,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
+          "sched": 5,
           "routes": "SIM+ETN",
           "blocked": false,
-          "fallback": false,
-          "note": "先融资购两机，新机分投两线提升份额",
-          "applied": 3,
-          "rejected": 2,
-          "rejWhy": [
-            "现金不足",
-            "no ac"
-          ]
+          "fallback": true,
+          "note": "规则型策略兜底（LLM 不可用）",
+          "applied": 0,
+          "rejected": 0,
+          "rejWhy": []
         },
         "AB": {
           "cash": -7745924,
@@ -258,25 +245,25 @@
           "fallback": false,
           "note": "面板遭勒索覆盖 → 仅允许解封动作",
           "applied": 0,
-          "rejected": 1,
-          "rejWhy": [
-            "现金不足（需 $250,000）"
-          ]
+          "rejected": 0,
+          "rejWhy": []
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 3,
           "routes": "ETN+FTZ",
           "blocked": false,
           "fallback": false,
-          "note": "需求骤降，两线降价20%；增量微薄且现金为负，暂不扩机",
+          "note": "疫情下运价降八成；增量贡献为正，融资自购不租机",
           "applied": 2,
-          "rejected": 0,
-          "rejWhy": []
+          "rejected": 1,
+          "rejWhy": [
+            "现金不足"
+          ]
         }
       }
     },
@@ -285,24 +272,20 @@
       "judge": "rule:connections、rule:carbonCost、rule:carbonTerms、rule:safMandate、rule:loanSystem、rule:cashFloor、rule:intelPurchase、rule:fuelHedge、rule:etops、rule:heavyCheck、rule:financingChannel、rule:leaseWet、rule:leaseDry、rule:turnaroundNeg、rule:cyberService、rule:newMarkets、rule:hangar、rule:themedOp、rule:targetSubmit、release:LEW、event:fuel_shock、hedgeQuotes:3",
       "seats": {
         "CA": {
-          "cash": 23043436,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
-          "sched": 1,
+          "cash": 0,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
+          "sched": 5,
           "routes": "SIM+ETN",
           "blocked": false,
           "fallback": false,
-          "note": "提价翻倍，湿租一机两班验证并保留现金",
-          "applied": 0,
-          "rejected": 5,
+          "note": "提价20%并增购1架APT100，改善亏损",
+          "applied": 1,
+          "rejected": 1,
           "rejWhy": [
-            "票价超出上限（指导价 $167 × 3 = $501）",
-            "票价超出上限（指导价 $237 × 3 = $711）",
-            "[object Object]",
-            "no ac",
-            "no ac"
+            "现金不足"
           ]
         },
         "AB": {
@@ -323,16 +306,16 @@
           ]
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 3,
           "routes": "ETN+FTZ",
           "blocked": false,
           "fallback": false,
-          "note": "需求疲弱，降价提升客座率，暂不扩机",
+          "note": "按沙盘最优价八折，现金为负不扩机",
           "applied": 2,
           "rejected": 0,
           "rejWhy": []
@@ -344,20 +327,19 @@
       "judge": "rule:connections、rule:carbonCost、rule:carbonTerms、rule:safMandate、rule:loanSystem、rule:cashFloor、rule:intelPurchase、rule:fuelHedge、rule:etops、rule:heavyCheck、rule:financingChannel、rule:leaseWet、rule:leaseDry、rule:turnaroundNeg、rule:cyberService、rule:newMarkets、rule:hangar、rule:themedOp、rule:targetSubmit",
       "seats": {
         "CA": {
-          "cash": 23043436,
-          "revenue": 1032011,
-          "op": -3095089,
-          "lf": 0.1599,
-          "share": 0.1914,
-          "sched": 1,
+          "cash": 1100000,
+          "revenue": 1141697,
+          "op": -3486350,
+          "lf": 0.1927,
+          "share": 0.2263,
+          "sched": 7,
           "routes": "SIM+ETN",
           "blocked": false,
           "fallback": false,
-          "note": "现价已达上限，保留现金并湿租两架扩张",
-          "applied": 0,
-          "rejected": 2,
+          "note": "提价20%，借款湿租增1架并新增两班SIM",
+          "applied": 5,
+          "rejected": 1,
           "rejWhy": [
-            "[object Object]",
             "[object Object]"
           ]
         },
@@ -379,16 +361,16 @@
           ]
         },
         "VA": {
-          "cash": -5560578,
-          "revenue": 200840,
-          "op": -2893128,
-          "lf": 0.081,
-          "share": 0.0131,
+          "cash": -5584201,
+          "revenue": 92649,
+          "op": -2904308,
+          "lf": 0.0386,
+          "share": 0.004,
           "sched": 3,
           "routes": "ETN+FTZ",
           "blocked": false,
           "fallback": false,
-          "note": "按最优方案降价两成，不扩机，观察需求回升",
+          "note": "需求近零，停止扩张并按测算将两线降两成",
           "applied": 2,
           "rejected": 0,
           "rejWhy": []
@@ -410,7 +392,7 @@
         "turn": 0,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1134k、LF 21.4%、班次 2"
+        "effect": "收入 1039k、LF 14.0%、班次 4"
       },
       {
         "turn": 0,
@@ -422,13 +404,13 @@
         "turn": 0,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 200k、LF 6.2%、班次 1"
+        "effect": "收入 92k、LF 3.0%、班次 1"
       },
       {
         "turn": 1,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1032k、LF 16.0%、班次 0"
+        "effect": "收入 1142k、LF 19.3%、班次 0"
       },
       {
         "turn": 1,
@@ -440,13 +422,13 @@
         "turn": 1,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 201k、LF 8.1%、班次 0"
+        "effect": "收入 93k、LF 3.9%、班次 0"
       },
       {
         "turn": 2,
         "seat": "CA",
         "note": "heavyCheck:CA:ok",
-        "effect": "收入 1032k、LF 16.0%、班次 0"
+        "effect": "收入 1142k、LF 19.3%、班次 0"
       },
       {
         "turn": 2,
@@ -458,13 +440,13 @@
         "turn": 2,
         "seat": "VA",
         "note": "heavyCheck:CA:ok",
-        "effect": "收入 201k、LF 8.1%、班次 3"
+        "effect": "收入 93k、LF 3.9%、班次 3"
       },
       {
         "turn": 3,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1032k、LF 16.0%、班次 0"
+        "effect": "收入 1142k、LF 19.3%、班次 5"
       },
       {
         "turn": 3,
@@ -476,13 +458,13 @@
         "turn": 3,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 201k、LF 8.1%、班次 3"
+        "effect": "收入 93k、LF 3.9%、班次 3"
       },
       {
         "turn": 4,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1032k、LF 16.0%、班次 1"
+        "effect": "收入 1142k、LF 19.3%、班次 5"
       },
       {
         "turn": 4,
@@ -494,13 +476,13 @@
         "turn": 4,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 201k、LF 8.1%、班次 3"
+        "effect": "收入 93k、LF 3.9%、班次 3"
       },
       {
         "turn": 5,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1032k、LF 16.0%、班次 1"
+        "effect": "收入 1142k、LF 19.3%、班次 5"
       },
       {
         "turn": 5,
@@ -512,13 +494,13 @@
         "turn": 5,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 201k、LF 8.1%、班次 3"
+        "effect": "收入 93k、LF 3.9%、班次 3"
       },
       {
         "turn": 6,
         "seat": "CA",
         "note": "heavyCheck",
-        "effect": "收入 1032k、LF 16.0%、班次 1"
+        "effect": "收入 1142k、LF 19.3%、班次 7"
       },
       {
         "turn": 6,
@@ -530,7 +512,7 @@
         "turn": 6,
         "seat": "VA",
         "note": "heavyCheck",
-        "effect": "收入 201k、LF 8.1%、班次 3"
+        "effect": "收入 93k、LF 3.9%、班次 3"
       }
     ],
     "slotGrab": []
@@ -538,13 +520,13 @@
   "sum": {
     "CA": {
       "style": "LCC 低成本型",
-      "cumProfit": -21583883,
-      "cumRevenue": 7326271,
-      "avgLF": 0.1676,
-      "finalCash": 23043436,
+      "cumProfit": -24472545,
+      "cumRevenue": 7888856,
+      "avgLF": 0.1852,
+      "finalCash": 1100000,
       "blocked": 0,
-      "fallback": 2,
-      "scheds": "2→0→0→0→1→1→1"
+      "fallback": 4,
+      "scheds": "4→0→0→5→5→5→7"
     },
     "AB": {
       "style": "FSC 全服务型",
@@ -558,12 +540,12 @@
     },
     "VA": {
       "style": "Hybrid 混合型",
-      "cumProfit": -20250092,
-      "cumRevenue": 1404764,
-      "avgLF": 0.0783,
-      "finalCash": -5560578,
+      "cumProfit": -20329615,
+      "cumRevenue": 648208,
+      "avgLF": 0.0373,
+      "finalCash": -5584201,
       "blocked": 0,
-      "fallback": 1,
+      "fallback": 2,
       "scheds": "1→0→3→3→3→3→3"
     }
   }
