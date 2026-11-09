@@ -444,7 +444,7 @@ function applyActionRaw(g, a) {
     case 'returnLease': {
       /* ★ 削减固定成本（学员自救）：退还租赁 → 退还押金、移除该机与其排班
          湿租可随时归还、可退不罚 → 这是负现金时的第一件自救工具 */
-      const l = (g.leases || []).find(x => x.acId === a.acId);
+      const l = (g.leases || []).find(x => String(x.acId) === String(a.acId));
       if (!l) return '该飞机不在租赁中（自有飞机请用卖机）';
       g.leases = g.leases.filter(x => x !== l);
       g.aircraft = (g.aircraft || []).filter(x => x.id !== l.acId);
@@ -456,7 +456,7 @@ function applyActionRaw(g, a) {
     }
     case 'sellAircraft': {
       /* ★ 卖机：按裁判/市场给出的报价出售自有飞机（谈判分支用的是 sellBack，此处为小组自助） */
-      const ac = (g.aircraft || []).find(x => x.id === a.acId);
+      const ac = (g.aircraft || []).find(x => String(x.id) === String(a.acId));
       if (!ac) return '飞机不存在';
       if (!ac.owned) return '租赁飞机不能卖（请先退租）';
       /* ★ 报价上限：与裁判回购一致（目录价 × 0.5）—— 此前直接调用 sellAircraft 会**无条件卖掉**，
@@ -465,7 +465,7 @@ function applyActionRaw(g, a) {
       const maxOffer = (ac.price || 0) * 0.5;
       if (offer > maxOffer) return `报价超出市场价值（上限 $${Math.round(maxOffer).toLocaleString()}）`;
       if (offer <= 0) return '报价必须为正';
-      const r = G.sellAircraft(g, a.acId, offer);
+      const r = G.sellAircraft(g, ac.id, offer);   // 传原生 id（内部用严格比较）
       if (r && r.ok === false) return r.why || '出售失败';
       return 'ok';
     }
