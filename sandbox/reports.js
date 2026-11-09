@@ -280,7 +280,7 @@ function lineChart(root, title, series, labels, opt = {}) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', '100%'); svg.setAttribute('max-width', '640');
-  svg.style.background = '#fff'; svg.style.border = '1px solid #d0d7de'; svg.style.borderRadius = '6px';
+  svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
   const all = series.flatMap(s => s.values.filter(v => v != null));
   if (!all.length) { root.appendChild(el('div', 'small', '暂无数据。')); return; }
   let mn = Math.min(...all), mx = Math.max(...all);
@@ -293,14 +293,14 @@ function lineChart(root, title, series, labels, opt = {}) {
   // 网格与刻度
   for (let i = 0; i <= 4; i++) {
     const v = mn + (mx - mn) * i / 4, y = Y(v);
-    svg.appendChild(mk('line', { x1: P, y1: y, x2: W - P, y2: y, stroke: '#eaeef2' }));
-    const tx = mk('text', { x: 4, y: y + 4, 'font-size': 10, fill: '#57606a' });
+    svg.appendChild(mk('line', { x1: P, y1: y, x2: W - P, y2: y, stroke: '#24282e' }));
+    const tx = mk('text', { x: 4, y: y + 4, 'font-size': 10, fill: '#8a929c' });
     tx.textContent = opt.pct ? (v * 100).toFixed(0) + '%' : (Math.abs(v) >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : v.toFixed(0));
     svg.appendChild(tx);
   }
   if (mn < 0 && mx > 0) svg.appendChild(mk('line', { x1: P, y1: Y(0), x2: W - P, y2: Y(0), stroke: '#d0d7de', 'stroke-dasharray': '3 3' }));
   labels.forEach((lb, i) => {
-    const tx = mk('text', { x: X(i), y: H - 12, 'font-size': 10, fill: '#57606a', 'text-anchor': 'middle' });
+    const tx = mk('text', { x: X(i), y: H - 12, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'middle' });
     tx.textContent = lb; svg.appendChild(tx);
   });
   for (const s of series) {
@@ -514,13 +514,13 @@ export function renderRouteDemand(container, games, opts = {}) {
     box.appendChild(el('div', null, m.name_c || code));
     box.appendChild(el('div', 'small', `Flight Capacity and Actual Loads - (${m.name_c || code})　· 绿=需求曲线（固定值）　红=实际载量`));
     const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', 'max-width': '640' });
-    svg.style.background = '#fff'; svg.style.border = '1px solid #d0d7de'; svg.style.borderRadius = '6px';
+    svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
     // 网格与 Y 轴刻度
     const yMax = Math.max(maxBar, maxLine);
     for (let i = 0; i <= 4; i++) {
       const v = yMax * i / 4, y = Y(v);
-      svg.appendChild(mk('line', { x1: PL, y1: y, x2: W - 8, y2: y, stroke: '#eaeef2' }));
-      const tx = mk('text', { x: PL - 6, y: y + 4, 'font-size': 10, fill: '#57606a', 'text-anchor': 'end' });
+      svg.appendChild(mk('line', { x1: PL, y1: y, x2: W - 8, y2: y, stroke: '#24282e' }));
+      const tx = mk('text', { x: PL - 6, y: y + 4, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'end' });
       tx.textContent = String(Math.round(v)); svg.appendChild(tx);
     }
     // 需求曲线（绿 = 全天固定需求）
@@ -548,12 +548,12 @@ export function renderRouteDemand(container, games, opts = {}) {
     }
     // X 轴标签
     for (let h = 4; h <= 22; h += 2) {
-      const tx = mk('text', { x: X(h), y: H - 14, 'font-size': 9, fill: '#57606a', 'text-anchor': 'middle' });
+      const tx = mk('text', { x: X(h), y: H - 14, 'font-size': 9, fill: '#8a929c', 'text-anchor': 'middle' });
       tx.textContent = String(h).padStart(2, '0') + ':00'; svg.appendChild(tx);
     }
-    const xl = mk('text', { x: W / 2, y: H - 2, 'font-size': 10, fill: '#57606a', 'text-anchor': 'middle' });
+    const xl = mk('text', { x: W / 2, y: H - 2, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'middle' });
     xl.textContent = 'Departure Time'; svg.appendChild(xl);
-    const yl = mk('text', { x: 12, y: H / 2, 'font-size': 10, fill: '#57606a', 'text-anchor': 'middle', transform: `rotate(-90 12 ${H / 2})` });
+    const yl = mk('text', { x: 12, y: H / 2, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'middle', transform: `rotate(-90 12 ${H / 2})` });
     yl.textContent = 'Capacity per aircraft seats'; svg.appendChild(yl);
     box.appendChild(svg);
     if (!Object.keys(bars).length || !daily) {
@@ -604,20 +604,20 @@ export function renderGantt(container, games, opts = {}) {
   const toMin = (s) => { const [h2, m2] = String(s || '00:00').split(':').map(Number); return (h2 || 0) * 60 + (m2 || 0); };
   const fmtMin = (v) => String(Math.floor((((v % 1440) + 1440) % 1440) / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
   const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', 'max-width': '1020' });
-  svg.style.background = '#fff'; svg.style.border = '1px solid #d0d7de'; svg.style.borderRadius = '6px';
+  svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
   // 时间刻度
   for (let h = 6; h <= 23; h++) {
     const x = LEFT + (h * 60 - T0) / 60 * cellW;
-    svg.appendChild(mk('line', { x1: x, y1: TOP - 6, x2: x, y2: H - 20, stroke: '#eaeef2' }));
-    const tx = mk('text', { x, y: TOP - 10, 'font-size': 10, fill: '#57606a', 'text-anchor': 'middle' });
+    svg.appendChild(mk('line', { x1: x, y1: TOP - 6, x2: x, y2: H - 20, stroke: '#24282e' }));
+    const tx = mk('text', { x, y: TOP - 10, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'middle' });
     tx.textContent = String(h).padStart(2, '0') + ':00'; svg.appendChild(tx);
   }
   rows.forEach((r, i) => {
     const y = TOP + i * ROWH;
     // 行标签
-    const lb = mk('text', { x: 8, y: y + ROWH / 2 + 4, 'font-size': 11, fill: '#24292f' });
+    const lb = mk('text', { x: 8, y: y + ROWH / 2 + 4, 'font-size': 11, fill: '#d8dde3' });
     lb.textContent = r.label; svg.appendChild(lb);
-    svg.appendChild(mk('rect', { x: LEFT, y: y + 3, width: W - LEFT - 10, height: ROWH - 8, fill: i % 2 ? '#f6f8fa' : '#fff', stroke: '#eaeef2' }));
+    svg.appendChild(mk('rect', { x: LEFT, y: y + 3, width: W - LEFT - 10, height: ROWH - 8, fill: i % 2 ? '#191c20' : '#16181c', stroke: '#24282e' }));
     // 航班块
     for (const s of r.flights) {
       const dep = toMin(s.departure);
@@ -654,7 +654,7 @@ export function renderGantt(container, games, opts = {}) {
       }
     }
   });
-  const xl = mk('text', { x: (W) / 2, y: H - 4, 'font-size': 11, fill: '#57606a', 'text-anchor': 'middle' });
+  const xl = mk('text', { x: (W) / 2, y: H - 4, 'font-size': 11, fill: '#8a929c', 'text-anchor': 'middle' });
   xl.textContent = 'Departure Time（深色=去程，浅色=回程；占位 = 去程 → 往返到达 → 过站结束）'; svg.appendChild(xl);
   container.appendChild(svg);
   const lg = el('div', 'small');
