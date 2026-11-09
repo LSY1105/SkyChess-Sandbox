@@ -487,11 +487,12 @@ export function renderRouteDemand(container, games, opts = {}) {
         loadByHour[h2] = (loadByHour[h2] || 0) + (f.served || 0);
       }
     }
+    /* ★ 裁定（2026-11-03）：需求线**双色显示** —— 红色 = 需求上涨段，绿色 = 需求下降段 */
     const segColor = (i) => {                       // 第 i 段（i → i+1）
       if (i <= 0) return '#cf222e';
       const d = curve[i] - curve[i - 1];
-      if (d > 0.0001) return '#cf222e';             // 上升 / 高峰
-      if (d < -0.0001) return '#2da44e';            // 下降 / 低峰
+      if (d > 0.0001) return '#cf222e';             // 需求上涨 → 红
+      if (d < -0.0001) return '#2da44e';            // 需求下降 → 绿
       return null;                                 // 持平 → 并入上一段
     };
     // 把同色连续段合成一条 polyline
@@ -512,7 +513,7 @@ export function renderRouteDemand(container, games, opts = {}) {
     const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
     const box = el('div'); box.style.marginBottom = '14px';
     box.appendChild(el('div', null, m.name_c || code));
-    box.appendChild(el('div', 'small', `Flight Capacity and Actual Loads - (${m.name_c || code})　· 绿=需求曲线（固定值）　红=实际载量`));
+    box.appendChild(el('div', 'small', `Flight Capacity and Actual Loads - (${m.name_c || code})　· 需求线：<tspan fill='#cf222e'>红=上涨段</tspan> / <tspan fill='#2da44e'>绿=下降段</tspan>　灰=实际载量`));
     const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', 'max-width': '640' });
     svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
     // 网格与 Y 轴刻度
@@ -523,15 +524,19 @@ export function renderRouteDemand(container, games, opts = {}) {
       const tx = mk('text', { x: PL - 6, y: y + 4, 'font-size': 10, fill: '#8a929c', 'text-anchor': 'end' });
       tx.textContent = String(Math.round(v)); svg.appendChild(tx);
     }
-    // 需求曲线（绿 = 全天固定需求）
-    svg.appendChild(mk('polyline', { points: HOURS.map((h, i) => `${X(h)},${Y(curve[i])}`).join(' '), fill: 'none', stroke: '#2da44e', 'stroke-width': 2.2, 'stroke-linejoin': 'round' }));
-    // 实际载量曲线（红 = 各时刻实际承运量）
-    svg.appendChild(mk('polyline', { points: HOURS.map(h => `${X(h)},${Y(loadByHour[h] || 0)}`).join(' '), fill: 'none', stroke: '#cf222e', 'stroke-width': 2, 'stroke-linejoin': 'round' }));
+    /* 需求曲线：按趋势**双色分段**（红=上涨段，绿=下降段） */
+    for (const sgm of segs) {
+      if (!sgm.color) continue;
+      const pts = sgm.pts.map(i => `${X(HOURS[i])},${Y(curve[i])}`);
+      svg.appendChild(mk('polyline', { points: pts.join(' '), fill: 'none', stroke: sgm.color, 'stroke-width': 2.2, 'stroke-linejoin': 'round' }));
+    }
+    // 实际载量曲线：中性灰单线（避免与需求双色混淆）
+    svg.appendChild(mk('polyline', { points: HOURS.map(h => `${X(h)},${Y(loadByHour[h] || 0)}`).join(' '), fill: 'none', stroke: '#8a929c', 'stroke-width': 1.8, 'stroke-linejoin': 'round' }));
     // 折线点（悬停显示该时刻需求值、实际载量与趋势）
     HOURS.forEach((h, i) => {
       const d = i > 0 ? curve[i] - curve[i - 1] : 0;
       const tag = i === 0 ? '起点' : (d > 0.0001 ? '上升' : d < -0.0001 ? '下降' : '持平');
-      const c = mk('circle', { cx: X(h), cy: Y(curve[i]), r: 2.6, fill: '#2da44e' });
+      const c = mk('circle', { cx: X(h), cy: Y(curve[i]), r: 2.6, fill: d > 0.0001 ? '#cf222e' : (d < -0.0001 ? '#2da44e' : '#8a929c') });
       const ti = mk('title', {});
       ti.textContent = `${hhmm(h)}　需求 ${Math.round(curve[i])} 人/日　实际载量 ${Math.round(loadByHour[h] || 0)} 人　趋势：${tag}`;
       c.appendChild(ti);
