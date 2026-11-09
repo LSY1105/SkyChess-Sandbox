@@ -402,7 +402,7 @@ export function fleetFinancingQuota(g) {
 
 /** 借款：注入现金并计入负债（利息随结算计入运营成本） */
 export function borrowFleet(g, amount) {
-  if (!isRuleOn(g, 'financingChannel')) return { ok: false, why: '融资通道未开放（自 Q2 赛季起）' };
+  if (!isRuleOn(g, 'financingChannel')) return { ok: false, why: '融资通道未开放（按规则排期开放）' };
   const quota = fleetFinancingQuota(g);
   const amt = Math.min(Number(amount) || 0, quota);
   if (amt <= 0) return { ok: false, why: `融资额度已用尽（上限 $${Math.round(quota).toLocaleString()}）` };
