@@ -108,6 +108,8 @@ window.addEventListener('error', function (e) {
 /* 小组端轮询：与裁判端对称，保证「裁判批准开线 / 参数下发 / 回合推进」能及时反映到小组端
    ★ 用户正在输入（焦点在表单控件）或悬停按钮时跳过刷新，避免打断操作 */
 setInterval(function () {
+  /* ★ 静态预览模式 ?static=1：暂停轮询（用于截图比对与课堂投影，避免持续请求） */
+  if (location.search.indexOf('static=1') >= 0) return;
   if (document.visibilityState !== 'visible') return;
   var a = document.activeElement;
   if (a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return;
