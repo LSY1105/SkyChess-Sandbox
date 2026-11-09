@@ -459,7 +459,13 @@ function applyActionRaw(g, a) {
       const ac = (g.aircraft || []).find(x => x.id === a.acId);
       if (!ac) return '飞机不存在';
       if (!ac.owned) return '租赁飞机不能卖（请先退租）';
-      const r = G.sellAircraft(g, a.acId, Number(a.offer) || 0);
+      /* ★ 报价上限：与裁判回购一致（目录价 × 0.5）—— 此前直接调用 sellAircraft 会**无条件卖掉**，
+         上限校验只在谈判分支里 → 小组自助路径必须自带校验 */
+      const offer = Number(a.offer) || 0;
+      const maxOffer = (ac.price || 0) * 0.5;
+      if (offer > maxOffer) return `报价超出市场价值（上限 $${Math.round(maxOffer).toLocaleString()}）`;
+      if (offer <= 0) return '报价必须为正';
+      const r = G.sellAircraft(g, a.acId, offer);
       if (r && r.ok === false) return r.why || '出售失败';
       return 'ok';
     }

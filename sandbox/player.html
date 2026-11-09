@@ -1395,5 +1395,43 @@ setInterval(seatClockTick,2000);seatClockTick();
   new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+
+<script>
+/* ★ 削减固定成本（学员自救）：新建**独立卡片**，不改动既有卡片结构 → 零破坏风险
+   飞机取上方「排班」区的飞机下拉（#selAc） */
+(function () {
+  function build() {
+    const main = document.querySelector('main'); if (!main) return;
+    if (document.getElementById('p-costcut')) return;
+    const cols = main.querySelectorAll(':scope > div'); if (!cols.length) return;
+    const card = document.createElement('div');
+    card.className = 'card'; card.id = 'p-costcut';
+    card.innerHTML = '<h2>削减固定成本<em>（现金为负时的自救手段）</em></h2>'
+      + '<div class="row">'
+      + '<label>所选飞机</label>'
+      + '<button id="btnReturnLease">退还租赁</button>'
+      + '<button id="btnSellAc">卖出该机</button>'
+      + '<span class="small">租赁机可随时归还、可退不罚（押金退回）；自有机按报价出售</span>'
+      + '</div>';
+    cols[0].appendChild(card);
+    card.querySelector('#btnReturnLease').addEventListener('click', async () => {
+      const s = document.getElementById('selAc'); const id = s ? s.value : '';
+      if (!id) return alert('请先在排班区选择飞机');
+      const r = await act('returnLease', { acId: id });
+      if (r && r.result && r.result !== 'ok') alert(r.result);
+    });
+    card.querySelector('#btnSellAc').addEventListener('click', async () => {
+      const s = document.getElementById('selAc'); const id = s ? s.value : '';
+      if (!id) return alert('请先在排班区选择飞机');
+      const offer = prompt('请输入出售报价（美元）', '20000000');
+      if (!offer) return;
+      const r = await act('sellAircraft', { acId: id, offer: Number(offer) });
+      if (r && r.result && r.result !== 'ok') alert(r.result);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
 </body>
 </html>
