@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<title>SkyChess 沙盘 — 裁判面板</title>
+
+<style>
+:root{
+ --bg:#15171a; --surface:#1b1e22; --raised:#212529; --line:#2b3036; --hair:rgba(255,255,255,.07);
+ --tx:#e8eaed; --tx2:#b6bcc4; --dim:#8a929c;
+ --ok:#4c9a5f; --warn:#c8952e; --bad:#c1544c; --acc:#d8a33f;
+ --ca:#4a90d9; --ab:#d98a3c; --va:#8b6bc4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.55 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+header{background:var(--surface);border-bottom:1px solid var(--hair);padding:12px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+h1{font-size:15px;margin:0;font-weight:600;color:var(--tx)}
+header .sep{width:1px;height:22px;background:var(--hair);flex:none}
+.kv{display:flex;flex-direction:column;line-height:1.3;min-width:60px}
+.kv b{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.kv span{font-size:11px;color:var(--dim)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.14fr);gap:16px;padding:16px 24px 40px;align-items:start}
+main>div>.card{margin-bottom:16px}
+main>div>.card:last-child{margin-bottom:0}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:20px}
+.card h2{margin:0 0 16px;font-size:13px;font-weight:600;color:var(--tx);text-transform:none;letter-spacing:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card h2 .small{font-weight:400}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--hair);font-size:13px;height:36px}
+th{color:var(--dim);font-weight:500;font-size:11px;text-transform:none;letter-spacing:0;border-bottom:1px solid var(--line);white-space:nowrap}
+td:first-child,th:first-child{text-align:left}
+tr:hover td{background:rgba(255,255,255,.02)}
+input,select{background:var(--bg);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:0 10px;height:32px;font-size:13px;font-family:inherit}
+input[type=number]{width:88px;font-variant-numeric:tabular-nums}
+input:focus,select:focus{outline:none;border-color:var(--acc)}
+button{background:var(--raised);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:0 14px;height:32px;cursor:pointer;font-size:13px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}
+button:hover{background:#2a2f35}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.pri{background:var(--acc);border-color:var(--acc);color:#1a1408;font-weight:600}
+button.pri:hover{background:#e2b04b}
+button.warn{background:transparent;border-color:var(--line);color:var(--tx2)}
+button.warn:hover{border-color:var(--bad);color:var(--bad)}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.row:last-child{margin-bottom:0}
+.row>label{font-size:12px;color:var(--tx2);min-width:88px}
+.small{font-size:11px;color:var(--dim);line-height:1.5}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.scroll{max-height:320px;overflow:auto}
+.tabs{position:relative;z-index:5}
+.tabs button{position:relative;z-index:6}
+</style></head>
+<body>
+<header>
+  <h1>裁判 / Game Master 面板</h1>
+  <div class="kv"><b id="gTurn">0</b><span>全局回合</span></div>
+  <div class="kv"><b id="gFuel">2.40</b><span>油价</span></div>
+  <div class="kv"><b id="gCarbon">22.00</b><span>碳价</span></div>
+  <div class="kv"><b id="gRate">5.00%</b><span>利率</span></div>
+  <div class="kv"><b id="gConn">L3</b><span>中转强度</span></div>
+  <div style="flex:1"></div>
+  <button id="btnAdvanceAll" class="pri">结算全部席位</button>
+  <button id="btnReset" class="warn">重置全局</button>
+</header>
+
+<main>
+  <div>
+      <div class="card" style="margin-top:14px" id="clockCard">
+    <h2>赛季计时（每季 1 小时 · 到时自动结算）</h2>
+    <div class="row" style="margin-bottom:8px">
+      <button id="btnStartRound">开始本季计时</button>
+      <label>限时</label><input id="inRoundMin" type="number" value="60" min="1" max="180" style="width:70px"> 分钟
+      <button id="btnSettleNow" class="warn">提前结算</button>
+      <span class="small">到时自动结算各组；裁判可随时提前结算</span>
+    </div>
+    <div style="background:#eaeef2;border-radius:6px;height:14px;overflow:hidden">
+      <div id="clockBar" style="height: 100%; width: 0%; background: rgb(31, 111, 235); transition: width 0.5s;"></div>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <span id="clockTxt" style="font-weight:600">未开始计时（点「开始本季」）</span>
+      <span id="clockSeats" class="small"><span style="color:#cf222e;font-weight:600">CA ⏳ 未提交 —</span> ｜ <span style="color:#cf222e;font-weight:600">AB ⏳ 未提交 —</span> ｜ <span style="color:#cf222e;font-weight:600">VA ⏳ 未提交 —</span></span>
+    </div>
+  </div>
+
+<div class="card">
+      <h2>经济参数设定（全局生效）</h2>
+      <div class="row">
+        <label>燃油价格</label>
+        <input id="inFuel" type="number" step="0.05" value="2.40">
+        <button id="btnFuel">设定</button>
+        <span class="small">影响所有席位的燃油成本</span>
+      </div>
+      <div class="row">
+        <label>碳价 ($/吨)</label>
+        <input id="inCarbon" type="number" step="1" value="2577">
+        <button id="btnCarbon">设定</button>
+        <span class="small">CORSIA 碳抵消单价（原版 Q4/2027 基准 $2,577/t；影响所有席位的碳成本）</span>
+      </div>
+      <div class="row">
+        <label>贷款利率 %</label>
+        <input id="inRate" type="number" step="0.25" value="5">
+        <button id="btnRate">设定</button>
+        <span class="small">影响持有成本</span>
+      </div>
+      <div class="row">
+        <label>中转强度 L</label>
+        <input id="inConn" type="number" min="0" max="3" step="1" value="2">
+        <button id="btnConn">设定</button>
+        <span class="small">0=无中转 3=最强 (承接率 10/20/32%)</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>事件触发</h2>
+      <div class="row">
+        <label>事件</label><select id="selEvent" style="width:170px"><option value="volcano">火山爆发</option><option value="cyber">网络攻击</option><option value="hail">冰雹</option><option value="pandemic">疾病大流行</option><option value="fuel_shock">能源价格冲击</option></select>
+        <label>目标</label><select id="selTarget" style="width:150px"><option value="LEW">路易斯</option><option value="SIM">西蒙尼</option><option value="FTZ">菲兹杰拉德</option><option value="ETN">艾灵顿</option><option value="PKR">帕克</option><option value="ARM">阿姆斯特朗</option><option value="GEE">麦基</option><option value="JOP">乔普林</option><option value="CHA">查尔斯市</option><option value="BZY">布伦齐</option></select>
+        <label>席位</label><select id="selSeat" style="width:90px"><option value="">全部</option><option value="CA">CA</option><option value="AB">AB</option><option value="VA">VA</option></select>
+        <button id="btnEvent" class="warn">触发</button>
+      <span class="small" style="margin-left:14px">新建小组席位</span>
+      <input id="inNewSeat" type="text" placeholder="代码（如 G1）" style="width:90px">
+      <button id="btnNewSeat">创建</button>
+      <span id="newSeatMsg" class="small"></span>
+      </div>
+      <div id="evList" class="scroll small"><span class="small">（未触发过事件）</span></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>市场开放</h2>
+      <div id="mktList" class="scroll small"><div>· <b>路易斯</b> (LEW) 415km  <span class="ok">已开放</span></div><div>· <b>西蒙尼</b> (SIM) 525km  <span class="ok">已开放</span></div><div>· <b>菲兹杰拉德</b> (FTZ) 784km  <span class="ok">已开放</span></div><div>· <b>艾灵顿</b> (ETN) 1150km  <span class="ok">已开放</span></div><div>· <b>帕克</b> (PKR) 1620km  <span class="ok">已开放</span></div><div>· <b>阿姆斯特朗</b> (ARM) 3780km ETOPS <span class="ok">已开放</span></div><div>· <b>麦基</b> (GEE) 5265km ETOPS <span class="ok">已开放</span></div><div>· <b>乔普林</b> (JOP) 1433km  <span class="ok">已开放</span></div><div>· <b>查尔斯市</b> (CHA) 980km  <span class="ok">已开放</span></div><div>· <b>布伦齐</b> (BZY) 4473km ETOPS <span class="ok">已开放</span></div></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>各席位经营状况</h2>
+      <table id="tblSeats"><tr><th>席位</th><th>期间</th><th>现金</th><th>QSI</th><th>航线</th><th>飞机</th><th>机龄</th><th>状态</th><th>累计利润</th><th>客座率</th><th>平衡LF(现/全)</th><th>被拒操作</th><th></th></tr><tr><td>CA</td><td>Q1 2028</td><td class="">$2,000,000</td><td title="QSI 来自本组经营投入（非固定值）：尚无营销/服务投入">4.50</td><td>SIM ETN</td><td>2</td><td class="small" title="" style="color: rgb(26, 127, 55);">正常</td><td class="small" title="机龄（裁判与学员均可见）：机龄过大的远程机存在大修风险，何时大修由裁判决定，是否处置由团队自决">APT100 6年 / G160 18年</td><td class="ok">$0</td><td>—</td><td class="small" title="现金口径（主）/ 全成本口径；取最紧航线；本列与小组端「运力指引」同源">— / —</td><td class="small">—</td><td><button>打开</button></td></tr><tr><td>AB</td><td>Q1 2028</td><td class="">$3,200,000</td><td title="QSI 来自本组经营投入（非固定值）：尚无营销/服务投入">6.20</td><td>ETN PKR</td><td>2</td><td class="small" title="" style="color: rgb(26, 127, 55);">正常</td><td class="small" title="机龄（裁判与学员均可见）：机龄过大的远程机存在大修风险，何时大修由裁判决定，是否处置由团队自决">APT100 6年 / G160 18年</td><td class="ok">$0</td><td>—</td><td class="small" title="现金口径（主）/ 全成本口径；取最紧航线；本列与小组端「运力指引」同源">— / —</td><td class="small">—</td><td><button>打开</button></td></tr><tr><td>VA</td><td>Q1 2028</td><td class="">$3,600,000</td><td title="QSI 来自本组经营投入（非固定值）：尚无营销/服务投入">5.00</td><td>ETN FTZ</td><td>2</td><td class="small" title="" style="color: rgb(26, 127, 55);">正常</td><td class="small" title="机龄（裁判与学员均可见）：机龄过大的远程机存在大修风险，何时大修由裁判决定，是否处置由团队自决">APT100 6年 / G160 18年</td><td class="ok">$0</td><td>—</td><td class="small" title="现金口径（主）/ 全成本口径；取最紧航线；本列与小组端「运力指引」同源">— / —</td><td class="small">—</td><td><button>打开</button></td></tr></table>
+      <div class="row" style="margin-top:10px">
+        <a href="http://127.0.0.1:8765/player.html?seat=CA" target="_blank"><button>打开 CA 面板</button></a>
+        <a href="http://127.0.0.1:8765/player.html?seat=AB" target="_blank"><button>打开 AB 面板</button></a>
+        <a href="http://127.0.0.1:8765/player.html?seat=VA" target="_blank"><button>打开 VA 面板</button></a>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>谈判工作台（逐组商谈）</h2>
+      <div class="row">
+        <label>谈判对象</label>
+        <select id="negSeat" style="width:120px"><option value="*">全部组</option><option value="CA">CA 首都航空</option><option value="AB">AB 弹道航空</option><option value="VA">VA 愿景航空</option></select>
+        <label>条款</label>
+        <select id="negItem" style="width:260px"><option value="fuelPrice">燃油价（定向）</option><option value="carbonPrice">碳价（定向）</option><option value="interestRate">利率（定向）</option><option value="connectingDemand">中转强度 L（定向）</option><option value="insuranceRate">保险费率 %（定向）</option><option value="subsidy">航线补贴（每回合）</option><option value="fareDiscount">费用/运价折扣</option><option value="marketFuel">市场级油价</option><option value="marketDemand">市场级需求倍数</option></select>
+        <label>市场</label>
+        <select id="negCode" style="width:130px"><option value="LEW">路易斯</option><option value="SIM">西蒙尼</option><option value="FTZ">菲兹杰拉德</option><option value="ETN">艾灵顿</option><option value="PKR">帕克</option><option value="ARM">阿姆斯特朗</option><option value="GEE">麦基</option><option value="JOP">乔普林</option><option value="CHA">查尔斯市</option><option value="BZY">布伦齐</option></select>
+      </div>
+      <div class="row">
+        <label>数值</label>
+        <input id="negVal" type="number" step="0.05" style="width:110px">
+        <label>补充</label>
+        <input id="negNote" style="width:220px" placeholder="谈判要点（会记入谈判记录）">
+        <button id="btnNeg" class="pri">达成条款</button>
+        <button id="btnNegClear">清空该组条款</button>
+      </div>
+      <div class="row">
+        <label>套保条款</label>
+        <input id="negHP" type="number" step="0.05" placeholder="锁定价" style="width:100px">
+        <input id="negHS" type="number" step="0.1" placeholder="覆盖比" style="width:100px">
+        <input id="negHQ" type="number" step="1" placeholder="季度数" style="width:90px">
+        <button id="btnHedge">批准套保</button>
+      </div>
+      <div class="row">
+        <label>情报报价</label>
+        <select id="intelCode" style="width:130px"><option value="LEW">路易斯</option><option value="SIM">西蒙尼</option><option value="FTZ">菲兹杰拉德</option><option value="ETN">艾灵顿</option><option value="PKR">帕克</option><option value="ARM">阿姆斯特朗</option><option value="GEE">麦基</option><option value="JOP">乔普林</option><option value="CHA">查尔斯市</option><option value="BZY">布伦齐</option></select>
+        <input id="intelPrice" type="number" step="100" placeholder="报价 $（可逐组不同）" style="width:160px">
+        <button id="btnIntel">设定情报报价</button>
+      </div>
+      <div id="negSummary" class="small"><span class="small">（尚无生效条款）</span></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>分组配置矩阵（逐组填值 · 批量下发）</h2>
+      <div class="row">
+        <label>场景包</label>
+        <select id="scenPick" style="width:190px"><option value="open-baseline">基准·宽松</option><option value="price-war">价格战·紧张</option><option value="event-season">事件季·冲击</option><option value="long-haul">长程扩张</option><option value="freight-first">货运优先</option></select>
+        <button id="btnScen">一键套用</button>
+        <span id="scenFocus" class="small">· 重点：让学生体验"航线—机队—运价"三者的匹配关系</span>
+      </div>
+      <div class="row">
+        <label>谈判额度</label>
+        <input id="budgetLimit" type="number" min="0" placeholder="每回合次数（留空=不限）" style="width:170px">
+        <button id="btnBudget">设定额度</button>
+        <button id="btnBatch">批量下发矩阵到全部组</button>
+        <button id="btnClearAll">清空全部条款</button>
+      </div>
+      <div id="matrix" class="scroll"><table><tr><th>条款</th><th>CA</th><th>AB</th><th>VA</th></tr><tr><td>定向油价</td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td></tr><tr><td>定向碳价</td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td></tr><tr><td>定向利率%</td><td><input type="number" step="0.25" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.25" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.25" placeholder="—" style="width: 78px;"></td></tr><tr><td>中转L</td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td><td><input type="number" step="1" placeholder="—" style="width: 78px;"></td></tr><tr><td>保险费率%</td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td></tr><tr><td>过站(分)</td><td><input type="number" step="15" placeholder="—" style="width: 78px;"></td><td><input type="number" step="15" placeholder="—" style="width: 78px;"></td><td><input type="number" step="15" placeholder="—" style="width: 78px;"></td></tr><tr><td>租赁折扣</td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td><td><input type="number" step="0.05" placeholder="—" style="width: 78px;"></td></tr></table></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>小组提案审批（小组只能发起，批准后方生效）</h2>
+      <div class="row">
+        <label>查看组别</label>
+        <select id="propSeat" style="width:120px">
+          <option value="CA">CA 首都航空</option>
+          <option value="AB">AB 弹道航空</option>
+          <option value="VA">VA 愿景航空</option>
+        </select>
+        <span class="small">小组不得自行修改别组数据；跨组转让等事项必须由你在此批准</span>
+      </div>
+      <div id="propList" class="scroll"><span class="small">（该组暂无提案）</span></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>谈判记录（可审计）</h2>
+      <div id="negLog" class="scroll small">#23 [CA] 提案审批：事件罚则豁免 + 替代机顶班 = <b>批准</b> <br>#22 [CA] 提案审批：飞机转让给其它小组 = <b>批准</b> · 压到 100 万<br>#21 [CA] 提案审批：公务舱额外乘务员 = <b>驳回</b> · 不批<br>#20 [CA] 提案审批：飞机大修 = <b>批准</b> · 同意<br>#19 [CA] 飞机回购报价 = <b>1500000</b> <br>#18 [CA] 飞机大修（半 BH 限制 + 出售溢价） = <b>-</b> <br>#17 [CA] 投资项议价（成本/收益 每旅客） = <b>-</b> <br>#16 [CA] 短程过站时间（分钟，15 的倍数） = <b>45</b> <br>#15 [VA] 清空全部谈判条款 = <b>-</b> <br>#14 [CA] 飞机回购报价 = <b>1500000</b> <br>#13 [CA] 航线补贴（每回合） [SIM] = <b>50000</b> <br>#12 [CA] 市场级油价 [SIM] = <b>3.3</b> <br>#11 [VA] 燃油价（定向） = <b>2</b> <br>#10 [VA] 燃油套保（两档固定方案） = <b>锁价 undefined / 覆盖 undefined / 2 季</b> <br>#9 [VA] 燃油套保（两档固定方案） = <b>锁价 undefined / 覆盖 undefined / 2 季</b> <br>#8 [VA] 燃油价（定向） = <b>3.6</b> · 现货基准<br>#7 [VA] 保险费率 %（定向） = <b>0.3</b> · 大客户折扣<br>#6 [VA] 燃油价（定向） = <b>3.6</b> · VA 燃油补贴<br>#5 [AB] 情报成交 = <b>LEW=$5000</b> · 玩家购买<br>#4 [AB] 情报报价 [LEW] = <b>5000</b> <br>#3 [CA] 情报成交 = <b>SIM=$8000</b> · 玩家购买<br>#2 [AB] 情报报价 [SIM] = <b>15000</b> · B 组价<br>#1 [CA] 情报报价 [SIM] = <b>8000</b> · A 组价</div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>全局日志</h2>
+      <div id="log" class="scroll small">· 【谈判 #23】CA · 提案审批：事件罚则豁免 + 替代机顶班 = 批准</div>
+    </div>
+
+    <!-- ⑩ 分季规则开启表：原版是「循序渐进」的教学设计，每季引入新机制 -->
+    <div class="card" style="margin-top:14px">
+      <h2>分季规则开启表（循序渐进 · 教学节奏可调）</h2>
+      <div class="small" style="margin-bottom:8px">
+        每条机制按计划回合逐季引入；学生先掌握基础经营，再逐季接触套保 → 碳与合规 → 新市场 → SAF。
+        裁判可提前或延后某条规则的开启回合（留空 = 恢复计划）。
+      </div>
+      <table id="tblRules"><tr><th>机制</th><th>分组</th><th>计划回合</th><th>当前状态</th><th>依据</th><th>调整开启回合</th></tr><tr><td>中转客源（承接率可调）</td><td>网络</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] 培训纪要：接驳时间窗 2–4 小时；原版 CA Q4/2027 实测中转≈0（旅客 61.9K = 局地需求之和）→ 建议 T2 后开放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>碳成本计入</td><td>环境</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] Reports-ECONOMICS：Q4/2027 已有 Carbon $458,843</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>碳价谈判 / 碳减排项目</td><td>环境</td><td>T2</td><td class="small">未开放</td><td class="small">[裁定] 课程主持方：碳相关条款自 Q3 季由裁判开启</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>SAF 强制掺混 5%（2.5 倍价）</td><td>环境</td><td>T5</td><td class="small">未开放</td><td class="small">[证据] flyte Q4 SAF：政府要求 2029-01-01 起 5% uplift 须为 SAF</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>自有资产贷款（12 年期）</td><td>金融</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] Reports-ECONOMICS：Interest on Owned Assets $892,838 + Loan Repayments</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>现金下限 $2,000,000 + 超额强制还贷</td><td>金融</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] CA 与 VA 首季期末现金均恰好 $2,000,000（期初不同却同落点）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>市场情报购买</td><td>信息</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] CA Q1 购情报 $55,000（VA $90,000）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>燃油套保谈判</td><td>风险</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] CA Q1 末谈定 swap $2.63/gal，覆盖 Q2–Q3</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>ETOPS 长程许可</td><td>机队</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] CA Q2 获批（$375,000）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>定检大修</td><td>机队</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] 裁判建议：先大修、下季再卖（G160 实得 $3,768,973）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>机队融资通道（借款买机/付押金 · 利息计入运营成本）</td><td>金融</td><td>T0</td><td class="ok">已开放</td><td class="small">[裁定 2026-11-03] 课程主持方：融资通道**自第一季即开放**，融资成本计入运营成本；初始资产（2 架 + 期初现金）与折旧/租金/贷款口径一律不变以保公平</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>湿租（首季可赊机：免押金 · 租金后付）</td><td>机队</td><td>T0</td><td class="ok">已开放</td><td class="small">[证据] CA Q2 讨论湿租 A350 $5.49M/季（后改干租）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>干租（可议价）</td><td>机队</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] CA Q3 谈成 APT100 $310–320k/月、G160XLR P3 $848k/月（20% off）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>过站时间谈判</td><td>运营</td><td>T1</td><td class="small">未开放</td><td class="small">[证据] CA Q2 谈成 60→45 分钟（免费、保货运）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>网络安全服务（$250k/季）</td><td>风险</td><td>T1</td><td class="small">未开放</td><td class="small">[证据] CA Q2 购买（AB 队设备已被黑）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>新市场开放（JOP / CHA / BZY）</td><td>市场</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] CA 执行报告 Q3：三个新市场开放，CHA 需 eco clearance</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>机库（抗冰雹）</td><td>机队</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] CA Q3 灾后购入（Q2 谈判时裁判建议租赁 $2–4 万/月）</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>主题化运营（007 精品航班）</td><td>营销</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] CA Q3 方案：每客 +$3、QSI +2、年费 $100k</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>目标提交与追踪</td><td>考核</td><td>T2</td><td class="small">未开放</td><td class="small">[证据] Role Guide v3：第三季度结束前提交目标</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr></table>
+    </div>
+
+    <!-- ⑪ 航线释放与开线审批（裁判逐季释放航线；小组申请 → 裁判洽谈批准） -->
+    <div class="card" style="margin-top:14px">
+      <h2>航线释放与开线审批</h2>
+      <div class="small" style="margin-bottom:8px">
+        裁判按赛季逐步释放航线；小组提交开线申请后，须由裁判批准并由小组支付固定开线费 $200,000 方可开通并执行飞行。
+      </div>
+      <div class="row" style="margin-bottom:10px">
+        <label>本回合释放</label>
+        <input id="inReleaseNow" type="text" placeholder="航线代码，逗号分隔（如 JOP,CHA）" style="width:260px">
+        <button id="btnReleaseNow">立即释放</button>
+        <span class="small">裁判按教学目的自行决定本回合开放哪几条航线</span>
+      </div>
+      <table id="tblRouteReq"><tr><th>席位</th><th>航线</th><th>申请回合</th><th>状态</th><th>处理</th></tr><tr><td class="small">（暂无开线申请）</td></tr></table>
+      <h3 style="margin-top:14px">航线释放时间线（裁判可提前/延后）</h3>
+      <table id="tblRouteRelease"><tr><th>航线</th><th>计划释放回合</th><th>当前状态</th><th>调整释放回合</th></tr><tr><td>路易斯 (LEW)</td><td>T5</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>西蒙尼 (SIM)</td><td>T0</td><td class="ok">已释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>菲兹杰拉德 (FTZ)</td><td>T0</td><td class="ok">已释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>艾灵顿 (ETN)</td><td>T0</td><td class="ok">已释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>帕克 (PKR)</td><td>T0</td><td class="ok">已释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>阿姆斯特朗 (ARM)</td><td>T4</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>麦基 (GEE)</td><td>T4</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>乔普林 (JOP)</td><td>T2</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>查尔斯市 (CHA)</td><td>T2</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr><tr><td>布伦齐 (BZY)</td><td>T3</td><td class="small">未释放</td><td><input type="number" min="0" max="7" step="1" style="width: 60px;"><button>应用</button></td></tr></table>
+    </div>
+  </div>
+</main>
+
+
+<div class="card" style="margin-top:14px">
+  <h2>报表与运营视图</h2>
+  <div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
+  <div id="repBody"><div class="tabs"><button class="on">Summary · 总览</button><button>Network Economics · 网络经济</button><button>Route Economics · 航线经济</button><button>Route Metrics · 航线指标</button><button>Fuel · 燃油</button><button>Investments · 投资</button><button>Baseline · 对标基线</button><button>Charts · 趋势图</button></div><div class="scroll"><div class="small">尚无历史报告（完成一个回合后生成）。</div></div></div><div id="opsBody" style="margin-top:12px"><div class="tabs"><button class="on">Fare Matrix · 票价矩阵</button><button>Live Schedules · 实时航班表</button><button>Fleet Plans · 机队计划</button><button>Scheduler · 日程甘特图</button></div><div class="scroll"><div><table><tr><th>时刻</th><th>undefined $120</th><th>undefined $250</th></tr></table><div class="small">分时定价：高峰 ×1.20 / 低谷 ×0.85（可在「分时定价」处按航线设定）。</div></div></div></div>
+</div>
+  <div class="card" style="margin-top:14px">
+    <h2>谈判流转台（小组申报单 → 受理 / 还价 / 达成）</h2>
+    <div id="negFlow"><div class="small">暂无谈判申报单。</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>载货策略（座位多→客舱重→货舱可载少；裁判可关闭载货）</h2>
+    <div class="row"><span id="cargoPolicyRow"><span style="margin-right: 10px;"><button>全部航线（开放）</button></span><span style="margin-right: 10px;"><button>LEW（开放）</button></span><span style="margin-right: 10px;"><button>SIM（开放）</button></span><span style="margin-right: 10px;"><button>FTZ（开放）</button></span><span style="margin-right: 10px;"><button>ETN（开放）</button></span><span style="margin-right: 10px;"><button>PKR（开放）</button></span><span style="margin-right: 10px;"><button>ARM（开放）</button></span><span style="margin-right: 10px;"><button>GEE（开放）</button></span><span style="margin-right: 10px;"><button>JOP（开放）</button></span><span style="margin-right: 10px;"><button>CHA（开放）</button></span><span style="margin-right: 10px;"><button>BZY（开放）</button></span></span></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>大修触发（由裁判决定触发季；是否卖出由团队自决）</h2>
+    <div id="hcPanel"><div class="row"><span>席位</span><select style="width: 110px;"><option value="CA">CA</option><option value="AB">AB</option><option value="VA">VA</option></select><span>飞机</span><select style="width: 260px;"><option value="1">APT100（100 座）</option><option value="2">G160（159 座）</option></select><button>触发大修</button><span class="small">· 触发后该机本季仅可运营上季一半 BH；出售可获溢价 $500,000（由团队自行决策，可与裁判谈价或卖给其他航司）</span></div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>经营模式设定（开局与三家协商确定）· ⑲ 网络攻击处理</h2>
+    <div class="row" style="margin-bottom:8px">
+      <span class="small">经营模式（开局确定后锁定）：</span>
+      <span id="styleRow"><span style="margin-right: 4px;">CA：</span><select style="width: 150px; margin-right: 6px;"><option value="LCC">低成本型 LCC</option><option value="FSC">全服务型 FSC</option><option value="Hybrid">混合型 Hybrid</option></select><button>确定</button><span class="small">　</span><span style="margin-right: 4px;">AB：</span><select style="width: 150px; margin-right: 6px;"><option value="LCC">低成本型 LCC</option><option value="FSC">全服务型 FSC</option><option value="Hybrid">混合型 Hybrid</option></select><button>确定</button><span class="small">　</span><span style="margin-right: 4px;">VA：</span><select style="width: 150px; margin-right: 6px;"><option value="LCC">低成本型 LCC</option><option value="FSC">全服务型 FSC</option><option value="Hybrid">混合型 Hybrid</option></select><button>确定</button><span class="small">　</span><span class="small">· 过站基线随之生效：LCC 30 / Hybrid 40 / FSC 60 分钟；并影响可投产品与票价系数</span></span>
+    </div>
+    <div id="hackPanel"><div class="small">当前无处于被攻击状态的航司。</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>考核目标（第 3 季起由裁判询问并设定；前两季不开放）</h2>
+    <div id="targetPanel"><div class="small">第 3 季（Q3 2028）起开放：届时由裁判向各组询问并设定目标。</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>三家日程甘特图（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</h2>
+    <div id="ganttAll"><div class="small">暂无排班（完成一个回合并排班后显示）。</div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>航线需求图（ROUTE DEMAND：运力柱 + 需求高低双线 · 悬停看数值）</h2>
+    <div id="routeDemand"><div style="margin-bottom: 14px;"><div>SIM</div><div class="small">Flight Capacity and Actual Loads - (SIM)　· 绿=需求曲线（固定值）　红=实际载量</div><svg viewBox="0 0 620 190" width="100%" max-width="640" style="background: rgb(255, 255, 255); border: 1px solid rgb(208, 215, 222); border-radius: 6px;"><line x1="46" y1="156" x2="612" y2="156" stroke="#eaeef2"></line><text x="40" y="160" font-size="10" fill="#57606a" text-anchor="end">0</text><line x1="46" y1="120" x2="612" y2="120" stroke="#eaeef2"></line><text x="40" y="124" font-size="10" fill="#57606a" text-anchor="end">32</text><line x1="46" y1="84" x2="612" y2="84" stroke="#eaeef2"></line><text x="40" y="88" font-size="10" fill="#57606a" text-anchor="end">65</text><line x1="46" y1="48" x2="612" y2="48" stroke="#eaeef2"></line><text x="40" y="52" font-size="10" fill="#57606a" text-anchor="end">97</text><line x1="46" y1="12" x2="612" y2="12" stroke="#eaeef2"></line><text x="40" y="16" font-size="10" fill="#57606a" text-anchor="end">129</text><polyline points="198.75,40.8 222.25,19.200000000000017 245.75,12 269.25,19.200000000000017 292.75,33.60000000000001 316.25,55.2 339.75,69.60000000000001 363.25,62.39999999999999 386.75,48 410.25,33.60000000000001 433.75,26.400000000000006 457.25,12 480.75,19.200000000000017 504.25,26.400000000000006 527.75,40.8 551.25,55.2 574.75,76.8 598.25,98.4" fill="none" stroke="#2da44e" stroke-width="2.2" stroke-linejoin="round"></polyline><polyline points="198.75,156 222.25,156 245.75,156 269.25,156 292.75,156 316.25,156 339.75,156 363.25,156 386.75,156 410.25,156 433.75,156 457.25,156 480.75,156 504.25,156 527.75,156 551.25,156 574.75,156 598.25,156" fill="none" stroke="#cf222e" stroke-width="2" stroke-linejoin="round"></polyline><circle cx="198.75" cy="40.8" r="2.6" fill="#2da44e"><title>06:00　需求 104 人/日　实际载量 0 人　趋势：起点</title></circle><circle cx="222.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>07:00　需求 123 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="245.75" cy="12" r="2.6" fill="#2da44e"><title>08:00　需求 129 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="269.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>09:00　需求 123 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="292.75" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>10:00　需求 110 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="316.25" cy="55.2" r="2.6" fill="#2da44e"><title>11:00　需求 91 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="339.75" cy="69.60000000000001" r="2.6" fill="#2da44e"><title>12:00　需求 78 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="363.25" cy="62.39999999999999" r="2.6" fill="#2da44e"><title>13:00　需求 84 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="386.75" cy="48" r="2.6" fill="#2da44e"><title>14:00　需求 97 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="410.25" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>15:00　需求 110 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="433.75" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>16:00　需求 117 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="457.25" cy="12" r="2.6" fill="#2da44e"><title>17:00　需求 129 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="480.75" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>18:00　需求 123 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="504.25" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>19:00　需求 117 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="527.75" cy="40.8" r="2.6" fill="#2da44e"><title>20:00　需求 104 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="551.25" cy="55.2" r="2.6" fill="#2da44e"><title>21:00　需求 91 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="574.75" cy="76.8" r="2.6" fill="#2da44e"><title>22:00　需求 71 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="598.25" cy="98.4" r="2.6" fill="#2da44e"><title>23:00　需求 52 人/日　实际载量 0 人　趋势：下降</title></circle><text x="151.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">04:00</text><text x="198.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">06:00</text><text x="245.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">08:00</text><text x="292.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">10:00</text><text x="339.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">12:00</text><text x="386.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">14:00</text><text x="433.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">16:00</text><text x="480.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">18:00</text><text x="527.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">20:00</text><text x="574.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">22:00</text><text x="310" y="188" font-size="10" fill="#57606a" text-anchor="middle">Departure Time</text><text x="12" y="95" font-size="10" fill="#57606a" text-anchor="middle" transform="rotate(-90 12 95)">Capacity per aircraft seats</text></svg><div class="small">暂无运力柱（尚未排班）</div><div class="small"><span style="color: rgb(230, 167, 0);">■ CA 运力　</span><span style="color: rgb(31, 111, 235);">■ AB 运力　</span><span style="color: rgb(45, 164, 78);">■ VA 运力　</span><span style="color: rgb(207, 34, 46);">— 需求上升/高峰段　</span><span style="color: rgb(45, 164, 78);">— 需求下降/低峰段</span></div></div><div style="margin-bottom: 14px;"><div>ETN</div><div class="small">Flight Capacity and Actual Loads - (ETN)　· 绿=需求曲线（固定值）　红=实际载量</div><svg viewBox="0 0 620 190" width="100%" max-width="640" style="background: rgb(255, 255, 255); border: 1px solid rgb(208, 215, 222); border-radius: 6px;"><line x1="46" y1="156" x2="612" y2="156" stroke="#eaeef2"></line><text x="40" y="160" font-size="10" fill="#57606a" text-anchor="end">0</text><line x1="46" y1="120" x2="612" y2="120" stroke="#eaeef2"></line><text x="40" y="124" font-size="10" fill="#57606a" text-anchor="end">99</text><line x1="46" y1="84" x2="612" y2="84" stroke="#eaeef2"></line><text x="40" y="88" font-size="10" fill="#57606a" text-anchor="end">198</text><line x1="46" y1="48" x2="612" y2="48" stroke="#eaeef2"></line><text x="40" y="52" font-size="10" fill="#57606a" text-anchor="end">297</text><line x1="46" y1="12" x2="612" y2="12" stroke="#eaeef2"></line><text x="40" y="16" font-size="10" fill="#57606a" text-anchor="end">396</text><polyline points="198.75,40.8 222.25,19.200000000000017 245.75,12 269.25,19.200000000000017 292.75,33.60000000000001 316.25,55.2 339.75,69.60000000000001 363.25,62.39999999999999 386.75,48 410.25,33.60000000000001 433.75,26.400000000000006 457.25,12 480.75,19.200000000000017 504.25,26.400000000000006 527.75,40.8 551.25,55.2 574.75,76.8 598.25,98.4" fill="none" stroke="#2da44e" stroke-width="2.2" stroke-linejoin="round"></polyline><polyline points="198.75,156 222.25,156 245.75,156 269.25,156 292.75,156 316.25,156 339.75,156 363.25,156 386.75,156 410.25,156 433.75,156 457.25,156 480.75,156 504.25,156 527.75,156 551.25,156 574.75,156 598.25,156" fill="none" stroke="#cf222e" stroke-width="2" stroke-linejoin="round"></polyline><circle cx="198.75" cy="40.8" r="2.6" fill="#2da44e"><title>06:00　需求 317 人/日　实际载量 0 人　趋势：起点</title></circle><circle cx="222.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>07:00　需求 376 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="245.75" cy="12" r="2.6" fill="#2da44e"><title>08:00　需求 396 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="269.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>09:00　需求 376 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="292.75" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>10:00　需求 336 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="316.25" cy="55.2" r="2.6" fill="#2da44e"><title>11:00　需求 277 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="339.75" cy="69.60000000000001" r="2.6" fill="#2da44e"><title>12:00　需求 237 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="363.25" cy="62.39999999999999" r="2.6" fill="#2da44e"><title>13:00　需求 257 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="386.75" cy="48" r="2.6" fill="#2da44e"><title>14:00　需求 297 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="410.25" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>15:00　需求 336 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="433.75" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>16:00　需求 356 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="457.25" cy="12" r="2.6" fill="#2da44e"><title>17:00　需求 396 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="480.75" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>18:00　需求 376 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="504.25" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>19:00　需求 356 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="527.75" cy="40.8" r="2.6" fill="#2da44e"><title>20:00　需求 317 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="551.25" cy="55.2" r="2.6" fill="#2da44e"><title>21:00　需求 277 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="574.75" cy="76.8" r="2.6" fill="#2da44e"><title>22:00　需求 218 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="598.25" cy="98.4" r="2.6" fill="#2da44e"><title>23:00　需求 158 人/日　实际载量 0 人　趋势：下降</title></circle><text x="151.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">04:00</text><text x="198.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">06:00</text><text x="245.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">08:00</text><text x="292.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">10:00</text><text x="339.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">12:00</text><text x="386.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">14:00</text><text x="433.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">16:00</text><text x="480.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">18:00</text><text x="527.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">20:00</text><text x="574.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">22:00</text><text x="310" y="188" font-size="10" fill="#57606a" text-anchor="middle">Departure Time</text><text x="12" y="95" font-size="10" fill="#57606a" text-anchor="middle" transform="rotate(-90 12 95)">Capacity per aircraft seats</text></svg><div class="small">暂无运力柱（尚未排班）</div><div class="small"><span style="color: rgb(230, 167, 0);">■ CA 运力　</span><span style="color: rgb(31, 111, 235);">■ AB 运力　</span><span style="color: rgb(45, 164, 78);">■ VA 运力　</span><span style="color: rgb(207, 34, 46);">— 需求上升/高峰段　</span><span style="color: rgb(45, 164, 78);">— 需求下降/低峰段</span></div></div><div style="margin-bottom: 14px;"><div>PKR</div><div class="small">Flight Capacity and Actual Loads - (PKR)　· 绿=需求曲线（固定值）　红=实际载量</div><svg viewBox="0 0 620 190" width="100%" max-width="640" style="background: rgb(255, 255, 255); border: 1px solid rgb(208, 215, 222); border-radius: 6px;"><line x1="46" y1="156" x2="612" y2="156" stroke="#eaeef2"></line><text x="40" y="160" font-size="10" fill="#57606a" text-anchor="end">0</text><line x1="46" y1="120" x2="612" y2="120" stroke="#eaeef2"></line><text x="40" y="124" font-size="10" fill="#57606a" text-anchor="end">10</text><line x1="46" y1="84" x2="612" y2="84" stroke="#eaeef2"></line><text x="40" y="88" font-size="10" fill="#57606a" text-anchor="end">20</text><line x1="46" y1="48" x2="612" y2="48" stroke="#eaeef2"></line><text x="40" y="52" font-size="10" fill="#57606a" text-anchor="end">30</text><line x1="46" y1="12" x2="612" y2="12" stroke="#eaeef2"></line><text x="40" y="16" font-size="10" fill="#57606a" text-anchor="end">40</text><polyline points="198.75,40.8 222.25,19.200000000000017 245.75,12 269.25,19.200000000000017 292.75,33.60000000000001 316.25,55.2 339.75,69.60000000000001 363.25,62.39999999999999 386.75,48 410.25,33.60000000000001 433.75,26.400000000000006 457.25,12 480.75,19.200000000000017 504.25,26.400000000000006 527.75,40.8 551.25,55.2 574.75,76.8 598.25,98.4" fill="none" stroke="#2da44e" stroke-width="2.2" stroke-linejoin="round"></polyline><polyline points="198.75,156 222.25,156 245.75,156 269.25,156 292.75,156 316.25,156 339.75,156 363.25,156 386.75,156 410.25,156 433.75,156 457.25,156 480.75,156 504.25,156 527.75,156 551.25,156 574.75,156 598.25,156" fill="none" stroke="#cf222e" stroke-width="2" stroke-linejoin="round"></polyline><circle cx="198.75" cy="40.8" r="2.6" fill="#2da44e"><title>06:00　需求 32 人/日　实际载量 0 人　趋势：起点</title></circle><circle cx="222.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>07:00　需求 38 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="245.75" cy="12" r="2.6" fill="#2da44e"><title>08:00　需求 40 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="269.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>09:00　需求 38 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="292.75" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>10:00　需求 34 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="316.25" cy="55.2" r="2.6" fill="#2da44e"><title>11:00　需求 28 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="339.75" cy="69.60000000000001" r="2.6" fill="#2da44e"><title>12:00　需求 24 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="363.25" cy="62.39999999999999" r="2.6" fill="#2da44e"><title>13:00　需求 26 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="386.75" cy="48" r="2.6" fill="#2da44e"><title>14:00　需求 30 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="410.25" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>15:00　需求 34 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="433.75" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>16:00　需求 36 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="457.25" cy="12" r="2.6" fill="#2da44e"><title>17:00　需求 40 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="480.75" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>18:00　需求 38 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="504.25" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>19:00　需求 36 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="527.75" cy="40.8" r="2.6" fill="#2da44e"><title>20:00　需求 32 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="551.25" cy="55.2" r="2.6" fill="#2da44e"><title>21:00　需求 28 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="574.75" cy="76.8" r="2.6" fill="#2da44e"><title>22:00　需求 22 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="598.25" cy="98.4" r="2.6" fill="#2da44e"><title>23:00　需求 16 人/日　实际载量 0 人　趋势：下降</title></circle><text x="151.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">04:00</text><text x="198.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">06:00</text><text x="245.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">08:00</text><text x="292.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">10:00</text><text x="339.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">12:00</text><text x="386.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">14:00</text><text x="433.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">16:00</text><text x="480.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">18:00</text><text x="527.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">20:00</text><text x="574.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">22:00</text><text x="310" y="188" font-size="10" fill="#57606a" text-anchor="middle">Departure Time</text><text x="12" y="95" font-size="10" fill="#57606a" text-anchor="middle" transform="rotate(-90 12 95)">Capacity per aircraft seats</text></svg><div class="small">暂无运力柱（尚未排班）</div><div class="small"><span style="color: rgb(230, 167, 0);">■ CA 运力　</span><span style="color: rgb(31, 111, 235);">■ AB 运力　</span><span style="color: rgb(45, 164, 78);">■ VA 运力　</span><span style="color: rgb(207, 34, 46);">— 需求上升/高峰段　</span><span style="color: rgb(45, 164, 78);">— 需求下降/低峰段</span></div></div><div style="margin-bottom: 14px;"><div>FTZ</div><div class="small">Flight Capacity and Actual Loads - (FTZ)　· 绿=需求曲线（固定值）　红=实际载量</div><svg viewBox="0 0 620 190" width="100%" max-width="640" style="background: rgb(255, 255, 255); border: 1px solid rgb(208, 215, 222); border-radius: 6px;"><line x1="46" y1="156" x2="612" y2="156" stroke="#eaeef2"></line><text x="40" y="160" font-size="10" fill="#57606a" text-anchor="end">0</text><line x1="46" y1="120" x2="612" y2="120" stroke="#eaeef2"></line><text x="40" y="124" font-size="10" fill="#57606a" text-anchor="end">27</text><line x1="46" y1="84" x2="612" y2="84" stroke="#eaeef2"></line><text x="40" y="88" font-size="10" fill="#57606a" text-anchor="end">55</text><line x1="46" y1="48.000000000000014" x2="612" y2="48.000000000000014" stroke="#eaeef2"></line><text x="40" y="52.000000000000014" font-size="10" fill="#57606a" text-anchor="end">82</text><line x1="46" y1="12" x2="612" y2="12" stroke="#eaeef2"></line><text x="40" y="16" font-size="10" fill="#57606a" text-anchor="end">110</text><polyline points="198.75,40.79999999999998 222.25,19.200000000000017 245.75,12 269.25,19.200000000000017 292.75,33.60000000000001 316.25,55.20000000000002 339.75,69.60000000000001 363.25,62.39999999999999 386.75,48.000000000000014 410.25,33.60000000000001 433.75,26.400000000000006 457.25,12 480.75,19.200000000000017 504.25,26.400000000000006 527.75,40.79999999999998 551.25,55.20000000000002 574.75,76.8 598.25,98.39999999999999" fill="none" stroke="#2da44e" stroke-width="2.2" stroke-linejoin="round"></polyline><polyline points="198.75,156 222.25,156 245.75,156 269.25,156 292.75,156 316.25,156 339.75,156 363.25,156 386.75,156 410.25,156 433.75,156 457.25,156 480.75,156 504.25,156 527.75,156 551.25,156 574.75,156 598.25,156" fill="none" stroke="#cf222e" stroke-width="2" stroke-linejoin="round"></polyline><circle cx="198.75" cy="40.79999999999998" r="2.6" fill="#2da44e"><title>06:00　需求 88 人/日　实际载量 0 人　趋势：起点</title></circle><circle cx="222.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>07:00　需求 104 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="245.75" cy="12" r="2.6" fill="#2da44e"><title>08:00　需求 110 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="269.25" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>09:00　需求 104 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="292.75" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>10:00　需求 93 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="316.25" cy="55.20000000000002" r="2.6" fill="#2da44e"><title>11:00　需求 77 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="339.75" cy="69.60000000000001" r="2.6" fill="#2da44e"><title>12:00　需求 66 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="363.25" cy="62.39999999999999" r="2.6" fill="#2da44e"><title>13:00　需求 71 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="386.75" cy="48.000000000000014" r="2.6" fill="#2da44e"><title>14:00　需求 82 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="410.25" cy="33.60000000000001" r="2.6" fill="#2da44e"><title>15:00　需求 93 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="433.75" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>16:00　需求 99 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="457.25" cy="12" r="2.6" fill="#2da44e"><title>17:00　需求 110 人/日　实际载量 0 人　趋势：上升</title></circle><circle cx="480.75" cy="19.200000000000017" r="2.6" fill="#2da44e"><title>18:00　需求 104 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="504.25" cy="26.400000000000006" r="2.6" fill="#2da44e"><title>19:00　需求 99 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="527.75" cy="40.79999999999998" r="2.6" fill="#2da44e"><title>20:00　需求 88 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="551.25" cy="55.20000000000002" r="2.6" fill="#2da44e"><title>21:00　需求 77 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="574.75" cy="76.8" r="2.6" fill="#2da44e"><title>22:00　需求 60 人/日　实际载量 0 人　趋势：下降</title></circle><circle cx="598.25" cy="98.39999999999999" r="2.6" fill="#2da44e"><title>23:00　需求 44 人/日　实际载量 0 人　趋势：下降</title></circle><text x="151.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">04:00</text><text x="198.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">06:00</text><text x="245.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">08:00</text><text x="292.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">10:00</text><text x="339.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">12:00</text><text x="386.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">14:00</text><text x="433.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">16:00</text><text x="480.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">18:00</text><text x="527.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">20:00</text><text x="574.75" y="176" font-size="9" fill="#57606a" text-anchor="middle">22:00</text><text x="310" y="188" font-size="10" fill="#57606a" text-anchor="middle">Departure Time</text><text x="12" y="95" font-size="10" fill="#57606a" text-anchor="middle" transform="rotate(-90 12 95)">Capacity per aircraft seats</text></svg><div class="small">暂无运力柱（尚未排班）</div><div class="small"><span style="color: rgb(230, 167, 0);">■ CA 运力　</span><span style="color: rgb(31, 111, 235);">■ AB 运力　</span><span style="color: rgb(45, 164, 78);">■ VA 运力　</span><span style="color: rgb(207, 34, 46);">— 需求上升/高峰段　</span><span style="color: rgb(45, 164, 78);">— 需求下降/低峰段</span></div></div></div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>消息板与导出</h2>
+    <div class="row" style="margin-bottom:8px">
+      <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
+      <input id="msgBody" type="text" placeholder="正文" style="width:280px">
+      <select id="msgKind" style="width:100px"><option value="notice">公告</option><option value="rule">规则更新</option><option value="task">任务</option></select>
+      <label><input id="msgPin" type="checkbox"> 置顶</label>
+      <button id="btnPostMsg">发布</button>
+    </div>
+    <div class="row" style="margin-bottom:8px"><span class="small">导出（所选席位）：</span>
+      <button id="btnTExpSum">汇总 CSV</button><button id="btnTExpRoute">航线 CSV</button>
+      <button id="btnTExpSched">班次 CSV</button><button id="btnTExpInv">投资 CSV</button></div>
+    <div id="msgList"><div class="small">暂无消息。</div></div>
+  </div>
+
+
+</body></html>

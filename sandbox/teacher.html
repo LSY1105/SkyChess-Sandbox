@@ -4,36 +4,82 @@
 <meta charset="utf-8">
 <title>SkyChess 沙盘 — 裁判面板</title>
 <style>
-:root{--bg:#0f1216;--card:#181c22;--line:#2a313a;--tx:#e6e9ee;--dim:#9aa4b2;
- --ok:#3fb950;--warn:#d29922;--bad:#f85149;--acc:#58a6ff}
+:root{
+ --bg:#15171a; --surface:#1b1e22; --raised:#212529; --line:#2b3036; --hair:rgba(255,255,255,.07);
+ --tx:#e8eaed; --tx2:#b6bcc4; --dim:#8a929c;
+ --ok:#4c9a5f; --warn:#c8952e; --bad:#c1544c; --acc:#d8a33f;
+ --ca:#4a90d9; --ab:#d98a3c; --va:#8b6bc4;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
-header{background:#12161b;border-bottom:1px solid var(--line);padding:10px 18px;display:flex;
- align-items:center;gap:20px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
-h1{font-size:16px;margin:0;font-weight:600;color:var(--warn)}
-.kv{display:flex;flex-direction:column;line-height:1.25}
-.kv b{font-size:15px;font-variant-numeric:tabular-nums}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.55 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+header{background:var(--surface);border-bottom:1px solid var(--hair);padding:12px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+h1{font-size:15px;margin:0;font-weight:600;color:var(--tx)}
+header .sep{width:1px;height:22px;background:var(--hair);flex:none}
+.kv{display:flex;flex-direction:column;line-height:1.3;min-width:60px}
+.kv b{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
 .kv span{font-size:11px;color:var(--dim)}
-main{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 14px}
-.card h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.14fr);gap:16px;padding:16px 24px 40px;align-items:start}
+main>div>.card{margin-bottom:16px}
+main>div>.card:last-child{margin-bottom:0}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:20px}
+.card h2{margin:0 0 16px;font-size:13px;font-weight:600;color:var(--tx);text-transform:none;letter-spacing:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card h2 .small{font-weight:400}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{padding:5px 7px;text-align:right;border-bottom:1px solid #21262d;font-size:13px}
-th{color:var(--dim);font-weight:500;font-size:11px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--hair);font-size:13px;height:36px}
+th{color:var(--dim);font-weight:500;font-size:11px;text-transform:none;letter-spacing:0;border-bottom:1px solid var(--line);white-space:nowrap}
 td:first-child,th:first-child{text-align:left}
-input,select{background:#0d1117;border:1px solid var(--line);color:var(--tx);border-radius:5px;padding:4px 7px;font-size:13px}
-input[type=number]{width:80px}
-button{background:#21262d;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:5px 11px;cursor:pointer;font-size:13px}
-button:hover{background:#2d333b}
-button.pri{background:#1f6feb;border-color:#1f6feb}
-button.warn{background:#8b3d1e;border-color:#8b3d1e}
-.row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-.row>label{font-size:12px;color:var(--dim);min-width:92px}
-.small{font-size:11px;color:var(--dim)}
+tr:hover td{background:rgba(255,255,255,.02)}
+input,select{background:var(--bg);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:0 10px;height:32px;font-size:13px;font-family:inherit}
+input[type=number]{width:88px;font-variant-numeric:tabular-nums}
+input:focus,select:focus{outline:none;border-color:var(--acc)}
+button{background:var(--raised);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:0 14px;height:32px;cursor:pointer;font-size:13px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}
+button:hover{background:#2a2f35}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.pri{background:var(--acc);border-color:var(--acc);color:#1a1408;font-weight:600}
+button.pri:hover{background:#e2b04b}
+button.warn{background:transparent;border-color:var(--line);color:var(--tx2)}
+button.warn:hover{border-color:var(--bad);color:var(--bad)}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.row:last-child{margin-bottom:0}
+.row>label{font-size:12px;color:var(--tx2);min-width:88px}
+.small{font-size:11px;color:var(--dim);line-height:1.5}
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-.scroll{max-height:300px;overflow:auto}
+.scroll{max-height:320px;overflow:auto}
 .tabs{position:relative;z-index:5}
 .tabs button{position:relative;z-index:6}
+
+/* ── 表格密度与对齐 ── */
+th,td{white-space:nowrap}
+th:last-child,td:last-child{width:1%;white-space:nowrap}
+td button{white-space:nowrap;padding:0 12px}
+td small{display:block;line-height:1.35}
+/* ── 计时轨道（暗轨 + 琥珀进度）── */
+#clockBar{background:var(--acc)!important;border-radius:3px}
+div[style*="background:#eaeef2"]{background:#22262b!important;border-radius:4px}
+/* ── 顶栏分隔与对齐 ── */
+header h1{margin-right:8px;padding-right:20px;border-right:1px solid var(--hair)}
+header .kv{padding-right:4px}
+/* ── 标题里的括号说明 → dim 小字 ── */
+.card h2{color:var(--tx)}
+.card h2 em{font-style:normal;font-weight:400;color:var(--dim);font-size:12px}
+
+
+/* ── 表格：列内容可换行，避免右列被裁切；按钮保持单行 ── */
+td{white-space:normal}
+td button,td input,td select{white-space:nowrap}
+th{white-space:nowrap}
+/* ── 两列比例：操作台窄、监控台宽 ── */
+main{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}
+/* ── 谈判区控件对齐 ── */
+.row>select{flex:0 0 auto;min-width:190px}
+.row>input{flex:0 0 auto}
+
+
+/* ── 表格单元格不拆行；卡片内容过宽时卡片内横向滚动（不再被裁切）── */
+td{white-space:nowrap}
+.card{overflow-x:auto}
+.card h2,.card .row,.card .small{overflow-wrap:normal}
+
 </style>
 </head>
 <body>
@@ -45,18 +91,18 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
   <div class="kv"><b id="gRate">—</b><span>利率</span></div>
   <div class="kv"><b id="gConn">—</b><span>中转强度</span></div>
   <div style="flex:1"></div>
-  <button id="btnAdvanceAll" class="pri">▶ 结算全部席位</button>
+  <button id="btnAdvanceAll" class="pri">结算全部席位</button>
   <button id="btnReset" class="warn">重置全局</button>
 </header>
 
 <main>
   <div>
       <div class="card" style="margin-top:14px" id="clockCard">
-    <h2>⏱ 赛季计时（每季 1 小时 · 到时自动结算）</h2>
+    <h2>赛季计时<em>（每季 1 小时 · 到时自动结算）</em></h2>
     <div class="row" style="margin-bottom:8px">
-      <button id="btnStartRound">▶ 开始本季（计时）</button>
+      <button id="btnStartRound">开始本季计时</button>
       <label>限时</label><input id="inRoundMin" type="number" value="60" min="1" max="180" style="width:70px"> 分钟
-      <button id="btnSettleNow" class="warn">⏭ 提前结算（兜底）</button>
+      <button id="btnSettleNow" class="warn">提前结算</button>
       <span class="small">到时自动结算各组；裁判可随时提前结算</span>
     </div>
     <div style="background:#eaeef2;border-radius:6px;height:14px;overflow:hidden">
@@ -69,7 +115,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
   </div>
 
 <div class="card">
-      <h2>① 经济参数设定（全局生效）</h2>
+      <h2>经济参数设定<em>（全局生效）</em></h2>
       <div class="row">
         <label>燃油价格</label>
         <input id="inFuel" type="number" step="0.05" value="2.40">
@@ -97,7 +143,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>② 事件触发</h2>
+      <h2>事件触发</h2>
       <div class="row">
         <label>事件</label><select id="selEvent" style="width:170px"></select>
         <label>目标</label><select id="selTarget" style="width:150px"></select>
@@ -112,14 +158,14 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>③ 市场开放</h2>
+      <h2>市场开放</h2>
       <div id="mktList" class="scroll small"></div>
     </div>
   </div>
 
   <div>
     <div class="card">
-      <h2>④ 各席位经营状况</h2>
+      <h2>各席位经营状况</h2>
       <table id="tblSeats"></table>
       <div class="row" style="margin-top:10px">
         <a href="/player.html?seat=CA" target="_blank"><button>打开 CA 面板</button></a>
@@ -128,7 +174,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
       </div>
     </div>
     <div class="card" style="margin-top:14px">
-      <h2>⑤ 谈判工作台（逐组商谈）</h2>
+      <h2>谈判工作台<em>（逐组商谈）</em></h2>
       <div class="row">
         <label>谈判对象</label>
         <select id="negSeat" style="width:120px"></select>
@@ -162,7 +208,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑥ 分组配置矩阵（逐组填值 · 批量下发）</h2>
+      <h2>分组配置矩阵<em>（逐组填值 · 批量下发）</em></h2>
       <div class="row">
         <label>场景包</label>
         <select id="scenPick" style="width:190px"></select>
@@ -180,7 +226,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑦ 小组提案审批（小组只能发起，批准后方生效）</h2>
+      <h2>小组提案审批<em>（小组只能发起，批准后方生效）</em></h2>
       <div class="row">
         <label>查看组别</label>
         <select id="propSeat" style="width:120px">
@@ -194,18 +240,18 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑧ 谈判记录（可审计）</h2>
+      <h2>谈判记录<em>（可审计）</em></h2>
       <div id="negLog" class="scroll small"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑨ 全局日志</h2>
+      <h2>全局日志</h2>
       <div id="log" class="scroll small"></div>
     </div>
 
     <!-- ⑩ 分季规则开启表：原版是「循序渐进」的教学设计，每季引入新机制 -->
     <div class="card" style="margin-top:14px">
-      <h2>⑩ 分季规则开启表（循序渐进 · 教学节奏可调）</h2>
+      <h2>分季规则开启表<em>（循序渐进 · 教学节奏可调）</em></h2>
       <div class="small" style="margin-bottom:8px">
         每条机制按计划回合逐季引入；学生先掌握基础经营，再逐季接触套保 → 碳与合规 → 新市场 → SAF。
         裁判可提前或延后某条规则的开启回合（留空 = 恢复计划）。
@@ -215,7 +261,7 @@ button.warn{background:#8b3d1e;border-color:#8b3d1e}
 
     <!-- ⑪ 航线释放与开线审批（裁判逐季释放航线；小组申请 → 裁判洽谈批准） -->
     <div class="card" style="margin-top:14px">
-      <h2>⑪ 航线释放与开线审批</h2>
+      <h2>航线释放与开线审批</h2>
       <div class="small" style="margin-bottom:8px">
         裁判按赛季逐步释放航线；小组提交开线申请后，须由裁判批准并由小组支付固定开线费 $200,000 方可开通并执行飞行。
       </div>
@@ -763,7 +809,7 @@ $('#btnReset').onclick = async () => {
 refresh(); fillTargets();
 setInterval(refresh, 5000);
 
-/* ⏱ 赛季计时：开始本季（限时）/ 到时自动结算 / 提前结算兜底
+/* 赛季计时：开始本季（限时）/ 到时自动结算 / 提前结算兜底
    ⚠ 本脚本块自带 key：module 作用域不跨 <script type=module> 共享 */
 const CLOCK_KEY = new URLSearchParams(location.search).get('key') || '';
 async function updateClock() {
@@ -1118,27 +1164,27 @@ async function renderCargoPolicy() {
 }
 setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
 <div class="card" style="margin-top:14px">
-  <h2>⑫ 报表与运营视图</h2>
+  <h2>报表与运营视图</h2>
   <div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
   <div id="repBody"></div><div id="opsBody" style="margin-top:12px"></div>
 </div>
   <div class="card" style="margin-top:14px">
-    <h2>⑬ 谈判流转台（小组申报单 → 受理 / 还价 / 达成）</h2>
+    <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em></h2>
     <div id="negFlow"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑳ 载货策略（座位多→客舱重→货舱可载少；裁判可关闭载货）</h2>
+    <h2>载货策略<em>（座位多→客舱重→货舱可载少；裁判可关闭载货）</em></h2>
     <div class="row"><span id="cargoPolicyRow"></span></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑳ 大修触发（由裁判决定触发季；是否卖出由团队自决）</h2>
+    <h2>大修触发<em>（由裁判决定触发季；是否卖出由团队自决）</em></h2>
     <div id="hcPanel"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑱ 经营模式设定（开局与三家协商确定）· ⑲ 网络攻击处理</h2>
+    <h2>经营模式设定<em>（开局与三家协商确定）</em>· ⑲ 网络攻击处理</h2>
     <div class="row" style="margin-bottom:8px">
       <span class="small">经营模式（开局确定后锁定）：</span>
       <span id="styleRow"></span>
@@ -1147,22 +1193,22 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑰ 考核目标（第 3 季起由裁判询问并设定；前两季不开放）</h2>
+    <h2>考核目标<em>（第 3 季起由裁判询问并设定；前两季不开放）</em></h2>
     <div id="targetPanel"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑯ 三家日程甘特图（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</h2>
+    <h2>三家日程甘特图<em>（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</em></h2>
     <div id="ganttAll"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑮ 航线需求图（ROUTE DEMAND：运力柱 + 需求高低双线 · 悬停看数值）</h2>
+    <h2>航线需求图<em>（ROUTE DEMAND：运力柱 + 需求高低双线 · 悬停看数值）</em></h2>
     <div id="routeDemand"></div>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h2>⑭ 消息板与导出</h2>
+    <h2>消息板与导出</h2>
     <div class="row" style="margin-bottom:8px">
       <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
       <input id="msgBody" type="text" placeholder="正文" style="width:280px">

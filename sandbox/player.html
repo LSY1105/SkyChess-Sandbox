@@ -4,39 +4,82 @@
 <meta charset="utf-8">
 <title>SkyChess 沙盘 — 玩家席位</title>
 <style>
-:root{--bg:#0f1216;--card:#181c22;--line:#2a313a;--tx:#e6e9ee;--dim:#9aa4b2;
- --ok:#3fb950;--warn:#d29922;--bad:#f85149;--acc:#58a6ff}
+:root{
+ --bg:#15171a; --surface:#1b1e22; --raised:#212529; --line:#2b3036; --hair:rgba(255,255,255,.07);
+ --tx:#e8eaed; --tx2:#b6bcc4; --dim:#8a929c;
+ --ok:#4c9a5f; --warn:#c8952e; --bad:#c1544c; --acc:#d8a33f;
+ --ca:#4a90d9; --ab:#d98a3c; --va:#8b6bc4;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
-header{background:#12161b;border-bottom:1px solid var(--line);padding:10px 18px;display:flex;
- align-items:center;gap:20px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
-h1{font-size:16px;margin:0;font-weight:600}
-.badge{padding:2px 10px;border-radius:11px;font-size:12px;font-weight:600}
-.kv{display:flex;flex-direction:column;line-height:1.25}
-.kv b{font-size:15px;font-variant-numeric:tabular-nums}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.55 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+header{background:var(--surface);border-bottom:1px solid var(--hair);padding:12px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+h1{font-size:15px;margin:0;font-weight:600;color:var(--tx)}
+header .sep{width:1px;height:22px;background:var(--hair);flex:none}
+.kv{display:flex;flex-direction:column;line-height:1.3;min-width:60px}
+.kv b{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
 .kv span{font-size:11px;color:var(--dim)}
-main{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;padding:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 14px}
-.card h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--dim)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.14fr);gap:16px;padding:16px 24px 40px;align-items:start}
+main>div>.card{margin-bottom:16px}
+main>div>.card:last-child{margin-bottom:0}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:20px}
+.card h2{margin:0 0 16px;font-size:13px;font-weight:600;color:var(--tx);text-transform:none;letter-spacing:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card h2 .small{font-weight:400}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{padding:5px 7px;text-align:right;border-bottom:1px solid #21262d;font-size:13px}
-th{color:var(--dim);font-weight:500;font-size:11px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--hair);font-size:13px;height:36px}
+th{color:var(--dim);font-weight:500;font-size:11px;text-transform:none;letter-spacing:0;border-bottom:1px solid var(--line);white-space:nowrap}
 td:first-child,th:first-child{text-align:left}
-input,select{background:#0d1117;border:1px solid var(--line);color:var(--tx);border-radius:5px;padding:4px 7px;font-size:13px}
-input[type=number]{width:86px}
-button{background:#21262d;color:var(--tx);border:1px solid var(--line);border-radius:6px;padding:5px 11px;cursor:pointer;font-size:13px}
-button:hover{background:#2d333b}
-button.pri{background:#1f6feb;border-color:#1f6feb}
-button:disabled{opacity:.4;cursor:not-allowed}
-.row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-.row>label{font-size:12px;color:var(--dim);min-width:76px}
-.small{font-size:11px;color:var(--dim)}
+tr:hover td{background:rgba(255,255,255,.02)}
+input,select{background:var(--bg);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:0 10px;height:32px;font-size:13px;font-family:inherit}
+input[type=number]{width:88px;font-variant-numeric:tabular-nums}
+input:focus,select:focus{outline:none;border-color:var(--acc)}
+button{background:var(--raised);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:0 14px;height:32px;cursor:pointer;font-size:13px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}
+button:hover{background:#2a2f35}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.pri{background:var(--acc);border-color:var(--acc);color:#1a1408;font-weight:600}
+button.pri:hover{background:#e2b04b}
+button.warn{background:transparent;border-color:var(--line);color:var(--tx2)}
+button.warn:hover{border-color:var(--bad);color:var(--bad)}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.row:last-child{margin-bottom:0}
+.row>label{font-size:12px;color:var(--tx2);min-width:88px}
+.small{font-size:11px;color:var(--dim);line-height:1.5}
 .ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-.scroll{max-height:330px;overflow:auto}
-#log{max-height:130px;overflow:auto;font-size:12px;color:var(--dim)}
-.tabs{ position:relative; z-index:5;display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
-.tabs button{padding:4px 10px;font-size:12px}
-.tabs button.on{background:#1f6feb;border-color:#1f6feb}
+.scroll{max-height:320px;overflow:auto}
+.tabs{position:relative;z-index:5}
+.tabs button{position:relative;z-index:6}
+
+/* ── 表格密度与对齐 ── */
+th,td{white-space:nowrap}
+th:last-child,td:last-child{width:1%;white-space:nowrap}
+td button{white-space:nowrap;padding:0 12px}
+td small{display:block;line-height:1.35}
+/* ── 计时轨道（暗轨 + 琥珀进度）── */
+#clockBar{background:var(--acc)!important;border-radius:3px}
+div[style*="background:#eaeef2"]{background:#22262b!important;border-radius:4px}
+/* ── 顶栏分隔与对齐 ── */
+header h1{margin-right:8px;padding-right:20px;border-right:1px solid var(--hair)}
+header .kv{padding-right:4px}
+/* ── 标题里的括号说明 → dim 小字 ── */
+.card h2{color:var(--tx)}
+.card h2 em{font-style:normal;font-weight:400;color:var(--dim);font-size:12px}
+
+
+/* ── 表格：列内容可换行，避免右列被裁切；按钮保持单行 ── */
+td{white-space:normal}
+td button,td input,td select{white-space:nowrap}
+th{white-space:nowrap}
+/* ── 两列比例：操作台窄、监控台宽 ── */
+main{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}
+/* ── 谈判区控件对齐 ── */
+.row>select{flex:0 0 auto;min-width:190px}
+.row>input{flex:0 0 auto}
+
+
+/* ── 表格单元格不拆行；卡片内容过宽时卡片内横向滚动（不再被裁切）── */
+td{white-space:nowrap}
+.card{overflow-x:auto}
+.card h2,.card .row,.card .small{overflow-wrap:normal}
+
 </style>
 <script>
 /* 页面级错误可见化：真实课堂里不能只留在控制台 */
@@ -63,7 +106,7 @@ setInterval(function () {
 <body>
 <header>
   <h1>SkyChess 沙盘</h1>
-  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">⏱ 开始本季计时</button> <button id="btnSettleNowP" class="warn">⏭ 立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
+  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">开始本季计时</button> <button id="btnSettleNowP" class="warn">⏭ 立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
   <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
   <div class="kv"><b id="hCash">—</b><span>现金</span></div>
   <div class="kv"><b id="hQsi">—</b><span>QSI</span></div>
@@ -80,7 +123,7 @@ setInterval(function () {
 <main>
   <div>
     <div class="card">
-      <h2>① 航线与运价</h2>
+      <h2>航线与运价</h2>
       <div class="row">
         <label>申请开通航线</label><select id="selNewRoute" style="width:170px"></select>
         <button id="btnOpenRoute">提交开线申请（开线费 $200k · 须裁判批准）</button>
@@ -107,7 +150,7 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>② 航班排班（每班 = 每日 1 班）</h2>
+      <h2>航班排班<em>（每班 = 每日 1 班）</em></h2>
       <div class="row">
         <label>飞机</label><select id="selAc" style="width:225px"></select>
         <label>市场</label><select id="selMkt" style="width:145px"></select>
@@ -128,7 +171,7 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>③ 投资与资产</h2>
+      <h2>投资与资产</h2>
       <div class="tabs" id="tabsInv"></div>
       <div id="invBody" class="scroll"></div>
     </div>
@@ -136,12 +179,12 @@ setInterval(function () {
 
   <div>
     <div class="card">
-      <h2>本季开放的新机制（循序渐进）</h2>
+      <h2>本季开放的新机制<em>（循序渐进）</em></h2>
       <div id="newRules" class="small"></div>
       <table id="tblLoan" style="margin-top:8px"></table>
     </div>
     <div class="card" style="margin-top:14px">
-      <h2>考核目标（Low-Cost Carrier）</h2>
+      <h2>考核目标<em>（Low-Cost Carrier）</em></h2>
       <table id="tblScore"></table>
     </div>
     <div class="card" style="margin-top:14px">
@@ -149,7 +192,7 @@ setInterval(function () {
       <table id="tblPrev"></table>
     </div>
     <div class="card" style="margin-top:14px">
-      <h2>提案（须裁判确认后生效）</h2>
+      <h2>提案<em>（须裁判确认后生效）</em></h2>
       <div class="row">
         <label>提案类型</label>
         <select id="propKind" style="width:230px"></select>
@@ -175,12 +218,12 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓬ 航线经济性速览（每班次成本 · 盈亏平衡 LF）</h2>
+      <h2>⓬ 航线经济性速览<em>（每班次成本 · 盈亏平衡 LF）</em></h2>
       <div id="econBox"><div class="small">加载中…</div></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓫ 扩张测算器（拟增几架 → 收入/成本/盈亏平衡 LF）</h2>
+      <h2>⓫ 扩张测算器<em>（拟增几架 → 收入/成本/盈亏平衡 LF）</em></h2>
       <div class="row" style="margin-bottom:6px">
         <label>拟增飞机</label><input id="scN" type="number" min="0" max="20" value="2" style="width:80px"> 架
         <button id="btnScale">测算</button>
@@ -190,12 +233,12 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓰ 经营要点（课堂三条铁律）</h2>
+      <h2>⓰ 经营要点<em>（课堂三条铁律）</em></h2>
       <div id="tipsBox" class="small"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>② 运力指引（先算盈亏平衡，再定班次）</h2>
+      <h2>运力指引<em>（先算盈亏平衡，再定班次）</em></h2>
       <div class="small" style="margin-bottom:6px">
         <b>现金口径盈亏平衡 LF</b>（主指标，只含利息与租金，不含折旧）→ 低于它必须减班次；
         <b>全成本口径</b>（再加折旧）→ 低于它时扩张属「战略性亏损扩张」，是规模摊薄固定成本的必经阶段。
@@ -206,12 +249,12 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>③ 上次操作的被拒原因（排班/投资没成功时看这里）</h2>
+      <h2>上次操作的被拒原因<em>（排班/投资没成功时看这里）</em></h2>
       <div id="rejectBox"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>③ 谈判申报单（提交 → 裁判受理 / 还价 → 达成生效）</h2>
+      <h2>谈判申报单<em>（提交 → 裁判受理 / 还价 → 达成生效）</em></h2>
       <div class="row" style="margin-bottom:8px">
         <input id="nrTitle" type="text" placeholder="标题（如 Q3 燃油与运价诉求）" style="width:230px">
         <select id="nrItem" style="width:220px"></select>
@@ -223,7 +266,7 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>④ 报表（Reports · 七页签 + 历史季度）</h2>
+      <h2>报表<em>（Reports · 七页签 + 历史季度）</em></h2>
       <div class="row" style="margin-bottom:8px">
         <button id="btnExpSum">导出 汇总 CSV</button>
         <button id="btnExpRoute">导出 航线 CSV</button>
@@ -234,12 +277,12 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑤ 运营视图（Fare Matrix / Live Schedules / Fleet Plans）</h2>
+      <h2>运营视图<em>（Fare Matrix / Live Schedules / Fleet Plans）</em></h2>
       <div id="opsBody"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑨ 回程设置（学员自行设定回程起飞时刻）</h2>
+      <h2>回程设置<em>（学员自行设定回程起飞时刻）</em></h2>
       <div class="small" style="margin-bottom:6px">
         回程起飞时刻<b>不得早于「过站时间」</b>（到达 + 下客/清洁/上客）；回程到达须在 22:00 前回到廊桥。
         下一班起点可再晚 2–4 小时 → 为<b>联程中转</b>留出窗口。
@@ -248,7 +291,7 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑧ 联程设置（中转）</h2>
+      <h2>联程设置<em>（中转）</em></h2>
       <div class="small" style="margin-bottom:6px">
         联程（转机）＝旅客在 2–4 小时内转乘你的下一班飞机。承接率由裁判设定的中转强度决定（10%/20%/32%）。
         <b>可作中转点</b>：你的航线允许别家旅客转机；<b>提供联程</b>：你的航班允许承接别家转机旅客（会分流你的座位、增加中转收入）。
@@ -257,17 +300,17 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑥ 处置飞机指引（团队自决）</h2>
+      <h2>处置飞机指引<em>（团队自决）</em></h2>
       <div id="sellHint"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑦ 考核目标（裁判于第 3 季公布）</h2>
+      <h2>考核目标<em>（裁判于第 3 季公布）</em></h2>
       <div id="targetBox"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⑥ 消息板（裁判公告与规则更新）</h2>
+      <h2>消息板<em>（裁判公告与规则更新）</em></h2>
       <div id="msgBoard"></div>
     </div>
     <div class="card" style="margin-top:14px">
@@ -778,11 +821,11 @@ function renderTips() {
   const maxFare = GM.max_fare_multiple || 3;
   const turn = (GM.style_turnaround || {})[g.style || 'Hybrid'] || 45;
   box.innerHTML =
-    '<div>① <b>被网络攻击 → 面板全屏不可操作</b>：两条解法 —— 付裁判赎金，或购买网络安全服务 $' + cyber + '/季（cyberService 规则）。'
+    '<div><b>被网络攻击 → 面板全屏不可操作</b>：两条解法 —— 付裁判赎金，或购买网络安全服务 $' + cyber + '/季（cyberService 规则）。'
     + '攻击不是"裁判给的困难"，而是事件导致的经营中断。</div>'
-    + '<div style="margin-top:4px">② <b>独占 ≠ 赚钱</b>：拿到 100% 份额也可能亏（市场太小）。'
+    + '<div style="margin-top:4px"><b>独占 ≠ 赚钱</b>：拿到 100% 份额也可能亏（市场太小）。'
     + '先算本组过站保障 ' + turn + ' 分钟对应的盈亏平衡 LF，再决定开几条航线、几班/日。</div>'
-    + '<div style="margin-top:4px">③ <b>高票价 → 客座率掉</b>：票价上限为指导价 × ' + maxFare + '；'
+    + '<div style="margin-top:4px"><b>高票价 → 客座率掉</b>：票价上限为指导价 × ' + maxFare + '；'
     + '中转（联程）旅客只按<b>续程段比例</b>结算，余额归原承运人 —— 拉高票价接中转不是套利路径。</div>';
 }
 function renderTurnHint() {
