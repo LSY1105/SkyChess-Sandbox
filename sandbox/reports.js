@@ -463,8 +463,17 @@ export function renderRouteDemand(container, games, opts = {}) {
       try { daily = E.demand(m.name, m.guide_fare || 200, Math.max(freq, 180), 1) / 90; } catch { daily = 0; }
     }
     if (!daily && m.cargo_demand) daily = 40;   // 兜底，保证图形不空白
-    const HOURS = []; for (let h = 6; h <= 23; h++) HOURS.push(h);   // ★ 6:00–23:00
-    const shapeAt = (h) => (shape && shape.length === 24 && shape[h] != null ? shape[h] : FALLBACK_SHAPE[h]);
+    /* ★ 15 分钟粒度（原版：一天按每 15 分钟一个时刻划分）→ 68 个刻度点 6:00–23:00
+       曲线值按**日形状线性插值**（日形状为 24 个整点） */
+    const HOURS = [];
+    for (let h = 6; h <= 23; h++) for (let q = 0; q < 4; q++) HOURS.push(h + q / 4);
+    const shapeAt = (hf) => {
+      const i0 = Math.floor(hf), i1 = Math.min(23, i0 + 1), f = hf - i0;
+      const s0 = (shape && shape.length === 24 && shape[i0] != null) ? shape[i0] : FALLBACK_SHAPE[i0];
+      const s1 = (shape && shape.length === 24 && shape[i1] != null) ? shape[i1] : FALLBACK_SHAPE[i1];
+      return s0 + (s1 - s0) * f;
+    };
+    const hhmm = (hf) => String(Math.floor(hf)).padStart(2, '0') + ':' + String(Math.round((hf % 1) * 60)).padStart(2, '0');
     /* ★ 需求是**一条固定曲线**（原版：具体需求基本是固定值，不随排班/定价变化）
        着色按**趋势分段**：上升与高峰段 = 红，下降与低峰段 = 绿 */
     const curve = HOURS.map(h => daily * shapeAt(h));
@@ -497,7 +506,7 @@ export function renderRouteDemand(container, games, opts = {}) {
     const maxBar = Math.max(1, ...HOURS.map(h => Object.values(bars[h] || {}).reduce((a, b) => a + b, 0)));
     const maxLine = Math.max(1, ...curve);
     const W = 620, H = 190, PL = 46, PB = 34, PT = 12;
-    const X = h => PL + (h + 0.5) * (W - PL - 10) / 24;
+    const X = h => PL + (h - 6 + 0.125) * (W - PL - 10) / 17;   // 6:00–23:00 共 17 小时
     const Y = v => H - PB - (v / Math.max(maxBar, maxLine)) * (H - PB - PT);
     const NS = 'http://www.w3.org/2000/svg';
     const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
@@ -524,7 +533,7 @@ export function renderRouteDemand(container, games, opts = {}) {
       const tag = i === 0 ? '起点' : (d > 0.0001 ? '上升' : d < -0.0001 ? '下降' : '持平');
       const c = mk('circle', { cx: X(h), cy: Y(curve[i]), r: 2.6, fill: '#2da44e' });
       const ti = mk('title', {});
-      ti.textContent = `${String(h).padStart(2, '0')}:00　需求 ${Math.round(curve[i])} 人/日　实际载量 ${Math.round(loadByHour[h] || 0)} 人　趋势：${tag}`;
+      ti.textContent = `${hhmm(h)}　需求 ${Math.round(curve[i])} 人/日　实际载量 ${Math.round(loadByHour[h] || 0)} 人　趋势：${tag}`;
       c.appendChild(ti);
       svg.appendChild(c);
     });
