@@ -80,6 +80,14 @@ td{white-space:nowrap}
 .card{overflow-x:auto}
 .card h2,.card .row,.card .small{overflow-wrap:normal}
 
+
+/* ── 签名细节：席位色点（CA 蓝 / AB 橙 / VA 紫），贯穿表格与图表 ── */
+td[data-seat]::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+ margin-right:8px;vertical-align:middle;background:var(--dot,var(--dim))}
+td[data-seat="CA"]{--dot:var(--ca)}
+td[data-seat="AB"]{--dot:var(--ab)}
+td[data-seat="VA"]{--dot:var(--va)}
+
 </style>
 </head>
 <body>
@@ -1221,5 +1229,19 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
       <button id="btnTExpSched">班次 CSV</button><button id="btnTExpInv">投资 CSV</button></div>
     <div id="msgList"></div>
   </div>
+
+<script>
+/* ★ 签名细节：给席位列打上 data-seat，由 CSS 画席位色点（CA 蓝 / AB 橙 / VA 紫） */
+(function () {
+  function mark() {
+    document.querySelectorAll('table td:first-child').forEach(td => {
+      const m = (td.textContent || '').trim().match(/^(CA|AB|VA|G\d+)/);
+      if (m) td.setAttribute('data-seat', m[1]); else td.removeAttribute('data-seat');
+    });
+  }
+  mark();
+  new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>

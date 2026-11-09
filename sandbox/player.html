@@ -80,6 +80,19 @@ td{white-space:nowrap}
 .card{overflow-x:auto}
 .card h2,.card .row,.card .small{overflow-wrap:normal}
 
+
+/* ── 小组端两列：flex 列，卡片间距统一 16 ── */
+main>div{display:flex;flex-direction:column;gap:16px}
+main>div>.card{margin-bottom:0!important}
+
+
+/* ── 签名细节：席位色点（CA 蓝 / AB 橙 / VA 紫），贯穿表格与图表 ── */
+td[data-seat]::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+ margin-right:8px;vertical-align:middle;background:var(--dot,var(--dim))}
+td[data-seat="CA"]{--dot:var(--ca)}
+td[data-seat="AB"]{--dot:var(--ab)}
+td[data-seat="VA"]{--dot:var(--va)}
+
 </style>
 <script>
 /* 页面级错误可见化：真实课堂里不能只留在控制台 */
@@ -106,7 +119,7 @@ setInterval(function () {
 <body>
 <header>
   <h1>SkyChess 沙盘</h1>
-  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">开始本季计时</button> <button id="btnSettleNowP" class="warn">⏭ 立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
+  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">开始本季计时</button> <button id="btnSettleNowP" class="warn">立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
   <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
   <div class="kv"><b id="hCash">—</b><span>现金</span></div>
   <div class="kv"><b id="hQsi">—</b><span>QSI</span></div>
@@ -218,12 +231,12 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓬ 航线经济性速览<em>（每班次成本 · 盈亏平衡 LF）</em></h2>
+      <h2>航线经济性速览<em>（每班次成本 · 盈亏平衡 LF）</em></h2>
       <div id="econBox"><div class="small">加载中…</div></div>
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓫ 扩张测算器<em>（拟增几架 → 收入/成本/盈亏平衡 LF）</em></h2>
+      <h2>扩张测算器<em>（拟增几架 → 收入/成本/盈亏平衡 LF）</em></h2>
       <div class="row" style="margin-bottom:6px">
         <label>拟增飞机</label><input id="scN" type="number" min="0" max="20" value="2" style="width:80px"> 架
         <button id="btnScale">测算</button>
@@ -233,7 +246,7 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>⓰ 经营要点<em>（课堂三条铁律）</em></h2>
+      <h2>经营要点<em>（课堂三条铁律）</em></h2>
       <div id="tipsBox" class="small"></div>
     </div>
 
@@ -1339,6 +1352,46 @@ async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__D
 var bp=__DOC.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
 var bs=__DOC.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
 setInterval(seatClockTick,2000);seatClockTick();
+</script>
+
+<script>
+/* ★ 布局重排：按「先决策、再核账」把卡片分到两列 —— 决策动作集中在一列，核账与提交在另一列
+   按标题文本识别卡片（不依赖写死的 id，避免与业务 id 冲突） */
+(function () {
+  const MAP = [
+    ['航线与运价', 'L'], ['航班排班', 'L'], ['回程设置', 'L'], ['联程设置', 'L'], ['处置飞机指引', 'L'],
+    ['考核目标', 'L'], ['本季开放的新机制', 'L'],
+    ['本回合预览', 'R'], ['提案', 'R'], ['谈判申报单', 'R'], ['被拒原因', 'R'],
+    ['经济性速览', 'R'], ['扩张测算器', 'R'], ['经营要点', 'R'], ['运力指引', 'R'],
+    ['投资与资产', 'R'], ['历史报告', 'R'], ['报表', 'R'], ['运营视图', 'R'], ['消息板', 'R'], ['日志', 'R'],
+  ];
+  const main = document.querySelector('main'); if (!main) return;
+  const cols = main.querySelectorAll(':scope > div'); if (cols.length < 2) return;
+  const buckets = { L: [], R: [] };
+  main.querySelectorAll('.card').forEach(card => {
+    const h2 = card.querySelector('h2');
+    const txt = h2 ? h2.textContent : '';
+    for (const [k, side] of MAP) {
+      if (txt.includes(k)) { buckets[side].push(card); card.setAttribute('data-side', side.toLowerCase()); return; }
+    }
+  });
+  buckets.L.forEach((c, i) => { c.style.order = i; cols[0].appendChild(c); });
+  buckets.R.forEach((c, i) => { c.style.order = i; cols[1].appendChild(c); });
+})();
+</script>
+
+<script>
+/* ★ 签名细节：给席位列打上 data-seat，由 CSS 画席位色点（CA 蓝 / AB 橙 / VA 紫） */
+(function () {
+  function mark() {
+    document.querySelectorAll('table td:first-child').forEach(td => {
+      const m = (td.textContent || '').trim().match(/^(CA|AB|VA|G\d+)/);
+      if (m) td.setAttribute('data-seat', m[1]); else td.removeAttribute('data-seat');
+    });
+  }
+  mark();
+  new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
+})();
 </script>
 </body>
 </html>
