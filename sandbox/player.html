@@ -1433,5 +1433,47 @@ setInterval(seatClockTick,2000);seatClockTick();
   else build();
 })();
 </script>
+
+<script>
+/* ★ 视觉第三轮：右列「历史报告 · 报表 · 运营视图」三块合并为一个页签组
+   —— 原右列过长、左列留白；合并后核账区收敛为一屏
+   做法：运行时**搬运既有卡片的内容**（不重建、不改业务结构），失败则原样保留 */
+(function () {
+  function build() {
+    if (document.getElementById('p-reports-group')) return;
+    const cards = Array.from(document.querySelectorAll('main .card'));
+    const find = kw => cards.find(c => { const h = c.querySelector('h2'); return h && h.textContent.includes(kw); });
+    const cHist = find('历史报告'), cRep = find('报表'), cOps = find('运营视图');
+    if (!cHist || !cRep || !cOps) return;
+    const box = document.createElement('div');
+    box.className = 'card'; box.id = 'p-reports-group';
+    box.innerHTML = '<h2>报表与运营<em>（历史季度 · 七页签报表 · 运营视图）</em></h2>'
+      + '<div class="tabs" id="tabsReportGroup"></div><div id="reportGroupBody"></div>';
+    const tabs = box.querySelector('#tabsReportGroup');
+    const body = box.querySelector('#reportGroupBody');
+    const items = [['历史报告', cHist], ['报表', cRep], ['运营视图', cOps]];
+    items.forEach(([label, card], i) => {
+      const b = document.createElement('button');
+      b.textContent = label;
+      b.onclick = () => {
+        items.forEach(([, c], j) => { c.style.display = (i === j) ? '' : 'none'; });
+        items.forEach(([, c], j) => { const btn = tabs.children[j]; if (btn) btn.classList.toggle('on', i === j); });
+      };
+      tabs.appendChild(b);
+    });
+    cHist.parentNode.insertBefore(box, cHist);
+    items.forEach(([, card], i) => {
+      card.removeAttribute('style');
+      card.style.display = i === 0 ? '' : 'none';
+      card.style.border = 'none'; card.style.background = 'transparent';
+      card.style.padding = '0'; card.style.margin = '0'; card.style.borderRadius = '0';
+      body.appendChild(card);
+    });
+    if (tabs.children[0]) tabs.children[0].classList.add('on');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
 </body>
 </html>
