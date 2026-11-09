@@ -93,6 +93,16 @@ td[data-seat="CA"]{--dot:var(--ca)}
 td[data-seat="AB"]{--dot:var(--ab)}
 td[data-seat="VA"]{--dot:var(--va)}
 
+
+/* ── 顶栏折叠：更多指标 ── */
+.topmore{position:relative}
+.topmore>summary{list-style:none;cursor:pointer;font-size:12px;color:var(--tx2);
+ padding:6px 10px;border:1px solid var(--line);border-radius:8px;user-select:none}
+.topmore>summary::-webkit-details-marker{display:none}
+.topmore>summary:hover{background:var(--raised);color:var(--tx)}
+.topmore[open]>summary{border-color:var(--acc);color:var(--tx)}
+.topmore>.kv{display:inline-flex;margin:8px 16px 0 0}
+
 </style>
 <script>
 /* 页面级错误可见化：真实课堂里不能只留在控制台 */
@@ -454,7 +464,7 @@ function routes() {
     const pax = Math.min(seats, D);
     const lf = seats ? pax / seats : 0;
     const row = el('tr');
-    row.appendChild(el('td', null, `${m.name_cn} <span class="small">${r.code}</span>`));
+    row.appendChild(el('td', null, `${m.name_cn || m.code || r.code} <span class="small">${r.code}</span>`));
     const tdF = el('td');
     const inp = el('input'); inp.type = 'number'; inp.value = r.fare; inp.step = '5';
     inp.onchange = () => act('setFare', { code: r.code, fare: +inp.value });
@@ -515,7 +525,7 @@ function routes() {
   const opened = g.routes.map(r => r.code);
   const releasable = (g.releasedRoutes || []).filter(c => !opened.includes(c));
   sel.innerHTML = releasable.length
-    ? releasable.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+    ? releasable.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
     : '<option value="">（无裁判已释放的新航线）</option>';
 }
 
@@ -549,7 +559,7 @@ function renderRouteHint() {
 function bandSelFill() {
   const s = $('#selBandMkt'); if (!s) return;
   const opened = g.routes.map(r => r.code);
-  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
     || '<option value="">（无已开通航线）</option>';
 }
 $('#btnBand') && ($('#btnBand').onclick = async () => {
@@ -561,7 +571,7 @@ $('#btnBand') && ($('#btnBand').onclick = async () => {
 function mktSelFill() {
   const s = $('#selMkt');
   const opened = g.routes.map(r => r.code);
-  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c].name_cn} (${c})</option>`).join('')
+  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
     || '<option value="">（先开通航线）</option>';
 }
 /* 大修标记：运力减半（BH 上限）提示 */
@@ -1054,8 +1064,10 @@ function renderBankruptOverlay() {
 async function renderScaleBox() {
   const box = $('#scaleBox'); if (!box) return;
   const n = Number(($('#scN') || {}).value || 0);
-  const res = await act('estimateScale', { n: n }).catch(() => null);
-  const joint = await act('estimateScaleJoint', {}).catch(() => null);
+  const rr = await act('estimateScale', { n: n }).catch(() => null);
+  const res = (rr && rr.result) ? rr.result : (rr && rr.revenue != null ? rr : null);
+  const jr = await act('estimateScaleJoint', {}).catch(() => null);
+  const joint = (jr && jr.result) ? jr.result : (jr && jr.best ? jr : null);
   box.innerHTML = '';
   if (!res || typeof res !== 'object' || res.revenue == null) { box.appendChild(el('div', 'small', '请先完成一个回合（有历史数据）后再测算。')); return; }
   /* ★ 定价 × 运力 联合测算：现价下扩机常为负，提价后可能转正 → 两套结果并列 */
@@ -1111,7 +1123,8 @@ async function renderScaleBox() {
 /* 航线经济性速览：每班次变动成本、满座收入、单班次盈亏平衡 LF、市场季度需求 */
 async function renderEconBox() {
   const box = $('#econBox'); if (!box) return;
-  const b = await act('fleetEconomics', {}).catch(() => null);
+  const br = await act('fleetEconomics', {}).catch(() => null);
+  const b = (br && br.result) ? br.result : (br && br.rows ? br : null);
   box.innerHTML = '';
   if (!b || !b.rows || !b.rows.length) { box.appendChild(el('div', 'small', '暂无已开航线。')); return; }
   const tb = el('table');
@@ -1470,6 +1483,28 @@ setInterval(seatClockTick,2000);seatClockTick();
       body.appendChild(card);
     });
     if (tabs.children[0]) tabs.children[0].classList.add('on');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+/* ★ 视觉第三轮：顶栏指标收敛 —— 保留 3 项主指标（期间/现金/QSI），其余收进「更多指标」折叠 */
+(function () {
+  function build() {
+    const h = document.querySelector('header'); if (!h) return;
+    if (document.getElementById('p-topmore')) return;
+    const kvs = Array.from(h.querySelectorAll('.kv'));
+    if (kvs.length <= 3) return;
+    const det = document.createElement('details');
+    det.id = 'p-topmore'; det.className = 'topmore';
+    const sum = document.createElement('summary');
+    sum.textContent = '更多指标';
+    det.appendChild(sum);
+    kvs.slice(3).forEach(k => det.appendChild(k));
+    const spacer = h.querySelector('div[style*="flex:1"]');
+    h.insertBefore(det, spacer || null);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
