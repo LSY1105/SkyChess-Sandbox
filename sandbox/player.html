@@ -1046,7 +1046,7 @@ function renderBankruptOverlay() {
   o.style.cssText = 'position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at 50% 40%,#2a0d0d,#0b0202 70%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding:24px';
   o.innerHTML = '<div style="font-size:76px">&#128128;</div>'
     + '<div style="font-size:24px;font-weight:700">破产清算 · 本届退出</div>'
-    + '<div style="max-width:560px;line-height:1.8">该组已资不抵债（现金 $' + Math.round(g.cash).toLocaleString() + '）：全部机队停飞，本届退出。<br>'
+    + '<div style="max-width:560px;line-height:1.8">该组已资不抵债（结算现金 $' + Math.round(g.cash).toLocaleString() + '） + '租赁押金已在清算前回收，但资不抵债的判定不因此改变。<br>' + ：全部机队停飞，本届退出。<br>'
     + '请与裁判一起复盘：现金流从哪一季断裂？是运力扩张过快、投资过重，还是运价与客座率的取舍出了问题？</div>';
   __DOC.body.appendChild(o);
 }

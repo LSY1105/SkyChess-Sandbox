@@ -972,7 +972,18 @@ export function applyFinancialHealth(g) {
   const res = { reduced: [], bankrupt: false };
   if (g.bankrupt) return res;
   if (g.cash >= 0) return res;
-  // ① 强制削减：退最贵租金的租赁（押金退还）
+  /* ★ 裁定 A（2026-11-03）：**先判破产，再做削减**
+     旧顺序（先削减后判定）会让同一笔现金被两套逻辑先后处理 → 状态与显示不一致
+     新顺序：① 先用**结算后现金**判定资不抵债 → 清算标记确定
+             ② 再执行强制削减（退租赁、退还押金）—— **仅回收资产，不改变清算判定**
+     即便现金因退租押金转正，该组仍属「已资不抵债 → 进入清算」 */
+  const threshold = GM.bankrupt_cash || -5000000;
+  if (g.cash < threshold) {
+    g.bankrupt = true;
+    g.bankruptTurn = g.turn;
+    res.bankrupt = true;
+  }
+  // 强制削减：退最贵租金的租赁（押金退还）
   let guard = 0;
   while (g.cash < 0 && (g.leases || []).length && guard++ < 12) {
     let idx = 0;
@@ -984,13 +995,7 @@ export function applyFinancialHealth(g) {
     g.cash += l.deposit || 0;                      // 可退不罚 → 押金退还
     res.reduced.push(`${l.type}（季租 $${Math.round(l.quarterlyRent || 0).toLocaleString()}，押金 $${Math.round(l.deposit || 0).toLocaleString()} 已退）`);
   }
-  // ② 仍资不抵债 → 破产清算
-  if (g.cash < (GM.bankrupt_cash || -5000000)) {
-    g.bankrupt = true;
-    g.bankruptTurn = g.turn;
-    g.schedules = [];
-    res.bankrupt = true;
-  }
+  if (g.bankrupt) g.schedules = [];                // 清算 → 全部停飞
   return res;
 }
 
