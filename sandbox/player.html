@@ -583,7 +583,10 @@ function acSelFill() {
     const cap = G.acCapacity(g, a);
     const used = G.acUsedBH(g, a.id);
     const t = AIRCRAFT.find(x => x.name === a.type);
-    return `<option value="${a.id}">${a.type} (${a.nickname}) ${used.toFixed(0)}/${cap} BH · ${t.seats}座</option>`;
+    /* ★ 标明自有 / 租赁 → 学员一眼知道哪架能退租、哪架能卖 */
+    const lease = (g.leases || []).find(l => String(l.acId) === String(a.id));
+    const own = a.owned ? '自有' : `租赁(季租$${Math.round((lease && lease.quarterlyRent) || 0).toLocaleString()})`;
+    return `<option value="${a.id}">${a.type} · ${own} · ${used.toFixed(0)}/${cap} BH · ${t.seats}座</option>`;
   }).join('');
 }
 function sched() {
@@ -1368,6 +1371,45 @@ async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__D
 var bp=__DOC.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
 var bs=__DOC.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
 setInterval(seatClockTick,2000);seatClockTick();
+
+/* ★ 削减固定成本（学员自救）：退还租赁 / 卖出该机
+   —— 独立卡片，不改动既有卡片结构（零破坏风险）
+   —— 放在「航班排班」之后：先看到飞机，再决定处置
+   —— 裁判不能替航司改变资产：这两个动作完全由小组自主执行，裁判端只做审计 */
+(function () {
+  const D = __DOC;
+  function build() {
+    const main = D.querySelector('main'); if (!main) return;
+    if (D.getElementById('p-costcut')) return;
+    const cols = main.querySelectorAll(':scope > div'); if (!cols.length) return;
+    const card = D.createElement('div');
+    card.className = 'card'; card.id = 'p-costcut';
+    card.innerHTML = '<h2>削减固定成本<em>（现金为负时的自救手段 · 自主决策）</em></h2>'
+      + '<div class="row">'
+      + '<label>所选飞机</label>'
+      + '<button id="btnReturnLease">退还租赁</button>'
+      + '<button id="btnSellAc">卖出该机</button>'
+      + '<span class="small">租赁机可随时归还、可退不罚（押金退回）；自有机按报价出售（上限＝目录价×0.5）</span>'
+      + '</div>';
+    cols[0].appendChild(card);
+    card.querySelector('#btnReturnLease').addEventListener('click', async () => {
+      const s = D.getElementById('selAc'); const id = s ? s.value : '';
+      if (!id) return alert('请先在排班区选择飞机');
+      const r = await act('returnLease', { acId: id });
+      if (r && r.result && r.result !== 'ok') alert(r.result);
+    });
+    card.querySelector('#btnSellAc').addEventListener('click', async () => {
+      const s = D.getElementById('selAc'); const id = s ? s.value : '';
+      if (!id) return alert('请先在排班区选择飞机');
+      const offer = prompt('请输入出售报价（美元）', '20000000');
+      if (!offer) return;
+      const r = await act('sellAircraft', { acId: id, offer: Number(offer) });
+      if (r && r.result && r.result !== 'ok') alert(r.result);
+    });
+  }
+  if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
 
 
 </script>

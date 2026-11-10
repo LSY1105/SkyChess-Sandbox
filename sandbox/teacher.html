@@ -229,6 +229,8 @@ td[data-seat="VA"]{--dot:#2f6fa8}
     <div class="card">
       <h2>各席位经营状况</h2>
       <table id="tblSeats"></table>
+      <h3 style="margin-top:16px">资产处置与减负<em>（退租赁 / 卖机 · 小组自主决策，裁判只审计）</em></h3>
+      <div id="assetPanel" class="small">加载中…</div>
       <div class="row" style="margin-top:10px">
         <a href="/player.html?seat=CA" target="_blank"><button>打开 CA 面板</button></a>
         <a href="/player.html?seat=AB" target="_blank"><button>打开 AB 面板</button></a>
@@ -506,6 +508,7 @@ async function refresh() {
     const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
     if (res.error) continue;
     seatGames[s] = res.game;
+    /* 资产处置面板依赖 seatGames → 席位表刷新后同步重绘 */
     const gm_ = res.game, last = gm_.history[gm_.history.length - 1];
     const cum = gm_.history.reduce((a, r) => a + r.operating_profit, 0);
     const row = el('tr');
@@ -593,6 +596,45 @@ async function refresh() {
   }).join('');
 
   $('#log').innerHTML = gm.log.slice(-40).map(l => '· ' + l).join('<br>') || '<span class="small">（无）</span>';
+  renderAssetPanel();   // 资产处置与减负（依赖 seatGames，须在席位表刷新后）
+
+/* ★ 资产处置与减负：把三组的机队、租赁与减负动作显式摆到裁判面前
+   教学意义：租赁/买机/卖机由团队自主决策（裁判不能替航司改变资产），
+   裁判的职责是**看得见**（可审计、可点评），而不是替他们决定。 */
+function renderAssetPanel() {
+  const box = $('#assetPanel'); if (!box) return;
+  const rows = [];
+  for (const [seat, g] of Object.entries(seatGames || {})) {
+    if (!g) continue;
+    const acs = (g.aircraft || []);
+    const owned = acs.filter(a => a.owned);
+    const leased = acs.filter(a => !a.owned);
+    const leaseRows = (g.leases || []).map(l => {
+      const ac = acs.find(a => String(a.id) === String(l.acId));
+      return `${ac ? ac.type : '?'}（季租 $${Math.round(l.quarterlyRent || 0).toLocaleString()}）`;
+    });
+    /* 减负动作：从小组日志里挑出退租 / 卖机 / 减负相关条目 */
+    const cuts = (g.log || []).filter(l => /退还租赁|出售 |减负|退租|卖机/.test(l)).slice(-4).reverse();
+    const fixedCost = owned.reduce((s, a) => s + (a.price || 0) * 5 / 100 / 4, 0)
+                    + (g.leases || []).reduce((s, l) => s + (l.quarterlyRent || 0), 0);
+    rows.push({ seat, owned, leased, leaseRows, cuts, fixedCost, cash: g.cash });
+  }
+  if (!rows.length) { box.innerHTML = '<span class="small">（暂无席位数据）</span>'; return; }
+  const H = ['席位', '自有飞机', '租赁飞机', '季固定成本', '近期减负动作'];
+  const html = '<table style="margin-top:6px"><thead><tr>'
+    + H.map(h => `<th style="text-align:left">${h}</th>`).join('')
+    + '</tr></thead><tbody>'
+    + rows.map(r => '<tr style="vertical-align:top">'
+        + `<td style="text-align:left"><b>${r.seat}</b></td>`
+        + `<td style="text-align:left">${r.owned.length ? r.owned.map(a => `${a.type}<span class="small"> ${a.age != null ? a.age + '年' : ''}</span>`).join('、') : '<span class="small">无</span>'}</td>`
+        + `<td style="text-align:left">${r.leased.length ? (r.leaseRows.join('、') || '<span class="small">无</span>') : '<span class="small">无（可买机）</span>'}</td>`
+        + `<td>$${Math.round(r.fixedCost).toLocaleString()}</td>`
+        + `<td style="text-align:left">${r.cuts.length ? r.cuts.map(c => '<div>· ' + c + '</div>').join('') : '<span class="small">（本季无减负动作）</span>'}</td>`
+      + '</tr>').join('')
+    + '</tbody></table>'
+    + '<div class="small" style="margin-top:8px">裁判不替航司改变资产：租赁、买机、卖机由小组自主决策；此表仅供审计与课堂点评。</div>';
+  box.innerHTML = html;
+}
 
   // 谈判记录
   const nl = gm.negotiationLog || [];

@@ -326,6 +326,7 @@ function serialize(g) {
     connectingDemand: g.connectingDemand,
     period: G.currentPeriod(g),
     aircraft: g.aircraft, routes: g.routes, schedules: g.schedules,
+    leases: g.leases || [],   // ★ 租赁台账必须下发：否则小组端看不到自己租了什么 → 退租按钮无效
     investments: g.investments, investmentsAnnual: g.investmentsAnnual,
     assets: g.assets, demandMult: g.demandMult, utilCap: g.utilCap,
     log: g.log, history: g.history, lastDetail: g.lastDetail || {},
@@ -451,7 +452,10 @@ function applyActionRaw(g, a) {
       g.schedules = (g.schedules || []).filter(s => s.acId !== l.acId);
       const back = l.deposit || 0;
       g.cash += back;
-      g.log.push(`退还租赁 ${l.type}：押金 $${Math.round(back).toLocaleString()} 已退回，该机停飞`);
+      const msg = `退还租赁 ${l.type}：押金 $${Math.round(back).toLocaleString()} 已退回，该机停飞`;
+      g.log.push(msg);
+      /* ★ 同步进全局日志 → 裁判端可审计、可课堂点评（小组自救动作必须让裁判看见） */
+      gm.log.push(`【减负】${g.seat} ${msg}`);
       return 'ok';
     }
     case 'sellAircraft': {
@@ -467,6 +471,9 @@ function applyActionRaw(g, a) {
       if (offer <= 0) return '报价必须为正';
       const r = G.sellAircraft(g, ac.id, offer);   // 传原生 id（内部用严格比较）
       if (r && r.ok === false) return r.why || '出售失败';
+      /* ★ 同步进全局日志 → 裁判端可审计（自变量含大修溢价时以 total 为准） */
+      const got = (r && typeof r.total === 'number') ? r.total : offer;
+      gm.log.push(`【减负】${g.seat} 出售自有飞机 ${ac.type}：成交 $${Math.round(got).toLocaleString()}`);
       return 'ok';
     }
     case 'setFare': {
