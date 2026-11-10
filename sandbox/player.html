@@ -1368,148 +1368,18 @@ async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__D
 var bp=__DOC.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
 var bs=__DOC.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
 setInterval(seatClockTick,2000);seatClockTick();
+
+
 </script>
 
-<script>
-/* ★ 布局重排：按「先决策、再核账」把卡片分到两列 —— 决策动作集中在一列，核账与提交在另一列
-   按标题文本识别卡片（不依赖写死的 id，避免与业务 id 冲突） */
-(function () {
-  const MAP = [
-    ['航线与运价', 'L'], ['航班排班', 'L'], ['削减固定成本', 'L'], ['回程设置', 'L'], ['联程设置', 'L'], ['处置飞机指引', 'L'],
-    ['考核目标', 'L'], ['本季开放的新机制', 'L'],
-    ['本回合预览', 'R'], ['提案', 'R'], ['谈判申报单', 'R'], ['被拒原因', 'R'],
-    ['经济性速览', 'R'], ['扩张测算器', 'R'], ['经营要点', 'R'], ['运力指引', 'R'],
-    ['投资与资产', 'R'], ['历史报告', 'R'], ['报表', 'R'], ['运营视图', 'R'], ['消息板', 'R'], ['日志', 'R'],
-  ];
-  const main = document.querySelector('main'); if (!main) return;
-  const cols = main.querySelectorAll(':scope > div'); if (cols.length < 2) return;
-  const buckets = { L: [], R: [] };
-  main.querySelectorAll('.card').forEach(card => {
-    const h2 = card.querySelector('h2');
-    const txt = h2 ? h2.textContent : '';
-    for (const [k, side] of MAP) {
-      if (txt.includes(k)) { buckets[side].push(card); card.setAttribute('data-side', side.toLowerCase()); return; }
-    }
-  });
-  buckets.L.forEach((c, i) => { c.style.order = i; cols[0].appendChild(c); });
-  buckets.R.forEach((c, i) => { c.style.order = i; cols[1].appendChild(c); });
-})();
-</script>
 
-<script>
-/* ★ 签名细节：给席位列打上 data-seat，由 CSS 画席位色点（CA 蓝 / AB 橙 / VA 紫） */
-(function () {
-  function mark() {
-    document.querySelectorAll('table td:first-child').forEach(td => {
-      const m = (td.textContent || '').trim().match(/^(CA|AB|VA|G\d+)/);
-      if (m) td.setAttribute('data-seat', m[1]); else td.removeAttribute('data-seat');
-    });
-  }
-  mark();
-  new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
-})();
-</script>
 
-<script>
-/* ★ 削减固定成本（学员自救）：新建**独立卡片**，不改动既有卡片结构 → 零破坏风险
-   飞机取上方「排班」区的飞机下拉（#selAc） */
-(function () {
-  function build() {
-    const main = document.querySelector('main'); if (!main) return;
-    if (document.getElementById('p-costcut')) return;
-    const cols = main.querySelectorAll(':scope > div'); if (!cols.length) return;
-    const card = document.createElement('div');
-    card.className = 'card'; card.id = 'p-costcut';
-    card.innerHTML = '<h2>削减固定成本<em>（现金为负时的自救手段）</em></h2>'
-      + '<div class="row">'
-      + '<label>所选飞机</label>'
-      + '<button id="btnReturnLease">退还租赁</button>'
-      + '<button id="btnSellAc">卖出该机</button>'
-      + '<span class="small">租赁机可随时归还、可退不罚（押金退回）；自有机按报价出售</span>'
-      + '</div>';
-    cols[0].appendChild(card);
-    card.querySelector('#btnReturnLease').addEventListener('click', async () => {
-      const s = document.getElementById('selAc'); const id = s ? s.value : '';
-      if (!id) return alert('请先在排班区选择飞机');
-      const r = await act('returnLease', { acId: id });
-      if (r && r.result && r.result !== 'ok') alert(r.result);
-    });
-    card.querySelector('#btnSellAc').addEventListener('click', async () => {
-      const s = document.getElementById('selAc'); const id = s ? s.value : '';
-      if (!id) return alert('请先在排班区选择飞机');
-      const offer = prompt('请输入出售报价（美元）', '20000000');
-      if (!offer) return;
-      const r = await act('sellAircraft', { acId: id, offer: Number(offer) });
-      if (r && r.result && r.result !== 'ok') alert(r.result);
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-</script>
 
-<script>
-/* ★ 视觉第三轮：右列「历史报告 · 报表 · 运营视图」三块合并为一个页签组
-   —— 原右列过长、左列留白；合并后核账区收敛为一屏
-   做法：运行时**搬运既有卡片的内容**（不重建、不改业务结构），失败则原样保留 */
-(function () {
-  function build() {
-    if (document.getElementById('p-reports-group')) return;
-    const cards = Array.from(document.querySelectorAll('main .card'));
-    const find = kw => cards.find(c => { const h = c.querySelector('h2'); return h && h.textContent.includes(kw); });
-    const cHist = find('历史报告'), cRep = find('报表'), cOps = find('运营视图');
-    if (!cHist || !cRep || !cOps) return;
-    const box = document.createElement('div');
-    box.className = 'card'; box.id = 'p-reports-group';
-    box.innerHTML = '<h2>报表与运营<em>（历史季度 · 七页签报表 · 运营视图）</em></h2>'
-      + '<div class="tabs" id="tabsReportGroup"></div><div id="reportGroupBody"></div>';
-    const tabs = box.querySelector('#tabsReportGroup');
-    const body = box.querySelector('#reportGroupBody');
-    const items = [['历史报告', cHist], ['报表', cRep], ['运营视图', cOps]];
-    items.forEach(([label, card], i) => {
-      const b = document.createElement('button');
-      b.textContent = label;
-      b.onclick = () => {
-        items.forEach(([, c], j) => { c.style.display = (i === j) ? '' : 'none'; });
-        items.forEach(([, c], j) => { const btn = tabs.children[j]; if (btn) btn.classList.toggle('on', i === j); });
-      };
-      tabs.appendChild(b);
-    });
-    cHist.parentNode.insertBefore(box, cHist);
-    items.forEach(([, card], i) => {
-      card.removeAttribute('style');
-      card.style.display = i === 0 ? '' : 'none';
-      card.style.border = 'none'; card.style.background = 'transparent';
-      card.style.padding = '0'; card.style.margin = '0'; card.style.borderRadius = '0';
-      body.appendChild(card);
-    });
-    if (tabs.children[0]) tabs.children[0].classList.add('on');
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-</script>
 
-<script>
-/* ★ 视觉第三轮：顶栏指标收敛 —— 保留 3 项主指标（期间/现金/QSI），其余收进「更多指标」折叠 */
-(function () {
-  function build() {
-    const h = document.querySelector('header'); if (!h) return;
-    if (document.getElementById('p-topmore')) return;
-    const kvs = Array.from(h.querySelectorAll('.kv'));
-    if (kvs.length <= 3) return;
-    const det = document.createElement('details');
-    det.id = 'p-topmore'; det.className = 'topmore';
-    const sum = document.createElement('summary');
-    sum.textContent = '更多指标';
-    det.appendChild(sum);
-    kvs.slice(3).forEach(k => det.appendChild(k));
-    const spacer = h.querySelector('div[style*="flex:1"]');
-    h.insertBefore(det, spacer || null);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-</script>
+
+
+
+
+
 </body>
 </html>

@@ -1187,7 +1187,9 @@ async function renderCargoPolicy() {
   mk("全部航线", "*");
   for (const c of (MARKET_LIST || [])) mk(c, c);
 }
-setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
+setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
+
+</script>
 <div class="card" style="margin-top:14px">
   <h2>报表与运营视图</h2>
   <div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
@@ -1247,49 +1249,8 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();</script>
     <div id="msgList"></div>
   </div>
 
-<script>
-/* ★ 签名细节：给席位列打上 data-seat，由 CSS 画席位色点（CA 蓝 / AB 橙 / VA 紫） */
-(function () {
-  function mark() {
-    document.querySelectorAll('table td:first-child').forEach(td => {
-      const m = (td.textContent || '').trim().match(/^(CA|AB|VA|G\d+)/);
-      if (m) td.setAttribute('data-seat', m[1]); else td.removeAttribute('data-seat');
-    });
-    /* ★ 负现金主动提示：裁判端席位表里现金为负的单元格标红并标注「减负」，
-       悬停给出建议动作（退还租赁 / 卖出飞机）—— 课堂即时提示 */
-    document.querySelectorAll('table td').forEach(td => {
-      const raw = (td.textContent || '').trim();
-      const isNeg = /^-\$[\d,]+(\.\d+)?$/.test(raw);
-      td.classList.toggle('negcash', isNeg);
-      if (isNeg) td.title = '该组现金为负 → 建议考虑退还租赁（押金退回）或卖出飞机以削减固定成本';
-      else if (td.title && td.title.indexOf('该组现金为负') === 0) td.removeAttribute('title');
-    });
-  }
-  mark();
-  new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
-})();
-</script>
 
-<script>
-/* ★ 裁判端顶栏收敛（与小组端一致）：保留 3 项主指标，其余收进「更多指标」折叠 */
-(function () {
-  function build() {
-    const h = document.querySelector('header'); if (!h) return;
-    if (document.getElementById('p-topmore')) return;
-    const kvs = Array.from(h.querySelectorAll('.kv'));
-    if (kvs.length <= 3) return;
-    const det = document.createElement('details');
-    det.id = 'p-topmore'; det.className = 'topmore';
-    const sum = document.createElement('summary');
-    sum.textContent = '更多指标';
-    det.appendChild(sum);
-    kvs.slice(3).forEach(k => det.appendChild(k));
-    const spacer = h.querySelector('div[style*="flex:1"]');
-    h.insertBefore(det, spacer || null);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-</script>
+
+
 </body>
 </html>
