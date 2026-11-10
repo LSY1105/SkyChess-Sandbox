@@ -53,9 +53,38 @@ seg2–seg6 已裁切就绪（unslop/inv_cat/seg2..seg6.png），下轮逐段读
 ```
 > 以上为缩略图印象，**未作结论**，须逐段读原图确认后再改数据。
 
+## 六、seg2 段（第 6–10 项）数值逐一核对 ✓
+| # | 原版标题 | 原版 Upfront / Annual | 原版 per-pax 收益 | 沙盘项 | 沙盘数值 | 判定 |
+|---|---|---|---|---|---|---|
+| 6 | CABIN UPGRADE (GALAXY) | $3,700,000 / $0 | 全 $0 | cab_galaxy | 3700000 / 0 | ✓ |
+| 7 | CABIN UPGRADE (LOW COST) | $1,375,000 / $0 | 全 $0 | cab_lowcost | 1375000 / 0 | ✓ |
+| 8 | CABIN UPGRADE (NEW SEATS) | $2,550,000 / $0 | 全 $0 | cab_new | 2550000 / 0 | ✓ |
+| 9 | CABIN UPGRADE (REFRESH) | $2,150,000 / $0 | 全 $0 | cab_refresh | 2150000 / 0 | ✓ |
+| 10 | E-NEWSLETTERS | $0 / $75,000 | E $0.50 / PE $2.00 / B $3.00 | enews | 0 / 75000；cabin E .5 / PE 2 / B 3 | ✓ |
+
+### ★ 原版 seg2 的一个机制细节（沙盘已具备）
+```
+第 7 项 CABIN UPGRADE (LOW COST) 卡片底部有**黄色提示框**：
+  「Please note: To invest in Cabin Upgrade (Low Cost) you will need to
+    speak to your GM to negotiate the terms.」
+→ 该项**不能直接买**，须先与裁判谈定条款
+→ 沙盘对应实现：
+  · data.js  desc 已注明「须与 GM 谈判条款方可投资」
+  · server  g.negotiation.investTerms[invId] —— 投资条款谈判台账 ✓
+→ 一致 ✓
+```
+
+### 其他原版细节（沙盘已记录在 desc）
+```
+· 第 6 项「Impact is deferred by one Quarter」（影响延迟一季度）→ 沙盘 desc 已注明 ✓
+· 第 8/9 项「Impact is deferred by one Quarter」→ 沙盘 desc 已注明 ✓
+· 第 10 项原版正文提到「Modest revenue generation ... advertising revenues from third parties」
+  → 沙盘已把该口径补进 cabin 收益（E .5 / PE 2 / B 3）✓
+```
+
 ## 五、本轮原则
 ```
 只对**已逐项读出**的内容下结论；不凭缩略印象改数据。
-已确认：结构一致 + 前 5 项数值一致。
-未确认：其余 27 项（裁切件已就绪，下轮继续）。
+已确认：结构一致 + **前 10 项**（广告×5 + 客舱升级×4 + 电子报）数值一致。
+未确认：其余 23 项（seg3–seg6 已就绪，下轮继续）。
 ```
