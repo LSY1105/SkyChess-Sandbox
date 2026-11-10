@@ -10,9 +10,9 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const BASE = 'http://127.0.0.1:8765';
+const BASE = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
 /* 席位授权：服务端要求 x-sandbox-key */
-const KEYS = JSON.parse(readFileSync(new URL('./.sandbox-keys.json', import.meta.url), 'utf8'));
+const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
 const KH = (seat) => ({ 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : (KEYS.seats[seat] || KEYS.teacher) });
 const KHdr = (seat) => ({ 'Content-Type': 'application/json', ...KH(seat) });
 

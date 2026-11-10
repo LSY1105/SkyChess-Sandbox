@@ -3,8 +3,8 @@
    覆盖：席位授权矩阵 / 席位登记白名单 / 空排班提交 / 前端渲染依赖字段
    ============================================================ */
 import { readFileSync } from 'fs';
-const B = 'http://127.0.0.1:8765';
-const KEYS = JSON.parse(readFileSync(new URL('./.sandbox-keys.json', import.meta.url), 'utf8'));
+const B = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
+const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
 const H = (seat) => ({ 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : KEYS.seats[seat] });
 const Hd = (seat) => ({ 'Content-Type': 'application/json', ...H(seat) });
 const get = async (p, seat) => { const r = await fetch(B + p, { headers: H(seat) }); return { st: r.status, b: await r.json() }; };

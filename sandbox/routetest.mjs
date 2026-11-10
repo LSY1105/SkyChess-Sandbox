@@ -10,8 +10,8 @@
    运行：node routetest.mjs（需先启动 server.mjs）
    ============================================================ */
 import { readFileSync } from 'fs';
-const B = 'http://127.0.0.1:8765';
-const KEYS = JSON.parse(readFileSync(new URL('./.sandbox-keys.json', import.meta.url), 'utf8'));
+const B = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
+const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
 const KH = (seat) => ({ 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : (KEYS.seats[seat] || KEYS.teacher) });
 const KHdr = (seat) => ({ 'Content-Type': 'application/json', ...KH(seat) });
 const get = async (p, seat = 'teacher') => (await fetch(B + p, { headers: KH(seat) })).json();

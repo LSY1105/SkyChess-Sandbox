@@ -2,10 +2,10 @@
    多席位 + 教师面板 集成测试
    验证: 席位独立性 / 裁判全局参数 / 事件定向 / 统一推进 / 页面可访问
    ============================================================ */
-const B = 'http://127.0.0.1:8765';
+const B = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
 /* 席位授权：服务端要求 x-sandbox-key */
 import { readFileSync } from 'fs';
-const KEYS = JSON.parse(readFileSync(new URL('./.sandbox-keys.json', import.meta.url), 'utf8'));
+const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
 const KH = (seat) => ({ 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : (KEYS.seats[seat] || KEYS.teacher) });
 const KHdr = (seat) => ({ 'Content-Type': 'application/json', ...KH(seat) });
 

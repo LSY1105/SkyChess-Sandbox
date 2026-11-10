@@ -14,8 +14,8 @@
    ============================================================ */
 import { readFileSync } from 'fs';
 
-const B = 'http://127.0.0.1:8765';
-const KEYS = JSON.parse(readFileSync(new URL('./.sandbox-keys.json', import.meta.url), 'utf8'));
+const B = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
+const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
 const H = (seat) => ({ 'Content-Type': 'application/json', 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : KEYS.seats[seat] });
 
 const R = [];

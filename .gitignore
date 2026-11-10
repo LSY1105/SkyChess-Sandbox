@@ -122,3 +122,6 @@ _cm.txt
 _cm.txt
 _cm.txt
 _cm.txt
+
+# 测试隔离实例的临时密钥（runtests.mjs 生成，跑完即删）
+sandbox/.sandbox-test-keys.json
