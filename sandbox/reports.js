@@ -424,7 +424,8 @@ export function exportInvestmentsCsv(g, prefix) {
 /* ─────────────── ROUTE DEMAND 复刻（原版 Reports-VIEW REPORTS-ROUTE DEMAND）
    每市场一张：彩色竖柱 = 各航司运力（座位/时刻）；红/绿双折线 = 该时段市场需求高低
    悬停（原生 <title>）显示数值。数据源：各席位 game.schedules + 需求模型 ─────────────── */
-const SEAT_COLOR = { CA: '#e6a700', AB: '#1f6feb', VA: '#2da44e' };
+/* ★ 席位配色对齐原版 DAILY SCHEDULE：CA 黄 / AB 橄榄绿 / VA 蓝（跨组同屏一眼分组） */
+const SEAT_COLOR = { CA: '#e6a700', AB: '#6b8e23', VA: '#2f6fa8' };
 export function renderRouteDemand(container, games, opts = {}) {
   container.innerHTML = '';
   const list = games && Object.keys(games).length ? games : { '—': null };
@@ -640,7 +641,8 @@ export function renderGantt(container, games, opts = {}) {
       const retArrMin = s.returnArrival ? toMin(s.returnArrival) : retDepMin + tOut + Math.round(bhM * 60) + tIn;  // 回程到达
 
       const col = ROUTE_COLOR[s.code] || '#8b949e';
-      const mkBlk = (x0, x1, y0, h, fill, op) => { const rc = mk('rect', { x: x0, y: y0, width: Math.max(6, (x1 - x0) / 60 * cellW), height: h, fill: fill, opacity: op, stroke: '#8b949e', 'stroke-width': 0.6, rx: 2 }); svg.appendChild(rc); return rc; };
+      const seatFill = SEAT_COLOR[r.seat] || null;
+      const mkBlk = (x0, x1, y0, h, fill0, op) => { const fill = seatFill || fill0; const rc = mk('rect', { x: x0, y: y0, width: Math.max(6, (x1 - x0) / 60 * cellW), height: h, fill: fill, opacity: op, stroke: '#6b7480', 'stroke-width': 0.6, rx: 2 }); svg.appendChild(rc); return rc; };
       const xOut = LEFT + (dep - T0) / 60 * cellW;          // 起点（学员填写）
       const xArr = LEFT + (arrMin - T0) / 60 * cellW;        // 到达（廊桥）
       const xRetDep = LEFT + (retDepMin - T0) / 60 * cellW;      // 回程起飞
