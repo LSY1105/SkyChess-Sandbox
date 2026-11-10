@@ -193,6 +193,14 @@ setInterval(function () {
         <h3>排班甘特图（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</h3>
         <div id="schedGantt"></div>
       </div>
+      <div class="card" style="margin-top:14px">
+        <h2>三家排班<em>（DAILY SCHEDULE · 公开信息 · 谁占了哪些时刻）</em></h2>
+        <div class="small" style="margin-bottom:8px">
+          行＝每架飞机，块＝航班，块宽＝占用时长，深色＝去程、淡色＝回程；块内为航线名。
+          同一航线同一时刻先占者飞，后排者会被拒绝 → 竞争前先看这里。
+        </div>
+        <div id="ganttAll"></div>
+      </div>
 
       <div style="margin-top:12px">
         <h3>航线需求图（ROUTE DEMAND · 需求线<b style='color:#cf222e'>红=上涨段</b> / <b style='color:#2da44e'>绿=下降段</b> · 灰线=实际载量 · 悬停看数值与趋势）</h3>
@@ -1326,6 +1334,13 @@ function render() {
   renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
+  /* ★ 三家排班（原版 DAILY SCHEDULE 同款信息面：玩家可见三家全部航班） */
+  (function renderAllGantt() {
+    const box = $('#ganttAll'); if (!box) return;
+    const games = Object.assign({}, g.peerSchedules || {});
+    games[g.seat] = g;                                  // 本组用完整数据
+    R.renderGantt(box, games, { seatName: { CA: 'CA 首都', AB: 'AB 弹道', VA: 'VA 愿景' } });
+  })();
   R.renderRouteDemand($('#routeDemandBox'), { [g.seat]: g });
   /* 本季倒计时 */
   const tm = (g.seatTimer && g.seatTimer[g.seat]) || null;

@@ -359,6 +359,13 @@ function serialize(g) {
        → 竞争博弈教学需要这个信息面；小组只能看，不能改（改仍须走各自面板） */
     peerFares: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c,
       (g2.routes || []).map(r => ({ code: r.code, fare: r.fare }))])),
+    /* ★ 各组排班（只读·公开）：原版 DAILY SCHEDULE 一手截图显示**玩家端也能看到三家全部航班**
+       （行=每架飞机，按席位分组配色，块内标航线名，深=去程/淡=回程）
+       → 学员需要看到对手占了哪些时刻，才能做抢占/避让决策 */
+    peerSchedules: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c, {
+      aircraft: (g2.aircraft || []).map(a => ({ id: a.id, type: a.type, nickname: a.nickname })),
+      schedules: (g2.schedules || []).map(s => ({ ...s, ac: undefined })),
+    }])),
     hacked: g.hacked || null,           // ★ 被网络攻击状态（面板遮罩 → 无法操作）
     targetTurn: 2,                     // 考核目标开放回合（Q3）
     roundSeconds: gm.roundSeconds || D.GM.round_seconds || 3600,   // ★ 本季限时（秒）

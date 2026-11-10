@@ -597,7 +597,9 @@ export function renderGantt(container, games, opts = {}) {
     for (const ac of (g.aircraft || [])) {
       const fl = (g.schedules || []).filter(s => s.acId === ac.id);
       if (!fl.length) continue;
-      rows.push({ seat, ac, label: (seatName[seat] || seat) + ' · ' + (ac.type || ''), flights: fl });
+      /* ★ 行标签对齐原版 DAILY SCHEDULE：`APT100 (CA:Starter)` / `G160XLR P3 (CA:005)` */
+      const acTag = (ac.nickname && /starter/i.test(ac.nickname)) ? 'Starter' : String(ac.id);
+      rows.push({ seat, ac, label: `${ac.type || ''} (${seat}:${acTag})`, flights: fl });
     }
   }
   if (!rows.length) { container.appendChild(el('div', 'small', '暂无排班（完成一个回合并排班后显示）。')); return; }
@@ -656,8 +658,11 @@ export function renderGantt(container, games, opts = {}) {
       rect.appendChild(ti);
       svg.appendChild(rect);
       if (xArr - xOut > 46) {
+        /* ★ 块内标航线名（原版显示市场英文名 Simone/Fitzgerald/Joplin…，非代码） */
         const tx = mk('text', { x: xOut + 4, y: y + ROWH / 2 + 3, 'font-size': 10, fill: '#1f2328' });
-        tx.textContent = s.code; svg.appendChild(tx);
+        const mkInfo = (MARKETS || {})[s.code];
+        tx.textContent = (mkInfo && (mkInfo.name || mkInfo.name_c)) || s.code;
+        svg.appendChild(tx);
       }
     }
   });
