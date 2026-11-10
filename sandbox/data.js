@@ -49,6 +49,9 @@ export const INTEL_WARNINGS = [
    ============================================================ */
 
 export const GM = {
+  /* 航空煤油密度 kg/gal：用于把加仑换算为 kg 以便与原版 FLIGHT INFORMATION 的 kg 口径对齐
+     依据：原版 CA-8783（Q2 2029）1,030 gal / 3,131 kg → 3.039 kg/gal（物理量，非该季业务参数） */
+  fuel_kg_per_gal: 3.04,
   max_turns: 7,           // 原版完整对局 7 季：Q4 2027 → Q2 2029（实证：Reports 季度选择器）
   base_year: 2027,
   base_quarter: 4,          // 起始为 2027Q4

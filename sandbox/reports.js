@@ -350,7 +350,7 @@ function flightPopup(g, s, d) {
   const carbonCost = E.carbonCost(gal, carbonPrice);
   const carbonT = carbonPrice ? carbonCost / carbonPrice : 0;          // 碳当量(吨)
   const carbonKg = carbonT * 1000;
-  const galKg = gal * 3.04;                                            // 航空煤油密度 ≈3.04 kg/gal
+  const galKg = gal * (GM.fuel_kg_per_gal || 3.04);                    // 密度取自 GM（物理常数，非该季参数）
   /* 利用率：已用 BH ÷ 机型 BH 容量 */
   let utilPct = null;
   try {
