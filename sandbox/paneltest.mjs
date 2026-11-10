@@ -30,6 +30,9 @@ function nf(url, opt = {}) {
   const u = new URL(url);
   return new Promise((resolve, reject) => {
     const req = http.request({
+      /* ★ agent:false —— 禁用 keep-alive 连接复用：服务端响应后即关闭连接，
+         复用已关闭的 socket 会抛 ECONNRESET（表现为「排班并提交产生历史」随机失败） */
+      agent: false,
       host: u.hostname, port: u.port, path: u.pathname + u.search, method: opt.method || 'GET',
       headers: { ...(opt.headers || {}), 'content-length': opt.body ? Buffer.byteLength(opt.body) : 0 },
     }, res => { let s = ''; res.on('data', d => s += d); res.on('end', () => resolve({ ok: res.statusCode < 400, status: res.statusCode, json: async () => JSON.parse(s || '{}'), text: async () => s })); });
