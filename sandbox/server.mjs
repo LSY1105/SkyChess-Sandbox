@@ -364,7 +364,9 @@ function serialize(g) {
        → 学员需要看到对手占了哪些时刻，才能做抢占/避让决策 */
     peerSchedules: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c, {
       aircraft: (g2.aircraft || []).map(a => ({ id: a.id, type: a.type, nickname: a.nickname })),
-      schedules: (g2.schedules || []).map(s => ({ ...s, ac: undefined })),
+      schedules: (g2.schedules || []).map(s => ({ ...s, ac: undefined,
+        /* 竞品公开运价（★B 类参数：当季可变）；旅客数与客座率不公开 → 界面显示 '-' */
+        fare: (g2.routes || []).find(r => r.code === s.code)?.fare ?? null })),
     }])),
     hacked: g.hacked || null,           // ★ 被网络攻击状态（面板遮罩 → 无法操作）
     targetTurn: 2,                     // 考核目标开放回合（Q3）

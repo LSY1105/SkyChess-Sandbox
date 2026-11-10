@@ -13,9 +13,9 @@ import * as G from './game.js';
 import * as E from './engine.js';
 
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
-const money = (v) => (v == null ? '—' : (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString());
-const num = (v, d = 0) => (v == null ? '—' : Number(v).toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }));
-const pct = (v, d = 1) => (v == null ? '—' : (v * 100).toFixed(d) + '%');
+const money = (v) => (v == null || !Number.isFinite(Number(v)) ? '—' : (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString());
+const num = (v, d = 0) => (v == null || !Number.isFinite(Number(v)) ? '—' : Number(v).toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }));
+const pct = (v, d = 1) => (v == null || !Number.isFinite(Number(v)) ? '—' : (v * 100).toFixed(d) + '%');
 
 function table(head, rows) {
   const t = el('table');
@@ -60,6 +60,7 @@ export function renderReports(root, g, opts = {}) {
     ['Route Metrics', '航线指标'],
     ['Fuel', '燃油'],
     ['Investments', '投资'],
+    ['Flights', '航班与利用'],
     ['Baseline', '对标基线'],
     ['Charts', '趋势图'],
   ];
@@ -87,11 +88,107 @@ export function renderReports(root, g, opts = {}) {
     body.appendChild(selBar);
     const content = el('div');
     body.appendChild(content);
-    [summary, network, routeEcon, routeMetrics, fuel, investments, baseline, charts]
+    [summary, network, routeEcon, routeMetrics, fuel, investments, flights, baseline, charts]
       [active](content, h, g);
   };
   draw();
   return { refresh: draw };
+}
+
+
+/* ─────────────── FLIGHTS AND UTILISATION（原版 Reports-FLIGHTS 页签复刻）───────────────
+   一手依据：主截图 Reports(VIEW REPORTS)-FLIGHTS.jpg + 六季度完结/…_22213….jpg
+   结构：左「本航司 FLIGHTS DETAILED」+ 右「本航司 AIRCRAFT UTILISATION」，
+        下方「竞品 FLIGHTS」+「竞品 AIRCRAFT UTILISATION」
+   ★ 数值性质：Passengers / LF / Average Daily BH 全部为**当季动态量**（A 类），
+     运价为当季参数（B 类）；竞品的客流与客座率**不公开** → 显示 '-'（保密规则，非 0） */
+function flights(root, h, g) {
+  const det = g.lastDetail || {};                  // 当季结算明细（逐班次 served）
+  const cur = (g.schedules || []).map(s => {
+    const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
+    const m = MARKETS[s.code] || {};
+    const route = (g.routes || []).find(r => r.code === s.code);
+    /* 逐班次旅客数：与结算明细按起飞时刻匹配（★结算后才存在） */
+    const d = det[s.code];
+    let pax = null, lf = null;
+    if (d && Array.isArray(d.flights)) {
+      const depMin = (() => { const [h2, m2] = String(s.departure || '00:00').split(':').map(Number); return (h2 || 0) * 60 + (m2 || 0); })();
+      const hit = d.flights.find(f => Math.abs((f.departureMin || 0) - depMin) < 1);
+      /* ★ served 是**季度**旅客数（每班次每日 1 班 × 90 天）→ 单班旅客 = served ÷ 90 */
+      if (hit && hit.served != null) {
+        pax = Math.round(hit.served / 90);
+        lf = s.seats ? pax / s.seats : null;
+      }
+    }
+    return { s, ac, m, fare: route ? route.fare : null, pax, lf };
+  });
+  const known = cur.filter(x => x.pax != null);
+  const wLF = known.length ? known.reduce((a, x) => a + x.pax, 0) / Math.max(1, known.reduce((a, x) => a + (x.s.seats || 0), 0)) : null;   // 座位加权
+
+  const sec = (title, color) => {
+    const d = el('div');
+    d.style.marginBottom = '14px';
+    const h3 = el('div', null, title);
+    h3.style.cssText = 'border-bottom:2px solid ' + color + ';padding-bottom:4px;margin-bottom:8px;font-size:11px;color:var(--tx2);font-weight:600';
+    d.appendChild(h3);
+    root.appendChild(d);
+    return d;
+  };
+  /* 自家航班明细 */
+  const own = sec('本航司航班明细 · ' + (g.seat || ''), 'var(--acc)');
+  const rows = cur.map(x => [
+    x.s.flightNo || '—', x.s.departure, (x.m.name || x.s.code), money(x.fare),
+    x.ac.type || '—',
+    x.pax != null ? num(x.pax) : '-',
+    num(x.s.seats),
+    x.lf != null ? pct(x.lf, 1) : '-',
+    { text: '≡ 详情', cls: 'small', onclick: () => flightPopup(g, x.s) },
+  ]);
+  own.appendChild(table(['航班', '起飞', '市场', '运价', '机型', '旅客', '座位', '客座率', '详情'], rows));
+  own.appendChild(el('div', 'small', '本季平均客座率：' + (wLF != null ? pct(wLF, 1) : '（结算后可见）')
+    + '　· 旅客与客座率为**结算实绩**，未结算显示 '-'（原版同样不显示）'));
+
+  /* 本航司机队利用 */
+  const util = sec('本航司机队利用 · 平均每日 BH', 'var(--acc)');
+  const byType = {};
+  for (const ac of (g.aircraft || [])) {
+    let used = null, cap = null;
+    try { used = G.acUsedBH(g, ac.id); cap = G.acCapacity(g, ac.id); } catch { /* 无数据 */ }
+    if (used == null || !Number.isFinite(used)) continue;
+    const k = ac.type || '—';
+    byType[k] = byType[k] || { sum: 0, n: 0, cap: 0 };
+    byType[k].sum += used; byType[k].n++; byType[k].cap += cap || 0;
+  }
+  const uRows = Object.entries(byType).map(([k, v]) => [k, num(v.sum / v.n / 90, 2)]);
+  util.appendChild(table(['机型', '平均每日 BH'], uRows.length ? uRows : [['(尚无排班)', '—']]));
+  util.appendChild(el('div', 'small', '口径：已用 BH ÷ 90 季内天数，按机型取机队平均（★每季随排班变化）'));
+
+  /* 竞品航班与利用 */
+  const peers = g.peerSchedules || {};
+  const peerSeats = Object.keys(peers).filter(x => x !== g.seat);   // ★ 排除本组（本组在自家块）
+  for (const seat of peerSeats) {
+    const pg = peers[seat] || {};
+    const ps = pg.schedules || [];
+    const bl = sec('竞品航班明细 · ' + seat + '（客流与客座率不公开）', '#5b8fd6');
+    const pRows = ps.map(s => {
+      const ac = (pg.aircraft || []).find(a => a.id === s.acId) || {};
+      const m = MARKETS[s.code] || {};
+      return [s.flightNo || '—', s.departure, (m.name || s.code), money(s.fare), ac.type || '—', '-', num(s.seats), '-'];
+    });
+    bl.appendChild(table(['航班', '起飞', '市场', '运价', '机型', '旅客', '座位', '客座率'],
+      pRows.length ? pRows : [['(该组尚无排班)', '', '', '', '', '', '', '']]));
+    /* 竞品机队利用：按机型聚合其排班占用（公开可推算） */
+    const pb = {};
+    for (const s of ps) {
+      const ac = (pg.aircraft || []).find(a => a.id === s.acId) || {};
+      const k = ac.type || '—';
+      pb[k] = (pb[k] || 0) + (s.bh || 0);
+    }
+    const pu = Object.entries(pb).map(([k, v]) => [k, num(v / 90, 2)]);
+    bl.appendChild(el('div', 'small', '该组机队平均每日 BH：'
+      + (pu.length ? pu.map(([k, v]) => `${k} ${v}`).join('　') : '—')
+      + '　（★按公开排班推算，每季变化）'));
+  }
 }
 
 function summary(root, h, g) {
