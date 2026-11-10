@@ -220,7 +220,7 @@ export function renderOpsViews(root, g) {
 }
 
 /** 票价矩阵：航线 × 班次时刻 → 该航线运价 */
-function schedulerView(root, g) { R.renderGantt(root, { [g.seat || 'seat']: g }); }
+function schedulerView(root, g) { renderGantt(root, { [g.seat || 'seat']: g }); }
 function fareMatrix(root, g) {
   const routes = (g.routes || []);
   const byCode = {};
