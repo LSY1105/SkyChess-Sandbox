@@ -47,6 +47,11 @@ button.warn:hover{border-color:var(--bad);color:var(--bad)}
 .scroll{max-height:320px;overflow:auto}
 .tabs{position:relative;z-index:5}
 .tabs button{position:relative;z-index:6}
+.tabs{gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#1a1408;font-weight:600}
+.pane{display:none}
+.pane.on{display:block}
+.pane h3{margin:0 0 12px;font-size:12px;font-weight:600;color:var(--tx2)}
 
 /* ── 表格密度与对齐 ── */
 th,td{white-space:nowrap}
@@ -186,6 +191,38 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <h2>市场开放</h2>
       <div id="mktList" class="scroll small"></div>
     </div>
+    <div class="card" style="margin-top:14px">
+      <h2>载货策略<em>（座位多→客舱重→货舱可载少；裁判可关闭载货）</em></h2>
+<div class="row"><span id="cargoPolicyRow"></span></div>
+      </div>
+    <div class="card" style="margin-top:14px">
+      <h2>大修触发<em>（由裁判决定触发季；是否卖出由团队自决）</em></h2>
+<div id="hcPanel"></div>
+      </div>
+    <div class="card" style="margin-top:14px">
+      <h2>经营模式设定<em>（开局与三家协商确定）</em>· ⑲ 网络攻击处理</h2>
+<div class="row" style="margin-bottom:8px">
+      <span class="small">经营模式（开局确定后锁定）：</span>
+      <span id="styleRow"></span>
+    </div>
+    <div id="hackPanel"></div>
+      </div>
+    <div class="card" style="margin-top:14px">
+      <h2>考核目标<em>（第 3 季起由裁判询问并设定；前两季不开放）</em></h2>
+<div id="targetPanel"></div>
+      </div>
+
+
+    <!-- ⑩ 分季规则开启表：原版是「循序渐进」的教学设计，每季引入新机制 -->
+    <div class="card" style="margin-top:14px">
+      <h2>分季规则开启表<em>（循序渐进 · 教学节奏可调）</em></h2>
+      <div class="small" style="margin-bottom:8px">
+        每条机制按计划回合逐季引入；学生先掌握基础经营，再逐季接触套保 → 碳与合规 → 新市场 → SAF。
+        裁判可提前或延后某条规则的开启回合（留空 = 恢复计划）。
+      </div>
+      <div class="scroll" style="max-height:420px"><table id="tblRules"></table></div>
+    </div>
+
   </div>
 
   <div>
@@ -269,20 +306,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <div id="negLog" class="scroll small"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
-      <h2>全局日志</h2>
-      <div id="log" class="scroll small"></div>
-    </div>
 
-    <!-- ⑩ 分季规则开启表：原版是「循序渐进」的教学设计，每季引入新机制 -->
-    <div class="card" style="margin-top:14px">
-      <h2>分季规则开启表<em>（循序渐进 · 教学节奏可调）</em></h2>
-      <div class="small" style="margin-bottom:8px">
-        每条机制按计划回合逐季引入；学生先掌握基础经营，再逐季接触套保 → 碳与合规 → 新市场 → SAF。
-        裁判可提前或延后某条规则的开启回合（留空 = 恢复计划）。
-      </div>
-      <table id="tblRules"></table>
-    </div>
 
     <!-- ⑪ 航线释放与开线审批（裁判逐季释放航线；小组申请 → 裁判洽谈批准） -->
     <div class="card" style="margin-top:14px">
@@ -296,10 +320,15 @@ td[data-seat="VA"]{--dot:#2f6fa8}
         <button id="btnReleaseNow">立即释放</button>
         <span class="small">裁判按教学目的自行决定本回合开放哪几条航线</span>
       </div>
-      <table id="tblRouteReq"></table>
+      <div class="scroll" style="max-height:260px"><table id="tblRouteReq"></table></div>
       <h3 style="margin-top:14px">航线释放时间线（裁判可提前/延后）</h3>
-      <table id="tblRouteRelease"></table>
+      <div class="scroll" style="max-height:260px"><table id="tblRouteRelease"></table></div>
     </div>
+    <div class="card" style="margin-top:14px">
+      <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em></h2>
+<div id="negFlow"></div>
+      </div>
+
   </div>
 </main>
 
@@ -1189,54 +1218,44 @@ async function renderCargoPolicy() {
 }
 setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
 
+/* ★ 观察与沟通页签组：切页签时重绘对应面板（图表需可见容器才有正确宽度） */
+(function () {
+  const tabs = __DOC.getElementById('obsTabs');
+  const panes = __DOC.getElementById('obsPanes');
+  if (!tabs || !panes) return;
+  const RENDER = { rep: renderRepPanel, gantt: renderGanttAll, demand: renderRouteDemandPanel, msg: renderMsgList };
+  tabs.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-p]');
+    if (!b) return;
+    const key = b.dataset.p;
+    tabs.querySelectorAll('button[data-p]').forEach(x => x.classList.toggle('on', x === b));
+    panes.querySelectorAll('.pane').forEach(pn => pn.classList.toggle('on', pn.dataset.p === key));
+    const fn = RENDER[key];
+    if (fn) { try { fn(); } catch (e) { console.warn('页签重绘失败', key, e); } }
+  });
+})();
+
 </script>
+
 <div class="card" style="margin-top:14px">
-  <h2>报表与运营视图</h2>
-  <div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
+  <h2>观察与沟通<em>（报表 · 甘特图 · 需求图 · 日志 · 消息板）</em></h2>
+  <div class="tabs" id="obsTabs">
+    <button data-p="rep" class="on">报表与运营视图</button>
+    <button data-p="gantt">三家日程甘特图</button>
+    <button data-p="demand">航线需求图</button>
+    <button data-p="log">全局日志</button>
+    <button data-p="msg">消息板与导出</button>
+  </div>
+  <div id="obsPanes">
+    <div class="pane on" data-p="rep"><h3>报表与运营视图</h3><div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
   <div id="repBody"></div><div id="opsBody" style="margin-top:12px"></div>
 </div>
-  <div class="card" style="margin-top:14px">
-    <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em></h2>
-    <div id="negFlow"></div>
+    <div class="pane" data-p="gantt"><h3>三家日程甘特图 · 块宽=占用时长 · 悬停看详情</h3><div id="ganttAll"></div>
   </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>载货策略<em>（座位多→客舱重→货舱可载少；裁判可关闭载货）</em></h2>
-    <div class="row"><span id="cargoPolicyRow"></span></div>
+    <div class="pane" data-p="demand"><h3>航线需求图 · 运力柱 + 需求高低双线 · 悬停看数值</h3><div id="routeDemand"></div>
   </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>大修触发<em>（由裁判决定触发季；是否卖出由团队自决）</em></h2>
-    <div id="hcPanel"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>经营模式设定<em>（开局与三家协商确定）</em>· ⑲ 网络攻击处理</h2>
-    <div class="row" style="margin-bottom:8px">
-      <span class="small">经营模式（开局确定后锁定）：</span>
-      <span id="styleRow"></span>
-    </div>
-    <div id="hackPanel"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>考核目标<em>（第 3 季起由裁判询问并设定；前两季不开放）</em></h2>
-    <div id="targetPanel"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>三家日程甘特图<em>（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</em></h2>
-    <div id="ganttAll"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>航线需求图<em>（ROUTE DEMAND：运力柱 + 需求高低双线 · 悬停看数值）</em></h2>
-    <div id="routeDemand"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px">
-    <h2>消息板与导出</h2>
-    <div class="row" style="margin-bottom:8px">
+    <div class="pane" data-p="log"><h3>全局日志</h3><div id="log" class="scroll small"></div></div>
+    <div class="pane" data-p="msg"><h3>消息板与导出</h3><div class="row" style="margin-bottom:8px">
       <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
       <input id="msgBody" type="text" placeholder="正文" style="width:280px">
       <select id="msgKind" style="width:100px"><option value="notice">公告</option><option value="rule">规则更新</option><option value="task">任务</option></select>
@@ -1248,9 +1267,8 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
       <button id="btnTExpSched">班次 CSV</button><button id="btnTExpInv">投资 CSV</button></div>
     <div id="msgList"></div>
   </div>
-
-
-
+  </div>
+</div>
 
 </body>
 </html>
