@@ -432,6 +432,24 @@ function charts(root, h, g) {
 }
 
 /* ─────────────── U5：FLIGHT INFORMATION 弹窗 ─────────────── */
+
+/** 单航班损益分摊：航线该季科目金额 ÷ 该航线该季班次数（等分）
+ *  口径说明：结算明细 detail[code] 的科目混合了「单班次值」(Fuel/维护/机组) 与「航线级值」
+ *  (Landing/Navigation/地面/货运/G&A)，为避免与结算口径冲突，本表统一按**班次数等分**，
+ *  保证「单班次 × 班次数 = 航线级」恒等闭合；收入同理。
+ *  ★ 科目金额为当季实绩（A 类），随每季结算变化 */
+function flightSplit(g, s) {
+  const det = (g.lastDetail || {})[s.code];
+  if (!det) return null;
+  const freq = Math.max(1, det.freq || 1);
+  const k = 1 / freq;
+  const cost = {};
+  for (const [kk, v] of Object.entries(det.cost || {})) cost[kk] = v * k;
+  const rev = {};
+  for (const [kk, v] of Object.entries(det.rev || {})) rev[kk] = v * k;
+  return { freq, cost, rev, det };
+}
+
 function flightPopup(g, s, d) {
   const old = document.getElementById('flightPop'); if (old) old.remove();
   const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
@@ -489,12 +507,32 @@ function flightPopup(g, s, d) {
     r.appendChild(a); r.appendChild(b); parent.appendChild(r);
   };
   const c1 = sect('OPERATING COSTS STATEMENT');
-  kv(c1, 'Passenger Revenue', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
-  kv(c1, 'Cargo Revenue', '见 Route Economics');
-  kv(c1, 'TOTAL REVENUE', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
-  kv(c1, 'Fuel', money(fuelCost));
-  kv(c1, 'Carbon', money(carbonCost));
-  kv(c1, 'Maintenance / Crew / Landing / Navigation', '见 Route Economics（航线级结算）');
+  const sp = flightSplit(g, s);
+  if (sp) {
+    const r = sp.rev || {}, c = sp.cost || {};
+    const revTotal = (r['Passenger Revenue'] || 0) + (r['Cargo Revenue'] || 0) + (r['Ancillary Revenue'] || 0);
+    kv(c1, 'Passenger Revenue', money(r['Passenger Revenue'] || 0));
+    kv(c1, 'Cargo Revenue', money(r['Cargo Revenue'] || 0));
+    kv(c1, 'Ancillary Revenue', money(r['Ancillary Revenue'] || 0));
+    kv(c1, 'TOTAL REVENUE', money(r['Total Revenue'] || revTotal));
+    for (const k of ['Fuel', 'Sustainable Aviation Fuel', 'Carbon', 'Maintenance', 'Flight Crew', 'Cabin Crew',
+                     'Landing', 'Navigation', 'Aircraft Handling', 'Traffic Handling',
+                     'Cargo Handling', 'Cargo Overheads', 'General & Administration',
+                     'Passenger Services', 'Ticketing, Sales and Promotion']) {
+      if (c[k] == null) continue;
+      kv(c1, k, money(c[k]));
+    }
+    const costSum = Object.values(c).reduce((a, v) => a + (v || 0), 0);
+    kv(c1, 'TOTAL OPERATING COST', money(costSum));
+    kv(c1, 'OPERATING PROFIT (单班次)', money((r['Total Revenue'] || revTotal) - costSum));
+  } else {
+    kv(c1, 'Passenger Revenue', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
+    kv(c1, 'Cargo Revenue', '结算后可见');
+    kv(c1, 'TOTAL REVENUE', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
+    kv(c1, 'Fuel', money(fuelCost));
+    kv(c1, 'Carbon', money(carbonCost));
+    kv(c1, '其余科目', '结算后可见（航线级科目按班次数平均分摊）');
+  }
   const c2 = sect('UTILISATION, FUEL & CARBON');
   kv(c2, 'Utilisation (Flight Time + Taxi Time)', num(bh, 2));
   kv(c2, '% of Aircraft Daily Utilisation', utilPct != null ? pct(utilPct, 2) : '—');
@@ -515,7 +553,7 @@ function flightPopup(g, s, d) {
   kv(c3, 'Sector', num(m.sector_km) + ' km');
   kv(c3, 'Route Demand / Share', '见 Route Metrics');
   box.appendChild(cols);
-  const note = el('div', 'small', '注：原版 FLIGHT INFORMATION 为单航班完整损益表。沙盘的维护/机组/起降/导航与货运在**航线级**结算（见 Route Economics），此处不重复分摊以免与结算口径冲突；旅客与客座率在季度结算后才有实绩。');
+  const note = el('div', 'small', '注：原版 FLIGHT INFORMATION 为单航班完整损益表。沙盘的航线级科目在此按**该航线当季班次数平均分摊**到单班次（保证「单班次 × 班次数 = 航线级」恒等闭合，不与结算口径冲突）；旅客与客座率为季度结算实绩，未结算时显示满座上限。');
   note.style.marginTop = '12px';
   box.appendChild(note);
   const btn = el('button', null, '关闭');
