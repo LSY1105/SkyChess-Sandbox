@@ -9,6 +9,7 @@
    数据来源：席位 game 对象（history 每季报告 + lastDetail + 机队/租赁/投资）
    ============================================================ */
 import { MARKETS, AIRCRAFT, GM } from './data.js';
+import * as G from './game.js';
 import * as E from './engine.js';
 
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
@@ -338,23 +339,90 @@ function flightPopup(g, s, d) {
   const old = document.getElementById('flightPop'); if (old) old.remove();
   const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
   const m = MARKETS[s.code] || {};
-  const gal = Math.round(624.6 * (s.bh || 0) * 90);
-  const fuel = gal * (g.fuelPrice || 2.4);
-  const rows = [
-    ['航班号', s.flightNo || '—'], ['机型', ac.type || '—'], ['飞机', ac.nickname || ('#' + s.acId)],
-    ['航线', (m.name_c || s.code) + '（' + s.code + '）'], ['航段', num(m.sector_km) + ' km'],
-    ['起飞时刻', s.departure], ['座位', num(s.seats)], ['BH', num(s.bh, 2)],
-    ['季度班次', num(90)], ['季加仑', num(gal)], ['季燃油成本', money(fuel)],
-    ['当日返航', ac.long ? '长程允许过夜' : '须当日返航（22:00 前）'],
-  ];
+  const bh = s.bh || m.bh || 0;
+  const seats = s.seats || 0;
+  const fare = (g.routes || []).find(r => r.code === s.code)?.fare ?? 0;
+  const fuelPrice = g.fuelPrice || 2.4;
+  const carbonPrice = g.carbonPrice || 0;
+  /* 沙盘计量口径：燃油加仑 → 碳当量吨（口径已与原版 ROUTE ECONOMICS 对账一致） */
+  const gal = E.F08_GAL(bh);
+  const fuelCost = E.F08_VAR(bh, fuelPrice);
+  const carbonCost = E.carbonCost(gal, carbonPrice);
+  const carbonT = carbonPrice ? carbonCost / carbonPrice : 0;          // 碳当量(吨)
+  const carbonKg = carbonT * 1000;
+  const galKg = gal * 3.04;                                            // 航空煤油密度 ≈3.04 kg/gal
+  /* 利用率：已用 BH ÷ 机型 BH 容量 */
+  let utilPct = null;
+  try {
+    const cap = G.acCapacity(g, s.acId), used = G.acUsedBH(g, s.acId);
+    if (cap) utilPct = used / cap;
+  } catch { /* 无机队数据时留空 */ }
+  /* 旅客数：结算后才有实绩，未结算按满座上限（明确标注） */
+  const det = (g.lastDetail || {})[s.code];
+  const lf = det && det.lf != null ? det.lf : null;
+  const pax = lf != null ? Math.round(seats * lf) : seats;
+  const paxRevenue = seats * fare * (lf != null ? lf : 1);
+  const unitFare = seats ? fare / seats : 0;
+
   const pop = el('div'); pop.id = 'flightPop';
-  pop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:200';
+  pop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:60';
   const box = el('div');
-box.style.cssText = 'background:#1b1e22;color:#e8eaed;border:1px solid #2b3036;border-radius:12px;max-width:460px;width:92%;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.5)';
-  box.appendChild(el('h3', null, 'FLIGHT INFORMATION · 航班详情'));
-  box.appendChild(table(['项目', '数值'], rows.map(([k, v]) => [k, { text: String(v) }])));
+  box.style.cssText = 'background:#1b1e22;color:#e8eaed;border:1px solid #2b3036;border-radius:12px;max-width:920px;width:94%;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.5)';
+  const h = el('h3', null, `FLIGHT INFORMATION · ${g.seat || ''} ${s.flightNo || (ac.type || '')}`);
+  h.style.cssText = 'margin:0 0 4px;font-size:14px;font-weight:600';
+  box.appendChild(h);
+  const sub = el('div', 'small', `${m.name_c || s.code}（${s.code}）· 起飞 ${s.departure} · 机型 ${ac.type || '—'} · 座位 ${seats} · BH ${bh}${lf != null ? '' : ' · 旅客与客座率为满座上限（结算后更新）'}`);
+  sub.style.marginBottom = '12px';
+  box.appendChild(sub);
+
+  /* 三栏（原版结构）：OPERATING COSTS STATEMENT / UTILISATION, FUEL & CARBON / FARE & PASSENGERS */
+  const cols = el('div');
+  cols.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px';
+  const sect = (title) => {
+    const d = el('div');
+    d.innerHTML = '<div style="border-bottom:2px solid var(--acc);padding-bottom:4px;margin-bottom:8px;font-size:11px;color:var(--tx2);font-weight:600">' + title + '</div>';
+    cols.appendChild(d);
+    return d;
+  };
+  const kv = (parent, k, v) => {
+    const r = el('div');
+    r.style.cssText = 'display:flex;justify-content:space-between;gap:10px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12px';
+    const a = el('span', null, k); a.style.color = 'var(--dim)';
+    const b = el('span', null, v); b.style.cssText = 'font-variant-numeric:tabular-nums;color:var(--tx)';
+    r.appendChild(a); r.appendChild(b); parent.appendChild(r);
+  };
+  const c1 = sect('OPERATING COSTS STATEMENT');
+  kv(c1, 'Passenger Revenue', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
+  kv(c1, 'Cargo Revenue', '见 Route Economics');
+  kv(c1, 'TOTAL REVENUE', money(paxRevenue) + (lf != null ? '' : '（满座上限）'));
+  kv(c1, 'Fuel', money(fuelCost));
+  kv(c1, 'Carbon', money(carbonCost));
+  kv(c1, 'Maintenance / Crew / Landing / Navigation', '见 Route Economics（航线级结算）');
+  const c2 = sect('UTILISATION, FUEL & CARBON');
+  kv(c2, 'Utilisation (Flight Time + Taxi Time)', num(bh, 2));
+  kv(c2, '% of Aircraft Daily Utilisation', utilPct != null ? pct(utilPct, 2) : '—');
+  kv(c2, 'Strike Price (Market Price)', '$' + fuelPrice.toFixed(2));
+  kv(c2, 'Fuel Used', num(gal) + ' gal / ' + num(galKg) + ' kg');
+  kv(c2, 'Carbon Price (per tonne)', money(carbonPrice));
+  kv(c2, 'Carbon Emissions (Flight)', num(carbonKg) + ' kg（沙盘当量口径）');
+  kv(c2, 'Carbon Costs (Flight)', money(carbonCost));
+  kv(c2, 'Carbon Price Per Passenger', pax ? '$' + (carbonCost / pax).toFixed(2) : '—');
+  kv(c2, 'Carbon Take Up', '100%');
+  const c3 = sect('FARE & PASSENGERS');
+  kv(c3, 'Fare', money(fare));
+  kv(c3, 'Weighted Fare', money(fare));
+  kv(c3, 'Unit Fare', '$' + unitFare.toFixed(3));
+  kv(c3, 'Weighted Unit Fare', '$' + unitFare.toFixed(3));
+  kv(c3, 'Passengers', pax + (lf != null ? '（实绩）' : '（满座上限）'));
+  kv(c3, 'Load Factor', lf != null ? pct(lf, 1) : '—（未结算）');
+  kv(c3, 'Sector', num(m.sector_km) + ' km');
+  kv(c3, 'Route Demand / Share', '见 Route Metrics');
+  box.appendChild(cols);
+  const note = el('div', 'small', '注：原版 FLIGHT INFORMATION 为单航班完整损益表。沙盘的维护/机组/起降/导航与货运在**航线级**结算（见 Route Economics），此处不重复分摊以免与结算口径冲突；旅客与客座率在季度结算后才有实绩。');
+  note.style.marginTop = '12px';
+  box.appendChild(note);
   const btn = el('button', null, '关闭');
-  btn.style.cssText = 'margin-top:12px';
+  btn.style.marginTop = '12px';
   btn.onclick = () => pop.remove();
   box.appendChild(btn);
   pop.appendChild(box);
