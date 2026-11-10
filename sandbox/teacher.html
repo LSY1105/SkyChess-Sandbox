@@ -617,10 +617,10 @@ function renderAssetPanel() {
     const cuts = (g.log || []).filter(l => /退还租赁|出售 |减负|退租|卖机/.test(l)).slice(-4).reverse();
     const fixedCost = owned.reduce((s, a) => s + (a.price || 0) * 5 / 100 / 4, 0)
                     + (g.leases || []).reduce((s, l) => s + (l.quarterlyRent || 0), 0);
-    rows.push({ seat, owned, leased, leaseRows, cuts, fixedCost, cash: g.cash });
+    rows.push({ seat, owned, leased, leaseRows, cuts, fixedCost, cash: g.cash, rate: g.assetRevenueRate || 0 });
   }
   if (!rows.length) { box.innerHTML = '<span class="small">（暂无席位数据）</span>'; return; }
-  const H = ['席位', '自有飞机', '租赁飞机', '季固定成本', '近期减负动作'];
+  const H = ['席位', '自有飞机', '租赁飞机', '季固定成本', '资产收益系数', '近期减负动作'];
   const html = '<table style="margin-top:6px"><thead><tr>'
     + H.map(h => `<th style="text-align:left">${h}</th>`).join('')
     + '</tr></thead><tbody>'
@@ -629,12 +629,23 @@ function renderAssetPanel() {
         + `<td style="text-align:left">${r.owned.length ? r.owned.map(a => `${a.type}<span class="small"> ${a.age != null ? a.age + '年' : ''}</span>`).join('、') : '<span class="small">无</span>'}</td>`
         + `<td style="text-align:left">${r.leased.length ? (r.leaseRows.join('、') || '<span class="small">无</span>') : '<span class="small">无（可买机）</span>'}</td>`
         + `<td>$${Math.round(r.fixedCost).toLocaleString()}</td>`
+        + `<td><input type="number" step="0.05" min="0" max="1" value="${(r.rate || 0).toFixed(2)}" data-seat-rate="${r.seat}" style="width:74px;height:28px"></td>`
         + `<td style="text-align:left">${r.cuts.length ? r.cuts.map(c => '<div>· ' + c + '</div>').join('') : '<span class="small">（本季无减负动作）</span>'}</td>`
       + '</tr>').join('')
     + '</tbody></table>'
     + '<div class="small" style="margin-top:8px">裁判不替航司改变资产：租赁、买机、卖机由小组自主决策；此表仅供审计与课堂点评。</div>'
     + '<div class="small" style="margin-top:6px;border-left:2px solid var(--warn);padding:4px 10px;color:var(--tx2)">⚠ 当前版本<b>资产目录</b>（机库/酒店/模拟机/备发引擎）购置后无经营效果；小组若问「买了有什么用」，可借此引导讨论：机制缺失时理性策略是不买。</div>';
   box.innerHTML = html;
+  /* 资产季度收入系数：裁判逐组可调（默认 0 = 资产无经营效果） */
+  box.querySelectorAll('input[data-seat-rate]').forEach(inp => {
+    inp.onchange = async () => {
+      const seat = inp.dataset.seatRate;
+      const rate = Math.max(0, Math.min(1, Number(inp.value) || 0));
+      const res = await (await fetch('/api/seat/' + seat, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-sandbox-key': TEACHER_KEY }, body: JSON.stringify({ type: 'setAssetRate', rate }) })).json();
+      if (res && res.result && res.result !== 'ok') { alert(res.result); renderAssetPanel(); return; }
+      inp.value = rate.toFixed(2);
+    };
+  });
 }
 
   // 谈判记录

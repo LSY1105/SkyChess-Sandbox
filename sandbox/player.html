@@ -762,7 +762,9 @@ function invBody() {
        （原版机库可出租/防恶劣天气/降维护成本，备发引擎对冲可靠性，沙盘尚未建模） */
     const warn = el('div', 'small');
     warn.style.cssText = 'border-left:2px solid var(--warn);padding:6px 10px;margin-bottom:8px;background:rgba(200,149,46,.08);color:var(--tx2)';
-    warn.innerHTML = '⚠ <b>当前版本资产购置无经营效果</b>：买下后不产生收益、不降低维护成本（一次���性支出）。'
+    warn.innerHTML = ((g.assetRevenueRate || 0) > 0
+      ? '⚠ <b>资产收益机制已由裁判开启</b>：酒店 / 模拟机按购置额计提季度收益（当前系数 ' + (g.assetRevenueRate * 100).toFixed(1) + '%）。机库与备发引擎仍无机制。'
+      : '⚠ <b>当前版本资产购置无经营效果</b>：买下后不产生收益、不降低维护成本（一次性支出）。') 
       + '原版中机库可对外出租并保护机队、备发引擎对冲可靠性风险——这些机制尚未建模。'
       + '<b>课堂讨论点：</b>真实航空的资产投资必须配套机制支撑；缺机制时，理性策略就是不买。';
     b.appendChild(warn);
@@ -771,7 +773,10 @@ function invBody() {
     for (const a of ASSETS) {
       const row = el('tr');
       row.appendChild(el('td', null, a.name));
-      row.appendChild(el('td', null, money(a.price)));
+      const exp = a.assetYield ? a.price * a.assetYield * (g.assetRevenueRate || 0) : 0;
+      row.appendChild(el('td', null, money(a.price) + (a.assetYield
+        ? '<div class="small">预期季收益 ' + money(exp) + '</div>'
+        : '<div class="small">当前无收益机制</div>')));
       row.appendChild(el('td', null, `<div class="small">${a.note}</div>`));
       const td = el('td');
       const btn = el('button', null, '购置');

@@ -639,9 +639,9 @@ export const INVESTMENTS = [
 export const ASSETS = [
   { id:'hangar_s', name:'Hangar single aisle', price:1935000, note:'两机库，含供暖/隔热/电动门，交付6个月' },
   { id:'hangar_t', name:'Hangar twin aisle',   price:4192500, note:'双通道机库' },
-  { id:'hotel',   name:'Hotel',              price:17304625, note:'中端115间房，收益性资产' },
-  { id:'sim_s',   name:'Simulator single aisle', price:14000000, note:'含技术支持包，可对外销售时长' },
-  { id:'sim_t',   name:'Simulator twin aisle',   price:16000000, note:'同上' },
+  { id:'hotel',   name:'Hotel',              price:17304625, note:'中端115间房，收益性资产', assetYield:0.010 },
+  { id:'sim_s',   name:'Simulator single aisle', price:14000000, note:'含技术支持包，可对外销售时长', assetYield:0.010 },
+  { id:'sim_t',   name:'Simulator twin aisle',   price:16000000, note:'同上', assetYield:0.010 },
   { id:'eng_apt100', name:'Spare engine APT100', price:7000000, note:'含快速更换套件，对冲可靠性风险' },
   { id:'eng_g160',  name:'Spare engine G130 & G160', price:10000000, note:'同上' },
   { id:'eng_g200',  name:'Spare engine G200 & G200LR', price:15000000, note:'同上' },

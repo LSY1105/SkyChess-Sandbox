@@ -327,6 +327,7 @@ function serialize(g) {
     period: G.currentPeriod(g),
     aircraft: g.aircraft, routes: g.routes, schedules: g.schedules,
     leases: g.leases || [],   // ★ 租赁台账必须下发：否则小组端看不到自己租了什么 → 退租按钮无效
+    assetRevenueRate: g.assetRevenueRate || 0,   // 资产季度收入系数（默认 0 = 关闭）
     investments: g.investments, investmentsAnnual: g.investmentsAnnual,
     assets: g.assets, demandMult: g.demandMult, utilCap: g.utilCap,
     log: g.log, history: g.history, lastDetail: g.lastDetail || {},
@@ -673,6 +674,14 @@ function applyActionRaw(g, a) {
       const r = G.buyOutLease(g, +a.acId);
       if (!r.ok) return r.why;
       return { ok: true, buyout: r.buyout };
+    }
+    case 'setAssetRate': {
+      /* 资产季度收入系数（0 = 关闭，等价于「资产无经营效果」） */
+      const r = Math.max(0, Math.min(1, Number(a.rate) || 0));
+      g.assetRevenueRate = r;
+      g.log.push(`设定资产季度收入系数：${(r * 100).toFixed(1)}%`);
+      gm.log.push(`${g.seat} 资产季度收入系数设为 ${(r * 100).toFixed(1)}%`);
+      return 'ok';
     }
     case 'buyAsset': {
       const a2 = D.ASSETS.find(x => x.id === a.id); if (!a2) return 'no asset';

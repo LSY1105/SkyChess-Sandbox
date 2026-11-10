@@ -1442,6 +1442,15 @@ export function computeTurn(g, per) {
   }
   revenue += invRevenue;
   cost += invCost;
+  /* ★ 资产季度收入（酒店 / 模拟机等**收益性资产**）——「折中选项」
+     默认系数 0 → **不改变任何现有对局与对账结果**；裁判可逐组开启
+     收益率无一手材料 → 标【推断·待验证】；机库与备发引擎不参与（涉可靠性/天气/维护联动） */
+  const assetRate = Number(g.assetRevenueRate || 0);
+  let assetRevenue = 0;
+  if (assetRate > 0) {
+    for (const a of (g.assets || [])) assetRevenue += (a.price || 0) * (a.assetYield || 0) * assetRate;
+  }
+  revenue += assetRevenue;
   g.lastInvestmentPL = { invCost, invRevenue, paxTotal };
 
   const ocf = revenue - cost;
@@ -1498,6 +1507,7 @@ export function computeTurn(g, per) {
   return {
     period: per.label, turn: g.turn, detail,
     revenue, cost, operating_profit: ocf, oneoff, financing, cash_end,
+    asset_revenue: Math.round(assetRevenue),   // 资产季度收入（默认 0）
     net_finance_charges: loanInterest, loan_principal: loanPrincipal,
     loan_sweep: loanSweep, loan_balance: (g.loans || []).reduce((a, l) => a + l.balance, 0),
     qsi_end: Math.max(0, g.qsi),
