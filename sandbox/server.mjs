@@ -355,6 +355,10 @@ function serialize(g) {
     messages: gm.messages || [],        // ★ U18 消息板（裁判发布 → 小组可见）
     targets: gm.targets || {},          // ★ 考核目标（裁判第 3 季起设定）
     seatStyles: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c, g2.style || 'Hybrid'])),
+    /* ★ 各组航线运价（只读·公开信息）：原版 FARE MATRIX 里玩家能看到每条航线上所有航司的定价
+       → 竞争博弈教学需要这个信息面；小组只能看，不能改（改仍须走各自面板） */
+    peerFares: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c,
+      (g2.routes || []).map(r => ({ code: r.code, fare: r.fare }))])),
     hacked: g.hacked || null,           // ★ 被网络攻击状态（面板遮罩 → 无法操作）
     targetTurn: 2,                     // 考核目标开放回合（Q3）
     roundSeconds: gm.roundSeconds || D.GM.round_seconds || 3600,   // ★ 本季限时（秒）

@@ -165,6 +165,10 @@ setInterval(function () {
         <span class="small">高峰加价、低谷降价 —— 票价由你按市场情况自行决策</span>
       </div>
       <table id="tblRoutes"></table>
+      <div class="row" style="margin-top:12px"><b style="font-size:12px">运价对照</b>
+        <span class="small">各组在同一航线上的公开报价（原版 FARE MATRIX 同款信息面）—— 只能看，改价仍走上方「运价」</span>
+      </div>
+      <div id="farePeers" class="small">加载中…</div>
       <div class="row" style="margin-top:10px">
         <label>购买情报</label>
         <select id="intelBuy" style="width:150px"></select>
@@ -531,6 +535,47 @@ function routes() {
 }
 
 /* 航线释放提示 + 本组开线申请状态 */
+
+/* ★ 运价对照：显示各组在同一航线上的公开报价（只读）
+   原版依据：FARE MATRIX 一手截图 —— 玩家可见每条航线上所有航司的定价
+   教学意义：定价是博弈行为，看不见对手报价就无法做跟随/抢价决策 */
+function farePeers() {
+  const box = $('#farePeers'); if (!box) return;
+  const pf = g.peerFares || {};
+  const seats = Object.keys(pf);
+  if (!seats.length) { box.innerHTML = '<span class="small">（暂无其他组数据）</span>'; return; }
+  const codes = [...new Set(Object.values(pf).flat().map(r => r.code))].sort();
+  if (!codes.length) { box.innerHTML = '<span class="small">（尚无航线定价）</span>'; return; }
+  const head = ['航线'].concat(seats.map(s => s + (s === g.seat ? '（我方）' : '')));
+  const rows = codes.map(code => {
+    const m = MARKETS[code] || {};
+    const cells = seats.map(s => {
+      const hit = (pf[s] || []).find(r => r.code === code);
+      if (!hit) return '—';
+      return s === g.seat ? `<b>$${hit.fare}</b>` : `$${hit.fare}`;
+    });
+    return [`${m.name_cn || code} <span class="small">${code}</span>`].concat(cells);
+  });
+  /* 原生 DOM 建表（player.html 无 table() 助手） */
+  box.innerHTML = '';
+  const tb = el('table');
+  const thead = el('thead'); const htr = el('tr');
+  for (const h of head) htr.appendChild(el('th', null, h));
+  thead.appendChild(htr); tb.appendChild(thead);
+  const tbody = el('tbody');
+  for (const r of rows) {
+    const tr = el('tr');
+    for (const c of r) {
+      const td = el('td');
+      td.innerHTML = c;                       // 含 <b> 我方高亮
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  tb.appendChild(tbody);
+  box.appendChild(tb);
+}
+
 function renderRouteHint() {
   const box = $('#routeHint');
   if (!box) return;
@@ -1272,7 +1317,7 @@ function fillPropFields() {
 }
 
 function render() {
-  head(); routes(); mktSelFill(); bandSelFill(); acSelFill(); sched(); invTabs(); invBody(); renderIntel(); renderProposals();
+  head(); routes(); farePeers(); mktSelFill(); bandSelFill(); acSelFill(); sched(); invTabs(); invBody(); renderIntel(); renderProposals();
   scoreTbl(); prevTbl(); hist(); rulesTbl(); renderRouteHint();
   /* U4 Reports 七页签 + U9 运营三视图 */
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
