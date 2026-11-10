@@ -642,6 +642,9 @@ export const ASSETS = [
   { id:'eng_apt100', name:'Spare engine APT100', price:7000000, note:'含快速更换套件，对冲可靠性风险' },
   { id:'eng_g160',  name:'Spare engine G130 & G160', price:10000000, note:'同上' },
   { id:'eng_g200',  name:'Spare engine G200 & G200LR', price:15000000, note:'同上' },
+  /* ★ 一手补齐（2026-11-03 Asset Catalogue 截图）：原版目录共 10 项，沙盘原缺 2 项 */
+  { id:'eng_apt300', name:'Spare engine APT300', price:22000000, note:'含备件包与快速换发套件；对冲可靠性风险（对应机型 APT300 尚未纳入沙盘机型目录）' },
+  { id:'eng_g250',   name:'Spare engine G250',   price:23000000, note:'含备件包与快速换发套件；对冲可靠性风险（对应机型 G250 尚未纳入沙盘机型目录）' },
 ];
 
 /* 随机事件池（裁判可触发） */
