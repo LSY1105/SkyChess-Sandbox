@@ -103,7 +103,11 @@ export function renderReports(root, g, opts = {}) {
    ★ 数值性质：Passengers / LF / Average Daily BH 全部为**当季动态量**（A 类），
      运价为当季参数（B 类）；竞品的客流与客座率**不公开** → 显示 '-'（保密规则，非 0） */
 function flights(root, h, g) {
-  const det = g.lastDetail || {};                  // 当季结算明细（逐班次 served）
+  /* ★ 按 Reports 的**季度选择器**取该季明细（h.detail 随 report 存入 history）
+     —— 当期 = 最新一季；历史季 = 所选那一季 → 无需在弹窗里再加分页签 */
+  const hist = g.history || [];
+  const isCur = !h || (hist.length && hist[hist.length - 1] === h);
+  const det = (isCur ? (g.lastDetail || {}) : ((h && h.detail) || {}));
   const cur = (g.schedules || []).map(s => {
     const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
     const m = MARKETS[s.code] || {};
@@ -135,7 +139,7 @@ function flights(root, h, g) {
     return d;
   };
   /* 自家航班明细 */
-  const own = sec('本航司航班明细 · ' + (g.seat || ''), 'var(--acc)');
+  const own = sec('本航司航班明细 · ' + (g.seat || '') + (h && h.period ? ' · ' + h.period : ''), 'var(--acc)');
   const rows = cur.map(x => [
     x.s.flightNo || '—', x.s.departure, (x.m.name || x.s.code), money(x.fare),
     x.ac.type || '—',
@@ -160,6 +164,7 @@ function flights(root, h, g) {
     byType[k].sum += used; byType[k].n++; byType[k].cap += cap || 0;
   }
   const uRows = Object.entries(byType).map(([k, v]) => [k, num(v.sum / v.n / 90, 2)]);
+  /* 机队利用按**当季累计已用 BH**（A 类，每季变化）；历史季暂无逐机 BH 快照 → 显示当期值 */
   util.appendChild(table(['机型', '平均每日 BH'], uRows.length ? uRows : [['(尚无排班)', '—']]));
   util.appendChild(el('div', 'small', '口径：已用 BH ÷ 90 季内天数，按机型取机队平均（★每季随排班变化）'));
 
