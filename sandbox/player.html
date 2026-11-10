@@ -89,9 +89,10 @@ main>div>.card{margin-bottom:0!important}
 /* ── 签名细节：席位色点（CA 蓝 / AB 橙 / VA 紫），贯穿表格与图表 ── */
 td[data-seat]::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
  margin-right:8px;vertical-align:middle;background:var(--dot,var(--dim))}
-td[data-seat="CA"]{--dot:var(--ca)}
-td[data-seat="AB"]{--dot:var(--ab)}
-td[data-seat="VA"]{--dot:var(--va)}
+/* ★ 席位色点与甘特图/需求图统一为**原版三色**（CA 黄 / AB 绿 / VA 蓝） */
+td[data-seat="CA"]{--dot:#e6a700}
+td[data-seat="AB"]{--dot:#6b8e23}
+td[data-seat="VA"]{--dot:#2f6fa8}
 
 
 /* ── 顶栏折叠：更多指标 ── */
