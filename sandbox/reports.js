@@ -514,7 +514,7 @@ export function renderRouteDemand(container, games, opts = {}) {
     const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
     const box = el('div'); box.style.marginBottom = '14px';
     box.appendChild(el('div', null, m.name_c || code));
-    box.appendChild(el('div', 'small', `Flight Capacity and Actual Loads - (${m.name_c || code})　· 需求线：<tspan fill='#cf222e'>红=上涨段</tspan> / <tspan fill='#2da44e'>绿=下降段</tspan>　灰=实际载量`));
+    box.appendChild(el('div', 'small', `Flight Capacity and Actual Loads - (${m.name_c || code})　· 需求线：红=上涨段 / 绿=下降段　灰=实际载量`));
     const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', 'max-width': '640' });
     svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
     // 网格与 Y 轴刻度
