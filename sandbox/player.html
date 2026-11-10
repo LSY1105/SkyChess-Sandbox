@@ -758,6 +758,14 @@ function invBody() {
     }
     b.appendChild(t);
   } else {
+    /* ★ 路线 A（明示）：当前版本资产购置**无经营效果** —— 把机制缺口变成课堂讨论点
+       （原版机库可出租/防恶劣天气/降维护成本，备发引擎对冲可靠性，沙盘尚未建模） */
+    const warn = el('div', 'small');
+    warn.style.cssText = 'border-left:2px solid var(--warn);padding:6px 10px;margin-bottom:8px;background:rgba(200,149,46,.08);color:var(--tx2)';
+    warn.innerHTML = '⚠ <b>当前版本资产购置无经营效果</b>：买下后不产生收益、不降低维护成本（一次���性支出）。'
+      + '原版中机库可对外出租并保护机队、备发引擎对冲可靠性风险——这些机制尚未建模。'
+      + '<b>课堂讨论点：</b>真实航空的资产投资必须配套机制支撑；缺机制时，理性策略就是不买。';
+    b.appendChild(warn);
     const t = el('table');
     t.innerHTML = '<tr><th>资产</th><th>价格</th><th>说明</th><th></th></tr>';
     for (const a of ASSETS) {
