@@ -86,7 +86,7 @@ await step('单班次损益符号合理（收入-成本 与航线级同号）', 
     const sp = flightSplit(d);
     const r = (sp.rev['Total Revenue'] || 0);
     const c = Object.values(sp.cost).reduce((a, v) => a + (v || 0), 0);
-    const one = r - c, all = (d.rev['Total Revenue'] || 0) - (d.cost.dco + d.cost.ind);
+    const one = r - c, all = (d.rev['Total Revenue'] || 0) - ((d.dco || 0) + (d.ind || 0));
     ok(Math.sign(one) === Math.sign(all) || Math.abs(all) < 1, `${code}: 单班次 ${one.toFixed(0)} 与航线级 ${all.toFixed(0)} 符号不一致`);
   }
   return '符号一致';
