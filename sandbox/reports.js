@@ -25,6 +25,8 @@ function table(head, rows) {
     const rr = el('tr');
     (r.cells || r).forEach(c => {
       const td = el('td', c && c.cls, c && c.text != null ? c.text : c);
+      if (c && c.onclick) { td.style.cursor = 'pointer'; td.onclick = c.onclick; }
+      if (c && c.title) td.title = c.title;
       rr.appendChild(td);
     });
     t.appendChild(rr);
@@ -240,10 +242,13 @@ function liveSchedules(root, g) {
   const rows = (g.schedules || []).map(s => {
     const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
     const m = MARKETS[s.code] || {};
-    return [ac.nickname || ac.type || ('#' + s.acId), ac.type || '—', m.name_c || s.code, s.departure,
+    const cells = [ac.nickname || ac.type || ('#' + s.acId), ac.type || '—', m.name_c || s.code, s.departure,
       num(s.seats), num(s.bh, 2), s.flightNo || '—', ac.owned ? '自有' : '租赁'];
+    /* ★ 原版 FLIGHTS 报表的 Data 按钮 → 打开 FLIGHT INFORMATION（航班详情） */
+    cells.push({ text: '≡ 详情', cls: 'small', onclick: () => flightPopup(g, s) });
+    return cells;
   });
-  const tb = table(['飞机', '机型', '航线', '起飞', '座位', 'BH', '航班号', '产权'], rows);
+  const tb = table(['飞机', '机型', '航线', '起飞', '座位', 'BH', '航班号', '产权', '详情'], rows);
   root.appendChild(tb);
   if (!rows.length) root.appendChild(el('div', 'small', '尚未排班。'));
   else {
@@ -345,7 +350,7 @@ function flightPopup(g, s, d) {
   const pop = el('div'); pop.id = 'flightPop';
   pop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:200';
   const box = el('div');
-  box.style.cssText = 'background:#fff;border-radius:8px;max-width:460px;width:92%;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,.3)';
+box.style.cssText = 'background:#1b1e22;color:#e8eaed;border:1px solid #2b3036;border-radius:12px;max-width:460px;width:92%;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.5)';
   box.appendChild(el('h3', null, 'FLIGHT INFORMATION · 航班详情'));
   box.appendChild(table(['项目', '数值'], rows.map(([k, v]) => [k, { text: String(v) }])));
   const btn = el('button', null, '关闭');
