@@ -1244,8 +1244,10 @@ function applyGMAction(a) {
           if (v === null) { g.negotiation[k] = null; continue; }
           if (k === 'subsidy' || k === 'fareDiscount' || k === 'marketFuel' || k === 'marketDemand') {
             if (!a.code) continue;
-            if (k === 'subsidy') g.negotiation.subsidies[a.code] = Number(v) || 0;
-            else if (k === 'fareDiscount') g.negotiation.fareDiscount[a.code] = Number(v) || 1;
+            const nv = Number(v);
+            if (!Number.isFinite(nv)) continue;      // ★ 非有限值不写入
+            if (k === 'subsidy') g.negotiation.subsidies[a.code] = nv || 0;
+            else if (k === 'fareDiscount') g.negotiation.fareDiscount[a.code] = nv || 1;
             else {
               g.marketParams = g.marketParams || {};
               g.marketParams[a.code] = g.marketParams[a.code] || {};
@@ -1255,7 +1257,11 @@ function applyGMAction(a) {
           } else if (k === 'turnaroundMin' || k === 'leaseDiscount' || k === 'insuranceRate'
                      || k === 'fuelPrice' || k === 'carbonPrice' || k === 'interestRate'
                      || k === 'connectingDemand') {
-            g.negotiation[k] = Number(v);
+            /* ★ 数值守卫：NaN / Infinity 会污染后续全部计算（油价 NaN → 损益全 NaN）
+               → 非有限值一律跳过该键，不写入 */
+            const num = Number(v);
+            if (!Number.isFinite(num)) continue;
+            g.negotiation[k] = num;
           }
         }
         n++;
