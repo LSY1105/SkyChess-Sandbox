@@ -565,7 +565,12 @@ function flightPopup(g, s, d, seasonIdx) {
   const c2 = sect('UTILISATION, FUEL & CARBON');
   kv(c2, 'Utilisation (Flight Time + Taxi Time)', num(bh, 2));
   kv(c2, '% of Aircraft Daily Utilisation', utilPct != null ? pct(utilPct, 2) : '—');
-  kv(c2, 'Strike Price (Market Price)', '$' + fuelPrice.toFixed(2));
+  /* ★ Strike Price 双值（原版 $2.56 ($2.73)）：括号内为**对比期油价**（该季期初 = 上季末油价）
+     → 直观呈现油价波动；口径为推断，原版括号值语义未有一手说明 →【推断·待验证】 */
+  const prevH = (hist[qIdx - 1] || null);
+  const prevFuel = prevH ? (prevH.fuel_price_next != null ? prevH.fuel_price_next : prevH.fuel_price) : null;
+  kv(c2, 'Strike Price (Market Price)', '$' + fuelPrice.toFixed(2)
+     + (prevFuel != null && Math.abs(prevFuel - fuelPrice) > 0.001 ? ' ($' + prevFuel.toFixed(2) + ')' : ''));
   kv(c2, 'Fuel Used', num(gal) + ' gal / ' + num(galKg) + ' kg');
   kv(c2, 'Carbon Price (per tonne)', money(carbonPrice));
   kv(c2, 'Carbon Emissions (Flight)', num(carbonKg) + ' kg（沙盘当量口径）');
