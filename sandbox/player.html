@@ -417,6 +417,23 @@ async function act(type, extra = {}) {
   else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
   g = res.game; gmState = res.gm; render(); return res;
 }
+/* ★ 数据指纹：轮询时若关键数据未变 → 不重绘（消除整页闪动 + 保住用户输入与焦点） */
+let _sig = '';
+function dataSig(gg) {
+  try {
+    return JSON.stringify([
+      gg.turn, gg.cash, gg.qsi, gg.period && gg.period.label,
+      (gg.schedules || []).map(s => [s.acId, s.code, s.departure, s.returnDeparture]).sort(),
+      (gg.routes || []).map(r => [r.code, r.fare, r.cabinFare && r.cabinFare.prem, r.cabinFare && r.cabinFare.biz]),
+      (gg.investments || []).map(i => i.id),
+      (gg.routeFlags || {}),
+      (gg.proposals || []).length,
+      (gg.negRequests || []).length,
+      (gg.messages || []).length,
+      gg.bankrupt ? 1 : 0,
+    ]);
+  } catch (e) { return String(Date.now()); }
+}
 async function load() {
   const res = await api('/api/seat/' + seat);
   if (!res || res.error) {
@@ -430,8 +447,12 @@ async function load() {
     return;
   }
   g = res.game; gmState = res.gm;
-  const gl = await api('/api/gm');
-  window.__seats = gl.seats || ['CA', 'AB', 'VA'];
+  const ns = dataSig(g);
+  if (ns === _sig) return;          // ★ 数据未变 → 不重绘（不闪动、不丢输入）
+  _sig = ns;
+  /* ★ 小组端不再请求裁判专用接口 /api/gm（教师密钥要求 → 401 → 弹窗 'teacher key required'）
+     席位列表用本地常量即可（裁判端增删席位不影响本组页面） */
+  window.__seats = ['CA', 'AB', 'VA'];
   render();
 }
 
@@ -1102,7 +1123,9 @@ function renderRetBox() {
     const btn = el('button', null, '保存');
     btn.onclick = async () => {
       const res = await act('setReturnFlight', { index: i, departure: inp.value });
-      if (res && res !== 'ok') alert(res); else render();
+      /* ★ act() 返回 {ok, result} → 必须取 .result，否则永远判为失败（并弹出 [object Object]） */
+      const rr = (res && typeof res === 'object') ? res.result : res;
+      if (rr && rr !== 'ok') alert(rr); else render();
     };
     td2.appendChild(btn); row.appendChild(td2);
     tb.appendChild(row);

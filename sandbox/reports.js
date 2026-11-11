@@ -48,11 +48,17 @@ export function pickReport(g, idx) {
 /* ─────────────── U4：Reports 七页签 ─────────────── */
 const UI = { repTab: 0, repSeason: null, opsTab: 0 };
 export function renderReports(root, g, opts = {}) {
-  root.innerHTML = '';
+  /* ★ 增量更新：轮询（6s）会再次调用本函数，若每次 root.innerHTML='' 整块重建，
+     用户正在点的页签会被替换掉 → 「点标签无反应」+ 闪动 + 点失效标签时崩溃。
+     改为：页签容器复用（仅首次创建），只更新内容区，并保留内容区滚动位置。 */
   const hist = g.history || [];
-  const tabs = el('div', 'tabs');
-  const body = el('div', 'scroll');
-  root.appendChild(tabs); root.appendChild(body);
+  let tabs = root.querySelector(':scope > .tabs');
+  let body = root.querySelector(':scope > .scroll');
+  if (!tabs || !body) {
+    root.innerHTML = '';
+    tabs = el('div', 'tabs'); body = el('div', 'scroll');
+    root.appendChild(tabs); root.appendChild(body);
+  }
 
   let sel = opts.seasonIdx != null ? opts.seasonIdx
     : (UI.repSeason != null ? Math.min(UI.repSeason, Math.max(0, hist.length - 1)) : hist.length - 1);
@@ -77,6 +83,7 @@ export function renderReports(root, g, opts = {}) {
       b.onclick = () => { active = i; draw(); };
       tabs.appendChild(b);
     });
+    const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h = pickReport(g, sel);
     if (!h) { body.appendChild(el('div', 'small', '尚无历史报告（完成一个回合后生成）。')); return; }
@@ -93,6 +100,7 @@ export function renderReports(root, g, opts = {}) {
     body.appendChild(content);
     [summary, network, routeEcon, routeMetrics, fuel, investments, flights, baseline, charts]
       [active](content, h, g);
+    body.scrollTop = keepScroll;          // 保留滚动位置（报表区可下滑浏览）
   };
   draw();
   return { refresh: draw };
@@ -309,10 +317,14 @@ function baseline(root, h, g) {
 
 /* ─────────────── U9：Fare Matrix / Live Schedules / Fleet Plans ─────────────── */
 export function renderOpsViews(root, g) {
-  root.innerHTML = '';
-  const tabs = el('div', 'tabs');
-  const body = el('div', 'scroll');
-  root.appendChild(tabs); root.appendChild(body);
+  /* ★ 同 renderReports：页签容器复用 + 保留滚动位置（避免轮询把页签换掉导致点不动） */
+  let tabs = root.querySelector(':scope > .tabs');
+  let body = root.querySelector(':scope > .scroll');
+  if (!tabs || !body) {
+    root.innerHTML = '';
+    tabs = el('div', 'tabs'); body = el('div', 'scroll');
+    root.appendChild(tabs); root.appendChild(body);
+  }
   const VIEWS = [['Fare Matrix', '票价矩阵'], ['Live Schedules', '实时航班表'], ['Fleet Plans', '机队计划'], ['Scheduler', '日程甘特图']];
   let active = UI.opsTab;
   const draw = () => {
@@ -323,9 +335,11 @@ export function renderOpsViews(root, g) {
       b.onclick = () => { active = i; draw(); };
       tabs.appendChild(b);
     });
+    const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const c = el('div'); body.appendChild(c);
     [fareMatrix, liveSchedules, fleetPlans, schedulerView][active](c, g);
+    body.scrollTop = keepScroll;
   };
   draw();
   return { refresh: draw };
