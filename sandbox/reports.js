@@ -12,7 +12,10 @@ import { MARKETS, AIRCRAFT, GM } from './data.js';
 import * as G from './game.js';
 import * as E from './engine.js';
 
-const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls;
+  /* ★ 全局 NaN 防护：数值型文本若为 NaN/Infinity → 显示 '—'，杜绝界面出现 "NaN" */
+  if (txt != null) e.textContent = (typeof txt === 'number' && !Number.isFinite(txt)) ? '—' : txt;
+  return e; };
 const money = (v) => (v == null || !Number.isFinite(Number(v)) ? '—' : (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString());
 const num = (v, d = 0) => (v == null || !Number.isFinite(Number(v)) ? '—' : Number(v).toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }));
 const pct = (v, d = 1) => (v == null || !Number.isFinite(Number(v)) ? '—' : (v * 100).toFixed(d) + '%');
@@ -214,7 +217,11 @@ function network(root, h, g) {
   const ask = Object.values(d).reduce((a, x) => a + x.ask, 0);
   const rpk = Object.values(d).reduce((a, x) => a + x.rpk, 0);
   const pax = Object.values(d).reduce((a, x) => a + x.pax, 0);
-  root.appendChild(el('div', 'small', `网络 ASK ${(ask / 1e6).toFixed(1)}MM ｜ RPK ${(rpk / 1e6).toFixed(1)}MM ｜ LF ${ask ? (rpk / ask * 100).toFixed(1) : '—'}% ｜ 旅客 ${num(pax)} ｜ 市场总需求 ${num(Object.values(d).reduce((a, x) => a + (x.marketDemand || 0), 0))}`));
+  /* ★ 非有限值防护：ask/rpk 为 NaN 时 (NaN).toFixed() 会直接输出 "NaN" 文本 */
+  const askMM = Number.isFinite(ask) ? (ask / 1e6).toFixed(1) : '—';
+  const rpkMM = Number.isFinite(rpk) ? (rpk / 1e6).toFixed(1) : '—';
+  const lfTxt = (Number.isFinite(ask) && ask > 0 && Number.isFinite(rpk)) ? (rpk / ask * 100).toFixed(1) + '%' : '—';
+  root.appendChild(el('div', 'small', `网络 ASK ${askMM}MM ｜ RPK ${rpkMM}MM ｜ LF ${lfTxt}`));
   const rows = Object.entries(d).map(([c, x]) => [
     MARKETS[c] ? MARKETS[c].name_c : c, num(x.freq), (x.ask / 1e6).toFixed(1), (x.rpk / 1e6).toFixed(1),
     pct(x.lf), money(x.rev['Total Revenue']), money(x.operating_profit),

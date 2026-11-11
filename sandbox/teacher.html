@@ -360,7 +360,7 @@ const TEACHER_KEY = (() => {
   if (q) { LS.setItem('sbx-teacher-key', q); return q; }
   return LS.getItem('sbx-teacher-key') || '';
 })();
-const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = (typeof h === 'number' && !Number.isFinite(h)) ? '—' : h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
 let gm = null, seats = {}, seatGames = {};

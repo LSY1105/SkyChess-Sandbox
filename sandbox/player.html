@@ -395,7 +395,7 @@ let g = null, gmState = null, invTab = 'airline', histSel = 0;
    （多页面共存于同一 JS 上下文时）→ 运行时再取全局会拿到错误文档 */
 const __DOC = (typeof window !== 'undefined' && window.document) ? window.document : document;
 const $ = s => __DOC.querySelector(s);
-const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = h; return e; };
+const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = (typeof h === 'number' && !Number.isFinite(h)) ? '—' : h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
 
