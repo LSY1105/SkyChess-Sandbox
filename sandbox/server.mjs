@@ -179,6 +179,17 @@ setInterval(() => {
   }
 }, 5000);
 
+/* ★ 进程级异常兜底（稳定性 P0）
+   HTTP 请求处理已有 try/catch，但**异步回调**（定时器结算 / 轮询 / 文件写入）里的异常会逃逸，
+   未捕获异常会直接终止 Node 进程 → 服务静默掉线（本次审查中多次出现）。
+   策略：记录到日志并保留进程存活，避免「一个坏定时器打挂整个课堂」。 */
+process.on('uncaughtException', (err) => {
+  console.error('[uncaughtException]', err && err.stack ? err.stack : err);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[unhandledRejection]', reason && reason.stack ? reason.stack : reason);
+});
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const p = url.pathname;

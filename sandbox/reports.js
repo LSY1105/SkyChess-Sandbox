@@ -496,7 +496,9 @@ function flightPopup(g, s, d, seasonIdx) {
   pop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:60';
   const box = el('div');
   box.style.cssText = 'background:#1b1e22;color:#e8eaed;border:1px solid #2b3036;border-radius:12px;max-width:920px;width:94%;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.5)';
-  const h = el('h3', null, `FLIGHT INFORMATION · ${g.seat || ''} ${s.flightNo || (ac.type || '')}`);
+  /* ★ 标题对齐原版：<航司名> Flight <航班号> */
+  const seatName = { CA: 'Capital Airways', AB: 'Air Ballistic', VA: 'VisionAir' }[g.seat] || (g.seat || '');
+  const h = el('h3', null, `FLIGHT INFORMATION · ${seatName} Flight ${s.flightNo || (ac.type || '')}`);
   h.style.cssText = 'margin:0 0 4px;font-size:14px;font-weight:600';
   box.appendChild(h);
   const sub = el('div', 'small', `${m.name_c || s.code}（${s.code}）· 起飞 ${s.departure} · 机型 ${ac.type || '—'} · 座位 ${seats} · BH ${bh}${lf != null ? '' : ' · 未结算：旅客与客座率显示满座上限'}`);
@@ -568,11 +570,12 @@ function flightPopup(g, s, d, seasonIdx) {
   kv(c2, 'Carbon Price (per tonne)', money(carbonPrice));
   kv(c2, 'Carbon Emissions (Flight)', num(carbonKg) + ' kg（沙盘当量口径）');
   kv(c2, 'Carbon Costs (Flight)', money(carbonCost));
+  kv(c2, 'Carbon Emissions Per Passenger', pax ? num(carbonKg / pax) + ' kg' : '—');
   kv(c2, 'Carbon Price Per Passenger', pax ? '$' + (carbonCost / pax).toFixed(2) : '—');
   kv(c2, 'Carbon Take Up', '100%');
   const c3 = sect('FARE & PASSENGERS');
   kv(c3, 'Fare', money(fare));
-  kv(c3, 'Weighted Fare', money(fare));
+  kv(c3, 'Weighted Fare', money(fare) + (g.routes && g.routes.some(r => r.cabinFare && (r.cabinFare.prem != null || r.cabinFare.biz != null)) ? '' : '（未设分舱位票价 → 与基准同）'));
   kv(c3, 'Unit Fare', '$' + unitFare.toFixed(3));
   kv(c3, 'Weighted Unit Fare', '$' + unitFare.toFixed(3));
   kv(c3, 'Passengers', pax + (det ? '（实绩）' : '（满座上限）'));
