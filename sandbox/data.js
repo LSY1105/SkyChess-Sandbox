@@ -507,17 +507,21 @@ export const INVESTMENTS = [
   { id:'cab_galaxy', name_cn:'客舱升级（银河级）', desc_cn:'全面升级客舱设施与服务', name:'Cabin Upgrade (Galaxy)', cat:'airline', upfront:3700000, annual:0,
     costPerPax: 0, revenuePerPax: 0,
     cabin:{ E:{c:0, r:0}, PE:{c:0, r:0}, B:{c:0, r:0} },
-    effect:{ qsi:0.9, premium:1 },
+    /* ★ 座位改造：全服务航空高端化 → 公务舱座位增加、经济舱减少（VIP 承载↑）
+       增量无一手材料 →【推断·待验证】 */
+    effect:{ qsi:0.9, premium:1, seatMod:{ biz:+8, eco:-4 } },
     desc:'豪华客舱升级；注 Impact is deferred by one Quarter（影响延迟一季度）' },
   { id:'cab_lowcost', name_cn:'客舱升级（低成本型）', desc_cn:'以低成本方式升级客舱', name:'Cabin Upgrade (Low Cost)', cat:'airline', upfront:1375000, annual:0,
     costPerPax: 0, revenuePerPax: 0,
     cabin:{ E:{c:0, r:0}, PE:{c:0, r:0}, B:{c:0, r:0} },
-    effect:{ qsi:0.5 },
-    desc:'低成本客舱升级；注 须与 GM 谈判条款方可投资（speak to your GM to negotiate the terms）' },
+    /* ★ 座位改造：原版 Cabin Upgrade (Low Cost)「a modest increase in seat count」
+       → 低成本航空：经济舱座位增加 → 可拉更多旅客（增量无一手材料 →【推断·待验证】） */
+    effect:{ qsi:0.5, seatMod:{ eco:+10 } },
+    desc:'低成本客舱升级：经济舱座位 +10（可拉更多旅客）；注 须与 GM 谈判条款方可投资；影响延迟一个季度' },
   { id:'cab_new', name_cn:'客舱升级（全新座椅）', desc_cn:'更换全新座椅提升舒适度', name:'Cabin Upgrade (New Seats)', cat:'airline', upfront:2550000, annual:0,
     costPerPax: 0, revenuePerPax: 0,
     cabin:{ E:{c:0, r:0}, PE:{c:0, r:0}, B:{c:0, r:0} },
-    effect:{ qsi:0.6 }, desc:'更换新座椅；注 影响延迟一个季度' },
+    effect:{ qsi:0.6, seatMod:{ prem:+6 } }, desc:'更换新座椅：超经舱座位 +6；注 影响延迟一个季度' },
   { id:'cab_refresh', name_cn:'客舱升级（翻新）', desc_cn:'翻新客舱设施', name:'Cabin Upgrade (Refresh)', cat:'airline', upfront:2150000, annual:0,
     costPerPax: 0, revenuePerPax: 0,
     cabin:{ E:{c:0, r:0}, PE:{c:0, r:0}, B:{c:0, r:0} },

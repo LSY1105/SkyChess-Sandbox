@@ -1136,7 +1136,36 @@ export function nightReturnRequired(g, ac, code, departure) {
   return arr > 22 * 60 || arr < 6 * 60;  // 短程晚班/早班需当日返航
 }
 
+
+/** 客舱座位改造（Cabin Upgrade 的座位效果）
+ *  一手依据：原版 Investment Catalogue —— Cabin Upgrade (Low Cost)「a modest increase in seat count」；
+ *            Galaxy 高端体验与行李空间；New Seats / Refresh 注明「Impact is deferred by one Quarter」。
+ *  沙盘实现：把已生效改造写回机队座位结构（eco/prem/biz/seats）→ 容量、收入、载重、需求分配全部自动生效。
+ *  ★ 座位增量无一手材料 → 标【推断·待验证】；延迟一个季度按原版说明实现。 */
+export function applyCabinSeatMods(g) {
+  const agg = { eco: 0, prem: 0, biz: 0 };
+  for (const inv of (g.investments || [])) {
+    const def = INVESTMENTS.find(x => x.id === inv.id);
+    const sm = def && def.effect && def.effect.seatMod;
+    if (!sm) continue;
+    if ((inv.openedTurn != null ? inv.openedTurn + 1 : 0) > g.turn) continue;   // 延迟一个季度
+    agg.eco += sm.eco || 0; agg.prem += sm.prem || 0; agg.biz += sm.biz || 0;
+  }
+  for (const ac of (g.aircraft || [])) {
+    const t = AIRCRAFT.find(x => x.name === ac.type) || {};
+    const baseEco = t.eco != null ? t.eco : (ac.seats || 0);
+    const basePrem = t.prem != null ? t.prem : 0;
+    const baseBiz = t.biz != null ? t.biz : 0;
+    ac.eco = Math.max(0, baseEco + agg.eco);
+    ac.prem = Math.max(0, basePrem + agg.prem);
+    ac.biz = Math.max(0, baseBiz + agg.biz);
+    ac.seats = (ac.eco || 0) + (ac.prem || 0) + (ac.biz || 0);
+  }
+  return agg;
+}
+
 export function computeTurn(g, per) {
+  applyCabinSeatMods(g);          // ★ 客舱座位改造生效（延迟一季度，幂等）
   const routes = {};
   let revenue = 0, cost = 0;
   const detail = {};

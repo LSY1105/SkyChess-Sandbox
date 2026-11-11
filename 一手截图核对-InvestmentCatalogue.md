@@ -88,3 +88,45 @@ seg2–seg6 已裁切就绪（unslop/inv_cat/seg2..seg6.png），下轮逐段读
 已确认：结构一致 + **前 10 项**（广告×5 + 客舱升级×4 + 电子报）数值一致。
 未确认：其余 23 项（seg3–seg6 已就绪，下轮继续）。
 ```
+
+
+---
+
+## 七、★ 客舱座位改造机制（原版投资项的座位效果）—— 已实现
+
+### 用户补充的一手事实
+```
+原版可以针对**飞机座位**进行改造：
+ · 低成本航空 → 座位数改多 → 拉更多旅客
+ · 全服务航空 → 高端座位改造 → 增加 VIP 旅客承载
+```
+### 与一手截图的对应
+```
+主截图 Investment Catalogue(VIEW INVESTMENTS).jpg（与「德比大学」目录下同名文件 md5 一致）
+ CABIN UPGRADE (LOW COST)：「…a modest increase in seat count with negligible impact on
+                         aircraft weight」→ **座位数增加** ✓ 对应低成本航空
+ CABIN UPGRADE (GALAXY)：「installation of the new 'Galaxy' cabin … overhead bin capacity has been
+                         increased」→ 高端化体验 → 对应全服务航空的 VIP 承载
+ CABIN UPGRADE (NEW SEATS) / (REFRESH)：均注明「Impact is deferred by one Quarter」→ **延迟一季度**
+```
+### 沙盘实现
+```
+data.js  三项投资加 effect.seatMod：
+  cab_lowcost  { eco:+10 }              低成本型：经济舱 +10（可拉更多旅客）
+  cab_galaxy   { biz:+8, eco:-4 }       银河级：公务舱 +8（VIP 承载↑）、经济舱 −4
+  cab_new      { prem:+6 }              全新座椅：超经舱 +6
+  cab_refresh  （无座位变更，仅翻新）
+game.js  applyCabinSeatMods(g)：在 computeTurn 开头调用
+  · 生效时点 = openedTurn + 1（**延迟一个季度**，按原版说明）
+  · 幂等：基准取自 AIRCRAFT 机型原值，**不随季累加**
+  · 写回 ac.eco / ac.prem / ac.biz / ac.seats → 容量、收入、载重平衡、需求分配全部自动生效
+★ 座位增量无一手材料 → 标【推断·待验证】
+```
+### 验收（新增 cabinmodtest.mjs，5/5）
+```
+① 基线：未购置 → 座位结构为机型原值（APT100 Y100/T100）
+② 低成本型：经济舱 +10，总座位 100 → 110
+③ 延迟一季度：T0 不生效 → T1 生效
+④ 银河级：公务舱 +8、经济舱 −4 → VIP 承载↑
+⑤ 幂等：连续多季调用不累加
+```
