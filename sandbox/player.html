@@ -125,6 +125,7 @@ setInterval(function () {
   var a = document.activeElement;
   if (a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return;
   if (document.querySelector('button:hover')) return;
+  if (typeof _busy !== 'undefined' && _busy) return;   // ★ 提交中 → 不重绘
   try { refresh(); } catch (e) { /* 刷新失败不阻断 */ }
 }, 4000);
 </script>
@@ -198,6 +199,17 @@ setInterval(function () {
         <h3>排班甘特图（DAILY SCHEDULE · 块宽=占用时长 · 悬停看详情）</h3>
         <div id="schedGantt"></div>
       </div>
+
+      <h3 style="margin-top:16px">回程设定<em>（学员自行设定回程起飞时刻 · 与上方班次一一对应）</em></h3>
+      <div class="small" style="margin-bottom:6px">
+        回程起飞时刻<b>不得早于「过站时间」</b>（到达 + 下客/清洁/上客）；回程到达须在 22:00 前回到廊桥。
+        下一班起点可再晚 2–4 小时 → 为<b>联程中转</b>留出窗口。
+      </div>
+      <div class="row" style="margin-bottom:6px">
+        <button id="btnAutoRet">按过站时间自动填入未设定的回程</button>
+        <span class="small">一键把未设定的回程起飞设为「到达 + 过站时间」；已设定的不覆盖</span>
+      </div>
+      <div id="retBox"></div>
       <div class="card" style="margin-top:14px">
         <h2>三家排班<em>（DAILY SCHEDULE · 公开信息 · 谁占了哪些时刻）</em></h2>
         <div class="small" style="margin-bottom:8px">
@@ -325,15 +337,6 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>回程设置<em>（学员自行设定回程起飞时刻）</em></h2>
-      <div class="small" style="margin-bottom:6px">
-        回程起飞时刻<b>不得早于「过站时间」</b>（到达 + 下客/清洁/上客）；回程到达须在 22:00 前回到廊桥。
-        下一班起点可再晚 2–4 小时 → 为<b>联程中转</b>留出窗口。
-      </div>
-      <div id="retBox"></div>
-    </div>
-
-    <div class="card" style="margin-top:14px">
       <h2>联程设置<em>（中转）</em></h2>
       <div class="small" style="margin-bottom:6px">
         联程（转机）＝旅客在 2–4 小时内转乘你的下一班飞机。承接率由裁判设定的中转强度决定（10%/20%/32%）。
@@ -411,11 +414,18 @@ async function api(path, body) {
   }
   return r.json();
 }
+/* ★ 提交锁：提交进行中时，轮询不得重绘（否则用户刚勾选/刚输入的状态会被旧数据覆盖，
+   表现为「联程复选弹回」「回程时间改了又变回去」） */
+let _busy = false;
 async function act(type, extra = {}) {
-  const res = await api('/api/seat/' + seat, { type, ...extra });
-  if (res.result && typeof res.result === 'object' && res.result.why) alert(res.result.why);
-  else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
-  g = res.game; gmState = res.gm; render(); return res;
+  _busy = true;
+  try {
+    const res = await api('/api/seat/' + seat, { type, ...extra });
+    if (res.result && typeof res.result === 'object' && res.result.why) alert(res.result.why);
+    else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
+    _loadSeq++;                      // ★ 作废在途的轮询响应（防止旧数据覆盖本次提交）
+    g = res.game; gmState = res.gm; render(); return res;
+  } finally { _busy = false; }
 }
 /* ★ 数据指纹：轮询时若关键数据未变 → 不重绘（消除整页闪动 + 保住用户输入与焦点） */
 let _sig = '';
@@ -434,7 +444,11 @@ function dataSig(gg) {
     ]);
   } catch (e) { return String(Date.now()); }
 }
+/* ★ 请求序号：丢弃过期响应 —— 否则「轮询的旧响应」可能覆盖「提交后的新响应」，
+   表现为联程复选/回程设置刚改完又弹回（竞态） */
+let _loadSeq = 0;
 async function load() {
+  const mySeq = ++_loadSeq;
   const res = await api('/api/seat/' + seat);
   if (!res || res.error) {
     const tip = res && res.error === 'invalid seat key'
@@ -446,6 +460,8 @@ async function load() {
       + '<h2 style="color:#f85149">无法连接席位</h2><p>' + tip + '</p></div>';
     return;
   }
+  /* ★ 只接受最新一次请求的响应（防止旧响应覆盖新数据） */
+  if (mySeq !== _loadSeq) return;
   g = res.game; gmState = res.gm;
   const ns = dataSig(g);
   if (ns === _sig) return;          // ★ 数据未变 → 不重绘（不闪动、不丢输入）
@@ -1094,6 +1110,30 @@ function renderConnBox() {
   box.appendChild(el('div', 'small', '提示：全部开启＝最大化承接（但会占用你的座位）；全部关闭＝只做本线旅客。'));
 }
 /* 回程设置：学员逐班设定回程起飞时刻（须 ≥ 过站时间） */
+/* ★ 一键按过站时间自动填入未设定的回程（新增：避免学员逐行手填） */
+function autoFillReturns() {
+  const list = g.schedules || [];
+  const toMin = (x) => { const [h2, m2] = String(x || '00:00').split(':').map(Number); return (h2 || 0) * 60 + (m2 || 0); };
+  const hhmm = (v) => String(Math.floor((((v % 1440) + 1440) % 1440) / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
+  (async () => {
+    let n = 0;
+    for (let i = 0; i < list.length; i++) {
+      const s = list[i];
+      if (s.returnDeparture) continue;                 // 已设定 → 不覆盖
+      const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
+      const mk = MARKETS[s.code] || {};
+      const arr = toMin(s.arrival) || (toMin(s.departure) + Math.round((mk.bh || 1.5) * 60) + 30);
+      let turn = 60;
+      try { turn = G.turnaroundFor(ac, s.code, g); } catch (e) { turn = 60; }
+      const dep = hhmm(arr + turn);
+      const res = await act('setReturnFlight', { index: i, departure: dep });
+      if (res && res.result === 'ok') n++;
+    }
+    alert(n ? `已自动填入 ${n} 班回程（到达 + 过站时间）` : '没有需要填入的回程（可能都已设定）');
+    render();
+  })();
+}
+
 function renderRetBox() {
   const box = $('#retBox'); if (!box) return;
   box.innerHTML = '';
@@ -1375,6 +1415,7 @@ function render() {
   renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
+  { const b = $('#btnAutoRet'); if (b && !b.__b) { b.__b = 1; b.onclick = autoFillReturns; } }
   /* ★ 三家排班（原版 DAILY SCHEDULE 同款信息面：玩家可见三家全部航班） */
   (function renderAllGantt() {
     const box = $('#ganttAll'); if (!box) return;

@@ -77,12 +77,18 @@ export function renderReports(root, g, opts = {}) {
 
   const draw = () => {
     UI.repTab = active;
-    tabs.innerHTML = '';
-    TABS.forEach(([en, cn], i) => {
-      const b = el('button', i === active ? 'on' : '', en + ' · ' + cn);
-      b.onclick = () => { active = i; draw(); };
-      tabs.appendChild(b);
-    });
+    /* ★ 页签按钮**只创建一次**，之后仅切换 .on 类
+       （此前每次 draw 都重建按钮 → 用户点击瞬间按钮被替换 → 「点标签无反应」） */
+    if (tabs.children.length !== TABS.length) {
+      tabs.innerHTML = '';
+      TABS.forEach(([en, cn], i) => {
+        const b = el('button', '', en + ' · ' + cn);
+        b.dataset.i = String(i);
+        b.onclick = () => { active = i; draw(); };
+        tabs.appendChild(b);
+      });
+    }
+    [...tabs.children].forEach((b, i) => b.classList.toggle('on', i === active));
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h = pickReport(g, sel);
@@ -329,12 +335,16 @@ export function renderOpsViews(root, g) {
   let active = UI.opsTab;
   const draw = () => {
     UI.opsTab = active;
-    tabs.innerHTML = '';
-    VIEWS.forEach(([en, cn], i) => {
-      const b = el('button', i === active ? 'on' : '', en + ' · ' + cn);
-      b.onclick = () => { active = i; draw(); };
-      tabs.appendChild(b);
-    });
+    /* ★ 同上：按钮只创建一次，之后仅切换 .on 类 */
+    if (tabs.children.length !== VIEWS.length) {
+      tabs.innerHTML = '';
+      VIEWS.forEach(([en, cn], i) => {
+        const b = el('button', '', en + ' · ' + cn);
+        b.onclick = () => { active = i; draw(); };
+        tabs.appendChild(b);
+      });
+    }
+    [...tabs.children].forEach((b, i) => b.classList.toggle('on', i === active));
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const c = el('div'); body.appendChild(c);
