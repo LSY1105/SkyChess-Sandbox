@@ -825,6 +825,17 @@ function applyActionRaw(g, a) {
 
 /* ── 裁判动作 ── */
 function applyGMAction(a) {
+  /* ★ 统一入口守卫（裁判端 36 个动作分支共用）
+     审计发现 4 处 `Number(...)` 未做兜底，其中 **grantCash 的 amount 若为 NaN
+     会把现金写成 NaN → 该组后续结算/报表全部失效**。
+     方案：在入口统一拦截「金额/价格类参数为非有限数」的请求，
+     避免逐分支打补丁（漏一处就漏一处）。 */
+  for (const k of ['amount', 'price']) {
+    const v = a[k];
+    if (v === undefined || v === null) continue;
+    if (typeof v === 'number' && !Number.isFinite(v)) return `invalid ${k}`;
+    if (typeof v === 'string' && v.trim() !== '' && !Number.isFinite(Number(v))) return `invalid ${k}`;
+  }
   switch (a.type) {
     case 'createSeat': {
       const code = String(a.code || '').trim().toUpperCase();
@@ -975,6 +986,7 @@ function applyGMAction(a) {
     /* ── 经营模式由裁判在开局与三家协商确定（首季；之后锁定） ── */
     /* ── 大修由裁判触发（具体季由裁判决定；是否卖出由团队自决） ── */
     case 'triggerHeavyCheck': {
+      if (!Number.isFinite(Number(a.acId))) return 'invalid acId';
       const g2 = sessions.get(String(a.seat || ''));
       if (!g2) return 'no seat';
       const r = G.startHeavyCheck(g2, Number(a.acId));
