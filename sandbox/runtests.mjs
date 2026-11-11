@@ -18,7 +18,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const PORT0 = 8767;
 const FILES = [
   ['e2etest.mjs', []], ['uitest.mjs', []], ['multitest.mjs', []],
-  ['paneltest.mjs', ['player']], ['paneltest.mjs', ['teacher']], ['submittest.mjs', []],
+  ['paneltest.mjs', ['player']], ['paneltest.mjs', ['teacher']], ['submittest.mjs', []], ['openingtest.mjs', []],
   ['competitiontest.mjs', []], ['negotiationtest.mjs', []], ['proposaltest.mjs', []],
   ['investtest.mjs', []], ['ruletest.mjs', []], ['markettest.mjs', []],
   ['demandtest.mjs', []], ['routetest.mjs', []], ['timetest.mjs', []], ['cabintest.mjs', []], ['cabinmodtest.mjs', []], ['flitecontest.mjs', []],

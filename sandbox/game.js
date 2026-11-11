@@ -125,7 +125,6 @@ export function newGame(seed = 20261021, opts = {}) {
     assets: [],                   // {id, name, price, code}
     investmentsAnnual: [],        // 持续投放中的年度投资
     proposals: [],                // 待裁判确认的提案
-    proposals: [],                // 待裁判确认的提案
     history: [],                   // 每回合报告
     log: [],
     pendingEvent: null,
