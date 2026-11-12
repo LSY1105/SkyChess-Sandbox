@@ -915,8 +915,9 @@ function applyGMAction(a) {
       const title = String(a.title || '').slice(0, 80);
       if (!title) return '缺少标题';
       gm.messages = gm.messages || [];
+      const due = /^\d{4}-\d{2}-\d{2}$/.test(String(a.due || '')) ? String(a.due) : '';   // 任务截止日：只收 YYYY-MM-DD，其余丢弃
       const m = { id: 'MSG' + (gm.messages.length + 1) + '-' + gm.turn, turn: gm.turn,
-                   title, body: String(a.body || ''), kind: a.kind || 'notice',
+                   title, body: String(a.body || ''), kind: a.kind || 'notice', due,
                    seat: a.seat || null,          // ★ 定向：仅指定席位可见（裁判邮件式情报）
                    code: a.code || null,          // 关联市场（情报类）
                    by: '裁判', at: gm.turn, pinned: !!a.pinned, read: {} };

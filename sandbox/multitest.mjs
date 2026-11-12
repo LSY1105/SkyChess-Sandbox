@@ -157,6 +157,19 @@ await step('动态新建席位 G1（裁判端显式创建 · 每组一个独立�
   return 'G1 独立且生效 ✓';
 });
 
+await step('公告可带截止日期（原生日期选择器）', async () => {
+  await post('/api/gm', { type: 'postMessage', title: 'Q3 排班截止', body: '请按时提交', kind: 'task', due: '2026-11-20' });
+  const ca = await get('/api/seat/CA', 'CA');
+  const m = (ca.game.messages || []).find(x => x.title === 'Q3 排班截止');
+  ok(m, '公告未送达小组端');
+  ok(m.due === '2026-11-20', '截止日期未保存：' + JSON.stringify(m.due));
+  await post('/api/gm', { type: 'postMessage', title: '脏日期', body: 'x', kind: 'task', due: '<img src=x>' });
+  const ca2 = await get('/api/seat/CA', 'CA');
+  const bad = (ca2.game.messages || []).find(x => x.title === '脏日期');
+  ok(bad && bad.due === '', '非法截止日期未被丢弃：' + JSON.stringify(bad && bad.due));
+  return '2026-11-20 ✓ / 非法值丢弃 ✓';
+});
+
 await step('全局重置 → 三席位回到开局', async () => {
   await post('/api/reset', {});
   const g = await get('/api/gm', 'teacher');

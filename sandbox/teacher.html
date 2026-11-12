@@ -31,6 +31,7 @@ td:first-child,th:first-child{text-align:left}
 tr:hover td{background:rgba(255,255,255,.02)}
 input,select{background:var(--bg);border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:0 10px;height:32px;font-size:13px;font-family:inherit}
 input[type=number]{width:88px;font-variant-numeric:tabular-nums}
+input[type=date]{width:150px;color-scheme:dark}
 input:focus,select:focus{outline:none;border-color:var(--acc)}
 button{background:var(--raised);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:0 14px;height:32px;cursor:pointer;font-size:13px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}
 button:hover{background:#2a2f35}
@@ -1202,6 +1203,7 @@ async function renderMsgList() {
     d.innerHTML = '<div>' + (m.pinned ? '📌 ' : '') + (m.title || '') + '</div>'
       + (m.body ? '<div class="small">' + m.body + '</div>' : '')
       + '<div class="small">T' + (m.turn != null ? m.turn : '-') + ' · ' + (m.by || '裁判')
+      + (m.due ? ' · 截止 ' + m.due : '')
       + ' <button data-id="' + m.id + '">删除</button></div>';
     d.querySelector('button').onclick = async () => {
       await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
@@ -1216,9 +1218,10 @@ if (bPost) bPost.onclick = async () => {
   const res = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
     body: JSON.stringify({ type: 'postMessage', title: __DOC.getElementById('msgTitle').value,
       body: __DOC.getElementById('msgBody').value, kind: __DOC.getElementById('msgKind').value,
+      due: __DOC.getElementById('msgDue').value,
       pinned: __DOC.getElementById('msgPin').checked }) }).then(x => x.json());
   if (res.result && res.result.indexOf('MSG') !== 0) alert(res.result);
-  __DOC.getElementById('msgTitle').value = ''; __DOC.getElementById('msgBody').value = '';
+  __DOC.getElementById('msgTitle').value = ''; __DOC.getElementById('msgBody').value = ''; __DOC.getElementById('msgDue').value = '';
   renderMsgList();
 };
 setInterval(renderMsgList, 5000); renderMsgList();
@@ -1313,6 +1316,7 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
       <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
       <input id="msgBody" type="text" placeholder="正文" style="width:280px">
       <select id="msgKind" style="width:100px"><option value="notice">公告</option><option value="rule">规则更新</option><option value="task">任务</option></select>
+      <label>截止日期</label><input id="msgDue" type="date">
       <label><input id="msgPin" type="checkbox"> 置顶</label>
       <button id="btnPostMsg">发布</button>
     </div>
