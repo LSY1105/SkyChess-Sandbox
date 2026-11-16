@@ -398,6 +398,26 @@ let g = null, gmState = null, invTab = 'airline', histSel = 0;
    （多页面共存于同一 JS 上下文时）→ 运行时再取全局会拿到错误文档 */
 const __DOC = (typeof window !== 'undefined' && window.document) ? window.document : document;
 const $ = s => __DOC.querySelector(s);
+/* ★ 全局 innerHTML 保护：写入内容与当前完全相同时跳过重建
+   → 定时刷新/轮询不再重建相同 DOM：消除整页闪动，并保住 <select> 展开状态与复选框勾选状态。 */
+(function () {
+  /* ★ 用 __DOC 推导 Element.prototype：页面脚本是 <script type="module">（模块作用域），
+     全局 Element 不可见（paneltest 的 jsdom 环境更会报 "Element is not defined"） */
+  const ElemProto = Object.getPrototypeOf(__DOC.createElement('div').constructor.prototype);
+  const D = Object.getOwnPropertyDescriptor(ElemProto, 'innerHTML');
+  if (!D || !D.set) return;
+  Object.defineProperty(Element.prototype, 'innerHTML', {
+    configurable: true, enumerable: D.enumerable,
+    get: function () { return D.get.call(this); },
+    set: function (v) {
+      try { if (String(v) === D.get.call(this)) return; } catch (e) { /* 读取失败则照常写入 */ }
+      /* ★ 保留滚动位置：面板重建会把滚动条拉回顶部 → 用户感觉像「页面刷新」 */
+      const st = this.scrollTop, sl = this.scrollLeft;
+      D.set.call(this, v);
+      try { if (st) this.scrollTop = st; if (sl) this.scrollLeft = sl; } catch (e) { /* 忽略 */ }
+    },
+  });
+})();
 const el = (t, c, h) => { const e = __DOC.createElement(t); if (c) e.className = c; if (h !== undefined) e.innerHTML = (typeof h === 'number' && !Number.isFinite(h)) ? '—' : h; return e; };
 const money = n => '$' + Math.round(n).toLocaleString();
 const pct = n => (n * 100).toFixed(2) + '%';
@@ -417,14 +437,17 @@ async function api(path, body) {
 /* ★ 提交锁：提交进行中时，轮询不得重绘（否则用户刚勾选/刚输入的状态会被旧数据覆盖，
    表现为「联程复选弹回」「回程时间改了又变回去」） */
 let _busy = false;
-async function act(type, extra = {}) {
+async function act(type, extra = {}, noRender) {
   _busy = true;
   try {
     const res = await api('/api/seat/' + seat, { type, ...extra });
     if (res.result && typeof res.result === 'object' && res.result.why) alert(res.result.why);
     else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
     _loadSeq++;                      // ★ 作废在途的轮询响应（防止旧数据覆盖本次提交）
-    g = res.game; gmState = res.gm; render(); return res;
+    g = res.game; gmState = res.gm;
+    /* ★ noRender：只读测算类动作不重绘全页（否则 render() → renderScaleBox() → act() → render() 无限递归） */
+    if (!noRender) render();
+    return res;
   } finally { _busy = false; }
 }
 /* ★ 数据指纹：轮询时若关键数据未变 → 不重绘（消除整页闪动 + 保住用户输入与焦点） */
@@ -1202,9 +1225,9 @@ function renderBankruptOverlay() {
 async function renderScaleBox() {
   const box = $('#scaleBox'); if (!box) return;
   const n = Number(($('#scN') || {}).value || 0);
-  const rr = await act('estimateScale', { n: n }).catch(() => null);
+  const rr = await act('estimateScale', { n: n }, true).catch(() => null);
   const res = (rr && rr.result) ? rr.result : (rr && rr.revenue != null ? rr : null);
-  const jr = await act('estimateScaleJoint', {}).catch(() => null);
+  const jr = await act('estimateScaleJoint', {}, true).catch(() => null);
   const joint = (jr && jr.result) ? jr.result : (jr && jr.best ? jr : null);
   box.innerHTML = '';
   if (!res || typeof res !== 'object' || res.revenue == null) { box.appendChild(el('div', 'small', '请先完成一个回合（有历史数据）后再测算。')); return; }
@@ -1261,7 +1284,7 @@ async function renderScaleBox() {
 /* 航线经济性速览：每班次变动成本、满座收入、单班次盈亏平衡 LF、市场季度需求 */
 async function renderEconBox() {
   const box = $('#econBox'); if (!box) return;
-  const br = await act('fleetEconomics', {}).catch(() => null);
+  const br = await act('fleetEconomics', {}, true).catch(() => null);
   const b = (br && br.result) ? br.result : (br && br.rows ? br : null);
   box.innerHTML = '';
   if (!b || !b.rows || !b.rows.length) { box.appendChild(el('div', 'small', '暂无已开航线。')); return; }

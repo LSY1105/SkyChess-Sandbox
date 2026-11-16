@@ -666,7 +666,27 @@ function renderAssetPanel() {
     { k:'turnaroundMin', label:'过站(分)',   step:15 },
     { k:'leaseDiscount',  label:'租赁折扣',   step:0.05 },
   ];
-  const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
+  /* ★ 全局 innerHTML 保护：写入内容与当前完全相同时跳过重建
+   → 定时刷新/轮询不再重建相同 DOM：消除整页闪动，并保住 <select> 展开状态与复选框勾选状态。 */
+(function () {
+  /* ★ 用 __DOC 推导 Element.prototype：页面脚本是 <script type="module">（模块作用域），
+     全局 Element 不可见（paneltest 的 jsdom 环境更会报 "Element is not defined"） */
+  const ElemProto = Object.getPrototypeOf(__DOC.createElement('div').constructor.prototype);
+  const D = Object.getOwnPropertyDescriptor(ElemProto, 'innerHTML');
+  if (!D || !D.set) return;
+  Object.defineProperty(Element.prototype, 'innerHTML', {
+    configurable: true, enumerable: D.enumerable,
+    get: function () { return D.get.call(this); },
+    set: function (v) {
+      try { if (String(v) === D.get.call(this)) return; } catch (e) { /* 读取失败则照常写入 */ }
+      /* ★ 保留滚动位置：面板重建会把滚动条拉回顶部 → 用户感觉像「页面刷新」 */
+      const st = this.scrollTop, sl = this.scrollLeft;
+      D.set.call(this, v);
+      try { if (st) this.scrollTop = st; if (sl) this.scrollLeft = sl; } catch (e) { /* 忽略 */ }
+    },
+  });
+})();
+const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
   const mx = $('#matrix');
   mx.innerHTML = '';
   const mh = el('tr');
