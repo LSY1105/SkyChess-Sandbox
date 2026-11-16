@@ -816,6 +816,27 @@ export function perFlightOpsCost(bhOneWay, fuelPrice) {
   return (221.7 + 591.6 + 478.5 * (fuelPrice || 2.4) * FUEL_BH_FACTOR) * bh;
 }
 
+/** 逐航线单班次盈亏平衡 LF ＋ 全网 ASK 加权值（官方界面-13「小结」用）
+ *  BE LF = 每班次变动成本 ÷ 每班次满座收入
+ *  rows: [{ code, bh, fare, seatsPerFlight, ask }]，bh = 单程单班 Block Hours
+ *  纯函数：不读 g、不读时钟 → 可直接单测
+ *  非有限值一律给 null（不给 NaN/Infinity 进报表） */
+export function breakEvenLF(rows, fuelPrice) {
+  const routeBE = (rows || []).map(x => {
+    const ops = perFlightOpsCost(x.bh, fuelPrice);
+    const fullRev = x.seatsPerFlight * x.fare;
+    const beLF = fullRev > 0 ? ops / fullRev : NaN;
+    return { code: x.code, beLF: Number.isFinite(beLF) ? +beLF.toFixed(4) : null, ask: x.ask || 0 };
+  });
+  /* ★ beLF 为 null 的航线（无有效运价/座位）**同时**退出加权分子与分母：
+     若只退分子而分母仍计它的 ask → 全网 BE LF 被无意义航线拉低（口径失真） */
+  const valid = routeBE.filter(x => x.beLF !== null);
+  const askSum = valid.reduce((a, x) => a + (x.ask || 0), 0);
+  const wSum = valid.reduce((a, x) => a + (x.ask || 0) * x.beLF, 0);
+  const beAll = askSum > 0 ? wSum / askSum : NaN;
+  return { routeBE, breakEvenLF: Number.isFinite(beAll) ? +beAll.toFixed(4) : null };
+}
+
 /**
  * 航线经济性速览：**开局即可用**（不依赖历史结算）→ 学员与 Agent 在 T0 就有判断依据
  * 输出每条已开航线的：运价 / 每班次变动成本 / 每班次满座收入 / 单班次盈亏平衡 LF / 市场季度需求
@@ -1168,6 +1189,7 @@ export function computeTurn(g, per) {
   const routes = {};
   let revenue = 0, cost = 0;
   const detail = {};
+  const beRows = [];   // ★ 盈亏平衡 LF 行（官方「小结」KPI 用）
 
   // ══ 第一遍：各航线基础需求与承运（不含中转）══
   const prelim = [];
@@ -1393,6 +1415,17 @@ export function computeTurn(g, per) {
     const totRev = paxRev + cargoRev + ancRev;
     const op = totRev - dco - ind;
 
+    /* ★ 盈亏平衡 LF 行收集（供官方「小结」KPI 用）
+       每班次口径：平均单班座位数 × 运价 = 每班次满座收入；
+       BH 取平均单班单程值（季节累计值 ÷ 班次才是单班值） */
+    const flightsPerDay = fl.length;
+    const seatsPerFlight = flightsPerDay
+      ? fl.reduce((a, s) => a + (s.seats || 0), 0) / flightsPerDay : 0;
+    const bhPerFlight = flightsPerDay
+      ? fl.reduce((a, s) => a + (s.bh || 0), 0) / flightsPerDay : 0;
+    beRows.push({ code: route.code, bh: bhPerFlight,
+                  fare: route.fare || m.guide_fare || 0, seatsPerFlight, ask: ask || 0 });
+
     detail[route.code] = {
       market: m.name, code: route.code, freq, bh, ask, pax, rpk, lf, cargo,
       local_pax: (p.flights || []).reduce((a, f) => a + (f.served || 0), 0),  // 局地承运（不含中转）→ 时刻收益分析
@@ -1532,6 +1565,8 @@ export function computeTurn(g, per) {
   const gross = revenue ? (revenue - cost) / revenue : 0;
   g.lastDetail = detail;
 
+  const be = breakEvenLF(beRows, g.fuelPrice || 2.4);
+
   return {
     period: per.label, turn: g.turn, detail,
     revenue, cost, operating_profit: ocf, oneoff, financing, cash_end,
@@ -1542,6 +1577,7 @@ export function computeTurn(g, per) {
     fuel_price_next: g.fuelPrice, carbon_price: g.carbonPrice, interest_rate: g.interestRate,
     paxTotal: Object.values(detail).reduce((a, d) => a + d.pax, 0),
     askTotal, load_factor: lfTotal,
+    routeBE: be.routeBE, breakEvenLF: be.breakEvenLF,
     connected_total: conn.connected, connect_rate: conn.rate,
     ancillary_share: revenue ? ancTotal / revenue : 0,
     gross_margin: gross,

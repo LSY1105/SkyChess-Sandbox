@@ -21,7 +21,7 @@ const FILES = [
   ['paneltest.mjs', ['player']], ['paneltest.mjs', ['teacher']], ['submittest.mjs', []], ['openingtest.mjs', []],
   ['competitiontest.mjs', []], ['negotiationtest.mjs', []], ['proposaltest.mjs', []],
   ['investtest.mjs', []], ['ruletest.mjs', []], ['markettest.mjs', []],
-  ['demandtest.mjs', []], ['routetest.mjs', []], ['timetest.mjs', []], ['cabintest.mjs', []], ['cabinmodtest.mjs', []], ['flitecontest.mjs', []],
+  ['demandtest.mjs', []], ['routetest.mjs', []], ['timetest.mjs', []], ['cabintest.mjs', []], ['cabinmodtest.mjs', []], ['charttest.mjs', []], ['flitecontest.mjs', []],
 ];
 
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
