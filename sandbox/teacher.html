@@ -938,13 +938,15 @@ async function updateClock() {
     bar.style.background = rem < 300 ? '#cf222e' : '#1f6feb';
   }
   // 每组剩余时间 + 未提交高亮（红色）
-  st.innerHTML = Object.entries(timer).map(([c, x]) => {
+  /* ★ 只在内容**变化**时重写 innerHTML：旧写法每 2 秒重建 DOM → 页面每 2 秒闪一下（教学端闪动主因） */
+  const seatsHtml = Object.entries(timer).map(([c, x]) => {
     const rem = x.remaining;
     const ms = rem == null ? '—' : (Math.floor(rem / 60) + ':' + String(rem % 60).padStart(2, '0'));
     const sub = x.submitted;
     const style = sub ? 'color:#1a7f37' : 'color:#cf222e;font-weight:600';
     return '<span style="' + style + '">' + c + ' ' + (sub ? '✅ 已提交' : '⏳ 未提交 ' + ms) + '</span>';
   }).join(' ｜ ');
+  if (st.innerHTML !== seatsHtml) st.innerHTML = seatsHtml;
 }
 const bStart = __DOC.getElementById('btnStartRound');
 if (bStart) bStart.onclick = async () => {
@@ -1241,17 +1243,35 @@ setInterval(renderMsgList, 5000); renderMsgList();
 });
 
 /* ⑫ 报表与运营视图（Reports 七页签 + 运营三视图）——按所选席位渲染 */
+/* ★ 报表区数据指纹（到相同 → 不重绘，消除每 6 秒闪动） */
+let _repSig = '';
 async function renderRepPanel() {
   const box = __DOC.getElementById("repBody"); if (!box) return;
   const gm = await fetch("/api/gm", { headers: { "x-sandbox-key": TEACHER_KEY } }).then(r => r.json()).catch(() => null);
   if (!gm) return;
   const sel = __DOC.getElementById("repSeat");
-  const code = (sel && sel.value) || (gm.seats || [])[0];
+  const seats = Array.isArray(gm.seats) ? gm.seats.slice() : Object.keys(gm.seats || {});
+  /* ★ 「查看席位」下拉框：此前**从未填充选项** → 空白下拉框，无法切换席位看报表 */
+  if (sel && seats.length && sel.options.length !== seats.length) {
+    /* 局部映射：SEATN 定义在块级作用域内，模块层不可见 */
+    const SEATLBL = { CA: '首都航空', AB: '弹道航空', VA: '愿景航空' };
+    sel.innerHTML = seats.map(c => '<option value="' + c + '">' + c + ' ' + (SEATLBL[c] || c) + '</option>').join('');
+  }
+  const code = (sel && sel.value) || seats[0];
   if (!code) return;
+  if (sel) { sel.value = code; sel.onchange = () => renderRepPanel(); }
   const d = await fetch("/api/seat/" + code, { headers: { "x-sandbox-key": TEACHER_KEY } }).then(r => r.json()).catch(() => null);
   if (!d || !d.game) return;
-  R.renderReports(box, d.game);
-  R.renderOpsViews(__DOC.getElementById("opsBody"), d.game);
+  /* ★ 数据指纹：未变则不重绘报表（旧逻辑每 6 秒整块重建 → 闪动 + 丢失交互状态） */
+  const g2 = d.game;
+  const sig = JSON.stringify([g2.turn, g2.cash, g2.qsi,
+    (g2.routes || []).map(r => [r.code, r.fare]),
+    (g2.schedules || []).map(s => [s.acId, s.code, s.departure, s.returnDeparture]).sort(),
+    (g2.investments || []).length, (g2.history || []).length]);
+  if (sig === _repSig) return;
+  _repSig = sig;
+  R.renderReports(box, g2);
+  R.renderOpsViews(__DOC.getElementById("opsBody"), g2);
 }
 setInterval(renderRepPanel, 6000); renderRepPanel();
 /* ⑳ 载货策略：裁判可对某航线（或全部）关闭/开放载货 */

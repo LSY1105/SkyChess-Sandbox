@@ -306,6 +306,10 @@ const server = http.createServer(async (req, res) => {
     if (file === '/teacher.html') file = '/teacher.html';
     const buf = await readFile(join(HERE, file));
     res.setHeader('Content-Type', MIME[extname(file)] || 'application/octet-stream');
+    /* ★ 静态资源禁止缓存：浏览器若缓存了旧版 .js/.html，会与新版混用
+       → 运行时报错、render() 中断、页面半残（下拉框无选项/点击无反应）。
+       教学场景文件小、改代码频繁 → 以“每次重新取”换取正确性。 */
+    res.setHeader('Cache-Control', 'no-store');
     res.end(buf);
   } catch (e) {
     res.statusCode = 500;
