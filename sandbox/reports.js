@@ -269,7 +269,7 @@ function network(root, h, g) {
   const lfTxt = (Number.isFinite(ask) && ask > 0 && Number.isFinite(rpk)) ? (rpk / ask * 100).toFixed(1) + '%' : '—';
   root.appendChild(el('div', 'small', `网络 ASK ${askMM}MM ｜ RPK ${rpkMM}MM ｜ LF ${lfTxt}`));
   const rows = Object.entries(d).map(([c, x]) => [
-    MARKETS[c] ? MARKETS[c].name_c : c, num(x.freq), (x.ask / 1e6).toFixed(1), (x.rpk / 1e6).toFixed(1),
+    MARKETS[c] ? MARKETS[c].name_cn : c, num(x.freq), (x.ask / 1e6).toFixed(1), (x.rpk / 1e6).toFixed(1),
     pct(x.lf), money(x.rev['Total Revenue']), money(x.operating_profit),
   ]);
   root.appendChild(table(['航线', '频次', 'ASK(MM)', 'RPK(MM)', 'LF', '收入', '经营利润'], rows));
@@ -289,7 +289,7 @@ function routeEcon(root, h, g) {
     const m = MARKETS[c] || {};
     const yieldPerKm = m.sector_km ? x.fare / m.sector_km : 0;
     rows.push([
-      m.name_c || c, num(x.fare, 2), num(m.sector_km), yieldPerKm.toFixed(4),
+      m.name_cn || c, num(x.fare, 2), num(m.sector_km), yieldPerKm.toFixed(4),
       money(x.rev['Passenger Revenue']), money(x.rev['Cargo Revenue']), money(x.rev['Ancillary Revenue']),
       money(x.cost['Fuel']), money(x.cost['Maintenance']), money(x.cost['Flight Crew']),
       cabinCell(x.cabin),
@@ -305,7 +305,7 @@ function routeMetrics(root, h, g) {
     const m = MARKETS[c] || {};
     const rivals = (x.rivals || []).map(r => `${r.key} ${(r.share * 100).toFixed(1)}%`).join('\r\n');
     rows.push([
-      m.name_c || c, num(x.freq), num(Math.round(x.seats || 0)),
+      m.name_cn || c, num(x.freq), num(Math.round(x.seats || 0)),
       (x.ask / 1e6).toFixed(1), (x.rpk / 1e6).toFixed(1), pct(x.lf),
       num(Math.round(x.marketDemand || 0)), pct(x.share, 1), rivals || '—', num(x.connected_pax || 0),
     ]);
@@ -325,7 +325,7 @@ function fuel(root, h, g) {
     ['碳价', money(h.carbon_price || g.carbonPrice) + ' /吨'],
     ['套保状态', hedges.length ? hedges.map(x => `${x.id || x.product} 锁价 ${x.strike} × ${(x.share * 100).toFixed(0)}% / 剩 ${x.quarters} 季`).join('；') : '无'],
   ]));
-  const rows = Object.entries(d).map(([c, x]) => [MARKETS[c] ? MARKETS[c].name_c : c, money(x.cost['Fuel']), money(x.cost['Carbon'])]);
+  const rows = Object.entries(d).map(([c, x]) => [MARKETS[c] ? MARKETS[c].name_cn : c, money(x.cost['Fuel']), money(x.cost['Carbon'])]);
   root.appendChild(table(['航线', '燃油', '碳'], rows));
 }
 
@@ -390,7 +390,10 @@ export function renderOpsViews(root, g) {
 /* U5：席位显示名（沙盘席位名） */
 const SEAT_NAME_CN = { CA: '首都', AB: '弹道', VA: '愿景' };
 function schedulerView(root, g) { renderGantt(root, { [g.seat || 'seat']: g }); }
-/** 票价矩阵改「网格」形态（官方界面-3 / Role Guide p11）：行=市场、列=各航司，格内=该航司报价 */
+/**
+ * 票价矩阵改「网格」形态（官方界面-3 / Role Guide p11）：行=市场、列=各航司，格内=该航司报价
+ *  ★ P-12：官方票价管理会针对「枢纽机场高峰时段的航班」调整（Role Guide p.242-245）
+ *    → 网格列出**分时档价**（峰/谷）。仅我方有 fareBands 配置可知，竞对仅公开基准运价（与原版信息边界一致） */
 function fareMatrix(root, g) {
   const own = g.seat || 'CA';
   const pf = g.peerFares || {};
@@ -403,16 +406,32 @@ function fareMatrix(root, g) {
     const r = (g.routes || []).find(x => x.code === code);
     return r ? r.fare : null;
   };
+  const bandOf = (code) => {
+    const cfg = (g.fareBands && g.fareBands[code]) || {};
+    return {
+      peak: cfg.peak != null ? cfg.peak : GM.fareBandPeak,
+      off: cfg.offPeak != null ? cfg.offPeak : GM.fareBandOffPeak,
+    };
+  };
   const head = ['市场'].concat(seats.map(s => `${s} ${SEAT_NAME_CN[s] || s}` + (s === own ? '（我方）' : '')));
   const rows = Object.keys(MARKETS).map(code => {
     const m = MARKETS[code] || {};
-    return [m.name_cn || m.name || code].concat(seats.map(s => {
+    const b = bandOf(code);
+    const cells = seats.map(s => {
       const f = fareOf(s, code);
-      return f == null ? '—' : money(f);
-    }));
+      if (f == null) return { text: '—', title: '该市场未开通或未报价' };
+      if (s !== own) return { text: money(f), title: '竞对公开基准运价（其分时调整不公开）' };
+      return {
+        text: `${money(f)}　峰 ${money(f * b.peak)}　谷 ${money(f * b.off)}`,
+        title: `基准 ${money(f)}；峰时 ×${b.peak}；谷时 ×${b.off}（其余时段 ×1）`,
+      };
+    });
+    return [m.name_cn || m.name || code, ...cells];
   });
   root.appendChild(table(head, rows));
-  root.appendChild(el('div', 'small', '口径：列为我方与各竞对航司在该市场的公开报价；该市场未开通（或未报价）显示 —。'));
+  root.appendChild(el('div', 'small',
+    `口径：列为我方与各竞对航司在该市场的公开报价；「峰/谷」为我方分时运价档（默认峰 ×${GM.fareBandPeak} / 谷 ×${GM.fareBandOffPeak}，`
+    + `可在「分时定价」按航线覆盖）；竞对仅公开基准运价；该市场未开通（或未报价）显示 —。`));
 }
 
 /** 实时航班表：按飞机分组 */
@@ -420,7 +439,7 @@ function liveSchedules(root, g) {
   const rows = (g.schedules || []).map(s => {
     const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
     const m = MARKETS[s.code] || {};
-    const cells = [ac.nickname || ac.type || ('#' + s.acId), ac.type || '—', m.name_c || s.code, s.departure,
+    const cells = [ac.nickname || ac.type || ('#' + s.acId), ac.type || '—', m.name_cn || s.code, s.departure,
       num(s.seats), num(s.bh, 2), s.flightNo || '—', ac.owned ? '自有' : '租赁'];
     /* ★ 原版 FLIGHTS 报表的 Data 按钮 → 打开 FLIGHT INFORMATION（航班详情） */
     cells.push({ text: '≡ 详情', cls: 'small', onclick: () => flightPopup(g, s) });
@@ -576,7 +595,7 @@ function flightPopup(g, s, d, seasonIdx) {
   const h = el('h3', null, `FLIGHT INFORMATION · ${seatName} Flight ${s.flightNo || (ac.type || '')}`);
   h.style.cssText = 'margin:0 0 4px;font-size:14px;font-weight:600';
   box.appendChild(h);
-  const sub = el('div', 'small', `${m.name_c || s.code}（${s.code}）· 起飞 ${s.departure} · 机型 ${ac.type || '—'} · 座位 ${seats} · BH ${bh}${lf != null ? '' : ' · 未结算：旅客与客座率显示满座上限'}`);
+  const sub = el('div', 'small', `${m.name_cn || s.code}（${s.code}）· 起飞 ${s.departure} · 机型 ${ac.type || '—'} · 座位 ${seats} · BH ${bh}${lf != null ? '' : ' · 未结算：旅客与客座率显示满座上限'}`);
   sub.style.marginBottom = '10px';
   box.appendChild(sub);
   /* ★ 季度切换页签（原版弹窗顶部有 Q4 2027 … Q2 2029） */
@@ -709,7 +728,7 @@ export function exportRouteCsv(g, h, prefix) {
   const rows = [['期间', '航线', '频次', 'ASK', 'RPK', '旅客', '客座率LF', '运价', '客运收入', '货邮收入', '辅营收入', '收入合计', '燃油', '维修', '机组', '经营利润', '我方份额', '市场总需求']];
   for (const [c, d] of Object.entries((h && h.detail) || {})) {
     const m = MARKETS[c] || {};
-    rows.push([(h && h.period) || '', m.name_c || c, d.freq, Math.round(d.ask), Math.round(d.rpk), Math.round(d.pax),
+    rows.push([(h && h.period) || '', m.name_cn || c, d.freq, Math.round(d.ask), Math.round(d.rpk), Math.round(d.pax),
       (d.lf * 100).toFixed(2) + '%', d.fare, Math.round(d.rev['Passenger Revenue']), Math.round(d.rev['Cargo Revenue']),
       Math.round(d.rev['Ancillary Revenue']), Math.round(d.rev['Total Revenue']),
       Math.round(d.cost['Fuel'] || 0), Math.round(d.cost['Maintenance'] || 0), Math.round(d.cost['Flight Crew'] || 0),
@@ -724,7 +743,7 @@ export function exportSchedulesCsv(g, prefix) {
   for (const s of (g.schedules || [])) {
     const ac = (g.aircraft || []).find(a => a.id === s.acId) || {};
     const m = MARKETS[s.code] || {};
-    rows.push([ac.nickname || ('#' + s.acId), ac.type || '', ac.owned ? '自有' : '租赁', m.name_c || s.code,
+    rows.push([ac.nickname || ('#' + s.acId), ac.type || '', ac.owned ? '自有' : '租赁', m.name_cn || s.code,
       s.departure, s.flightNo || '', s.seats, s.bh]);
   }
   exportCsv(`${prefix || 'seat'}_schedules.csv`, rows);
@@ -1063,7 +1082,7 @@ export function renderGantt(container, games, opts = {}) {
         /* ★ 块内标航线名（原版显示市场英文名 Simone/Fitzgerald/Joplin…，非代码） */
         const tx = mk('text', { x: xOut + 4, y: y + ROWH / 2 + 3, 'font-size': 10, fill: '#1f2328' });
         const mkInfo = (MARKETS || {})[s.code];
-        tx.textContent = (mkInfo && (mkInfo.name || mkInfo.name_c)) || s.code;
+        tx.textContent = (mkInfo && (mkInfo.name || mkInfo.name_cn)) || s.code;
         svg.appendChild(tx);
       }
     }

@@ -223,7 +223,7 @@ test('需求图：图例体现官方语义（红=非枢纽高峰时段，绿=枢
   assert.ok(txt.includes('×' + GM.fareBandPeak), '图例应写明峰时运价倍率');
 });
 
-test('需求图：曲线形状缺省取 GM.dayShape（各市场共用）', () => {
+test('需求图：未配市场级形状时缺省回落 GM.dayShape', () => {
   const box = document.createElement('div');
   R.renderRouteDemand(box, { CA: makeGame() });
   const d = demandByHour(box);
@@ -236,6 +236,7 @@ test('需求图：曲线形状缺省取 GM.dayShape（各市场共用）', () =>
 test('需求图：优先用该市场自己的 dayShape（MARKETS[code].dayShape）', () => {
   const custom = GM.dayShape.slice();
   custom[12] = 1.0;                        /* 12:00 抬到峰值 */
+  const saved = MARKETS.LEW.dayShape;      /* 保存原值以免误删真实配置 */
   MARKETS.LEW.dayShape = custom;
   try {
     const box = document.createElement('div');
@@ -246,7 +247,8 @@ test('需求图：优先用该市场自己的 dayShape（MARKETS[code].dayShape�
     assert.ok(Math.abs(ratio - expect) < 0.1 * expect,
       '应按该市场形状绘制：09:00/12:00 需求比 = ' + ratio.toFixed(2) + '，期望 ' + expect.toFixed(2));
   } finally {
-    delete MARKETS.LEW.dayShape;
+    if (saved === undefined) delete MARKETS.LEW.dayShape;
+    else MARKETS.LEW.dayShape = saved;
   }
 });
 
@@ -686,4 +688,49 @@ test('票价矩阵：网格形态——行=市场、列=各航司、格内报价
   assert.ok(txt.includes('路易斯'), '应出现市场名（name_cn）');
   assert.ok(/\$100/.test(txt) && /\$120/.test(txt), '格内应含各航司报价');
   assert.ok(/—/.test(txt), '未开通市场应显示 —');
+});
+
+
+/* ============================================================
+   TD-12 字段名：市场名一律 name_cn（渲染不得出现 undefined / 航线代码）
+   ============================================================ */
+test('报表：各页签渲染的市场名用 name_cn（不出现 undefined）', () => {
+  const root = document.createElement('div');
+  const g = makeGame();
+  /* 完整的航线明细（含 rev/cost 分项，否则网络经济页签会抛异常） */
+  const detail = { LEW: {
+    freq: 540, ask: 1e6, rpk: 5e5, pax: 500, seats: 100, fare: 120, lf: 0.5,
+    rev: { 'Passenger Revenue': 500, 'Cargo Revenue': 0, 'Ancillary Revenue': 0, 'Total Revenue': 500 },
+    cost: { Fuel: 100, Carbon: 50, Maintenance: 80, 'Flight Crew': 60 },
+    operating_profit: 210, marketDemand: 1000, share: 0.5, rivals: [], connected_pax: 0,
+  } };
+  g.history = [{ period: 'Q1 2028', turn: 0, revenue: 100, cost: 50, operating_profit: 50,
+    oneoff: 0, financing: 0, cash_end: 100, load_factor: 0.5, paxTotal: 10, askTotal: 20,
+    rpkTotal: 10, market_share: 0.3, gross_margin: 0.5, detail }];
+  R.renderReports(root, g);
+  const tabs = [...root.querySelectorAll('.tabs button')];
+  assert.ok(tabs.length >= 10, 'Reports 页签数应 >=10，实得 ' + tabs.length);
+  for (const b of tabs) {
+    b.click();
+    const txt = root.textContent;
+    assert.ok(!txt.includes('undefined'), '页签「' + b.textContent + '」渲染出 undefined（TD-12 字段名错误）');
+  }
+});
+
+/* ============================================================
+   P-12：票价网格显示分时档价（官方按「枢纽机场高峰时段的航班」调价）
+   ============================================================ */
+test('票价网格：显示分时档价（峰/谷），竞对仅公开基准运价', () => {
+  const root = document.createElement('div');
+  const g = makeGame({ peerFares: { CA: [{ code: 'LEW', fare: 100 }], AB: [{ code: 'LEW', fare: 150 }] } });
+  R.renderOpsViews(root, g);
+  const btn = [...root.querySelectorAll('.tabs button')].find(b => /票价矩阵/.test(b.textContent));
+  assert.ok(btn, '未找到「票价矩阵」页签');
+  btn.click();
+  const txt = root.textContent;
+  assert.ok(txt.includes('峰') && txt.includes('谷'), '应显示峰/谷分时档价');
+  assert.ok(txt.includes('$100'), '我方基准价 $100');
+  assert.ok(txt.includes('$120'), '我方峰时价（100×1.2）');
+  assert.ok(txt.includes('$85'), '我方谷时价（100×0.85）');
+  assert.ok(txt.includes('$150'), '竞对基准价 $150');
 });

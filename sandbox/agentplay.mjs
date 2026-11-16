@@ -73,12 +73,12 @@ const ROLE = `你是 SkyChess 航空运营沙盘里某家航司的经营决策�
 （一次最多 12 个动作，按优先级排序；不确定的动作不要写）`;
 
 function buildPrompt(seat, g, turn, state) {
-  const routeRows = g.routes.map(r => `${r.code}(${D.MARKETS[r.code].name_c},${D.MARKETS[r.code].sector_km}km,票价$${r.fare})`).join('、');
+  const routeRows = g.routes.map(r => `${r.code}(${D.MARKETS[r.code].name_cn},${D.MARKETS[r.code].sector_km}km,票价$${r.fare})`).join('、');
   const fleetRows = g.aircraft.map(a => `#${a.id} ${a.type} ${a.seats}座 ${a.owned ? '自有' : '租赁'}`).join('、');
   const prev = state[seat] || {};
   const lfRows = Object.entries(prev.detail || {}).map(([c, d]) => `${c} LF ${(d.lf * 100).toFixed(0)}% 份额${(d.share * 100).toFixed(0)}%`).join('、');
   const avail = Object.entries(D.MARKETS).filter(([c, m]) => !g.routes.some(r => r.code === c) && (D.GM.routeReleaseTurn[c] ?? 99) <= turn)
-    .map(([c, m]) => `${c}(${m.name_c},${m.sector_km}km)`).join('、');
+    .map(([c, m]) => `${c}(${m.name_cn},${m.sector_km}km)`).join('、');
   const own = (OWN[seat] || []).filter(c => !g.routes.some(r => r.code === c)).join('、');
   const cash = Math.round(g.cash);
   const hedge = (g.negotiation && g.negotiation.fuelHedge || []).map(h => `${h.id} ${h.strike}×${(h.share * 100).toFixed(0)}%`).join('、') || '无';

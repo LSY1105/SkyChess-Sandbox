@@ -210,13 +210,27 @@ export const GM = {
 };
 
 /* 10 个市场 —— 参数来自情报报告 general/supplement v4 + API */
+/* ★ 各市场日内需求形状（24 项，索引=小时）—— TD-13
+   官方机制（Role Guide v3 p.135）：「需求曲线的「绿色」时段反映了高峰时段从枢纽起飞的情况。
+   目的地需求高峰的时间**可能与枢纽机场的高峰时间不一致**，因为枢纽有许多航空公司在飞。」
+   → 每个目的地有自己的日内曲线；图表与引擎必须取**同一份**（reports.js 按 code 查表，
+     engine.js 的 dayShapeRaw 曾按英文名查表 → 必然 miss → 两者各用一条曲线）。
+   ★ 枢纽高峰时段 = GM.fareBandPeakHours（[[6,10],[17,20]]），与分时定价口径同源。
+   ⚠ 取值性质：
+     · LEW = 原版 Reports-ROUTE DEMAND 截图（Lewis 早峰 09:00 / 晚峰 18:00 / 午间低谷）→ **一手依据**
+     · SIM / ETN（已标定市场）/ LEW = **不配**（回落 GM.dayShape）→ 官方日内曲线与枢纽高峰基本重合：
+       标定事实：demandtest 能精确复原原版营业收入（±2%）→ 只在 GM.dayShape 下才能对上；
+       LEW 另有原版截图直接依据（早峰 09:00）。
+     · 其余 7 个市场 = **教学近似**（依各自 notes 的文字特征 + 官方「峰值可能不一致」原则），
+       官方未公布具体数值 → 课堂引用时须标注为沙盘近似，不得当作官方数据。 */
 export const MARKETS = {
   LEW: { code:'LEW', name:'Lewis', name_cn:'路易斯', country:'United Kingdom',
     pop:12000, pop_growth:2.0, gdp_growth:1.7, pop_elasticity:1.15, gdp_elasticity:1.4,
     sector_km:415, bh:1.00, size:175, cargo_demand:12.0, cargo_yield:0.2256,
     landing_fee:8, handling_fee:12, traffic_handling_fee:7,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:23, guide_fare:113,
-    etops:false, demand_curve:1, seasonal:null, notes:'旅游目的地，13世纪中世纪堡垒' },
+    etops:false, demand_curve:1, seasonal:null, notes:'旅游目的地，13世纪中世纪堡垒' ,
+  },
 
   SIM: { code:'SIM', name:'Simone', name_cn:'西蒙尼', country:'Italy',
     pop:19000, pop_growth:2.0, gdp_growth:1.5, pop_elasticity:1.2, gdp_elasticity:1.3,
@@ -224,7 +238,8 @@ export const MARKETS = {
     landing_fee:10, handling_fee:11, traffic_handling_fee:10,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:24, guide_fare:167,
     etops:false, demand_curve:3, seasonal:null,
-    notes:'沿海旅游热点，新建鱼类加工厂，冬季旺季' },
+    notes:'沿海旅游热点，新建鱼类加工厂，冬季旺季' ,
+  },
 
   FTZ: { code:'FTZ', name:'Fitzgerald', name_cn:'菲兹杰拉德', country:'United States',
     pop:42000, pop_growth:1.0, gdp_growth:1.0, pop_elasticity:1.15, gdp_elasticity:1.3,
@@ -232,7 +247,9 @@ export const MARKETS = {
     landing_fee:11, handling_fee:12, traffic_handling_fee:10,
     elasticity:1, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:163,
     etops:false, demand_curve:2, seasonal:null,
-    notes:'轻工业城，42,000人，每天三个需求高峰，到枢纽85分钟' },
+    notes:'轻工业城，42,000人，每天三个需求高峰，到枢纽85分钟' ,
+    /* 日内需求形状（24 项，索引=小时）· notes「每天三个需求高峰」→ 三峰：07:00 / 12:00 / 18:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.03,0.09, 0.62,0.74,0.56,0.44, 0.38,0.60,0.96,0.50,0.40, 0.36,0.42,0.68,0.86,0.60, 0.44,0.30,0.19,0.07],  },
 
   ETN: { code:'ETN', name:'Ellington', name_cn:'艾灵顿', country:'United Kingdom',
     pop:35000, pop_growth:1.0, gdp_growth:1.0, pop_elasticity:1.2, gdp_elasticity:1.4,
@@ -240,7 +257,8 @@ export const MARKETS = {
     landing_fee:11, handling_fee:13, traffic_handling_fee:10,
     elasticity:1, inelasticity:1, k_factor:0.45, unit_p:21, guide_fare:237,
     etops:false, demand_curve:2, seasonal:null,
-    notes:'旅游+退休定居点，佐格山活火山风险' },
+    notes:'旅游+退休定居点，佐格山活火山风险' ,
+  },
 
   PKR: { code:'PKR', name:'Parker', name_cn:'帕克', country:'United States',
     pop:22000, pop_growth:2.0, gdp_growth:1.0, pop_elasticity:1.2, gdp_elasticity:1.5,
@@ -248,7 +266,9 @@ export const MARKETS = {
     landing_fee:12, handling_fee:12, traffic_handling_fee:12,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:null,
     etops:false, demand_curve:null, seasonal:null,
-    notes:'2003年建成的生物燃料工业城，公路发达' },
+    notes:'2003年建成的生物燃料工业城，公路发达' ,
+    /* 日内需求形状（24 项，索引=小时）· 工业城通勤：早通勤尖峰 06:00 + 次峰 17:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.04,0.32, 0.92,0.76,0.50,0.38, 0.32,0.26,0.22,0.28,0.34, 0.32,0.44,0.74,0.58,0.42, 0.36,0.28,0.19,0.06],  },
 
   ARM: { code:'ARM', name:'Armstrong', name_cn:'阿姆斯特朗', country:'United States',
     pop:38000, pop_growth:2.0, gdp_growth:3.0, pop_elasticity:1.25, gdp_elasticity:1.65,
@@ -256,7 +276,9 @@ export const MARKETS = {
     landing_fee:16, handling_fee:16, traffic_handling_fee:16,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:698,
     etops:true, demand_curve:null, seasonal:null,
-    notes:'新机场，需 ETOPS 许可，GDP前景最佳' + '（⚠ 由 Q2/2029 单航班碳排放反推暗示航段约 8,876km，与此值不符，官方地图待核）' },
+    notes:'新机场，需 ETOPS 许可，GDP前景最佳' + '（⚠ 由 Q2/2029 单航班碳排放反推暗示航段约 8,876km，与此值不符，官方地图待核）' ,
+    /* 日内需求形状（24 项，索引=小时）· 新机场 / GDP 前景最优：商务早峰 08:00 + 晚峰 17:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.03,0.16, 0.52,0.80,0.96,0.62, 0.48,0.36,0.28,0.32,0.40, 0.36,0.46,0.80,0.62,0.46, 0.40,0.32,0.19,0.06],  },
 
   GEE: { code:'GEE', name:'McGee', name_cn:'麦基', country:'United States',
     pop:14000, pop_growth:1.0, gdp_growth:1.0, pop_elasticity:1.05, gdp_elasticity:1.35,
@@ -264,7 +286,9 @@ export const MARKETS = {
     landing_fee:17, handling_fee:16, traffic_handling_fee:12,
     elasticity:1, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:825,
     etops:true, demand_curve:null, seasonal:null,
-    notes:'新机场，需 ETOPS，建议不超过1个承运人' },
+    notes:'新机场，需 ETOPS，建议不超过1个承运人' ,
+    /* 日内需求形状（24 项，索引=小时）· 新机场 ETOPS（≤1 承运人）：峰值 11:00 / 20:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.03,0.06, 0.13,0.24,0.46,0.68, 0.76,0.86,0.50,0.34,0.42, 0.34,0.26,0.36,0.60,0.72, 0.82,0.42,0.21,0.06],  },
 
   JOP: { code:'JOP', name:'Joplin', name_cn:'乔普林', country:'United States',
     pop:1500, pop_growth:1.0, gdp_growth:4.0, pop_elasticity:0.2, gdp_elasticity:1.7,
@@ -272,7 +296,9 @@ export const MARKETS = {
     landing_fee:10, handling_fee:10, traffic_handling_fee:10,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:154,
     etops:false, demand_curve:null, seasonal:'summer',
-    notes:'奢华岛屿度假村，夏季高峰，商务舱收益3倍经济舱' },
+    notes:'奢华岛屿度假村，夏季高峰，商务舱收益3倍经济舱' ,
+    /* 日内需求形状（24 项，索引=小时）· 奢华岛屿度假束（夏季高峰）：峰值 11:00 / 21:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.03,0.05, 0.09,0.16,0.36,0.60, 0.72,0.90,0.56,0.38,0.42, 0.36,0.28,0.34,0.56,0.70, 0.80,0.76,0.32,0.07],  },
 
   CHA: { code:'CHA', name:'Charles City', name_cn:'查尔斯市', country:'United States',
     pop:27000, pop_growth:3.0, gdp_growth:3.0, pop_elasticity:1.5, gdp_elasticity:1.5,
@@ -281,7 +307,9 @@ export const MARKETS = {
     elasticity:1, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:220,
     etops:false, demand_curve:null, seasonal:null,
     esg_required:true,
-    notes:'金融中心，税收优惠，货运收益最高(0.60)，需环保项目才能获取时刻' },
+    notes:'金融中心，税收优惠，货运收益最高(0.60)，需环保项目才能获取时刻' ,
+    /* 日内需求形状（24 项，索引=小时）· 金融中心：商务早峰 08:00 + 晚峰 17:00 */
+    dayShape: [0.02,0.02,0.02,0.02,0.03,0.14, 0.58,0.82,0.94,0.58, 0.44,0.34,0.28,0.30,0.38, 0.36,0.48,0.82,0.64,0.46, 0.38,0.30,0.19,0.06],  },
 
   BZY: { code:'BZY', name:'Broonzy', name_cn:'布伦齐', country:'United States',
     pop:28000, pop_growth:2.0, gdp_growth:3.0, pop_elasticity:1.2, gdp_elasticity:1.5,
@@ -289,7 +317,9 @@ export const MARKETS = {
     landing_fee:14, handling_fee:14, traffic_handling_fee:12,
     elasticity:2, inelasticity:1, k_factor:0.45, unit_p:null, guide_fare:698,
     etops:true, demand_curve:null, seasonal:null,
-    notes:'蓝调与爵士乐文化之旅，客运全天稳定，需 ETOPS' },
+    notes:'蓝调与爵士乐文化之旅，客运全天稳定，需 ETOPS' ,
+    /* 日内需求形状（24 项，索引=小时）· notes「客运全天稳定」→ 平缓（峰值仅 12:00 且很平） */
+    dayShape: [0.04,0.04,0.04,0.04,0.05,0.07, 0.10,0.12,0.14,0.15, 0.16,0.18,0.19,0.17,0.16, 0.15,0.14,0.16,0.17,0.16, 0.14,0.12,0.08,0.05],  },
 };
 
 export const MARKET_LIST = Object.keys(MARKETS);

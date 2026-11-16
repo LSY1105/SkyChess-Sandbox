@@ -182,15 +182,22 @@ export function allocateMarket(marketName, airlines, mult = 1) {
  * 日内需求形状（24 小时相对权重，已归一化，和为 1）
  * 市场可覆盖：MARKETS[code].dayShape；缺省用 GM.dayShape。
  */
-/** 日内需求原始形状（未归一化，24 项） */
-export function dayShapeRaw(marketName) {
-  const m = MARKETS[marketName] || {};
-  return m.dayShape || GM.dayShape;
+/** 按**代码或英文名**取市场定义。
+   * ⚠ MARKETS 以**代码**为键（LEW/SIM/...），而旧调用点传的是**英文名**（Lewis/Simone/...）
+   *   → 旧实现永远 miss → 所有市场都回落到 GM.dayShape（形状层失效） */
+function marketOf(key) {
+  if (MARKETS[key]) return MARKETS[key];
+  for (const m of Object.values(MARKETS)) if (m.name === key) return m;
+  return {};
 }
 
-export function dayShape(marketName) {
-  const m = MARKETS[marketName] || {};
-  const raw = m.dayShape || GM.dayShape;
+/** 日内需求原始形状（未归一化，24 项） */
+export function dayShapeRaw(marketKey) {
+  return marketOf(marketKey).dayShape || GM.dayShape;
+}
+
+export function dayShape(marketKey) {
+  const raw = marketOf(marketKey).dayShape || GM.dayShape;
   if (raw.length !== 24) {
     throw new Error(`dayShape 必须为 24 项（索引=小时），实际 ${raw.length} 项`);
   }

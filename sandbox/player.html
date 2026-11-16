@@ -1355,7 +1355,7 @@ function renderMsgBoard() {
 function renderIntel() {
   const sel = $('#intelBuy');
   if (!sel.options.length) {
-    sel.innerHTML = Object.keys(MARKETS).map(c => `<option value="${c}">${MARKETS[c].name_c}</option>`).join('');
+    sel.innerHTML = Object.keys(MARKETS).map(c => `<option value="${c}">${MARKETS[c].name_cn || c}</option>`).join('');
     sel.onchange = () => {
       const q = (g.intelPrices || {})[sel.value];
       $('#intelQuote').textContent = q != null ? ('裁判报价 $' + q.toLocaleString()) : '（裁判尚未报价）';

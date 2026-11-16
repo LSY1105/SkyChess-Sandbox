@@ -486,7 +486,7 @@ export function fleetRouteWarning(g, ac, code) {
   if (ratio < 1.2) return null;                 // 供给不超过需求，无风险
   return {
     seats, dailyPax: daily, ratio,
-    message: `${ac.type}（${seats} 座/日）投入 ${m?.name_c || code}：`
+    message: `${ac.type}（${seats} 座/日）投入 ${m?.name_cn || code}：`
       + `该市场日潜在运量约 ${Math.round(daily)} 人，机型供给为其 ${ratio.toFixed(1)} 倍，`
       + `即使满座客座率也仅约 ${(daily / seats * 100).toFixed(0)}%，大概率亏损`
       + `（纪要："You will lose money if you fly to Simone with it."）`,
@@ -870,7 +870,7 @@ export function fleetEconomicsBrief(g) {
       seats: cs[k], fare: cfare[k],
       beLF: cs[k] * cfare[k] > 0 ? +(ops / (cs[k] * cfare[k])).toFixed(3) : null,
     }));
-    rows.push({ code: r.code, name: m.name_c || r.code, bh, fare, seats,
+    rows.push({ code: r.code, name: m.name_cn || r.code, bh, fare, seats,
       opsPerFlight: Math.round(ops), fullRevPerFlight: Math.round(fullRev),
       breakEvenLF: beLF != null ? +beLF.toFixed(3) : null, marketDemandQ: demandQ, cabin });
   }
@@ -928,7 +928,7 @@ export function estimateScale(g, n, price = 40000000, fareRatio = 1) {
       : 0;
     const vc = extraFlights * perFlightOps;
     rev += revenue; varCost += vc; servedTotal += served;
-    detailRows.push({ code, name: (MARKETS[code] || {}).name_c || code, fare: Math.round(r.fare * fareRatio), lf: +(lf * demAdj).toFixed(4), fareBase: r.fare,
+    detailRows.push({ code, name: (MARKETS[code] || {}).name_cn || code, fare: Math.round(r.fare * fareRatio), lf: +(lf * demAdj).toFixed(4), fareBase: r.fare,
       extraFlights: Math.round(extraFlights), served: Math.round(served), revenue: Math.round(revenue) });
   }
   const interest = n * price * (g.interestRate || 5) / 100 / 4;

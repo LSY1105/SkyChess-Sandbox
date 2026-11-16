@@ -720,7 +720,7 @@ function applyActionRaw(g, a) {
       if (g.cash < price) return `现金不足（情报报价 $${price.toLocaleString()}）`;
       g.cash -= price;
       g.negotiation.intel[code] = { price, turn: g.turn };
-      g.log.push(`购买情报 ${D.MARKETS[code].name_c}：$${price.toLocaleString()}`);
+      g.log.push(`购买情报 ${D.MARKETS[code].name_cn}：$${price.toLocaleString()}`);
       gm.negotiationLog.push({
         seq: ++gm.seq, turn: gm.turn, seat: g.seat, item: '情报成交',
         value: `${code}=$${price}`, note: '玩家购买', at: new Date().toISOString(),

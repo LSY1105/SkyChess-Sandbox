@@ -8,7 +8,7 @@
      GAP   留一市场交叉验证误差（量化"K 相对结构待重建"，作为已知缺口的护栏）
    运行：node demandtest.mjs
    ============================================================ */
-import { MARKETS } from './data.js';
+import { MARKETS, GM } from './data.js';
 import * as E from './engine.js';
 import * as G from './game.js';
 
@@ -47,6 +47,39 @@ head('CAL 标定结果（2026-11-02）');
   ok(E.DEMAND_K.Armstrong === 68505 && E.DEMAND_K.Broonzy === 26953 && E.DEMAND_K.Joplin === 12999
      && E.DEMAND_K.Lewis === 7555 && E.DEMAND_K.Fitzgerald === 5951,
      '其余 5 个市场保持现值（未标定，来源为 rebuild 管线旧拟合）');
+}
+
+/* ═══════════════════════════════ SHAPE：各市场日内需求形状 ════════════════════════════════ */
+head('SHAPE 各市场日内需求形状（官方：目的地峰值 ≠ 枢纽高峰）');
+{
+  const codes = Object.keys(MARKETS);
+  const shaped = codes.filter(c => Array.isArray(MARKETS[c].dayShape)
+    && MARKETS[c].dayShape.length === 24
+    && MARKETS[c].dayShape.every(v => Number.isFinite(v) && v > 0));
+  ok(shaped.length >= 5,
+     '多数市场配了 24 项有限正数日内形状（已标定市场不配）',
+     `${shaped.length}/${codes.length}`);
+  /* ⚠ 查表键护栏：MARKETS 以**代码**为键，旧实现按英文名查表 → 必然 miss */
+  ok(E.dayShapeRaw('FTZ') === MARKETS.FTZ.dayShape,
+     '引擎按代码取到市场级形状（防查表键回归）');
+  ok(E.dayShapeRaw('Fitzgerald') === MARKETS.FTZ.dayShape,
+     '引擎按英文名取形状也能命中（兼容旧调用点）');
+  /* ⚠ 标定事实：demandtest 能精确复原原版营业收入 → 只在 GM.dayShape 下才对上
+     → SIM / ETN 的日内曲线与枢纽高峰基本重合（否则改形状会改变「需求溢出」的承运量 → 收入偏离原版） */
+  ok(!MARKETS.SIM.dayShape && !MARKETS.ETN.dayShape && !MARKETS.LEW.dayShape,
+     '已标定市场 SIM/ETN 与有原版截图的 LEW 保持回落 GM.dayShape');
+  const sig = c => E.dayShape(c).map(x => x.toFixed(6)).join(',');
+  const uniq = new Set(codes.map(sig));
+  ok(uniq.size >= 3, '不同市场的日内形状确实不同', `${uniq.size} 种`);
+  /* 枢纽高峰时段（与分时定价口径同源）→ 至少部分市场的需求峰落在枢纽高峰之外 */
+  const peakHour = c => { const a = E.dayShape(c); return a.indexOf(Math.max(...a)); };
+  const inHubPeak = h => GM.fareBandPeakHours.some(([a, b]) => h >= a && h < b);
+  const offHub = codes.filter(c => !inHubPeak(peakHour(c)));
+  ok(offHub.length >= 3,
+     '至少 3 个市场的需求峰不在枢纽高峰时段内（官方「可能不一致」成立）',
+     `${offHub.length} 个：${offHub.join(',')}`);
+  ok(GM.fareBandPeakHours.length > 0 && shaped.length > 0,
+     '图表与引擎共用各市场 dayShape（reports.js 按 code 查表）');
 }
 
 /* ══════════════ ASK：真实首季配置复原 ══════════════ */
