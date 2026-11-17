@@ -34,6 +34,14 @@ const REAL = {
 for (const r of Object.values(REAL)) r.mktPax = r.share >= 0.999 ? r.pax : Math.round(r.pax / r.share);
 
 /* ══════════════ CAL：标定值固定 ══════════════ */
+/* ═══════════════════════════════ TIME：时刻解析容错 ═════════════════════════════════════ */
+head('TIME 排班时刻解析（容错）');
+{
+  ok(G.hhmmToMin('09:00') === 540, 'HH:MM 正常解析', String(G.hhmmToMin('09:00')));
+  ok(G.hhmmToMin('12') === 720, '缺分钟的「12」解析为 12:00（旧实现返回 NaN → 单班脏化整季）', String(G.hhmmToMin('12')));
+  ok(G.hhmmToMin('9:30') === 570, '单位数的小时解析', String(G.hhmmToMin('9:30')));
+  ok(Number.isFinite(G.hhmmToMin('')) && Number.isFinite(G.hhmmToMin('abc')), '空/非法值不产生 NaN');
+}
 head('CAL 标定结果（2026-11-02）');
 {
   ok(E.DEMAND_K.Simone === 7188, 'DEMAND_K.Simone = 7,188（原 9,868，×0.728）', String(E.DEMAND_K.Simone));

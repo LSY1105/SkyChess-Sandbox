@@ -667,7 +667,7 @@ export function canAddFlight(g, ac, code, departure = '09:00') {
     const longHaul = !!ac.long;
   const acSchedules = g.schedules.filter(x => x.acId === ac.id);   // ★ 提前声明（过站约束要用）
 const turn = turnaroundFor(ac, code, g);
-  const depNew = mins(departure);
+  const depNew = hhmmToMin(departure);
   const bhMin = bh * 60;
   /* ★ 过站时间是强约束：该机当日可容纳的班次数由「可用时段 − 往返」÷（往返 + 过站）反算
      短程可用时段 06:00–22:00（16h）；长程过夜 → 1 班/日
@@ -710,7 +710,7 @@ const turn = turnaroundFor(ac, code, g);
      两班起点间隔 = (滑行 + 飞行 + 滑行到廊桥) + 清洁保障 */
   const minGap = taxiOut + bhMin + taxiIn + turn;
   for (const s of g.schedules.filter(x => x.acId === ac.id)) {
-    if (Math.abs(depNew - mins(s.departure)) < minGap) {
+    if (Math.abs(depNew - hhmmToMin(s.departure)) < minGap) {
       return { ok: false, why: `过站时间不足 ${Math.round(minGap)} 分钟` };
     }
   }
@@ -732,8 +732,6 @@ export function maxDailyFlights(g, ac, code) {
   const byBh = Math.floor(room / (m.bh * DAYS_PER_QUARTER));
   return Math.max(0, Math.min(byTime, byBh));
 }
-
-function mins(hhmm) { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; }
 
 /* ---------------- 回合结算 ---------------- */
 /**
@@ -1081,7 +1079,10 @@ export function advanceTurn(g) {
 export const CONNECT_WINDOW = { min: 45, max: 360 };   // 可衔接时间窗(分钟)
 export const HUB_NIGHT_RETURN = true;                    // 短程机夜间必须返 HUB
 
-function hhmmToMin(s) { const [h, m] = s.split(':').map(Number); return h * 60 + m; }
+/* ★ 容错：时刻允许写「12」（缺 :00）与非法值 —— 之前 s.split(':') 对 '12' 得 m=undefined → NaN，
+   而单班 NaN 会把**整季**承运/收入/利润/现金全脏为 null（因 reduce 求和）。
+   现一律解析：缺分钟当 00，非法值当 0（不会产生 NaN）。 */
+export function hhmmToMin(s) { const [h, m] = String(s || '0:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); }
 export function minToHHMM(v) {
   const h = Math.floor(v / 60) % 24, m = Math.round(v % 60);
   return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
@@ -1288,8 +1289,11 @@ export function computeTurn(g, per) {
       const seatShare = s.seats / (slotSeats.get(h) || s.seats);
       const servedSeason = Math.min(s.seats * DAYS_PER_QUARTER,
         slotPool * playerShare * seatShare * DAYS_PER_QUARTER);
+      /* ★ 护栏：单班承运量若非有限值（脏时刻/脏需求）→ 记 0。
+         否则 NaN 经 reduce 会把**整季**收入/成本/利润/现金污染成 null → 报表全「—」 */
+      const served = Number.isFinite(servedSeason) ? servedSeason : 0;
       return { departureMin: depMin, arrivalMin: arrivalAtHub(s.ac, route.code, s.departure),
-               served: servedSeason, slot: h };
+               served, slot: h };
     });
     // 总量保护：容量集中在高峰时刻时，按比例回缩到市场需求
     let pax = flights.reduce((a, f) => a + f.served, 0);
@@ -1428,6 +1432,7 @@ export function computeTurn(g, per) {
 
     detail[route.code] = {
       market: m.name, code: route.code, freq, bh, ask, pax, rpk, lf, cargo,
+      seats: seatsPerFlight,   // 每班座位（Route Metrics「座位」列；此前缺失 → 恒显 0）
       local_pax: (p.flights || []).reduce((a, f) => a + (f.served || 0), 0),  // 局地承运（不含中转）→ 时刻收益分析
       flights: (p.flights || []).map(f => ({ departureMin: f.departureMin, served: f.served, slot: f.slot })),
       demand: D, fare: route.fare, qsi: g.qsi,

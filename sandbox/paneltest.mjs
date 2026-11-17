@@ -138,6 +138,18 @@ await step('玩家面板 投资面板 4 个子页签', async () => {
   return labels.join('/');
 });
 
+/* ★ 2026-11-17：小组端「报表」整页「—」回归护栏
+   （根因：学员手输「12」这类缺分钟时刻 → 结算 NaN → 整季收入/现金为 null） */
+await step('玩家面板 报表区有数据（页签齐 + 金额非空）', async () => {
+  const body = P.doc.getElementById('repBody');
+  ok(body, '报表区缺失');
+  const tabs = [...body.querySelectorAll('.tabs button')];
+  ok(tabs.length === 10, '报表页签数 ' + tabs.length);
+  const txt = body.textContent || '';
+  ok(/\$[\d,]+/.test(txt), '报表区无金额数值: ' + txt.slice(0, 120).replace(/\s+/g, ' '));
+  return tabs.length + ' 页签，含金额';
+});
+
 /* ★ 2026-11-02 修复：空排班提交被服务端拒绝（避免必然破产的巨额亏损）
    → 本用例改为「先排一班并提交」，使其后能产生历史报告 */
 /* ★ 该断言已迁到 submittest.mjs（node:http 直连，端到端可靠）

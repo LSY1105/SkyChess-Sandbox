@@ -93,10 +93,10 @@ export function renderReports(root, g, opts = {}) {
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h0 = pickReport(g, sel);
-    if (!h0) body.appendChild(el('div', 'small', '尚无历史报告（由裁判结算后生成）—— 下方展示当前页签可得的即时数据。'));
+    if (!h0) body.appendChild(el('div', 'small', '本季尚未结算（由裁判结算后生成盈利与历史报告）—— 下方为当前已能取得的即时数据。'));
     /* ★ 无历史报告时仍渲染页签骨架（否则点页签只是重复同一句提示 → 用户觉为「按钮无反应」） */
-    const h = h0 || { period: '—', detail: {}, revenue: null, cost: null, operating_profit: null,
-      oneoff: null, financing: null, cash_end: null, load_factor: null, gross_margin: null,
+    const h = h0 || { period: (g.period && g.period.label) || '—', detail: {}, revenue: null, cost: null, operating_profit: null,
+      oneoff: null, financing: null, cash_end: g.cash, load_factor: null, gross_margin: null,
       askTotal: 0, rpkTotal: 0, paxTotal: 0, market_share: null };
     /* 历史季度选择器 */
     const selBar = el('div', 'row small');
@@ -243,7 +243,7 @@ function summary(root, h, g) {
     { label: 'Total Operating Cost', value: money(h.cost) },
     { label: 'Closing Cash', value: money(h.cash_end) },
   ]);
-  root.appendChild(el('div', 'small', '盈亏平衡客座率按「基础票价 + 全局油价」口径估算，未反映分时有效票价与套保油价。'));
+  root.appendChild(el('div', 'small', '盈亏平衡客座率按「基础票价 + 全局油价」口径估算，未反映分时有效票价与套保油价；盈利类指标需裁判结算本季后生成。'));
   const rows = [
     ['期间', h.period], ['收入', money(h.revenue)], ['营业成本', money(h.cost)],
     ['经营利润', { text: money(h.operating_profit), cls: h.operating_profit >= 0 ? 'ok' : 'bad' }],
@@ -287,6 +287,21 @@ function cabinCell(cabin) {
 ${Math.round(cabin.Y.pax)} / ${Math.round(cabin.W.pax)} / ${Math.round(cabin.J.pax)} 人` };
 }
 
+/* ★ 本季尚未结算时的「当前状态」数据（不依赖历史明细）
+   口径：频次/座位/ASK 按当前排班现算（与结算口径同：每班座位 × 航段 × 季度班次）；盈利/成本类列需结算才有 → — */
+function currentRouteRows(g) {
+  const out = [];
+  for (const r of (g.routes || [])) {
+    const m = MARKETS[r.code] || {};
+    const fl = (g.schedules || []).filter(s => s.code === r.code);
+    const seatsSum = fl.reduce((a, s) => a + (s.seats || (s.ac && s.ac.seats) || 0), 0);
+    const seats = fl.length ? seatsSum / fl.length : 0;   // 每班座位（同结算口径 seatsPerFlight）
+    const freq = fl.length * G.DAYS_PER_QUARTER;                       // 频次/季
+    const ask = seatsSum * G.DAYS_PER_QUARTER * (m.sector_km || 0);    // ASK = Σ座位×90×航段km
+    out.push({ code: r.code, m, fare: r.fare, seats, freq, ask });
+  }
+  return out;
+}
 function routeEcon(root, h, g) {
   const rows = [];
   for (const [c, x] of Object.entries(h.detail || {})) {
@@ -300,7 +315,15 @@ function routeEcon(root, h, g) {
       { text: money(x.operating_profit), cls: x.operating_profit >= 0 ? 'ok' : 'bad' },
     ]);
   }
+  if (!rows.length) {   /* 本季未结算 → 用当前排班与运价填可算的列 */
+    for (const c of currentRouteRows(g)) {
+      const yieldPerKm = c.m.sector_km ? c.fare / c.m.sector_km : 0;
+      rows.push([c.m.name_cn || c.code, num(c.fare, 2), num(c.m.sector_km), yieldPerKm.toFixed(4),
+        '—', '—', '—', '—', '—', '—', '—', '—']);
+    }
+  }
   root.appendChild(table(['航线', '运价', '航段km', 'YIELD', '客运', '货邮', '辅营', '燃油', '维修', '机组', '舱位收入(经/超/公)', '经营利润'], rows));
+  if (!rows.length) root.appendChild(el('div', 'small', '尚无已开通航线。'));
 }
 
 function routeMetrics(root, h, g) {
@@ -314,7 +337,14 @@ function routeMetrics(root, h, g) {
       num(Math.round(x.marketDemand || 0)), pct(x.share, 1), rivals || '—', num(x.connected_pax || 0),
     ]);
   }
+  if (!rows.length) {   /* 本季未结算 → 当前排班快照（盈利类需结算） */
+    for (const c of currentRouteRows(g)) {
+      rows.push([c.m.name_cn || c.code, num(c.freq), num(c.seats),
+        (c.ask / 1e6).toFixed(1), '—', '—', '—', '—', '—', '—']);
+    }
+  }
   root.appendChild(table(['航线', '频次/季', '座位', 'ASK(MM)', 'RPK(MM)', 'LF', '市场总需求', '我方份额', '对手份额', '中转'], rows));
+  if (!rows.length) root.appendChild(el('div', 'small', '尚无已开通航线。'));
 }
 
 function fuel(root, h, g) {

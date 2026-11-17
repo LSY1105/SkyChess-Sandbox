@@ -70,6 +70,35 @@ await step('FLIGHTS 页签数据源就绪（peerSchedules 含运价）', async (
   return seats.length + ' 组';
 });
 
+/* ★ 回归护栏（2026-11-17）：学员手输「12」这类**缺分钟**的起飞时刻曾入库 →
+   结算时解析出 NaN → 单班 NaN 经 reduce 把**整季**收入/成本/利润/现金全污染成 null
+   → 小组端报表整页「—」（用户报「小组页面数据显示缺失」）。 */
+await step('缺分钟时刻被归一化为 HH:MM（12 → 12:00）', async () => {
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const acId = gh.game.aircraft[0].id;
+  const add = await req('/api/seat/CA', { type: 'addFlight', acId, code: 'SIM', departure: '12' }, 'CA');
+  ok(add.result === 'ok', '排班被拒: ' + add.result);
+  const g2 = await req('/api/seat/CA', null, 'CA');
+  const fl = (g2.game.schedules || []).find(x => x.departure === '12:00');
+  ok(!!fl, '起飞时刻未归一化: ' + JSON.stringify((g2.game.schedules || []).map(x => x.departure)));
+  const bad = await req('/api/seat/CA', { type: 'addFlight', acId, code: 'SIM', departure: 'abc' }, 'CA');
+  ok(bad.result !== 'ok', '非法时刻应被拒绝');
+  return '12 → 12:00；非法值已拒';
+});
+
+await step('缺分钟时刻不污染整季（结算后报表各项为有限数）', async () => {
+  await req('/api/seat/CA', { type: 'advance' }, 'CA');
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const h = (gh.game.history || [])[gh.game.history.length - 1];
+  ok(h, '无历史报告');
+  for (const k of ['revenue', 'cost', 'operating_profit', 'load_factor', 'cash_end', 'gross_margin']) {
+    ok(Number.isFinite(h[k]), '报告字段被污染: ' + k + '=' + JSON.stringify(h[k]));
+  }
+  ok(Number.isFinite(gh.game.cash), '组现金被污染: ' + JSON.stringify(gh.game.cash));
+  ok(h.revenue > 0, '收入为 0');
+  return 'revenue=' + Math.round(h.revenue) + ' LF=' + (h.load_factor * 100).toFixed(1) + '% cash=' + Math.round(gh.game.cash);
+});
+
 console.log();
 for (const r of R) console.log(`  ${r.ok ? '✓' : '✗'} ${r.name.padEnd(46)} ${r.note}`);
 const pass = R.filter(r => r.ok).length;

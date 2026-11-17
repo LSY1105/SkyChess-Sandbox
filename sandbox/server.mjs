@@ -542,7 +542,13 @@ function applyActionRaw(g, a) {
     }
     case 'addFlight': {
       const ac = g.aircraft.find(x => x.id === +a.acId); if (!ac) return 'no ac';
-      const dep0 = a.departure || '09:00';
+      /* ★ 起飞时刻是学员手输文本（曾出现「12」这类缺分钟写法）→ 服务端统一校验并归一化：
+         脏时刻一旦入库，结算时解析出 NaN，会把**整季**收入/成本/现金污染成 null（报表全「—」） */
+      const depRaw = String(a.departure == null ? '' : a.departure).trim();
+      if (depRaw && !/^\d{1,2}(:\d{1,2})?$/.test(depRaw)) return '起飞时刻格式无效（请填 HH:MM，如 09:00）';
+      const depMin = G.hhmmToMin(depRaw || '09:00');
+      if (depMin < 0 || depMin >= 1440) return '起飞时刻需在 00:00–23:59 之间';
+      const dep0 = G.minToHHMM(depMin);
       /* ★ 时刻抢占：同一航线的同一时刻若已被其他航司占用 → 该时刻成为其独飞，我方排不进去 */
       for (const [code2, g2] of sessions) {
         if (code2 === g.seat) continue;
@@ -554,9 +560,7 @@ function applyActionRaw(g, a) {
       const m = D.MARKETS[a.code];
       /* 班次占用时段：起飞 → 到达（单程 BH）→ 过站结束（过站时间按经营定位基线） */
       const bhMin = Math.round((m.bh || 1.5) * 60);
-      const toMin = (s) => { const [h2, m2] = String(s || '00:00').split(':').map(Number); return (h2 || 0) * 60 + (m2 || 0); };
       const hhmm = (v) => String(Math.floor((v % 1440) / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
-      const depMin = toMin(dep0);
       const turnMin = G.turnaroundFor(ac, a.code, g);
       const taxiOut = D.GM.taxi_out_min || 0, taxiIn = D.GM.taxi_in_min || 0;
       /* ★ bh 是**往返** Block Hours → 去程单程 = bh/2
@@ -621,8 +625,10 @@ function applyActionRaw(g, a) {
       const idx = Number(a.index);
       const sc = (g.schedules || [])[idx];
       if (!sc) return 'no flight';
-      const dep0 = a.departure || '';
-      if (!dep0) return '缺少回程起飞时刻';
+      const depRaw = String(a.departure == null ? '' : a.departure).trim();
+      if (!depRaw) return '缺少回程起飞时刻';
+      if (!/^\d{1,2}(:\d{1,2})?$/.test(depRaw)) return '回程起飞时刻格式无效（请填 HH:MM，如 13:30）';
+      const dep0 = G.minToHHMM(G.hhmmToMin(depRaw));
       const toMin = (s2) => { const p = String(s2 || '00:00').split(':').map(Number); return (p[0] || 0) * 60 + (p[1] || 0); };
       const m = D.MARKETS[sc.code];
       const turn = G.turnaroundFor(sc.ac || { long: false }, sc.code, g);
