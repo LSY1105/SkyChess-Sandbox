@@ -702,6 +702,42 @@ test('Summary：未结算时成本分解图给出提示而非空白', () => {
 });
 
 /* ============================================================
+   P0-2 FLIGHT INFORMATION 弹窗：顶部季度页签可切换（此前只测了数值口径，未测交互）
+   ============================================================ */
+test('FLIGHT INFORMATION 弹窗：季度页签可切换到历史季', () => {
+  const root = document.createElement('div');
+  const g = makeGame();
+  const mkSeason = (period, pax, fuel) => ({
+    period, turn: 0, revenue: 1000, cost: 600, operating_profit: 400, oneoff: 0, financing: 0,
+    cash_end: 2000, load_factor: 0.56, paxTotal: pax, askTotal: 20, rpkTotal: 10,
+    market_share: 0.3591, gross_margin: 0.13, breakEvenLF: 0.56, routeBE: [], invCost: 0,
+    detail: { LEW: {
+      freq: 90, ask: 1e6, rpk: 5e5, pax, seats: 100, fare: 120, lf: 0.5,
+      rev: { 'Passenger Revenue': pax * 10, 'Cargo Revenue': 0, 'Ancillary Revenue': 0, 'Total Revenue': pax * 10 },
+      cost: { Fuel: fuel, Carbon: 0, Maintenance: 50, 'Flight Crew': 60 },
+      operating_profit: 100, marketDemand: 1000, share: 0.5, rivals: [], connected_pax: 0,
+      flights: [{ departureMin: 480, served: pax * 90, slot: 8 }],
+      own: 40, leasePayments: 0 } } });
+  g.history = [mkSeason('Q1 2028', 100, 200), mkSeason('Q2 2028', 200, 400)];
+  g.schedules = [{ acId: 1, code: 'LEW', seats: 100, departure: '08:00', flightNo: 'CA-1' }];
+  g.aircraft = [{ id: 1, type: 'APT100', seats: 100, nickname: 'APT100' }];
+  g.lastDetail = g.history[1].detail;
+  R.renderReports(root, g);
+  [...root.querySelectorAll('.tabs button')].find(b => /航班与利用/.test(b.textContent)).click();
+  const btn = [...root.querySelectorAll('td')].find(td => /详情/.test(td.textContent));
+  assert.ok(btn, 'Flights 页签应出现「≡ 详情」入口');
+  btn.click();
+  const pop = document.getElementById('flightPop');
+  assert.ok(pop, '未打开 FLIGHT INFORMATION 弹窗');
+  const qtabs = [...pop.querySelectorAll('.tabs button')];
+  assert.equal(qtabs.length, 2, '弹窗顶部应有两个季度页签，实得 ' + qtabs.length);
+  assert.ok(/Q2 2028/.test(pop.textContent), '默认显示最新季度 Q2 2028');
+  qtabs[0].click();
+  const pop2 = document.getElementById('flightPop');
+  assert.ok(pop2 && /Q1 2028/.test(pop2.textContent), '点第一个季度页签后应切到 Q1 2028');
+});
+
+/* ============================================================
    票价矩阵改「网格」形态（官方界面-3 / Role Guide p11：行=市场、列=航司）
    ============================================================ */
 test('票价矩阵：网格形态——行=市场、列=各航司、格内报价', () => {

@@ -173,6 +173,7 @@ function flights(root, h, g) {
   own.appendChild(table(['航班', '起飞', '市场', '运价', '机型', '旅客', '座位', '客座率', '详情'], rows));
   own.appendChild(el('div', 'small', '本季平均客座率：' + (wLF != null ? pct(wLF, 1) : '（结算后可见）')
     + '　· 旅客与客座率为**结算实绩**，未结算显示 '-'（原版同样不显示）'));
+  own.appendChild(el('div', 'small', '点右侧「≡ 详情」打开 FLIGHT INFORMATION（单航班损益表）；弹窗顶部可切换历史季度（需已结算 ≥2 季才有多项可选）。'));
 
   /* 本航司机队利用 */
   const util = sec('本航司机队利用 · 平均每日 BH', 'var(--acc)');
