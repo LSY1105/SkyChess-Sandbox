@@ -218,13 +218,43 @@ function flights(root, h, g) {
   }
 }
 
-/** 官方 Summary 六项 KPI 卡片：3 列网格 + 金色描边 + 深色底 */
+/* ★ KPI 卡内联图标（原版 Summary 六卡的图形：人群 / 点赞 / 饼图 / 天平 / 百分号 / 银行）
+   —— 纯装饰，path 坐标取自 24×24 画布；金色描边随主题变量 */
+const KPI_ICONS = {
+  people: ['M9 4.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5', 'M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5',
+    'M16.8 6.2a2 2 0 1 1 0 4 2 2 0 0 1 0-4', 'M16.5 14c2.6 0 4.5 1.3 4.5 4'],
+  thumb: ['M8 11h3l2-6a1.6 1.6 0 0 1 2 1.4l-.8 4.6H18a1.6 1.6 0 0 1 1.6 2l-1 6a1.6 1.6 0 0 1-1.6 1.4H8z',
+    'M5 11.5h3v7.9H5z'],
+  pie: ['M12 3a9 9 0 1 0 9 9h-9z', 'M12 3v9h9'],
+  scale: ['M12 4.5v15', 'M4.5 8h15', 'M4.5 8 2 13.5a3 3 0 0 0 5 0z', 'M19.5 8 22 13.5a3 3 0 0 1-5 0z'],
+  pct: ['M8.6 6.6a2 2 0 1 1 0 4 2 2 0 0 1 0-4', 'M15.4 13.4a2 2 0 1 1 0 4 2 2 0 0 1 0-4', 'M6 18 18 6'],
+  bank: ['M3 9.5 12 4l9 5.5', 'M5.5 10.5v6.5', 'M9.6 10.5v6.5', 'M14.4 10.5v6.5', 'M18.5 10.5v6.5', 'M3 20h18'],
+};
+function kpiIcon(name) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('width', '26'); svg.setAttribute('height', '26');
+  svg.setAttribute('fill', 'none');
+  svg.style.stroke = 'var(--acc,#d8a33f)';
+  svg.style.strokeWidth = '1.5';
+  svg.style.strokeLinecap = 'round'; svg.style.strokeLinejoin = 'round';
+  for (const d of (KPI_ICONS[name] || [])) {
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', d);
+    svg.appendChild(p);
+  }
+  return svg;
+}
+
+/** 官方 Summary 六项 KPI 卡片：3 列网格 + 金色描边 + 深色底（原版：图标 → 标签 → 数值，居中） */
 function kpiCards(root, items) {
   const grid = el('div');
-  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px';
+  grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 6px';
   for (const it of items) {
     const c = el('div');
-    c.style.cssText = 'border:1px solid var(--acc,#d8a33f);background:var(--raised,#212529);border-radius:6px;padding:8px 10px';
+    c.style.cssText = 'border:1px solid var(--acc,#d8a33f);background:var(--raised,#212529);border-radius:6px;padding:8px 10px;text-align:center';
+    if (it.icon) { const ic = kpiIcon(it.icon); ic.style.margin = '0 auto 2px'; c.appendChild(ic); }
     c.appendChild(el('div', 'small', it.label));
     const v = el('div', null, it.value);
     v.style.cssText = 'font-size:20px;font-weight:600;margin-top:2px';
@@ -235,14 +265,17 @@ function kpiCards(root, items) {
 }
 
 function summary(root, h, g) {
+  /* ★ 六卡按**原版顺序**：ALF / QSI / Market Share ‖ Break-even LF / Margin / Closing Cash
+     （原版第 3 张是 Market Share；Total Operating Cost 只出现在成本分解图里，不是 KPI） */
   kpiCards(root, [
-    { label: 'Average Load Factor', value: pct(h.load_factor) },
-    { label: 'Break-even Load Factor', value: h.breakEvenLF != null ? pct(h.breakEvenLF) : '—' },
-    { label: 'Quality Service Indicator', value: num(g.qsi, 2) },
-    { label: 'Margin', value: pct(h.gross_margin, 2) },
-    { label: 'Total Operating Cost', value: money(h.cost) },
-    { label: 'Closing Cash', value: money(h.cash_end) },
+    { label: 'Average Load Factor', value: pct(h.load_factor, 1), icon: 'people' },
+    { label: 'Quality Service Indicator', value: num(g.qsi, 2), icon: 'thumb' },
+    { label: 'Market Share', value: pct(h.market_share, 2), icon: 'pie' },
+    { label: 'Break-even Load Factor', value: h.breakEvenLF != null ? pct(h.breakEvenLF, 1) : '—', icon: 'scale' },
+    { label: 'Margin', value: pct(h.gross_margin, 2), icon: 'pct' },
+    { label: 'Closing Cash', value: money(h.cash_end), icon: 'bank' },
   ]);
+  costSummaryChart(root, h, g);
   root.appendChild(el('div', 'small', '盈亏平衡客座率按「基础票价 + 全局油价」口径估算，未反映分时有效票价与套保油价；盈利类指标需裁判结算本季后生成。'));
   const rows = [
     ['期间', h.period], ['收入', money(h.revenue)], ['营业成本', money(h.cost)],
@@ -262,6 +295,110 @@ function routeDemandTab(root, h, g) {
   catch { root.appendChild(el('div', 'small', '航线需求图暂不可用（数据不足）。')); }
 }
 
+
+/* ─────────────── COSTS SUMMARY：成本分解图（原版 Reports-Summary 页签下方，原沙盘完全缺失）───────────────
+   结构：左列收入三分支（客运/货运/辅营）→ 中列 Quarter 聚合条 → 右列 7 个成本科目 + Profit
+   高度 ∝ 金额，连接带为梯形多边形；科目归并与引擎科目一一对应（见 COSTS_GROUPS）
+   ★ 闭合等式：Σ收入 = Σ七项成本 + Profit（与 report.revenue / report.cost 对账，容差 $1） */
+const COST_REVS = [['Passenger Revenue', '客运收入'], ['Cargo Revenue', '货运收入'], ['Ancillary Revenue', '辅营收入']];
+const COSTS_GROUPS = [
+  { label: 'Fuel Costs', cn: '燃油', keys: ['Fuel', 'Carbon', 'Sustainable Aviation Fuel'], fixed: 'F08_FIXED' },
+  { label: 'Maintenance Costs', cn: '维修', keys: ['Maintenance'], fixed: 'F07_FIXED' },
+  { label: 'Crew Costs', cn: '机组', keys: ['Flight Crew', 'Cabin Crew'], fixed: 'F06_FIXED' },
+  { label: 'Handling Costs', cn: '地面', keys: ['Aircraft Handling', 'Traffic Handling', 'Cargo Handling'] },
+  { label: 'Nav and Landing Costs', cn: '起降', keys: ['Navigation', 'Landing'] },
+  { label: 'Total Indirect Operating Costs', cn: '间接运营成本', keys: ['Cargo Overheads', 'General & Administration', 'Passenger Services', 'Ticketing, Sales and Promotion'] },
+  { label: 'Total Ownership Costs', cn: '所有权成本', own: true },   // 折旧+保险（own）+ 湿租付款（leasePayments）
+];
+const shortMoney = (v) => {
+  const s = v < 0 ? '-' : '', a = Math.abs(v);
+  if (a >= 1e6) return s + '$' + (a / 1e6).toFixed(1) + 'M';
+  if (a >= 1e3) return s + '$' + Math.round(a / 1e3) + 'k';
+  return s + '$' + Math.round(a);
+};
+/** 成本分解数据：收入三分支 + 七项成本科目 + 利润（全部取自 report/detail，不新建数据模型） */
+function costSummaryData(h) {
+  const list = Object.values(h.detail || {});
+  const csum = (k) => list.reduce((a, x) => a + ((x.cost && x.cost[k]) || 0), 0);
+  const rsum = (k) => list.reduce((a, x) => a + ((x.rev && x.rev[k]) || 0), 0);
+  const revs = COST_REVS.map(([k, cn]) => ({ label: k, cn, v: rsum(k) }));
+  const other = (h.revenue || 0) - revs.reduce((a, r) => a + r.v, 0);
+  if (other > 0.5) revs[2].v += other;   // 补贴/投资/资产收益差额并入辅营 → 左列合计＝总收入
+  const first = list[0] || {};
+  const groups = COSTS_GROUPS.map(gp => ({
+    label: gp.label, cn: gp.cn,
+    v: gp.own ? (first.own || 0) + (first.leasePayments || 0)
+      : gp.keys.reduce((a, k) => a + csum(k), 0) + (gp.fixed ? (E[gp.fixed] || 0) : 0),
+  }));
+  const ind = groups.find(x => x.label === 'Total Indirect Operating Costs');
+  if (ind) ind.v += h.invCost || 0;      // 投资项 per-pax 成本计入间接运营成本
+  return { revs, groups, profit: h.operating_profit || 0 };
+}
+function costSummaryChart(root, h, g) {
+  root.appendChild(el('div', 'small', 'COSTS SUMMARY · 成本分解'));
+  if (!Object.keys(h.detail || {}).length) {
+    root.appendChild(el('div', 'small', '本季尚未结算 —— 成本分解需裁判结算本季后生成。'));
+    return;
+  }
+  const { revs, groups, profit } = costSummaryData(h);
+  const revTotal = revs.reduce((a, r) => a + r.v, 0);
+  const costTotal = groups.reduce((a, x) => a + x.v, 0);
+  const W = 1000, H = 300, padT = 6, contentH = H - padT - 12;
+  const leftX = 0, leftW = 150, midX = 420, midW = 34, rightX = 660, rightW = 100, labelX = rightX + rightW + 10;
+  const gapL = 8, gapR = 5, NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', '100%'); svg.setAttribute('max-width', '1000');
+  svg.style.background = '#1b1e22'; svg.style.border = '1px solid #2b3036'; svg.style.borderRadius = '6px';
+  const mk = (tag, attrs, txt) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (txt != null) e.textContent = txt;
+    svg.appendChild(e); return e;
+  };
+  const band = (x1, ya, yb, x2, yc, yd) => mk('polygon', {
+    points: `${x1},${ya} ${x2},${yc} ${x2},${yd} ${x1},${yb}`, fill: 'rgba(216,163,63,0.22)' });
+  /* 高度分配：按金额比例，但每块有**最小高度**且总量归一化（避免小科目被压成一条线、
+     也避免亏损季（利润为负）把成本块顶出画布） */
+  const MINH = 14;
+  const layout = (items, gap) => {
+    const avail = contentH - gap * (items.length - 1);
+    const total = items.reduce((a, x) => a + Math.max(0, x.v), 0);
+    let hs = items.map(it => Math.max(MINH, total > 0 ? avail * Math.max(0, it.v) / total : avail / items.length));
+    const sum = hs.reduce((a, b) => a + b, 0);
+    if (sum > avail && sum > 0) { const k = avail / sum; hs = hs.map(h => h * k); }
+    let y = padT; const pos = [];
+    items.forEach((it, i) => { pos.push({ ...it, y, h: hs[i] }); y += hs[i] + gap; });
+    return pos;
+  };
+  const rightRows = groups.concat([{ label: 'Profit', cn: '经营利润', v: profit }]);
+  const leftPos = layout(revs, gapL);
+  const rightPos = layout(rightRows, gapR);
+  /* 连接带（先画，被块覆盖边缘）：左块 → Quarter 条；Quarter 条 → 右块 */
+  for (const p of leftPos) band(leftW, p.y, p.y + p.h, midX, padT, padT + contentH);
+  for (const p of rightPos) band(midX + midW, padT, padT + contentH, rightX, p.y, p.y + p.h);
+  /* 块 */
+  for (const p of leftPos) {
+    mk('rect', { x: leftX, y: p.y, width: leftW, height: p.h, fill: '#d8a33f' });
+    if (p.h >= 10) mk('text', { x: leftX + 6, y: p.y + 11, 'font-size': 11, fill: '#12151a' }, p.label);
+    if (p.h >= 30) mk('text', { x: leftX + 6, y: p.y + 25, 'font-size': 11, fill: '#12151a' }, shortMoney(p.v));
+  }
+  for (const p of rightPos) {
+    mk('rect', { x: rightX, y: p.y, width: rightW, height: p.h, fill: '#d8a33f' });
+    const t = mk('text', { x: labelX, y: p.y + Math.min(p.h, 12) + 2, 'font-size': 11, fill: p.v < 0 ? '#f85149' : '#8a929c' },
+      p.label + '  ' + shortMoney(p.v));
+    const ti = mk('title', {}, p.cn + ' · ' + p.label);
+    t.appendChild(ti);
+  }
+  /* 中间聚合条 */
+  mk('rect', { x: midX, y: padT, width: midW, height: contentH, fill: '#e6edf3' });
+  mk('text', { x: midX + midW + 6, y: padT + 14, 'font-size': 11, fill: '#e6edf3' }, 'Quarter');
+  root.appendChild(svg);
+  const closed = Math.abs(revTotal - (costTotal + profit)) <= 1;
+  root.appendChild(el('div', 'small', closed
+    ? `收入 ${money(revTotal)} ＝ 成本科目合计 ${money(costTotal)} ＋ 经营利润 ${money(profit)}`
+    : `⚠ 成本分解未闭合：收入 ${money(revTotal)} ≠ 成本 ${money(costTotal)} ＋ 利润 ${money(profit)}`));
+}
 function network(root, h, g) {
   const d = h.detail || {};
   const ask = Object.values(d).reduce((a, x) => a + x.ask, 0);

@@ -652,27 +652,54 @@ test('Reports：存在「航线需求」页签并能渲染出 SVG', () => {
 });
 
 
+/* ★ 旧的「Summary 呈现官方六项 KPI 卡片」用例已删（它的 KPI 清单含 Total Operating Cost = 原版误读），
+   覆盖由下方新用例承担（口径 + 顺序 + 数值 + 页签状态复位）。 */
+
+
 /* ============================================================
-   Summary：官方六项 KPI 卡片（数字卡 + 口径小字）
+   COSTS SUMMARY 成本分解图（原版 Summary 页签下方，完全缺失项）
+   结构：左列收入三分支 → 中列 Quarter → 右列 8 个成本/利润科目
+   闭合等式：Σ收入 = Σ八项成本 + 经营利润（容差 $1）
    ============================================================ */
-test('Summary：呈现官方六项 KPI 卡片，BE LF 取自报告字段', () => {
+test('Summary：COSTS SUMMARY 图含 11 个标签且成本科目合计与报告 cost 闭合', async () => {
+  const E = await import('./engine.js');
   const root = document.createElement('div');
   const g = makeGame();
-  g.history = [{ period: 'Q1 2028', turn: 0, revenue: 1000, cost: 600, operating_profit: 400,
+  const detail = { LEW: {
+    rev: { 'Passenger Revenue': 700, 'Cargo Revenue': 100, 'Ancillary Revenue': 100, 'Total Revenue': 900 },
+    cost: { 'Fuel': 200, 'Carbon': 20, 'Sustainable Aviation Fuel': 0, 'Maintenance': 50,
+      'Flight Crew': 100, 'Cabin Crew': 20, 'Landing': 30, 'Navigation': 20,
+      'Aircraft Handling': 30, 'Traffic Handling': 20, 'Cargo Handling': 10,
+      'Cargo Overheads': 10, 'General & Administration': 20, 'Passenger Services': 10,
+      'Ticketing, Sales and Promotion': 10 },
+    own: 40, leasePayments: 0 } };
+  const fixed = E.F06_FIXED + E.F07_FIXED + E.F08_FIXED;   // 公司级固定项（机组/维护/燃油）
+  const cost = 590 + fixed;
+  g.history = [{ period: 'Q1 2028', turn: 0, revenue: 900, cost, operating_profit: 900 - cost,
     oneoff: 0, financing: 0, cash_end: 2000, load_factor: 0.56, paxTotal: 10, askTotal: 20,
-    rpkTotal: 10, market_share: 0.3591, gross_margin: 0.13, detail: {},
-    breakEvenLF: 0.56, routeBE: [{ code: 'LEW', beLF: 0.56, ask: 20 }] }];
+    rpkTotal: 10, market_share: 0.3591, gross_margin: 0.13, detail, invCost: 0,
+    breakEvenLF: 0.56, routeBE: [] }];
   R.renderReports(root, g);
-  /* 页签是模块级状态 → 显式点回「总览」，断言不依赖测试执行顺序 */
   [...root.querySelectorAll('.tabs button')].find(b => /总览/.test(b.textContent)).click();
   const txt = root.textContent;
-  for (const label of ['Average Load Factor', 'Break-even Load Factor',
-    'Quality Service Indicator', 'Margin', 'Total Operating Cost', 'Closing Cash']) {
-    assert.ok(txt.includes(label), '缺少 KPI：' + label);
+  for (const l of ['Passenger Revenue', 'Cargo Revenue', 'Ancillary Revenue', 'Quarter',
+    'Fuel Costs', 'Maintenance Costs', 'Crew Costs', 'Handling Costs', 'Nav and Landing Costs',
+    'Total Indirect Operating Costs', 'Total Ownership Costs', 'Profit']) {
+    assert.ok(txt.includes(l), '成本分解图缺少：' + l);
   }
-  assert.ok(txt.includes('56.0%'), 'BE LF 应显示 56.0%');
+  assert.ok(txt.includes('收入 $900'), '应给出收入合计，实得片段：' + txt.slice(0, 260));
+  assert.ok(txt.includes('$' + cost.toLocaleString()), '成本科目合计应等于报告 cost：$' + cost.toLocaleString());
 });
 
+test('Summary：未结算时成本分解图给出提示而非空白', () => {
+  const root = document.createElement('div');
+  const g = makeGame();       // 无 history → 本季未结算
+  R.renderReports(root, g);
+  [...root.querySelectorAll('.tabs button')].find(b => /总览/.test(b.textContent)).click();
+  const txt = root.textContent;
+  assert.ok(txt.includes('尚未结算'), '未结算时应给出提示，实得：' + txt.slice(0, 200));
+  assert.ok(!txt.includes('NaN') && !txt.includes('undefined'), '不得出现 NaN/undefined');
+});
 
 /* ============================================================
    票价矩阵改「网格」形态（官方界面-3 / Role Guide p11：行=市场、列=航司）
@@ -690,6 +717,35 @@ test('票价矩阵：网格形态——行=市场、列=各航司、格内报价
   assert.ok(/—/.test(txt), '未开通市场应显示 —');
 });
 
+
+/* ============================================================
+   Summary 六张 KPI 卡：口径与顺序对齐原版（Reports(VIEW REPORTS)-Summary.jpg）
+   ★ 原版第 3 张卡是 **Market Share 35.91%**，不是 Total Operating Cost
+     （后者只作为成本分解图里的科目出现）—— 11-12 规格曾误读，本轮更正
+   ============================================================ */
+test('Summary：六张 KPI 卡为原版口径与顺序（含 Market Share、无 Total Operating Cost）', () => {
+  const root = document.createElement('div');
+  const g = makeGame();
+  g.qsi = 4.5;   /* 原版 QSI 4.50 */
+  g.history = [{ period: 'Q1 2028', turn: 0, revenue: 1000, cost: 600, operating_profit: 400,
+    oneoff: 0, financing: 0, cash_end: 2000, load_factor: 0.56, paxTotal: 10, askTotal: 20,
+    rpkTotal: 10, market_share: 0.3591, gross_margin: 0.0013, detail: {},
+    breakEvenLF: 0.56, routeBE: [] }];
+  R.renderReports(root, g);
+  /* 页签是模块级状态 → 显式点回「总览」，断言不依赖测试执行顺序 */
+  [...root.querySelectorAll('.tabs button')].find(b => /总览/.test(b.textContent)).click();
+  const txt = root.textContent;
+  for (const l of ['Average Load Factor', 'Quality Service Indicator', 'Market Share',
+    'Break-even Load Factor', 'Margin', 'Closing Cash']) assert.ok(txt.includes(l), '缺少 KPI：' + l);
+  assert.ok(txt.includes('56.0%'), 'Break-even LF 应显示 56.0%');
+  assert.ok(txt.includes('4.50'), 'QSI 应显示 4.50');
+  assert.ok(txt.includes('$2,000'), 'Closing Cash 应显示 $2,000');
+  assert.ok(!txt.includes('Total Operating Cost'), '不应再出现 Total Operating Cost 卡');
+  assert.ok(txt.includes('35.91%'), 'Market Share 应显示 35.91%，实得片段：' + txt.slice(0, 200));
+  const order = ['Average Load Factor', 'Quality Service Indicator', 'Market Share',
+    'Break-even Load Factor', 'Margin', 'Closing Cash'].map(l => txt.indexOf(l));
+  assert.ok(order.every((v, i) => i === 0 || v > order[i - 1]), '卡片顺序应与原版一致：' + order.join(','));
+});
 
 /* ============================================================
    TD-12 字段名：市场名一律 name_cn（渲染不得出现 undefined / 航线代码）

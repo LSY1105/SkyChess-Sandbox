@@ -1582,11 +1582,13 @@ export function computeTurn(g, per) {
     fuel_price_next: g.fuelPrice, carbon_price: g.carbonPrice, interest_rate: g.interestRate,
     paxTotal: Object.values(detail).reduce((a, d) => a + d.pax, 0),
     askTotal, load_factor: lfTotal,
+    rpkTotal: Object.values(detail).reduce((a, d) => a + (d.rpk || 0), 0),
     routeBE: be.routeBE, breakEvenLF: be.breakEvenLF,
     connected_total: conn.connected, connect_rate: conn.rate,
     ancillary_share: revenue ? ancTotal / revenue : 0,
     gross_margin: gross,
     market_share: marketShare(g),
+    invCost,   /* 投资项 per-passenger 成本（成本分解图闭合用；原版列在间接成本里） */
     leasePayments,
   };
 }
