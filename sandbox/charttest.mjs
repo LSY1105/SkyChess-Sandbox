@@ -815,8 +815,13 @@ test('报表：各页签渲染的市场名用 name_cn（不出现 undefined）',
     oneoff: 0, financing: 0, cash_end: 100, load_factor: 0.5, paxTotal: 10, askTotal: 20,
     rpkTotal: 10, market_share: 0.3, gross_margin: 0.5, detail }];
   R.renderReports(root, g);
+  /* 页签两级化（11-17）：默认 4 个高频 + 「更多报表」→ 展开后才是 10 个 */
   const tabs = [...root.querySelectorAll('.tabs button')];
-  assert.ok(tabs.length >= 10, 'Reports 页签数应 >=10，实得 ' + tabs.length);
+  assert.equal(tabs.length, 5, '默认应露 4 个高频页签 + 更多按钮，实得 ' + tabs.length);
+  const more = tabs.find(b => /更多报表/.test(b.textContent));
+  assert.ok(more, '缺「更多报表」按钮');
+  more.click();
+  assert.equal(root.querySelectorAll('.tabs button').length, 11, '展开后应为 10 个页签 + 更多按钮');
   for (const b of tabs) {
     b.click();
     const txt = root.textContent;

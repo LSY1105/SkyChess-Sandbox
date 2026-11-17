@@ -46,7 +46,22 @@ export function pickReport(g, idx) {
 }
 
 /* ─────────────── U4：Reports 七页签 ─────────────── */
-const UI = { repTab: 0, repSeason: null, opsTab: 0 };
+/** 报表页签表（第三位 = 高频标记，默认露出）
+ *  ★ 导出供标题自动取数 —— 标题写死「七页签」而实际 10 个是会骗人的事实性错误（11-17 critique）
+ *  ★ 高频 4 个：Summary / 航线经济 / 航班与利用 / 航线需求 —— 每季决策与复盘真正要看的 */
+export const REPORT_TABS = [
+  ['Summary', '总览', 1],
+  ['Network Economics', '网络经济', 0],
+  ['Route Economics', '航线经济', 1],
+  ['Route Metrics', '航线指标', 0],
+  ['Fuel', '燃油', 0],
+  ['Investments', '投资', 0],
+  ['Flights', '航班与利用', 1],
+  ['Route Demand', '航线需求', 1],
+  ['Baseline', '对标基线', 0],
+  ['Charts', '趋势图', 0],
+];
+const UI = { repTab: 0, repSeason: null, repMore: false, opsTab: 0 };
 export function renderReports(root, g, opts = {}) {
   /* ★ 增量更新：轮询（6s）会再次调用本函数，若每次 root.innerHTML='' 整块重建，
      用户正在点的页签会被替换掉 → 「点标签无反应」+ 闪动 + 点失效标签时崩溃。
@@ -56,40 +71,41 @@ export function renderReports(root, g, opts = {}) {
   let body = root.querySelector(':scope > .scroll');
   if (!tabs || !body) {
     root.innerHTML = '';
-    tabs = el('div', 'tabs'); body = el('div', 'scroll');
+    tabs = el('div', 'tabs');
+    /* ★ 报表内容区**不设高度上限**（此前 .scroll 320px 把需求图 461px 吃掉，学员要在框内再滚一次） */
+    body = el('div', 'scroll report-open');
     root.appendChild(tabs); root.appendChild(body);
   }
 
   let sel = opts.seasonIdx != null ? opts.seasonIdx
     : (UI.repSeason != null ? Math.min(UI.repSeason, Math.max(0, hist.length - 1)) : hist.length - 1);
-  const TABS = [
-    ['Summary', '总览'],
-    ['Network Economics', '网络经济'],
-    ['Route Economics', '航线经济'],
-    ['Route Metrics', '航线指标'],
-    ['Fuel', '燃油'],
-    ['Investments', '投资'],
-    ['Flights', '航班与利用'],
-    ['Route Demand', '航线需求'],
-    ['Baseline', '对标基线'],
-    ['Charts', '趋势图'],
-  ];
+  const TABS = REPORT_TABS;
   let active = UI.repTab;
 
   const draw = () => {
     UI.repTab = active;
-    /* ★ 页签按钮**只创建一次**，之后仅切换 .on 类
-       （此前每次 draw 都重建按钮 → 用户点击瞬间按钮被替换 → 「点标签无反应」） */
-    if (tabs.children.length !== TABS.length) {
+    /* ★ 页签两级化（11-17 critique）：默认只露 4 个高频页签，其余收进「更多报表 ▾」
+       —— 原版 10 页签平铺 3 行 + 4 个导出按钮 = 同屏 15 个可点目标，学员找不到要看的那张图
+       ★ 按钮集合变化时才重建（轮询不改变集合 → 不重建 → 点击不落空） */
+    const more = !!UI.repMore;
+    const shown = TABS.map((t, i) => ({ en: t[0], cn: t[1], i })).filter(x => more || TABS[x.i][2]);
+    if (tabs.children.length !== shown.length + 1) {
       tabs.innerHTML = '';
-      TABS.forEach(([en, cn], i) => {
-        const b = el('button', '', en + ' · ' + cn);
-        b.dataset.i = String(i);
-        b.onclick = () => { active = i; draw(); };
+      for (const x of shown) {
+        const b = el('button', '', x.en + ' · ' + x.cn);
+        b.dataset.i = String(x.i);
+        b.onclick = () => { active = x.i; draw(); };
         tabs.appendChild(b);
-      });
+      }
+      const mb = el('button', more ? 'on' : '', more ? '▴ 收起更多' : '▾ 更多报表（' + (TABS.length - shown.length) + '）');
+      mb.onclick = () => {
+        UI.repMore = !UI.repMore;
+        if (!UI.repMore && !TABS[active][2]) active = 0;   // 收起时若当前页签被藏 → 回到总览
+        draw();
+      };
+      tabs.appendChild(mb);
     }
-    [...tabs.children].forEach((b, i) => b.classList.toggle('on', i === active));
+    [...tabs.children].forEach((b, k) => b.classList.toggle('on', k < shown.length ? shown[k].i === active : more));
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h0 = pickReport(g, sel);

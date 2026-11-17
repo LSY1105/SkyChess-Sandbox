@@ -143,8 +143,14 @@ await step('玩家面板 投资面板 4 个子页签', async () => {
 await step('玩家面板 报表区有数据（页签齐 + 金额非空）', async () => {
   const body = P.doc.getElementById('repBody');
   ok(body, '报表区缺失');
+  /* 页签两级化（11-17）：默认 4 个高频 + 「更多报表」；展开后 10 个页签 + 更多按钮 */
   const tabs = [...body.querySelectorAll('.tabs button')];
-  ok(tabs.length === 10, '报表页签数 ' + tabs.length);
+  ok(tabs.length === 5, '默认应露 4 个高频页签 + 更多按钮，实得 ' + tabs.length);
+  const more = tabs.find(b => /更多报表/.test(b.textContent));
+  ok(!!more, '缺「更多报表」按钮');
+  more.click();
+  const all = [...body.querySelectorAll('.tabs button')];
+  ok(all.length === 11, '展开后应为 10 个页签 + 更多按钮，实得 ' + all.length);
   const txt = body.textContent || '';
   ok(/\$[\d,]+/.test(txt), '报表区无金额数值: ' + txt.slice(0, 120).replace(/\s+/g, ' '));
   return tabs.length + ' 页签，含金额';

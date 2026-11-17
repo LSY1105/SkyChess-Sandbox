@@ -64,6 +64,10 @@ header .kv{padding-right:4px}
 .card h2 em{font-style:normal;font-weight:400;color:var(--dim);font-size:12px}
 
 
+/* ── 报表区（11-17 critique）：内容不限高（原 .scroll 320px 吃掉需求图 461px）＋ 整宽卡片跨两列 ── */
+.scroll.report-open{max-height:none;overflow:visible}
+main>div.widecard{display:block;grid-column:1 / -1;margin:16px 0 0;padding:20px}
+
 /* ── 表格：列内容可换行，避免右列被裁切；按钮保持单行 ── */
 td{white-space:normal}
 td button,td input,td select{white-space:nowrap}
@@ -143,6 +147,7 @@ setInterval(function () {
   <div class="kv"><b id="hBudget">—</b><span>谈判额度</span></div>
   <div class="kv"><b id="hScenario">—</b><span>场景</span></div>
   <div style="flex:1"></div>
+  <button id="btnJumpReport" style="align-self:center" title="跳到本组的报表（Summary / 航线经济 / 航班 / 需求）">📄 报表</button>
   <select id="seatSel"></select>
 </header>
 
@@ -320,17 +325,6 @@ setInterval(function () {
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h2>报表<em>（Reports · 七页签 + 历史季度）</em></h2>
-      <div class="row" style="margin-bottom:8px">
-        <button id="btnExpSum">导出 汇总 CSV</button>
-        <button id="btnExpRoute">导出 航线 CSV</button>
-        <button id="btnExpSched">导出 班次 CSV</button>
-        <button id="btnExpInv">导出 投资 CSV</button>
-      </div>
-      <div id="repBody"></div>
-    </div>
-
-    <div class="card" style="margin-top:14px">
       <h2>运营视图<em>（Fare Matrix / Live Schedules / Fleet Plans）</em></h2>
       <div id="opsBody"></div>
     </div>
@@ -362,6 +356,18 @@ setInterval(function () {
       <h2>日志</h2>
       <div id="log"></div>
     </div>
+  </div>
+
+  <!-- 报表：整宽跨两列（阅读型内容给足宽度；默认只露 4 个高频页签） -->
+  <div class="card widecard" id="repCard">
+    <h2>报表<em>（Reports · <span id="repTabCount">—</span> 个页签 + 历史季度）</em></h2>
+    <div class="row" style="margin-bottom:8px">
+      <button id="btnExpSum">导出 汇总 CSV</button>
+      <button id="btnExpRoute">导出 航线 CSV</button>
+      <button id="btnExpSched">导出 班次 CSV</button>
+      <button id="btnExpInv">导出 投资 CSV</button>
+    </div>
+    <div id="repBody"></div>
   </div>
 </main>
 
@@ -522,6 +528,8 @@ function head() {
   _labR.textContent = _rBad ? '利率 / 中转 ⚠待同步' : '利率 / 中转';
   _hF.title = _fBad ? _tip : ''; _hR.title = _rBad ? _tip : '';
   $('#hTurn').textContent = `${g.turn + 1} / ${g.maxTurns}`;
+  /* 标题里的页签数**由代码取**（此前写死「七页签」而实际 10 个 → 会骗人的事实性错误） */
+  const _rtc = $('#repTabCount'); if (_rtc) _rtc.textContent = R.REPORT_TABS.length;
   const nb = g.negotiation || {};
   const lim = nb.budgetLimit;
   $('#hBudget').textContent = lim == null ? '不限' : `${nb.budgetUsed || 0} / ${lim}`;
@@ -1480,6 +1488,9 @@ function render() {
   /* U17 导出 */
   const hSel = R.pickReport(g, null);
   const onExp = (fn) => { const b = __DOC.getElementById(fn.id); if (b) b.onclick = fn.run; };
+  /* 报表快捷入口：页面很长，「成绩单」必须一键可达 */
+  const _jr = $('#btnJumpReport');
+  if (_jr && !_jr._bound) { _jr._bound = 1; _jr.onclick = () => { const c = $('#repCard'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }; }
   onExp({ id:'btnExpSum', run: () => R.exportSummaryCsv(g, g.seat) });
   onExp({ id:'btnExpRoute', run: () => R.exportRouteCsv(g, hSel, g.seat) });
   onExp({ id:'btnExpSched', run: () => R.exportSchedulesCsv(g, g.seat) });
