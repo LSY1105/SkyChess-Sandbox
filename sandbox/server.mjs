@@ -148,7 +148,9 @@ function newSession(seat) {
   if (seat === 'VA') swapRoute('SIM', 'FTZ');
   return g;
 }
-for (const s of Object.keys(SEATS)) sessions.set(s, newSession(s));
+/* ★ 初始席位同样必须广播裁判当前全局参数（与 /api/reset 同一条纪律）
+   → 否则开局瞬间小组端读到 game.js 硬编码默认值（connectingDemand=0）而裁判端是 L2 */
+for (const s of Object.keys(SEATS)) { const g0 = newSession(s); applyGM(g0); sessions.set(s, g0); }
 
 function applyGM(g) {
   g.fuelPrice = gm.fuelPrice;
@@ -295,9 +297,12 @@ const server = http.createServer(async (req, res) => {
         // 仅保留基础席位（CA/AB/VA），清空动态新建的席位
         // ⚠ sessions 是 Map —— Object.keys(map) 返回 []，删除循环永远不会执行
         for (const s of [...sessions.keys()]) if (!BASE_SEATS.includes(s)) { sessions.delete(s); delete SEATS[s]; }
-        for (const s of BASE_SEATS) sessions.set(s, newSession(s));
-        gm.turn = 0; gm.fuelPrice = 2.40; gm.carbonPrice = 22; gm.interestRate = 5;
+        /* ★ 归位基准（碳价取 data.js 同源常量，勿再写死旧口径 22） */
+        gm.turn = 0; gm.fuelPrice = 2.40; gm.carbonPrice = D.CARBON.base_price_per_tonne; gm.interestRate = 5;
         gm.events = []; gm.log = [];
+        /* ★ 重建席位后**必须广播当前全局参数** → 否则新席位停留在 game.js 硬编码默认值
+           （11-17 缺陷：小组端读到 2577/L0，裁判端 22/L2，两端静默不一致） */
+        for (const s of BASE_SEATS) { const g2 = newSession(s); applyGM(g2); sessions.set(s, g2); }
         return res.end(JSON.stringify({ ok: true }));
       }
       res.statusCode = 404; return res.end(JSON.stringify({ error: 'not found' }));
@@ -378,6 +383,9 @@ function serialize(g) {
     messages: gm.messages || [],        // ★ U18 消息板（裁判发布 → 小组可见）
     targets: gm.targets || {},          // ★ 考核目标（裁判第 3 季起设定）
     seatStyles: seatStylesOf(),
+    /* ★ 参数同步状态：席位本地读数与裁判全局值不一致的字段（小组端无权读 /api/gm，由服务端下发差异） */
+    gmSync: ['fuelPrice', 'carbonPrice', 'interestRate', 'connectingDemand']
+      .filter(k => Math.abs(Number(g[k] ?? 0) - Number(gm[k] ?? 0)) > 1e-9),
     /* ★ 各组航线运价（只读·公开信息）：原版 FARE MATRIX 里玩家能看到每条航线上所有航司的定价
        → 竞争博弈教学需要这个信息面；小组只能看，不能改（改仍须走各自面板） */
     peerFares: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c,

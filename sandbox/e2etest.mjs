@@ -12,7 +12,26 @@ const post = async (p, body, seat) => { const r = await fetch(B + p, { method: '
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) { pass++; console.log('  ✓ ' + m); } else { fail++; console.log('  ✗ ' + m); } };
 
+/* ⑧a 启动态：服务器初始化席位时也要广播全局参数（否则开局瞬间两端即不一致） */
+{
+  const gmb = (await get('/api/gm', 'teacher')).b.gm;
+  const gs = (await get('/api/seat/CA', 'CA')).b.game;
+  ok(gs.carbonPrice === gmb.carbonPrice, `启动态碳价一致（席位 ${gs.carbonPrice} vs 裁判 ${gmb.carbonPrice}）`);
+  ok(gs.connectingDemand === gmb.connectingDemand, `启动态中转强度一致（席位 L${gs.connectingDemand} vs 裁判 L${gmb.connectingDemand}）`);
+}
+
 await post('/api/reset', {}, 'teacher');
+
+/* ⑧b reset 之后、裁判尚未动过任何全局参数时，席位读数就必须与裁判端一致
+   （11-17 缺陷：/api/reset 硬编码 gm.carbonPrice=22 旧口径 → 小组端读到 2577/L0，裁判端 22/L2）
+   ★ 断言必须紧跟 reset：一旦调用 setFuel 等动作，applyGM 会广播并掩盖该缺陷 */
+{
+  const gmb = (await get('/api/gm', 'teacher')).b.gm;
+  const gs = (await get('/api/seat/CA', 'CA')).b.game;
+  ok(gs.carbonPrice === gmb.carbonPrice, `reset 后碳价与裁判端一致（席位 ${gs.carbonPrice} vs 裁判 ${gmb.carbonPrice}）`);
+  ok(gs.connectingDemand === gmb.connectingDemand, `reset 后中转强度一致（席位 L${gs.connectingDemand} vs 裁判 L${gmb.connectingDemand}）`);
+  ok(Array.isArray(gs.gmSync) && gs.gmSync.length === 0, 'gmSync 应为空（无待同步参数），实得 ' + JSON.stringify(gs.gmSync));
+}
 
 /* ① 授权矩阵 */
 const a1 = await fetch(B + '/api/seat/CA');
@@ -78,6 +97,7 @@ const stSet = await post('/api/gm', { type: 'setSeatStyle', seat: 'CA', style: '
 ok(stSet.b.result === 'ok', 'setSeatStyle → ok');
 const st1 = (await get('/api/gm', 'teacher')).b.seatStyles;
 ok(st1 && st1.CA === 'FSC', `setSeatStyle 后回显生效（CA=${st1 && st1.CA}）`);
+
 
 console.log('\n' + '═'.repeat(60));
 console.log(`端到端与权限回归：${pass} 通过 / ${fail} 失败 / 共 ${pass + fail}`);

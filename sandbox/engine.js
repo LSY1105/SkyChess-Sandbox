@@ -135,7 +135,10 @@ export const COMPETITION = {
 export function allocateMarket(marketName, airlines, mult = 1) {
   const usable = (airlines || []).filter(a => a && a.freq > 0);
   if (!usable.length) {
-    return { totalDemand: 0, shares: {}, alloc: {}, potential: 0 };
+    /* ★ 无人飞行 → 份额全为 0，但**键必须存在**（否则上层读到 undefined → NaN%） */
+    const shares0 = {};
+    for (const a of (airlines || [])) if (a && a.key) shares0[a.key] = 0;
+    return { totalDemand: 0, shares: shares0, alloc: {}, potential: 0 };
   }
   // 市场层面：班次加权的均价（近似"市场可见价格水平"）+ 全网总班次
   const F = usable.reduce((a, x) => a + x.freq, 0);
@@ -163,6 +166,9 @@ export function allocateMarket(marketName, airlines, mult = 1) {
     shares[x.key] = s;
     alloc[x.key] = potential * s;
   }
+  /* ★ 没有投入运力的航司（freq=0）不得从 shares 里「消失」→ 上层读到 undefined → 渲染出 NaN%
+     语义：未投入运力 = 份额 0（不是「无此键」）。alloc 保持缺省（承运量本就为 0） */
+  for (const a of (airlines || [])) if (a && a.key && shares[a.key] == null) shares[a.key] = 0;
   /* 全市场**运营小时集合**（各家的班次起飞时刻所在的小时）
      —— 日内需求池的归一化基准：市场需求是被「实际有航班的小时」消耗的，
         故基准须含全部承运人（含对手）的小时，而非只有本方、更非 24 小时。 */

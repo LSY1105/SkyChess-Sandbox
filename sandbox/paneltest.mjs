@@ -157,6 +157,14 @@ await step('玩家面板 报表区有数据（页签齐 + 金额非空）', asyn
 
 /* ★ 2026-11-17：负责划分——推进回合/计时/结算归**裁判端**，小组端不再提供这三个按钮
    → 旧断言「小组端有提交按钮」已作废；改为断言「小组端不得推进回合」 */
+/* ★ 11-17 缺陷：市场「我方份额」在**有航线但无班次**时渲染成 NaN%（违反 DESIGN.md「缺数据写 —」） */
+await step('玩家面板 全页不出现 NaN（数值缺失一律显示 —）', async () => {
+  const txt = P.doc.body.textContent || '';
+  const hit = txt.match(/.{0,50}NaN.{0,50}/);
+  ok(!hit, '页面出现 NaN：' + (hit ? hit[0] : ''));
+  return '无 NaN';
+});
+
 await step('玩家面板 不含推进回合的按钮（节奏归裁判端）', async () => {
   const gone = ['btnSubmit', 'btnStartRoundP', 'btnSettleNowP'].filter(id => P.doc.getElementById(id));
   ok(gone.length === 0, '小组端仍存在裁判端按钮: ' + gone.join(','));

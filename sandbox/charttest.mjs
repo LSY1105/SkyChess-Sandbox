@@ -702,6 +702,21 @@ test('Summary：未结算时成本分解图给出提示而非空白', () => {
 });
 
 /* ============================================================
+   11-17 P0-2：竞争分配里「本方无班次」的市场，shares.player 必须是数字（0）
+   —— 此前该键直接缺失 → 上层读到 undefined → 页面渲染出 NaN%
+   ============================================================ */
+test('竞争分配：本方在某市场无班次时，shares.player 仍是数字 0（不得 undefined）', () => {
+  const g = G.newGame('CA');
+  g.schedules = [];                       // 本方一班不排（ETN 是共享市场，竞品仍在飞）
+  const alloc = G.allocateMarkets(g);
+  const etn = alloc.ETN;
+  assert.ok(etn, 'ETN 应有分配结果');
+  assert.equal(typeof etn.shares.player, 'number',
+    'shares.player 必须是数字（未投入运力 = 0），实得 ' + JSON.stringify(etn.shares.player));
+  assert.equal(etn.shares.player, 0);
+});
+
+/* ============================================================
    P0-2 FLIGHT INFORMATION 弹窗：顶部季度页签可切换（此前只测了数值口径，未测交互）
    ============================================================ */
 test('FLIGHT INFORMATION 弹窗：季度页签可切换到历史季', () => {

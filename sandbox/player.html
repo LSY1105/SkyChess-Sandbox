@@ -508,6 +508,19 @@ function head() {
   $('#hQsi').className = g.qsi < 2 ? 'bad' : (g.qsi < 6 ? 'warn' : 'ok');
   $('#hFuel').textContent = g.fuelPrice.toFixed(2) + ' / ' + g.carbonPrice.toFixed(2);
   $('#hRate').textContent = g.interestRate.toFixed(1) + '% / L' + g.connectingDemand;
+  /* ★ 参数同步警示（11-17）：席位读数与裁判端不一致时标黄并标注 —— 小组端无权读 /api/gm，
+     由服务端下发 gmSync（不一致字段列表）；颜色之外还要有文字，投影场景看不到悬停提示 */
+  const _sync = g.gmSync || [];
+  const _bad = (k) => _sync.indexOf(k) >= 0;
+  const _hF = $('#hFuel'), _hR = $('#hRate');
+  const _fBad = _bad('fuelPrice') || _bad('carbonPrice'), _rBad = _bad('interestRate') || _bad('connectingDemand');
+  _hF.className = _fBad ? 'warn' : '';
+  _hR.className = _rBad ? 'warn' : '';
+  const _tip = '⚠ 参数待同步：本组读数与裁判端当前设定不一致，请通知裁判';
+  const _labF = _hF.parentElement.querySelector('span'), _labR = _hR.parentElement.querySelector('span');
+  _labF.textContent = _fBad ? '油价 / 碳价 ⚠待同步' : '油价 / 碳价';
+  _labR.textContent = _rBad ? '利率 / 中转 ⚠待同步' : '利率 / 中转';
+  _hF.title = _fBad ? _tip : ''; _hR.title = _rBad ? _tip : '';
   $('#hTurn').textContent = `${g.turn + 1} / ${g.maxTurns}`;
   const nb = g.negotiation || {};
   const lim = nb.budgetLimit;
@@ -536,7 +549,9 @@ function routes() {
     const ask = seats * m.sector_km;
     const freq = fl.length * 90;                      // 当季总班次（需求模型的频率项）
     const al = alloc[r.code];
-    const D = al ? al.alloc.player : E.demand(m.name, r.fare, freq, g.demandMult[r.code] ?? 1);
+    /* ★ 守卫：al 存在但本方未参与（alloc.player 缺省）→ 承运量取 0，绝不 undefined→NaN */
+    const D = al ? (al.alloc && al.alloc.player != null ? al.alloc.player : 0)
+                 : E.demand(m.name, r.fare, freq, g.demandMult[r.code] ?? 1);
     const pax = Math.min(seats, D);
     const lf = seats ? pax / seats : 0;
     const row = el('tr');
@@ -560,8 +575,13 @@ function routes() {
     }
     row.appendChild(el('td', null, m.guide_fare ? money(m.guide_fare) : '—'));
     row.appendChild(el('td', null, al ? Math.round(al.totalDemand).toLocaleString() : (seats ? Math.round(D).toLocaleString() : '—')));
-    const shc = el('td', null, al ? (al.shares.player * 100).toFixed(1) + '%' : '—');
-    shc.className = al ? (al.shares.player > 0.5 ? 'ok' : (al.shares.player < 0.2 ? 'bad' : 'warn')) : '';
+    /* ★ 份额守卫：引擎已保证 shares.player 存在（未投入运力 = 0），此处仍兜底 null/undefined
+       → 缺失一律显示 '—'，绝不出现 NaN%（11-17 缺陷：有航线但无班次时渲染出 NaN%） */
+    const pShare = al && al.shares && al.shares.player != null ? al.shares.player : null;
+    const noShare = pShare == null || pShare === 0;
+    const shc = el('td', null, noShare ? '—' : (pShare * 100).toFixed(1) + '%');
+    shc.className = noShare ? '' : (pShare > 0.5 ? 'ok' : (pShare < 0.2 ? 'bad' : 'warn'));
+    if (noShare) shc.title = '本组未在该市场投入运力（份额 0）';
     row.appendChild(shc);
     const rv = al ? Object.entries(al.shares).filter(([k]) => k !== 'player')
                       .map(([k, v]) => `${k} ${(v * 100).toFixed(0)}%`).join(' / ') : '—';
@@ -921,9 +941,11 @@ function renderDemandHint() {
     const share = x.share != null ? x.share : 1;
     const perFlight = Math.max(seatsPerDay * 0.45, 1);    // 单班次可盈亏的座位（按 45% LF）
     const suggest = dailyDemand * share / perFlight;
-    rows.push([(x.market || r.code), Math.round(dailyDemand), Math.round(dailyDemand * share),
+    /* ★ 第 0 列必须存**航线代码**（此前存显示名 'Simone' → 下方 s.code === code 永不成立
+       → 班次/座位/两个盈亏平衡 LF 全空，只剩一个不可执行的「建议班次 57.9」） */
+    rows.push([r.code, Math.round(dailyDemand), Math.round(dailyDemand * share),
       x.lf != null ? (x.lf * 100).toFixed(1) + '%' : '—',
-      Math.max(0, Math.ceil(suggest * 10) / 10),
+      Math.max(0, Math.ceil(suggest)),          // ★ 班次取整：57.9 班/日不可执行
       Math.round(x.fare || 0)]);
   }
   if (!rows.length) { box.appendChild(el('div', 'small', '完成一个回合后即可看到按市场的建议班次。')); return; }
@@ -954,6 +976,7 @@ function renderDemandHint() {
   tb.appendChild(tr);
   for (const r of rows) {
     const code = r[0], fare = r[5];
+    const mName = (MARKETS[code] && MARKETS[code].name_cn) || code;   // 全站统一 name_cn（英文原版名只在模态里出现）
     const freq = (g.schedules || []).filter(s => s.code === code).length * 90;
     const seats = (g.schedules || []).filter(s => s.code === code).reduce((a, s) => a + s.seats, 0) * 90;
     const cashF = cashFixedByCode[code] || 0, fullF = fullFixedByCode[code] || 0;
@@ -961,7 +984,7 @@ function renderDemandHint() {
     const fullLF = (seats > 0 && fare > 0) ? fullF / (seats * fare) : null;   // 参考
     const actual = r[3];
     const rr = el('tr');
-    const cells = [code, '$' + fare, freq, '$' + Math.round(cashF).toLocaleString(),
+    const cells = [mName, '$' + fare, freq, '$' + Math.round(cashF).toLocaleString(),
       cashLF != null ? (cashLF * 100).toFixed(1) + '%' : '—',
       fullLF != null ? (fullLF * 100).toFixed(1) + '%' : '—', actual,
       cashLF == null || actual === '—' ? '—' : (parseFloat(actual) / 100 >= cashLF ? '现金达标' : '现金未达标'),

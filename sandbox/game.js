@@ -751,7 +751,9 @@ export function allocateMarkets(g) {
     const r = g.routes.find(x => x.code === code);
     const fl = g.schedules.filter(s => s.code === code &&
       !(g.groundUntil[s.acId] && g.groundUntil[s.acId] > g.turn));
-    if (r && fl.length) {
+    /* ★ 玩家**即使本季一班不排也要进列表**（freq=0）→ 上层能读到 shares.player=0（份额 0）
+       而不是「键缺失 → undefined → NaN%」（11-17 缺陷）。freq=0 的行会被引擎按 freq>0 剔除 */
+    if (r) {
       airlines.push({
         key: 'player', fare: r.fare, freq: fl.length * DAYS_PER_QUARTER,
         qsi: g.qsi, brand: 0,
