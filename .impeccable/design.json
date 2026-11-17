@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T14:59:15+08:00",
+  "title": "Design System: SkyChess 教学沙盘",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Airlane Amber（航线条琥珀）",
+        "canonical": "#d8a33f",
+        "tonalRamp": [
+          "#f2cc60",
+          "#d8a33f",
+          "#a87c2c",
+          "#6d4f1a"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Ledger Black（账本黑）",
+        "canonical": "#15171a",
+        "tonalRamp": [
+          "#15171a",
+          "#1b1e22",
+          "#212529",
+          "#2b3036"
+        ]
+      },
+      "neutral-surface": {
+        "role": "neutral",
+        "displayName": "Page Surface（页面面）",
+        "canonical": "#1b1e22",
+        "tonalRamp": [
+          "#15171a",
+          "#1b1e22",
+          "#212529",
+          "#2b3036"
+        ]
+      },
+      "neutral-raised": {
+        "role": "neutral",
+        "displayName": "Control Surface（控件面）",
+        "canonical": "#212529",
+        "tonalRamp": [
+          "#15171a",
+          "#1b1e22",
+          "#212529",
+          "#2b3036"
+        ]
+      },
+      "neutral-line": {
+        "role": "neutral",
+        "displayName": "Rule Line（界线）",
+        "canonical": "#2b3036",
+        "tonalRamp": [
+          "#2b3036",
+          "#3a4048",
+          "#4a5058"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Ink（主字）",
+        "canonical": "#e8eaed",
+        "tonalRamp": [
+          "#8a929c",
+          "#b6bcc4",
+          "#e8eaed",
+          "#ffffff"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Ink Secondary（次字）",
+        "canonical": "#b6bcc4",
+        "tonalRamp": [
+          "#8a929c",
+          "#b6bcc4",
+          "#e8eaed",
+          "#ffffff"
+        ]
+      },
+      "text-dim": {
+        "role": "neutral",
+        "displayName": "Ink Dim（弱字）",
+        "canonical": "#8a929c",
+        "tonalRamp": [
+          "#5c646e",
+          "#8a929c",
+          "#b6bcc4",
+          "#e8eaed"
+        ]
+      },
+      "status-ok": {
+        "role": "secondary",
+        "displayName": "Ledger Green（账本绿）",
+        "canonical": "#4c9a5f"
+      },
+      "status-warn": {
+        "role": "secondary",
+        "displayName": "Caution Amber（警示琥珀）",
+        "canonical": "#c8952e"
+      },
+      "status-bad": {
+        "role": "secondary",
+        "displayName": "Write-off Red（核销红）",
+        "canonical": "#c1544c"
+      },
+      "seat-ca": {
+        "role": "tertiary",
+        "displayName": "Seat CA 黄（原版）",
+        "canonical": "#e6a700"
+      },
+      "seat-ab": {
+        "role": "tertiary",
+        "displayName": "Seat AB 绿（原版）",
+        "canonical": "#6b8e23"
+      },
+      "seat-va": {
+        "role": "tertiary",
+        "displayName": "Seat VA 蓝（原版）",
+        "canonical": "#2f6fa8"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display（顶栏产品名）",
+        "purpose": "唯一一级标题，页面顶栏。"
+      },
+      "headline": {
+        "displayName": "Headline（卡片标题）",
+        "purpose": "卡片板块名，右侧可挂灰色括号说明。"
+      },
+      "title": {
+        "displayName": "Title（指标数值）",
+        "purpose": "顶栏指标、表格中的关键数字。"
+      },
+      "body": {
+        "displayName": "Body（正文/表格）",
+        "purpose": "说明文字、表单内容、表格单元（13px）。"
+      },
+      "label": {
+        "displayName": "Label（小字说明）",
+        "purpose": "口径、图例、轴刻度、提示；不承载决策数字。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 1px 2px rgba(0,0,0,0.38)",
+        "purpose": "卡片从深底上轻轻托起，仅用于分组。"
+      },
+      {
+        "name": "modal-cast",
+        "value": "0 8px 30px rgba(0,0,0,0.5)",
+        "purpose": "仅 FLIGHT INFORMATION 模态弹窗。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-fast",
+        "value": "120ms ease",
+        "purpose": "背景/边框/文字状态过渡（hover、focus）。"
+      }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "板块容器：12px 圆角、页面面底、发丝描边 + 极轻投影、20px 内边距。",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">航线与运价</div><div class=\"ds-card-body\">内容</div></div>",
+      "css": ".ds-card{background:#1b1e22;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:20px;box-shadow:0 1px 2px rgba(0,0,0,.38);color:#e8eaed;font-family:'Segoe UI','Microsoft YaHei',system-ui,sans-serif}.ds-card-title{font-size:13px;font-weight:600;margin-bottom:16px}.ds-card-body{font-size:13px;color:#b6bcc4}"
+    },
+    {
+      "name": "Button Default",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "常规动作按钮：控件面底、1px 实边、8px 圆角、高 32px。",
+      "html": "<button class=\"ds-btn\">设定</button>",
+      "css": ".ds-btn{background:#212529;color:#e8eaed;border:1px solid #2b3036;border-radius:8px;padding:0 14px;height:32px;font-size:13px;font-family:inherit;cursor:pointer;transition:background-color .12s,border-color .12s,color .12s}.ds-btn:hover{background:#2a2f35}.ds-btn:focus-visible{outline:2px solid #d8a33f;outline-offset:2px}"
+    },
+    {
+      "name": "Button Primary",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "唯一的主行动：金色底、深墨字、600 字重；每屏至多一处。",
+      "html": "<button class=\"ds-btn-primary\">提交本回合</button>",
+      "css": ".ds-btn-primary{background:#d8a33f;border:1px solid #d8a33f;color:#1a1408;font-weight:600;border-radius:8px;padding:0 14px;height:32px;font-size:13px;font-family:inherit;cursor:pointer;transition:background-color .12s}.ds-btn-primary:hover{background:#e2b04b}.ds-btn-primary:focus-visible{outline:2px solid #d8a33f;outline-offset:2px}"
+    },
+    {
+      "name": "Button Ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "次要/危险动作：透明底灰字，hover 转红边红字。",
+      "html": "<button class=\"ds-btn-ghost\">取消联程勾选</button>",
+      "css": ".ds-btn-ghost{background:transparent;border:1px solid #2b3036;color:#b6bcc4;border-radius:8px;padding:0 14px;height:32px;font-size:13px;font-family:inherit;cursor:pointer;transition:border-color .12s,color .12s}.ds-btn-ghost:hover{border-color:#c1544c;color:#c1544c}.ds-btn-ghost:focus-visible{outline:2px solid #d8a33f;outline-offset:2px}"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "文本/数字输入：页面底、1px 实边、8px 圆角；聚焦转金边。",
+      "html": "<input class=\"ds-input\" value=\"120\" />",
+      "css": ".ds-input{background:#15171a;border:1px solid #2b3036;color:#e8eaed;border-radius:8px;padding:0 10px;height:32px;font-size:13px;font-family:inherit;font-variant-numeric:tabular-nums}.ds-input:hover{border-color:#3a4048}.ds-input:focus{outline:none;border-color:#d8a33f}"
+    },
+    {
+      "name": "Data Table",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "决策表：11px 表头、等宽数字、右对齐、1px 发丝横线、悬停微亮。",
+      "html": "<table class=\"ds-table\"><thead><tr><th>市场</th><th>运价</th><th>旅客</th></tr></thead><tbody><tr><td>西索尼亚 SIM</td><td>$120</td><td>1,375</td></tr></tbody></table>",
+      "css": ".ds-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;color:#e8eaed;font-family:'Segoe UI','Microsoft YaHei',system-ui,sans-serif}.ds-table th,.ds-table td{padding:8px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px;height:36px;white-space:nowrap}.ds-table th{color:#8a929c;font-weight:500;font-size:11px;border-bottom:1px solid #2b3036}.ds-table th:first-child,.ds-table td:first-child{text-align:left}.ds-table tbody tr:hover td{background:rgba(255,255,255,.02)}"
+    },
+    {
+      "name": "KPI Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Summary 六卡：3 列网格、金色描边、图标 → 标签 → 数值居中。",
+      "html": "<div class=\"ds-kpi\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"#d8a33f\" stroke-width=\"1.5\"><path d=\"M9 4.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5\"/></svg><div class=\"ds-kpi-label\">Average Load Factor</div><div class=\"ds-kpi-value\">56.3%</div></div>",
+      "css": ".ds-kpi{border:1px solid #d8a33f;background:#212529;border-radius:6px;padding:8px 10px;text-align:center;color:#e8eaed;font-family:'Segoe UI','Microsoft YaHei',system-ui,sans-serif}.ds-kpi svg{stroke:#d8a33f;margin:0 auto 2px;stroke-linecap:round;stroke-linejoin:round}.ds-kpi-label{font-size:12px;color:#8a929c}.ds-kpi-value{font-size:20px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Seat Dot",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "席位身份色点（CA 黄 / AB 绿 / VA 蓝），行首 7px 实心圆。",
+      "html": "<span class=\"ds-seat-dot ds-ca\"></span>西索尼亚 SIM",
+      "css": ".ds-seat-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;vertical-align:middle}.ds-ca{background:#e6a700}.ds-ab{background:#6b8e23}.ds-va{background:#2f6fa8}"
+    },
+    {
+      "name": "Tabs",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "报表/运营视图页签：选中态改用金色边框与金色文字；按钮只创建一次。",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab on\">Summary · 总览</button><button class=\"ds-tab\">Fuel · 燃油</button></div>",
+      "css": ".ds-tabs{display:flex;gap:6px;flex-wrap:wrap}.ds-tab{background:#212529;border:1px solid #2b3036;color:#e8eaed;border-radius:8px;padding:0 14px;height:32px;font-size:13px;font-family:inherit;cursor:pointer;transition:border-color .12s,color .12s}.ds-tab:hover{background:#2a2f35}.ds-tab.on{border-color:#d8a33f;color:#d8a33f}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Graphite Ledger",
+    "overview": "这是一台账页，不是一块看板。每个数字都要能被追问到出处：暗色石墨底近乎全黑，只留细如发丝的分隔；金色是唯一被允许发亮的东西，只标当前、已生效与待裁决。美学是克制的工程感——密度优先、可审计优先、装饰为零：表格是主角，卡片只是它的边框，页签只是索引，运动只负责告诉你系统刚变了什么。",
+    "keyCharacteristics": [
+      "暗色石墨三层底 + 发丝描边分层，几乎不用阴影",
+      "金色是唯一强调色，稀缺即意义",
+      "高密度表格 + 等宽数字 + 右对齐金额",
+      "一切数值可追溯：口径说明与证据分级随行",
+      "忠于原版截图的结构与语义，缺陷不复刻但明示"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "金色只出现在当前选中、已生效或待裁决的元素上；一屏内不超过三处。",
+        "section": "colors"
+      },
+      {
+        "name": "The Original Three Seats Rule",
+        "body": "席位颜色只能用原版三色（黄 / 绿 / 蓝），不得自创第四色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Ledger Number Rule",
+        "body": "所有金额、比率、座位数、班次都用 tabular-nums 右对齐。",
+        "section": "typography"
+      },
+      {
+        "name": "The Eleven-Pixel Floor Rule",
+        "body": "11px 只给补充说明，永远不能承载需要学员决策的数字。",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "表面在静止时是平的；投影只在卡片微托与模态弹窗两处出现。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 用金色标出当前 / 已生效 / 待裁决，并保持一屏不超过三处。",
+      "Do 金额与比率右对齐 + tabular-nums；缺数据写 '—'，绝不写 NaN / undefined。",
+      "Do 需要更深的面时换底色层，而不是加投影。",
+      "Do 报表结构与文案对齐原版截图，差异在旁注说明口径。"
+    ],
+    "donts": [
+      "Don't 新增第二个强调色，或把金色铺成大面积底色。",
+      "Don't 引入新的字体族、圆角档位或间距档位。",
+      "Don't 把 11px 用在需要学员做决策的数字上。",
+      "Don't 复刻原版自身的缺陷，也不要静默隐藏口径差异。",
+      "Don't 在轮询刷新时整块重建 DOM。"
+    ]
+  }
+}
