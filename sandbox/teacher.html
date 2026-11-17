@@ -371,9 +371,19 @@ async function gmPost(body) {
   if (r.status === 401) { alert('教师密钥无效：请用 ?key=<教师密钥> 打开本页'); return { error: 'teacher key required' }; }
   return r.json();
 }
+/* ★ 数据指纹：顶栏参数/席位交卷状态/申请数/规则数未变 → 不重建（消除周期性整块闪动）
+   ⚠ 指纹**不含剩余时间**（倒计时由 updateClock 每 2 秒单独更新） */
+let _refreshSig = '';
 async function refresh() {
   const g = await (await fetch('/api/gm', { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
   if (g.error === 'teacher key required') { alert('教师密钥无效：请用 ?key=<教师密钥> 打开本页'); return; }
+  const _gm = g.gm || {};
+  const _sig = JSON.stringify([_gm.turn, _gm.fuelPrice, _gm.carbonPrice, _gm.interestRate, _gm.connectingDemand,
+    Object.entries(g.seats || {}).map(([c, v]) => [c, v && v.submitted]),
+    (_gm.routeRequests || []).length, (_gm.rules || []).length, (_gm.messages || []).length,
+    Object.keys(g.terms || {}).length]);
+  if (_sig === _refreshSig) return;
+  _refreshSig = _sig;
   gm = g.gm;
   $('#gTurn').textContent = gm.turn;
   $('#gFuel').textContent = gm.fuelPrice.toFixed(2);
@@ -936,7 +946,7 @@ $('#btnReset').onclick = async () => {
   await fetch('/api/reset', { method: 'POST' }); refresh();
 };
 refresh(); fillTargets();
-setInterval(refresh, 5000);
+setInterval(refresh, 15000);
 
 /* 赛季计时：开始本季（限时）/ 到时自动结算 / 提前结算兜底
    ⚠ 本脚本块自带 key：module 作用域不跨 <script type=module> 共享 */
@@ -1037,7 +1047,7 @@ async function renderNegFlow() {
   }
   box.appendChild(tb);
 }
-setInterval(renderNegFlow, 4000);
+setInterval(renderNegFlow, 15000);
 
 /* ⑮ 航线需求图（三家运力 + 需求高低） */
 async function renderRouteDemandPanel() {
@@ -1051,7 +1061,7 @@ async function renderRouteDemandPanel() {
   }
   R.renderRouteDemand(box, games);
 }
-setInterval(renderRouteDemandPanel, 8000);
+setInterval(renderRouteDemandPanel, 15000);
 
 /* ⑯ 三家日程甘特图 */
 async function renderGanttAll() {
@@ -1069,7 +1079,7 @@ async function renderGanttAll() {
   box.innerHTML = ''; box.appendChild(tip);
   R.renderGantt(box, games, { seatName: { CA: 'CA 首都', AB: 'AB 弹道', VA: 'VA 愿景' } });
 }
-setInterval(renderGanttAll, 8000);
+setInterval(renderGanttAll, 15000);
 
 /* ⑰ 考核目标设定（第 3 季起） */
 async function renderTargetPanel() {
@@ -1105,7 +1115,7 @@ async function renderTargetPanel() {
   }
   box.appendChild(t2);
 }
-setInterval(renderTargetPanel, 6000);
+setInterval(renderTargetPanel, 15000);
 
 /* ⑱ 经营模式设定 + ⑲ 网络攻击处理 */
 const STYLE_OPTS = [['LCC', '低成本型 LCC'], ['FSC', '全服务型 FSC'], ['Hybrid', '混合型 Hybrid']];
@@ -1168,7 +1178,7 @@ async function renderStyleAndHack() {
     hp.appendChild(row);
   }
 }
-setInterval(renderStyleAndHack, 6000);
+setInterval(renderStyleAndHack, 15000);
 
 /* ⑳ 大修触发（裁判决定时机；团队自决是否卖出） */
 async function renderHcPanel() {
@@ -1205,7 +1215,7 @@ async function renderHcPanel() {
   row.appendChild(el('span', 'small', '· 触发后该机本季仅可运营上季一半 BH；出售可获溢价 $500,000（由团队自行决策，可与裁判谈价或卖给其他航司）'));
   box.appendChild(row);
 }
-setInterval(renderHcPanel, 8000); renderHcPanel();
+setInterval(renderHcPanel, 15000); renderHcPanel();
  renderStyleAndHack();
  renderTargetPanel();
  renderGanttAll();
@@ -1246,7 +1256,7 @@ if (bPost) bPost.onclick = async () => {
   __DOC.getElementById('msgTitle').value = ''; __DOC.getElementById('msgBody').value = ''; __DOC.getElementById('msgDue').value = '';
   renderMsgList();
 };
-setInterval(renderMsgList, 5000); renderMsgList();
+setInterval(renderMsgList, 15000); renderMsgList();
 ['btnTExpSum','btnTExpRoute','btnTExpSched','btnTExpInv'].forEach(function (id) {
   const b = __DOC.getElementById(id); if (!b) return;
   b.onclick = async () => {
@@ -1313,7 +1323,7 @@ async function renderCargoPolicy() {
   mk("全部航线", "*");
   for (const c of (MARKET_LIST || [])) mk(c, c);
 }
-setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
+setInterval(renderCargoPolicy, 15000); renderCargoPolicy();
 
 /* ★ 观察与沟通页签组：切页签时重绘对应面板（图表需可见容器才有正确宽度） */
 (function () {

@@ -133,7 +133,7 @@ setInterval(function () {
 <body>
 <header>
   <h1>SkyChess 沙盘</h1>
-  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><button id="btnStartRoundP">开始本季计时</button> <button id="btnSettleNowP" class="warn">立即结算本组</button> <span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small"></span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
+  <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small">本季计时与结算由**裁判**控制（本组不能推进回合）</span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
   <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
   <div class="kv"><b id="hCash">—</b><span>现金</span></div>
   <div class="kv"><b id="hQsi">—</b><span>QSI</span></div>
@@ -144,7 +144,6 @@ setInterval(function () {
   <div class="kv"><b id="hScenario">—</b><span>场景</span></div>
   <div style="flex:1"></div>
   <select id="seatSel"></select>
-  <button id="btnSubmit" class="pri">▶ 提交本回合</button>
 </header>
 
 <main>
@@ -515,7 +514,6 @@ function head() {
   $('#hBudget').textContent = lim == null ? '不限' : `${nb.budgetUsed || 0} / ${lim}`;
   $('#hBudget').className = (lim != null && (nb.budgetUsed || 0) >= lim) ? 'bad' : '';
   $('#hScenario').textContent = nb.scenarioName || (g.scenarioId ? g.scenarioId : '自定义');
-  $('#btnSubmit').disabled = g.turn >= g.maxTurns;
   const sel = $('#seatSel');
   /* ★ 席位由**裁判端**显式创建（GM 动作 createSeat）；小组端不得自行开组 */
   sel.innerHTML = (window.__seats || ['CA', 'AB', 'VA']).map(s => `<option value="${s}">${s}</option>`).join('');
@@ -1505,7 +1503,6 @@ function rulesTbl() {
 $('#btnOpenRoute').onclick = () => act('openRoute', { code: $('#selNewRoute').value });
 $('#btnEtops').onclick = () => act('payEtops', { code: g.routes.find(r => !r.etopsPaid && MARKETS[r.code].etops)?.code });
 $('#btnAddFlight').onclick = () => act('addFlight', { acId: +$('#selAc').value, code: $('#selMkt').value, departure: $('#inpDep').value });
-$('#btnSubmit').onclick = () => act('advance');
 $('#btnPropose').onclick = async () => {
   const kind = $('#propKind').value;
   const spec = (window.__PK__ || {})[kind] || { fields: [] };
@@ -1532,9 +1529,7 @@ $('#btnBuyIntel').onclick = async () => {
 load();
 
 const PKEY2 = new URLSearchParams(location.search).get("key") || "";
-async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__DOC.getElementById("seatClockBar"),sub=__DOC.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=(tm.submitted?"✅ 本组已提交":"⏳ 本组未提交")+"（到时自动结算，或点「立即结算本组」）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待开始计时";}}
-var bp=__DOC.getElementById("btnStartRoundP");if(bp)bp.onclick=async function(){var r=await fetch("/api/gm",{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"startRound"})}).then(function(x){return x.json()});if(r.result!=="ok"){alert("开始计时失败："+r.result);}seatClockTick();setTimeout(seatClockTick,400);};
-var bs=__DOC.getElementById("btnSettleNowP");if(bs)bs.onclick=async function(){if(!confirm("立即结算本组本季？"))return;var r=await fetch("/api/seat/"+seat,{method:"POST",headers:{"content-type":"application/json","x-sandbox-key":PKEY},body:JSON.stringify({type:"advance"})}).then(function(x){return x.json()});if(r.result&&r.result!=="ok")alert(r.result);seatClockTick();};
+async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__DOC.getElementById("seatClockBar"),sub=__DOC.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=tm.submitted?"✅ 本组已交卷——等待裁判结算":"⏳ 本组未交卷（到时由裁判自动结算）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待裁判开始本季计时";}}
 setInterval(seatClockTick,2000);seatClockTick();
 
 /* ★ 削减固定成本（学员自救）：退还租赁 / 卖出该机

@@ -143,14 +143,14 @@ await step('玩家面板 投资面板 4 个子页签', async () => {
 /* ★ 该断言已迁到 submittest.mjs（node:http 直连，端到端可靠）
    —— 在本文件里与 jsdom 页面轮询并发会随机 ECONNRESET（单独跑必过，属测试分层问题，非功能缺陷） */
 
-await step('玩家面板 提交按钮可点', async () => {
-  const b = P.doc.querySelector('#btnSubmit');
-  ok(!b.disabled, '提交按钮被禁用');
-  b.click();
-  await new Promise(r => setTimeout(r, 800));
-  const h = P.doc.querySelector('#histBody');
-  ok(!!h, '历史区缺失');
-  return '可点';
+/* ★ 2026-11-17：负责划分——推进回合/计时/结算归**裁判端**，小组端不再提供这三个按钮
+   → 旧断言「小组端有提交按钮」已作废；改为断言「小组端不得推进回合」 */
+await step('玩家面板 不含推进回合的按钮（节奏归裁判端）', async () => {
+  const gone = ['btnSubmit', 'btnStartRoundP', 'btnSettleNowP'].filter(id => P.doc.getElementById(id));
+  ok(gone.length === 0, '小组端仍存在裁判端按钮: ' + gone.join(','));
+  ok(!!P.doc.getElementById('seatClockBar'), '小组端应保留计时进度条');
+  ok(!!P.doc.getElementById('histBody'), '历史区缺失');
+  return '已移除（仅剩进度条与提示）';
 });
 
 /* ★ 该断言同样迁到 submittest.mjs（直连提交 + 校验历史/报表），此处不再依赖页面轮询时序 */
