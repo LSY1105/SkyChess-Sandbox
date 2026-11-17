@@ -993,7 +993,7 @@ function renderTurnHint() {
   const opts = ((GM.style_turnaround_options || {})[st] || [60]).join(' / ');
   const cur = g.negotiation && g.negotiation.turnaroundMin != null ? g.negotiation.turnaroundMin : base;
   box.textContent = `本组定位 ${st}：过站时间基线 ${base} 分钟（可选档位 ${opts}）｜当前生效 ${cur} 分钟`
-    + `　→ 过站时间越长，同机每日可飞班次越少（LCC 30 分钟最密、FSC 60 分钟最松）`;
+    + `　→ 过站时间越长，同机每日可飞班次越少（基线统一 60 分钟，档位由裁判谈定）`;
 }
 function renderRejects() {
   const box = $('#rejectBox'); if (!box) return;

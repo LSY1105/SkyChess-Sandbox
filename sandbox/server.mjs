@@ -274,6 +274,9 @@ const server = http.createServer(async (req, res) => {
             remaining: g.turnDeadline ? Math.max(0, Math.round((g.turnDeadline - Date.now()) / 1000)) : null,
           }]));
           return res.end(JSON.stringify({ gm, terms, seats: Object.keys(SEATS), roster: Object.values(SEATS),
+            /* ★ 各席位经营定位：裁判端「经营模式设定」下拉框据此回显
+               （此前该字段只在 serialize 里给小组自己看 → 裁判端读到 undefined → 一律显示「混合型」） */
+            seatStyles: seatStylesOf(),
             timer, roundSeconds: gm.roundSeconds || D.GM.round_seconds || 3600 }));
         }
         if (req.method === 'POST') {
@@ -334,6 +337,10 @@ function readBody(req) {
   });
 }
 
+/** 各席位当前经营定位（LCC/FSC/Hybrid），裁判端与小组端共用同一口径 */
+function seatStylesOf() {
+  return Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c, g2.style || 'Hybrid']));
+}
 function serialize(g) {
   return {
     turn: g.turn, maxTurns: g.maxTurns, cash: g.cash, qsi: g.qsi,
@@ -370,7 +377,7 @@ function serialize(g) {
     negStates: NEG_STATES, negLabels: NEG_LABEL,
     messages: gm.messages || [],        // ★ U18 消息板（裁判发布 → 小组可见）
     targets: gm.targets || {},          // ★ 考核目标（裁判第 3 季起设定）
-    seatStyles: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c, g2.style || 'Hybrid'])),
+    seatStyles: seatStylesOf(),
     /* ★ 各组航线运价（只读·公开信息）：原版 FARE MATRIX 里玩家能看到每条航线上所有航司的定价
        → 竞争博弈教学需要这个信息面；小组只能看，不能改（改仍须走各自面板） */
     peerFares: Object.fromEntries([...sessions.entries()].map(([c, g2]) => [c,

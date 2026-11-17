@@ -1149,12 +1149,15 @@ async function renderStyleAndHack() {
     b.onclick = async () => {
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'setSeatStyle', seat: s, style: sel.value }) }).then(x => x.json());
-      if (r.result !== 'ok') alert(r.result);
+      if (r.result !== 'ok') { alert(r.result); return; }
+      /* ★ 立即可见确认（否则要等下一次轮询才看得出，且按钮/下拉会被整块重建 → 误以为没生效） */
+      b.textContent = '已确定 ✓';
+      setTimeout(() => { if (b.isConnected) b.textContent = '确定'; }, 1500);
     };
     srow.appendChild(lab); srow.appendChild(sel); srow.appendChild(b);
     srow.appendChild(el('span', 'small', '　'));
   }
-  srow.appendChild(el('span', 'small', '· 过站基线随之生效：LCC 30 / Hybrid 40 / FSC 60 分钟；并影响可投产品与票价系数'));
+  srow.appendChild(el('span', 'small', '· 该组经营定位即生效：过站谈判档位、起始机队/现金定位与自动演练的定价系数随之变化；过站基线统一 60 分钟，差异需裁判逐组谈定'));
   // 网络攻击处理
   const hp = __DOC.getElementById('hackPanel'); if (!hp) return;
   hp.innerHTML = '';

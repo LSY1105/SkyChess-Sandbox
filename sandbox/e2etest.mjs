@@ -70,6 +70,15 @@ await post('/api/seat/AB', { type: 'setFare', code: 'PKR', fare: 300 }, 'CA');
 const abAfter = (await get('/api/seat/AB', 'AB')).b.game;
 ok(abBefore.routes.find(r => r.code === 'PKR').fare === abAfter.routes.find(r => r.code === 'PKR').fare, '跨组写入被拒（AB 运价未变）');
 
+/* ⑧ 裁判端「经营模式设定」必须能生效并回显
+   （2026-11-17 实测缺陷：/api/gm 未下发 seatStyles → 裁判端读到 undefined → 下拉恒显「混合型」） */
+const st0 = (await get('/api/gm', 'teacher')).b.seatStyles;
+ok(st0 && st0.CA === 'LCC', `裁判端 /api/gm 下发 seatStyles（CA=${st0 && st0.CA}）`);
+const stSet = await post('/api/gm', { type: 'setSeatStyle', seat: 'CA', style: 'FSC' }, 'teacher');
+ok(stSet.b.result === 'ok', 'setSeatStyle → ok');
+const st1 = (await get('/api/gm', 'teacher')).b.seatStyles;
+ok(st1 && st1.CA === 'FSC', `setSeatStyle 后回显生效（CA=${st1 && st1.CA}）`);
+
 console.log('\n' + '═'.repeat(60));
 console.log(`端到端与权限回归：${pass} 通过 / ${fail} 失败 / 共 ${pass + fail}`);
 process.exit(fail ? 1 : 0);
