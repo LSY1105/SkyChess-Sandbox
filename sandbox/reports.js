@@ -92,8 +92,12 @@ export function renderReports(root, g, opts = {}) {
     [...tabs.children].forEach((b, i) => b.classList.toggle('on', i === active));
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
-    const h = pickReport(g, sel);
-    if (!h) { body.appendChild(el('div', 'small', '尚无历史报告（完成一个回合后生成）。')); return; }
+    const h0 = pickReport(g, sel);
+    if (!h0) body.appendChild(el('div', 'small', '尚无历史报告（由裁判结算后生成）—— 下方展示当前页签可得的即时数据。'));
+    /* ★ 无历史报告时仍渲染页签骨架（否则点页签只是重复同一句提示 → 用户觉为「按钮无反应」） */
+    const h = h0 || { period: '—', detail: {}, revenue: null, cost: null, operating_profit: null,
+      oneoff: null, financing: null, cash_end: null, load_factor: null, gross_margin: null,
+      askTotal: 0, rpkTotal: 0, paxTotal: 0, market_share: null };
     /* 历史季度选择器 */
     const selBar = el('div', 'row small');
     selBar.appendChild(el('span', null, '季度：'));
