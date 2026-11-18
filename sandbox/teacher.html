@@ -290,26 +290,26 @@ td[data-seat="VA"]{--dot:#2f6fa8}
         投资项可逐组<b>开放 / 关闭</b>，并按原版四段结构议定<b>每旅客成本 / 收益</b>。
         原版注明「须与 GM 谈妥条款方可投资」的项目（客舱升级·低成本型）<b>默认未开放</b>，须裁判开放后该组方可投资。
       </div>
+      <div id="invState" style="font-weight:600;font-size:13px;margin-bottom:10px"></div>
       <div class="row">
         <label>席位</label>
-        <select id="gmSeat" style="width:110px"></select>
+        <select id="gmSeat" style="width:120px"></select>
         <label>发放资金</label>
         <input id="grantAmt" type="number" step="100000" placeholder="金额 $（负数=扣减）" style="width:170px">
         <button id="btnGrant" class="pri">发放资金</button>
       </div>
       <div class="row">
         <label>投资项</label>
-        <select id="invItem" style="width:300px"></select>
-        <button id="btnInvOpen">开放</button>
-        <button id="btnInvShut">关闭</button>
+        <select id="invItem" style="width:400px"></select>
+        <button id="btnInvToggle">开放该项</button>
       </div>
       <div class="row">
         <label>每客条款</label>
         <input id="invCost" type="number" step="0.25" placeholder="成本 $ / 旅客" style="width:140px">
         <input id="invRev" type="number" step="0.25" placeholder="收益 $ / 旅客" style="width:140px">
         <button id="btnInvTerms">议定条款</button>
+        <span id="invTermsMsg" class="small"></span>
       </div>
-      <div id="invState" class="small"></div>
     </div>
 
     <div class="card" style="margin-top:14px">
@@ -949,40 +949,61 @@ $('#btnIntel').onclick = async () => {
      ② 投资项未开放 / 条款未定 → 「开放 / 关闭」+「议定条款」
    原版 Investment Catalogue 注明「To invest in Cabin Upgrade (Low Cost)
    you will need to speak to your GM to negotiate the terms.」→ 该项默认未开放。 */
+const INV_CATS = [['airline', '航空公司投资'], ['fleet', '机队投资'], ['route', '航线投资'], ['asset', '资产购置']];
 $('#gmSeat').innerHTML = ['CA', 'AB', 'VA'].map(x => `<option value="${x}">${x}</option>`).join('');
-$('#invItem').innerHTML = INVESTMENTS.map(i =>
-  `<option value="${i.id}">${i.name_cn || i.name} · 一次性 ${i.upfront ? '$' + i.upfront.toLocaleString() : '—'}`
-  + `${i.needNegotiation ? ' · 须谈妥条款' : ''}</option>`).join('');
+/* ★ 11-18：32 项平铺的长下拉极易误选（选项文字被 300px 截断）→ 按类别 optgroup 分组 + 文案精简 */
+$('#invItem').innerHTML = INV_CATS.map(([c, n]) => {
+  const items = INVESTMENTS.filter(i => i.cat === c);
+  if (!items.length) return '';
+  return `<optgroup label="${n}">` + items.map(i =>
+    `<option value="${i.id}">${i.name_cn || i.name}｜${i.upfront ? '一次性 $' + i.upfront.toLocaleString() : '无一次性'}`
+    + `${i.needNegotiation ? '｜须谈妥条款' : ''}</option>`).join('') + '</optgroup>';
+}).join('');
 
-/** 回显某组某投资项的开放状态与议定条款（裁判端要能看见自己谈了什么） */
-async function loadInvTerms() {
+let _invTerms = {};   // 该组当前 investTerms 缓存
+/** 回显某组某投资项的开放状态与议定条款
+ *  ★ fill=true 才覆盖条款输入框；操作后的回显一律 fill=false → 裁判手填的数字不会被冲掉 */
+async function loadInvTerms(fill) {
   const sc = $('#gmSeat').value;
   const res = await (await fetch('/api/seat/' + sc, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
-  const it = (res.game && res.game.negotiation && res.game.negotiation.investTerms) || {};
+  _invTerms = (res.game && res.game.negotiation && res.game.negotiation.investTerms) || {};
   const id = $('#invItem').value;
-  const cur = it[id] || {};
+  const cur = _invTerms[id] || {};
   const def = INVESTMENTS.find(x => x.id === id) || {};
   const open = cur.open != null ? !!cur.open : !def.needNegotiation;
-  $('#invCost').value = cur.costPerPax != null ? cur.costPerPax : (def.costPerPax || '');
-  $('#invRev').value = cur.revenuePerPax != null ? cur.revenuePerPax : (def.revenuePerPax || '');
-  $('#invState').textContent = `${sc} · ${def.name_cn || id}：${open ? '已开放' : '未开放'}`
-    + `（该组共议定 ${Object.keys(it).length} 项；未议定即按目录默认值执行）`;
+  if (fill) {
+    $('#invCost').value = cur.costPerPax != null ? cur.costPerPax : (def.costPerPax || '');
+    $('#invRev').value = cur.revenuePerPax != null ? cur.revenuePerPax : (def.revenuePerPax || '');
+  }
+  $('#btnInvToggle').textContent = open ? '关闭该项' : '开放该项';
+  const bits = [];
+  if (cur.costPerPax != null) bits.push('成本 $' + cur.costPerPax + '/旅客');
+  if (cur.revenuePerPax != null) bits.push('收益 $' + cur.revenuePerPax + '/旅客');
+  $('#invState').innerHTML = `当前：<b>${sc}</b> · <b>${def.name_cn || id}</b>　`
+    + `<span class="${open ? 'ok' : 'bad'}">${open ? '✔ 已开放' : '✖ 未开放'}</span>`
+    + (bits.length ? '　已议定 ' + bits.join('　') : '　未议定条款（按目录默认值）')
+    + `　｜该组共议定 ${Object.keys(_invTerms).length} 项`;
 }
 $('#btnGrant').onclick = async () => {
   const amt = Number($('#grantAmt').value);
   if (!Number.isFinite(amt) || amt === 0) return alert('请输入有效金额');
   const r = await gmPost({ type: 'grantCash', seat: $('#gmSeat').value, amount: amt });
   if (r.result !== 'ok') return alert(r.result || '失败');
-  $('#grantAmt').value = ''; refresh(); loadInvTerms();
+  $('#grantAmt').value = '';
+  $('#invTermsMsg').textContent = '✔ 已发放资金';
+  refresh(); loadInvTerms(false);
 };
-async function setInvOpen(open) {
-  const r = await gmPost({ type: 'negotiate', seat: $('#gmSeat').value, item: 'investTerms',
-    invId: $('#invItem').value, open });
+/* ★ 开放 / 关闭合并为一个开关按钮（文本随状态变）→ 点了立刻看得出状态 */
+$('#btnInvToggle').onclick = async () => {
+  const id = $('#invItem').value;
+  const def = INVESTMENTS.find(x => x.id === id) || {};
+  const cur = _invTerms[id] || {};
+  const open = cur.open != null ? !!cur.open : !def.needNegotiation;
+  const r = await gmPost({ type: 'negotiate', seat: $('#gmSeat').value, item: 'investTerms', invId: id, open: !open });
   if (r.result !== 'ok') return alert(r.result || '失败');
-  refresh(); loadInvTerms();
-}
-$('#btnInvOpen').onclick = () => setInvOpen(true);
-$('#btnInvShut').onclick = () => setInvOpen(false);
+  $('#invTermsMsg').textContent = '✔ 已' + (open ? '关闭' : '开放') + '：' + (def.name_cn || id);
+  refresh(); loadInvTerms(false);
+};
 $('#btnInvTerms').onclick = async () => {
   const c = $('#invCost').value, v = $('#invRev').value;
   if (c === '' && v === '') return alert('请填写每客成本或收益');
@@ -991,11 +1012,12 @@ $('#btnInvTerms').onclick = async () => {
   if (v !== '') body.revenuePerPax = Number(v);
   const r = await gmPost(body);
   if (r.result !== 'ok') return alert(r.result || '失败');
-  refresh(); loadInvTerms();
+  $('#invTermsMsg').textContent = '✔ 条款已议定';
+  refresh(); loadInvTerms(false);
 };
-$('#gmSeat').onchange = loadInvTerms;
-$('#invItem').onchange = loadInvTerms;
-loadInvTerms();
+$('#gmSeat').onchange = () => loadInvTerms(true);
+$('#invItem').onchange = () => loadInvTerms(true);
+loadInvTerms(true);
 $('#selSeat').innerHTML = '<option value="">全部</option><option value="CA">CA</option><option value="AB">AB</option><option value="VA">VA</option>';
 function fillTargets() {
   const ev = EVENTS.find(e => e.id === $('#selEvent').value);

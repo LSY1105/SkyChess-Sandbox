@@ -8,7 +8,7 @@
    U9 Ops：Fare Matrix / Live Schedules / Fleet Plans
    数据来源：席位 game 对象（history 每季报告 + lastDetail + 机队/租赁/投资）
    ============================================================ */
-import { MARKETS, AIRCRAFT, GM } from './data.js';
+import { MARKETS, AIRCRAFT, GM, INVESTMENTS } from './data.js';
 import * as G from './game.js';
 import * as E from './engine.js';
 
@@ -521,13 +521,25 @@ function fuel(root, h, g) {
   root.appendChild(table(['航线', '燃油', '碳'], rows));
 }
 
+const INV_CAT_CN = { airline: '航空公司', fleet: '机队', route: '航线', asset: '资产' };
 function investments(root, h, g) {
   const invs = g.investments || [];
-  const rows = invs.map(i => [
-    i.name, i.kind || '—', money(i.amount), money(i.annual), num(i.costPerPax, 2), num(i.revenuePerPax, 2),
-    num(i.qsi, 1), 'T' + (i.openedTurn ?? '—'),
-  ]);
-  root.appendChild(table(['投资项', '类别', '一次性', '年费', '每客成本', '每客收益', 'QSI 效果', '开季'], rows));
+  /* ★ 11-18：① 投资项名改用目录中文名（此前显示英文 name，用户认不出自己投了什么）
+     ② 每客成本 / 收益显示**议定后的生效值**（裁判议价 → 报表可审计），空值才是目录默认值 */
+  const terms = (g.negotiation && g.negotiation.investTerms) || {};
+  const rows = invs.map(i => {
+    const def = INVESTMENTS.find(x => x.id === i.id);
+    const t = terms[i.id] || {};
+    const cPax = t.costPerPax != null ? t.costPerPax : (def ? (def.costPerPax || 0) : 0);
+    const rPax = t.revenuePerPax != null ? t.revenuePerPax : (def ? (def.revenuePerPax || 0) : 0);
+    const nm = def ? (def.name_cn || def.name) : (i.name || i.id);
+    const cat = INV_CAT_CN[i.kind] || i.kind || '—';
+    /* ⚠ reports.js 的 el() 用 textContent → 单元格只能是纯文本（不能塞 HTML） */
+    return [nm, def ? def.name : '—', cat, money(i.amount), money(i.annual),
+      cPax ? num(cPax, 2) : '—', rPax ? num(rPax, 2) : '—',
+      num(i.qsi, 1), 'T' + (i.openedTurn ?? '—')];
+  });
+  root.appendChild(table(['投资项', '目录名（英文）', '类别', '一次性', '年费', '每客成本', '每客收益', 'QSI 效果', '开季'], rows));
   if (!rows.length) root.appendChild(el('div', 'small', '尚无投资。'));
 }
 

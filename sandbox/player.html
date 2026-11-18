@@ -821,6 +821,14 @@ function invTabs() {
 function invBody() {
   const b = $('#invBody'); b.innerHTML = '';
   if (invTab === 'airline') {
+    /* ★ 最近一次投资被拒原因直接显示在卡内（alert 容易被错过；服务端 rejects 已有记录） */
+    const rj = (g.rejects || []).filter(x => x.type === 'invest')[0];
+    if (rj) {
+      const w = el('div', 'small');
+      w.style.cssText = 'border-left:2px solid var(--bad);padding:4px 8px;margin-bottom:8px;color:var(--bad)';
+      w.textContent = '最近一次投资未成功：' + (rj.why || '') + '（T' + (rj.turn ?? '-') + '）';
+      b.appendChild(w);
+    }
     /* ★ 航线级投资（配餐 / 机上餐饮销售）按航线计价 → 须指定投放市场（原版 ROUTE INVESTMENTS） */
     let mktSel = null;
     if (INVESTMENTS.some(i => i.cat === 'route')) {
@@ -846,7 +854,13 @@ function invBody() {
       const cPax = tg.costPerPax != null ? tg.costPerPax : (i.costPerPax || 0);
       const rPax = tg.revenuePerPax != null ? tg.revenuePerPax : (i.revenuePerPax || 0);
       const row = el('tr');
-      row.appendChild(el('td', null, `${i.name_cn || i.name}<div class="small">${i.desc_cn || i.desc || ''}</div>`));
+      /* ★ 裁判侧状态徽标：未开放 / 已开放 / 已议定条款 → 小组一眼看清哪一项投不了、为什么 */
+      const badge = !open
+        ? '<span class="bad">● 未开放 —— 须由裁判在「课堂调控 · 资金与投资」中开放</span>'
+        : (tg.costPerPax != null || tg.revenuePerPax != null
+          ? '<span class="ok">● 已开放 · 已议定：成本 $' + cPax + ' / 收益 $' + rPax + '（每旅客）</span>'
+          : '<span class="ok">● 已开放（按目录默认值）</span>');
+      row.appendChild(el('td', null, `${i.name_cn || i.name}<div class="small">${i.desc_cn || i.desc || ''}</div><div class="small">${badge}</div>`));
       row.appendChild(el('td', null, i.upfront ? money(i.upfront) : '—'));
       row.appendChild(el('td', null, i.annual ? money(i.annual) : '—'));
       row.appendChild(el('td', null, cPax ? '$' + Number(cPax).toFixed(2) : '—'));
