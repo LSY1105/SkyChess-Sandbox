@@ -702,6 +702,33 @@ test('Summary：未结算时成本分解图给出提示而非空白', () => {
 });
 
 /* ============================================================
+   P3：状态色 --bad 必须对三种深底达 WCAG AA（≥4.5:1）
+   —— 旧值 #c1544c 对卡片底仅 3.7:1，而「现金 -$2,575,774」这类最该被读懂的负值全用它
+   ⚠ 原版席位三色（AB 绿 4.4 / VA 蓝 3.2）与图表红 3.1 不达 AA，是**刻意保留**的代价（H5 忠于原版）→ 不在此断言
+   ============================================================ */
+test('可读性：状态色 --bad 对页面底/卡片底/控件面均达 WCAG AA（≥4.5:1）', () => {
+  const css = readFileSync(new URL('./player.html', import.meta.url), 'utf8');
+  const root = (css.match(/:root\{([\s\S]*?)\}/) || [])[1] || '';
+  const v = (n) => (root.match(new RegExp('--' + n + ':\\s*(#[0-9a-fA-F]{6})')) || [])[1];
+  const bad = v('bad');
+  assert.ok(bad, '未解析到 --bad');
+  const lum = (h) => {
+    h = h.slice(1);
+    const c = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255)
+      .map(x => (x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4)));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  };
+  const ratio = (a, b) => { const la = lum(a), lb = lum(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); };
+  for (const bg of ['bg', 'surface', 'raised']) {
+    const c = v(bg);
+    assert.ok(c, '未解析到 --' + bg);
+    const r = ratio(bad, c);
+    assert.ok(r >= 4.5, `--bad ${bad} 对 --${bg} ${c} 仅 ${r.toFixed(2)}:1（AA 需 4.5）`);
+  }
+  return `--bad ${bad} 三底色均 ≥4.5:1`;
+});
+
+/* ============================================================
    11-17 P0-2：竞争分配里「本方无班次」的市场，shares.player 必须是数字（0）
    —— 此前该键直接缺失 → 上层读到 undefined → 页面渲染出 NaN%
    ============================================================ */

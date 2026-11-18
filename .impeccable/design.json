@@ -104,7 +104,7 @@
       "status-bad": {
         "role": "secondary",
         "displayName": "Write-off Red（核销红）",
-        "canonical": "#c1544c"
+        "canonical": "#d97068"
       },
       "seat-ca": {
         "role": "tertiary",
