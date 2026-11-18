@@ -68,6 +68,14 @@ header .kv{padding-right:4px}
 .scroll.report-open{max-height:none;overflow:visible}
 main>div.widecard{display:block;grid-column:1 / -1;margin:16px 0 0;padding:20px}
 
+/* ── h3 小节标题：补齐排版 token（11-17 critique P2）
+   原体系只有 h1/h2 → h3 落到浏览器默认 serif 粗斜体，实测 16.38px/700 比 h1(15px) 还大，
+   且 em 图例没被降级（被合成为中文斜体）→ 与全站 13px Segoe UI 600 + dim em 体系脱节 ── */
+h3{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--tx);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+h3 em{font-style:normal;font-weight:400;color:var(--dim);font-size:12px}
+/* ── 空态卡收紧：没有内容时只留一行提示（原 padding 20 让三张空卡各占一屏高度） ── */
+.card.folded{padding:10px 20px}
+
 /* ── 表格：列内容可换行，避免右列被裁切；按钮保持单行 ── */
 td{white-space:normal}
 td button,td input,td select{white-space:nowrap}
@@ -675,6 +683,19 @@ function farePeers() {
   }
   tb.appendChild(tbody);
   box.appendChild(tb);
+}
+
+/** 空态卡收紧：被拒原因 / 消息板 / 日志 三张卡无内容时只留一行（原 padding 20 让空卡各占一屏高度） */
+function foldEmptyCards() {
+  const items = [['#rejectBox', '暂无被拒操作'], ['#msgBoard', '暂无公告'], ['#log', '（无）']];
+  for (const [sel, empty] of items) {
+    const box = $(sel); if (!box) continue;
+    const card = box.closest('.card'); if (!card) continue;
+    const txt = (box.textContent || '').trim();
+    /* 空态 = 只有一句提示（无表格/按钮/列表）→ 收紧为一行 */
+    const isEmpty = txt.length <= 40 && !box.querySelector('table,button,input,select');
+    card.classList.toggle('folded', isEmpty);
+  }
 }
 
 function renderRouteHint() {
@@ -1470,7 +1491,10 @@ function render() {
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
   else R.renderReports($('#repBody'), g);
   R.renderOpsViews($('#opsBody'), g);
-  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
+  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay;
+  /* ★ 吸顶锚点条 + 空态卡收紧（11-17 critique P2：页面 5000px、零导航；空卡各占一屏高度） */
+  R.mountJumpBar(__DOC.querySelector('main'));
+  foldEmptyCards(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
   /* 排班模块内直接呈现：甘特图 + 航线需求图（不藏在页签里） */
   R.renderGantt($('#schedGantt'), { [g.seat]: g });
   { const b = $('#btnAutoRet'); if (b && !b.__b) { b.__b = 1; b.onclick = autoFillReturns; } }

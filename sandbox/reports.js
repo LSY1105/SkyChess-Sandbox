@@ -725,6 +725,39 @@ function charts(root, h, g) {
 /* ─────────────── U5：FLIGHT INFORMATION 弹窗 ─────────────── */
 
 
+/** 吸顶锚点条（11-17 critique P2）：页面 5000px、27 个同级标题、零导航 → 把卡片目录化
+ *  集合变化才重建按钮（否则轮询会替换掉用户刚点的锚点 → 点击落空） */
+export function mountJumpBar(main) {
+  if (!main) return;
+  let bar = main.querySelector(':scope > #jumpBar');
+  if (!bar) {
+    bar = el('div'); bar.id = 'jumpBar';
+    /* ★ 必须显式 flex-direction:row —— main>div 的 column 规则会把锚点条竖排成一列 */
+    bar.style.cssText = 'grid-column:1 / -1;position:sticky;top:58px;z-index:9;display:flex;flex-direction:row;'
+      + 'flex-wrap:nowrap;align-items:center;gap:6px;overflow-x:auto;padding:8px 0;'
+      + 'background:var(--bg);border-bottom:1px solid var(--hair)';
+    main.insertBefore(bar, main.firstChild);
+  }
+  const items = [], seen = {};
+  main.querySelectorAll('.card > h2').forEach(h => {
+    const card = h.parentElement;
+    if (!card || card.contains(bar)) return;
+    const name = ((h.childNodes[0] && h.childNodes[0].nodeValue) || '').trim() || (h.textContent || '').trim();
+    if (!name || seen[name]) return;
+    seen[name] = 1; items.push({ name, card });
+  });
+  const sig = items.map(x => x.name).join('|');
+  if (bar.__sig === sig) return;
+  bar.__sig = sig;
+  bar.innerHTML = '';
+  for (const it of items) {
+    const b = el('button', '', it.name);
+    b.style.cssText = 'white-space:nowrap;font-size:12px;height:26px;padding:0 10px';
+    b.onclick = () => it.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    bar.appendChild(b);
+  }
+}
+
 /** 取某航线在指定季度的结算明细（当期 = lastDetail，历史季 = history[i].detail）
  *  ★ 明细已随 report 存入 history（game.js: g.history.push(report)）→ 无需改动引擎 */
 function detailFor(g, s, seasonIdx) {

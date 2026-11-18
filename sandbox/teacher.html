@@ -73,6 +73,14 @@ header .kv{padding-right:4px}
 /* ── 报表区：内容不限高（与小组端同口径） ── */
 .scroll.report-open{max-height:none;overflow:visible}
 
+/* ── h3 小节标题：补齐排版 token（11-17 critique P2）
+   原体系只有 h1/h2 → h3 落到浏览器默认 serif 粗斜体，实测 16.38px/700 比 h1(15px) 还大，
+   且 em 图例没被降级（被合成为中文斜体）→ 与全站 13px Segoe UI 600 + dim em 体系脱节 ── */
+h3{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--tx);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+h3 em{font-style:normal;font-weight:400;color:var(--dim);font-size:12px}
+/* ── 空态卡收紧：没有内容时只留一行提示（原 padding 20 让三张空卡各占一屏高度） ── */
+.card.folded{padding:10px 20px}
+
 /* ── 表格：列内容可换行，避免右列被裁切；按钮保持单行 ── */
 td{white-space:normal}
 td button,td input,td select{white-space:nowrap}

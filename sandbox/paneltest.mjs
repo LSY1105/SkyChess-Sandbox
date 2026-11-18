@@ -171,6 +171,23 @@ await step('玩家面板 全页不出现 NaN（数值缺失一律显示 —）',
   return '无 NaN';
 });
 
+/* ★ P2：空态卡（被拒原因/消息板/日志）无内容时收紧为一行（原各占一屏高度） */
+await step('玩家面板 空态卡收紧（≥3 张）', async () => {
+  const folded = [...P.doc.querySelectorAll('.card.folded')];
+  ok(folded.length >= 3, '应有 ≥3 张空态卡被收紧，实得 ' + folded.length);
+  return folded.length + ' 张';
+});
+
+/* ★ P2：吸顶锚点条（页面 5000px、27 个同级标题、零导航 → 卡片目录化） */
+await step('玩家面板 顶部锚点条存在且可跳转', async () => {
+  const bar = P.doc.getElementById('jumpBar');
+  ok(bar, '缺锚点条');
+  const btns = [...bar.querySelectorAll('button')];
+  ok(btns.length >= 8, '锚点数量 ' + btns.length);
+  ok(bar.style.display === 'flex' && bar.style.flexDirection === 'row', '锚点条应为横排 flex');
+  return btns.length + ' 个锚点';
+});
+
 await step('玩家面板 不含推进回合的按钮（节奏归裁判端）', async () => {
   const gone = ['btnSubmit', 'btnStartRoundP', 'btnSettleNowP'].filter(id => P.doc.getElementById(id));
   ok(gone.length === 0, '小组端仍存在裁判端按钮: ' + gone.join(','));
