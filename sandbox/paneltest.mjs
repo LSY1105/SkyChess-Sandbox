@@ -188,6 +188,16 @@ await step('玩家面板 顶部锚点条存在且可跳转', async () => {
   return btns.length + ' 个锚点';
 });
 
+/* ★ 11-18：投资明细必须**放在动作发生的地方**（投资卡顶部小结）+ 报表直达入口
+   （报表默认只露 4 个高频页签，「投资」在折叠里 → 学员投完看不到数据） */
+await step('玩家面板 投资卡有已投放小结与直达报表按钮', async () => {
+  const sum = P.doc.getElementById('invSummary');
+  ok(sum, '缺已投放小结');
+  ok(/已投放|尚未投放/.test(sum.textContent), '小结为空: ' + sum.textContent);
+  ok(P.doc.getElementById('btnInvReport'), '缺「投资报表」直达按钮');
+  return sum.textContent.replace(/\s+/g, ' ').trim().slice(0, 46);
+});
+
 /* ★ 11-18：小组端投资表必须显示裁判侧「开放 / 未开放 / 已议定」状态徽标
    （此前只有服务端弹 alert，学员看不到自己为什么投不了） */
 await step('玩家面板 投资表显示裁判开放状态徽标', async () => {
@@ -259,6 +269,24 @@ await step('裁判面板 资金与投资调控控件齐备', async () => {
   ok(n >= 30, '投资项下拉项数 ' + n);
   ok(d.getElementById('invState').textContent.includes('当前'), '状态回显为空（裁判看不见自己选中了哪一项）');
   return n + ' 个投资项可选 + 状态回显';
+});
+
+/* ★ 11-18：裁判端「该组共议定 N 项」必须**可点开查看**每一项（此前只有一行数字） */
+await step('裁判面板 已议定项清单可点载入', async () => {
+  await nf(BASE + '/api/gm', { method: 'POST', headers: KHdr('teacher'),
+    body: JSON.stringify({ type: 'negotiate', seat: 'CA', item: 'investTerms', invId: 'cab_lowcost', open: true, costPerPax: 1.5, revenuePerPax: 2 }) });
+  T.doc.getElementById('invItem').value = 'adv_web';
+  T.doc.getElementById('invItem').dispatchEvent(new T.window.Event('change'));
+  await new Promise(r => setTimeout(r, 800));
+  const list = T.doc.getElementById('invList');
+  ok(list && list.textContent.includes('客舱升级'), '清单未显示已议定项');
+  const rows = [...list.querySelectorAll('div')].filter(x => x.onclick);
+  ok(rows.length >= 1, '清单行不可点');
+  rows[0].click();
+  await new Promise(r => setTimeout(r, 700));
+  ok(T.doc.getElementById('invItem').value === 'cab_lowcost', '点清单未载入下拉');
+  ok(T.doc.getElementById('invState').textContent.includes('裁判指定'), '状态行未区分「默认开放」与「裁判指定」');
+  return rows.length + ' 项可载入';
 });
 
 await step('裁判面板 市场列表 10 个', async () => {

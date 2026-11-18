@@ -290,7 +290,8 @@ td[data-seat="VA"]{--dot:#2f6fa8}
         投资项可逐组<b>开放 / 关闭</b>，并按原版四段结构议定<b>每旅客成本 / 收益</b>。
         原版注明「须与 GM 谈妥条款方可投资」的项目（客舱升级·低成本型）<b>默认未开放</b>，须裁判开放后该组方可投资。
       </div>
-      <div id="invState" style="font-weight:600;font-size:13px;margin-bottom:10px"></div>
+      <div id="invState" style="font-weight:600;font-size:13px;margin-bottom:8px"></div>
+      <div id="invList" class="small" style="margin-bottom:10px"></div>
       <div class="row">
         <label>席位</label>
         <select id="gmSeat" style="width:120px"></select>
@@ -979,10 +980,43 @@ async function loadInvTerms(fill) {
   const bits = [];
   if (cur.costPerPax != null) bits.push('成本 $' + cur.costPerPax + '/旅客');
   if (cur.revenuePerPax != null) bits.push('收益 $' + cur.revenuePerPax + '/旅客');
+  /* ★ 区分「默认开放（未议定）」与「裁判指定开放 / 关闭」→ 否则裁判打开一项后
+     看到别的项也写着「已开放」，会误以为开关作用于全部投资项 */
+  const stTxt = cur.open === true ? '✔ 已开放（裁判指定）'
+    : cur.open === false ? '✖ 已关闭（裁判指定）'
+    : open ? '✔ 开放（默认 · 未议定）' : '✖ 未开放（原版须谈妥条款）';
   $('#invState').innerHTML = `当前：<b>${sc}</b> · <b>${def.name_cn || id}</b>　`
-    + `<span class="${open ? 'ok' : 'bad'}">${open ? '✔ 已开放' : '✖ 未开放'}</span>`
+    + `<span class="${open ? 'ok' : 'bad'}">${stTxt}</span>`
     + (bits.length ? '　已议定 ' + bits.join('　') : '　未议定条款（按目录默认值）')
     + `　｜该组共议定 ${Object.keys(_invTerms).length} 项`;
+  renderInvList();
+}
+
+/** 该组已议定 / 已开关的投资项清单（点一行 → 载入上方表单继续编辑） */
+function renderInvList() {
+  const box = $('#invList'); if (!box) return;
+  box.innerHTML = '';
+  const ids = Object.keys(_invTerms);
+  if (!ids.length) {
+    box.textContent = '该组尚无任何投资相关议定 —— 全部投资按目录默认值、默认可投。';
+    return;
+  }
+  box.appendChild(el('b', null, '该组已议定 / 已开关的投资项（点一行载入编辑）：'));
+  for (const id of ids) {
+    const def = INVESTMENTS.find(x => x.id === id) || {};
+    const v = _invTerms[id] || {};
+    const bits = [];
+    if (v.open === true) bits.push('已开放');
+    if (v.open === false) bits.push('已关闭');
+    if (v.costPerPax != null) bits.push('成本 $' + v.costPerPax);
+    if (v.revenuePerPax != null) bits.push('收益 $' + v.revenuePerPax);
+    const row = el('div');
+    row.style.cssText = 'cursor:pointer;padding:2px 0;border-bottom:1px solid var(--hair)';
+    row.innerHTML = `· <b>${def.name_cn || id}</b>　${bits.join('　') || '（仅开关，无条款）'}`;
+    row.title = '点击载入到上方表单';
+    row.onclick = () => { $('#invItem').value = id; loadInvTerms(true); };
+    box.appendChild(row);
+  }
 }
 $('#btnGrant').onclick = async () => {
   const amt = Number($('#grantAmt').value);

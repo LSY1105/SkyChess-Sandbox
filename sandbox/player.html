@@ -239,6 +239,10 @@ setInterval(function () {
 
     <div class="card" style="margin-top:14px">
       <h2>投资与资产</h2>
+      <div class="row" style="margin-bottom:8px">
+        <div id="invSummary" class="small" style="flex:1"></div>
+        <button id="btnInvReport" title="跳到报表的「投资」页签">📄 投资报表</button>
+      </div>
       <div class="tabs" id="tabsInv"></div>
       <div id="invBody" class="scroll"></div>
     </div>
@@ -818,8 +822,29 @@ function invTabs() {
     tb.appendChild(b);
   });
 }
+/** 投资卡顶部的「本组已投放」小结 —— 数据放在动作发生的地方，学员不必先去报表翻页签 */
+function invSummary() {
+  const box = $('#invSummary'); if (!box) return;
+  const invs = g.investments || [];
+  const terms = (g.negotiation && g.negotiation.investTerms) || {};
+  if (!invs.length) {
+    box.innerHTML = '本组尚未投放任何投资 —— 在下方目录点「投资」即可（一次性支出 + 年费 + 每客成本 / 收益）。';
+    return;
+  }
+  box.innerHTML = '<b>本组已投放 ' + invs.length + ' 项：</b>' + invs.map(i => {
+    const def = INVESTMENTS.find(x => x.id === i.id);
+    const t = terms[i.id] || {};
+    const cPax = t.costPerPax != null ? t.costPerPax : (def ? (def.costPerPax || 0) : 0);
+    const rPax = t.revenuePerPax != null ? t.revenuePerPax : (def ? (def.revenuePerPax || 0) : 0);
+    const nm = def ? (def.name_cn || def.name) : (i.name || i.id);
+    return '<div>· ' + nm + '　一次性 ' + (i.amount ? money(i.amount) : '—')
+      + '　年费 ' + (i.annual ? money(i.annual) : '—')
+      + '　每客 成本 $' + cPax + ' / 收益 $' + rPax + '</div>';
+  }).join('');
+}
 function invBody() {
   const b = $('#invBody'); b.innerHTML = '';
+  invSummary();
   if (invTab === 'airline') {
     /* ★ 最近一次投资被拒原因直接显示在卡内（alert 容易被错过；服务端 rejects 已有记录） */
     const rj = (g.rejects || []).filter(x => x.type === 'invest')[0];
@@ -1563,6 +1588,12 @@ function render() {
   const hSel = R.pickReport(g, null);
   const onExp = (fn) => { const b = __DOC.getElementById(fn.id); if (b) b.onclick = fn.run; };
   /* 报表快捷入口：页面很长，「成绩单」必须一键可达 */
+  /* ★ 11-18：投资明细直达报表的「投资」页签（报表默认只露 4 个高频页签，投资在折叠里） */
+  const _ir = $('#btnInvReport');
+  if (_ir && !_ir._bound) { _ir._bound = 1; _ir.onclick = () => {
+    R.setReportTab(5); render();
+    const c = $('#repCard'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }; }
   const _jr = $('#btnJumpReport');
   if (_jr && !_jr._bound) { _jr._bound = 1; _jr.onclick = () => { const c = $('#repCard'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }; }
   onExp({ id:'btnExpSum', run: () => R.exportSummaryCsv(g, g.seat) });

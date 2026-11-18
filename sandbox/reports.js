@@ -62,6 +62,9 @@ export const REPORT_TABS = [
   ['Charts', '趋势图', 0],
 ];
 const UI = { repTab: 0, repSeason: null, repMore: false, opsTab: 0 };
+/** 小组端「查看投资报表」：切到指定页签并展开「更多报表」（UI 状态由 renderReports 消费） */
+export function setReportTab(i) { UI.repTab = i; UI.repMore = true; }
+
 export function renderReports(root, g, opts = {}) {
   /* ★ 增量更新：轮询（6s）会再次调用本函数，若每次 root.innerHTML='' 整块重建，
      用户正在点的页签会被替换掉 → 「点标签无反应」+ 闪动 + 点失效标签时崩溃。
@@ -109,7 +112,7 @@ export function renderReports(root, g, opts = {}) {
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h0 = pickReport(g, sel);
-    if (!h0) body.appendChild(el('div', 'small', '本季尚未结算（由裁判结算后生成盈利与历史报告）—— 下方为当前已能取得的即时数据。'));
+    if (!h0) body.appendChild(el('div', 'small', '本季尚未结算（由裁判结算后生成盈利与历史报告）—— 下方为当前已能取得的即时数据；**投资**页签始终显示已投放的投资。'));
     /* ★ 无历史报告时仍渲染页签骨架（否则点页签只是重复同一句提示 → 用户觉为「按钮无反应」） */
     const h = h0 || { period: (g.period && g.period.label) || '—', detail: {}, revenue: null, cost: null, operating_profit: null,
       oneoff: null, financing: null, cash_end: g.cash, load_factor: null, gross_margin: null,
