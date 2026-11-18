@@ -188,6 +188,18 @@ await step('玩家面板 顶部锚点条存在且可跳转', async () => {
   return btns.length + ' 个锚点';
 });
 
+/* ★ 11-18：小组端右栏挤了 17 张卡、左栏只有 4 张 → 版面严重不对称
+   → 右栏 6 张（考核目标评分表 / 本回合预览 / 扩张测算器 / 运力指引 / 联程设置 / 处置飞机指引）搬到左栏 */
+await step('玩家面板 左右两列卡片数均衡（差 ≤1）', async () => {
+  const main = P.doc.querySelector('main');
+  const cols = [...main.querySelectorAll(':scope > div')]
+    .filter(d => d.id !== 'jumpBar' && !d.classList.contains('widecard'));
+  ok(cols.length === 2, '应为两列，实得 ' + cols.length);
+  const n = cols.map(c => c.querySelectorAll(':scope > .card').length);
+  ok(Math.abs(n[0] - n[1]) <= 1, `左 ${n[0]} 张 / 右 ${n[1]} 张，差 ${Math.abs(n[0] - n[1])}`);
+  return `左 ${n[0]} 张 / 右 ${n[1]} 张`;
+});
+
 await step('玩家面板 不含推进回合的按钮（节奏归裁判端）', async () => {
   const gone = ['btnSubmit', 'btnStartRoundP', 'btnSettleNowP'].filter(id => P.doc.getElementById(id));
   ok(gone.length === 0, '小组端仍存在裁判端按钮: ' + gone.join(','));
@@ -224,6 +236,18 @@ await step('裁判面板 事件下拉含全部 5 个事件', async () => {
   const opts = [...T.doc.querySelectorAll('#selEvent option')].map(o => o.value);
   ok(opts.length === 5, '事件数 ' + opts.length);
   return opts.join(',');
+});
+
+/* ★ 11-18：小组端「提交投资」报 no cash 且报表投资页签无数据
+   → 根因：裁判端既无「发放资金」入口，也无「投资开放 / 议定条款」区域 */
+await step('裁判面板 资金与投资调控控件齐备', async () => {
+  const d = T.doc;
+  for (const id of ['gmSeat', 'grantAmt', 'btnGrant', 'invItem', 'btnInvOpen', 'btnInvShut', 'invCost', 'invRev', 'btnInvTerms']) {
+    ok(d.getElementById(id), '缺控件 #' + id);
+  }
+  const n = d.getElementById('invItem').options.length;
+  ok(n >= 30, '投资项下拉项数 ' + n);
+  return n + ' 个投资项可选';
 });
 
 await step('裁判面板 市场列表 10 个', async () => {

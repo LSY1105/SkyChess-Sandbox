@@ -268,6 +268,14 @@ const server = http.createServer(async (req, res) => {
             for (const [k, v] of Object.entries(n.buyback || {})) if (v) parts.push(`机${k}回购${v}`);
             const intel = Object.keys(n.intel || {});
             if (intel.length) parts.push(`情报[${intel.join(',')}]`);
+            /* 投资开放状态与议定条款（裁判端「课堂调控 · 资金与投资」回显） */
+            for (const [k, v] of Object.entries(n.investTerms || {})) {
+              const bits = [];
+              if (v.open === false) bits.push('关闭');
+              if (v.costPerPax != null) bits.push(`成本${v.costPerPax}`);
+              if (v.revenuePerPax != null) bits.push(`收益${v.revenuePerPax}`);
+              if (bits.length) parts.push(`投资${k}(${bits.join('/')})`);
+            }
             if (parts.length) terms[code] = parts.join(' · ');
           }
           const timer = Object.fromEntries([...sessions.entries()].map(([c, g]) => [c, {
@@ -610,12 +618,19 @@ function applyActionRaw(g, a) {
     }
     case 'removeFlight': g.schedules.splice(+a.index, 1); return 'ok';
     case 'invest': {
-      const i = D.INVESTMENTS.find(x => x.id === a.id); if (!i) return 'no item';
+      const i = D.INVESTMENTS.find(x => x.id === a.id); if (!i) return '目录中无此投资项';
       // F2 fix: route investment is bought per market (route by route basis)
       const invCode = i.cat === 'route' ? (a.code || null) : null;
-      if (i.cat === 'route' && !invCode) return 'need market code';
-      if (g.investments.some(x => x.id === i.id && x.code === invCode)) return 'already invested';
-      if (g.cash < i.upfront) return 'no cash';
+      if (i.cat === 'route' && !invCode) return '航线级投资须指定投放市场';
+      if (g.investments.some(x => x.id === i.id && x.code === invCode)) return '已投资过该项';
+      /* ★ 裁判逐组逐项「开放 / 关闭」投资（记录在 negotiation.investTerms[invId].open）
+         · 无记录 → 默认开放（不改变任何既有对局）
+         · open:false → 该组该项被裁判关闭 → 拒绝
+         · 原版注明「须与 GM 谈妥条款方可投资」的项（needNegotiation）→ 默认**未开放**，
+           须裁判在「课堂调控 · 资金与投资」中开放并议定条款后，该组方可投资 */
+      const it = g.negotiation?.investTerms?.[i.id] || {};
+      if (it.open != null ? !it.open : !!i.needNegotiation) return '该项投资未开放（须与裁判议定后开放）';
+      if (g.cash < i.upfront) return '现金不足，无法投资';
       g.cash -= i.upfront;
       g.investments.push({ id: i.id, name: i.name, kind: i.cat, code: invCode, amount: i.upfront, annual: i.annual, qsi: i.effect.qsi || 0, openedTurn: g.turn });
       if (i.annual) g.investmentsAnnual.push({ id: i.id, name: i.name, annual: i.annual });
@@ -1120,10 +1135,18 @@ function applyGMAction(a) {
     }
     /* ── 裁判注资（用于测试/课堂补给：让小组能承担开线费等固定支出）── */
     case 'grantCash': {
-      const g = sessions.get(String(a.seat || ''));
-      if (!g) return 'no seat';
-      g.cash += Number(a.amount) || 0;
-      gm.log.push(`裁判向 ${a.seat} 注资 $${Math.round(Number(a.amount) || 0).toLocaleString()}`);
+      /* ★ 裁判救场动作：小组现金为负时，投资 / 还贷 / 采购都会被服务端拒绝 → 注资是课堂必需动作
+         · seat='*' → 全部组（统一注资）；否则逐组
+         · 金额为负 = 扣减（罚则 / 追缴） */
+      const amt = Number(a.amount); if (!Number.isFinite(amt)) return '金额无效';
+      const targets = (a.seat && a.seat !== '*') ? [sessions.get(String(a.seat))] : [...sessions.values()];
+      const gs = targets.filter(Boolean);
+      if (!gs.length) return '席位不存在';
+      for (const g of gs) {
+        g.cash += amt;
+        g.log.push(`裁判注资 ${amt >= 0 ? '+' : '−'}$${Math.abs(Math.round(amt)).toLocaleString()}`);
+      }
+      gm.log.push(`裁判向 ${a.seat === '*' ? '全部组' : a.seat} 注资 $${Math.round(amt).toLocaleString()}`);
       return 'ok';
     }
     /* ── 套保窗口：裁判可宣布本季不提供套保（已签的不受影响）── */
@@ -1251,12 +1274,16 @@ function applyGMAction(a) {
           const r3 = G.startHeavyCheck(g, Number(a.acId));
           if (!r3.ok) return r3.why;
         } else if (spec.type === 'invest') {
+          if (!a.invId || !D.INVESTMENTS.some(x => x.id === a.invId)) return '投资项不存在';
           g.negotiation.investTerms = g.negotiation.investTerms || {};
           const cur = g.negotiation.investTerms[a.invId] || {};
+          /* ★ open：裁判逐组逐项「开放 / 关闭」投资（无记录 = 默认开放，见 case 'invest'）
+             ★ 空串按「未填」处理 → 不覆盖既有议定值（否则手滑把成本清零） */
           g.negotiation.investTerms[a.invId] = {
             ...cur,
-            ...(a.costPerPax != null ? { costPerPax: Number(a.costPerPax) } : {}),
-            ...(a.revenuePerPax != null ? { revenuePerPax: Number(a.revenuePerPax) } : {}),
+            ...(a.open != null && a.open !== '' ? { open: !!a.open } : {}),
+            ...(a.costPerPax != null && a.costPerPax !== '' ? { costPerPax: Number(a.costPerPax) } : {}),
+            ...(a.revenuePerPax != null && a.revenuePerPax !== '' ? { revenuePerPax: Number(a.revenuePerPax) } : {}),
           };
         } else {
           g.negotiation[item] = (v === null || v === '') ? null : Number(v);

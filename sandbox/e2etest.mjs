@@ -99,6 +99,38 @@ const st1 = (await get('/api/gm', 'teacher')).b.seatStyles;
 ok(st1 && st1.CA === 'FSC', `setSeatStyle 后回显生效（CA=${st1 && st1.CA}）`);
 
 
+/* ⑨ 裁判注资（grantCash）—— 小组现金为负时唯一能救场的动作 */
+{
+  const c0 = (await get('/api/seat/CA', 'CA')).b.game.cash;
+  const gr = await post('/api/gm', { type: 'grantCash', seat: 'CA', amount: 500000 }, 'teacher');
+  ok(gr.b.result === 'ok', 'grantCash → ok（实得 ' + gr.b.result + '）');
+  const c1 = (await get('/api/seat/CA', 'CA')).b.game.cash;
+  ok(Math.abs(c1 - (c0 + 500000)) < 1, `注资 $500,000 生效（${c0} → ${c1}）`);
+}
+
+/* ⑩ 投资双闸门：裁判「开放 / 关闭」+「议定条款」→ 小组端投资可达 */
+{
+  /* 原版注明「须与 GM 谈妥条款方可投资」→ 未议定前默认未开放 */
+  const inv0 = await post('/api/seat/CA', { type: 'invest', id: 'cab_lowcost' }, 'CA');
+  ok(/未开放/.test(String(inv0.b.result)), `未议定条款时该项应被拒（${inv0.b.result}）`);
+  /* 议定条款 → 写入 investTerms（每客成本 / 收益） */
+  const neg = await post('/api/gm', { type: 'negotiate', seat: 'CA', item: 'investTerms',
+    invId: 'cab_lowcost', costPerPax: 1.5, revenuePerPax: 2 }, 'teacher');
+  ok(neg.b.result === 'ok', '议定投资条款 → ok（实得 ' + neg.b.result + '）');
+  const g = (await get('/api/seat/CA', 'CA')).b.game;
+  const t = g.negotiation.investTerms.cab_lowcost;
+  ok(t && t.costPerPax === 1.5 && t.revenuePerPax === 2, 'investTerms 写入成本/收益（实得 ' + JSON.stringify(t) + '）');
+  /* 关闭 → 立即被拒；开放 → 放行并入账 */
+  await post('/api/gm', { type: 'negotiate', seat: 'CA', item: 'investTerms', invId: 'adv_web', open: false }, 'teacher');
+  const i2 = await post('/api/seat/CA', { type: 'invest', id: 'adv_web' }, 'CA');
+  ok(/未开放/.test(String(i2.b.result)), `关闭后投资被拒（${i2.b.result}）`);
+  await post('/api/gm', { type: 'negotiate', seat: 'CA', item: 'investTerms', invId: 'adv_web', open: true }, 'teacher');
+  const i3 = await post('/api/seat/CA', { type: 'invest', id: 'adv_web' }, 'CA');
+  ok(i3.b.result === 'ok', `开放后可投资（${i3.b.result}）`);
+  const g3 = (await get('/api/seat/CA', 'CA')).b.game;
+  ok(g3.investments.some(x => x.id === 'adv_web'), '投资记录已入账');
+}
+
 console.log('\n' + '═'.repeat(60));
 console.log(`端到端与权限回归：${pass} 通过 / ${fail} 失败 / 共 ${pass + fail}`);
 process.exit(fail ? 1 : 0);

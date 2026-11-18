@@ -543,6 +543,11 @@ export const INVESTMENTS = [
     desc:'豪华客舱升级；注 Impact is deferred by one Quarter（影响延迟一季度）' },
   { id:'cab_lowcost', name_cn:'客舱升级（低成本型）', desc_cn:'以低成本方式升级客舱', name:'Cabin Upgrade (Low Cost)', cat:'airline', upfront:1375000, annual:0,
     costPerPax: 0, revenuePerPax: 0,
+    /* ★ needNegotiation：原版 Investment Catalogue 明写
+       "To invest in Cabin Upgrade (Low Cost) you will need to speak to your GM to negotiate the terms."
+       → 本项默认**未开放**，须裁判在「课堂调控 · 资金与投资」中开放并议定条款后该组方可投资
+       （依据：真实机制对照.md §读图得到的三条机制 #2） */
+    needNegotiation: true,
     cabin:{ E:{c:0, r:0}, PE:{c:0, r:0}, B:{c:0, r:0} },
     /* ★ 座位改造：原版 Cabin Upgrade (Low Cost)「a modest increase in seat count」
        → 低成本航空：经济舱座位增加 → 可拉更多旅客（增量无一手材料 →【推断·待验证】） */
