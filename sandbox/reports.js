@@ -276,6 +276,8 @@ function kpiCards(root, items) {
     const v = el('div', null, it.value);
     v.style.cssText = 'font-size:20px;font-weight:600;margin-top:2px';
     c.appendChild(v);
+    /* ★ 口径注（11-17 critique）：同一术语多个数时，把口径写在数字旁边，而不是散落在别处 */
+    if (it.note) c.appendChild(el('div', 'small', it.note));
     grid.appendChild(c);
   }
   root.appendChild(grid);
@@ -288,8 +290,10 @@ function summary(root, h, g) {
     { label: 'Average Load Factor', value: pct(h.load_factor, 1), icon: 'people' },
     { label: 'Quality Service Indicator', value: num(g.qsi, 2), icon: 'thumb' },
     { label: 'Market Share', value: pct(h.market_share, 2), icon: 'pie' },
-    { label: 'Break-even Load Factor', value: h.breakEvenLF != null ? pct(h.breakEvenLF, 1) : '—', icon: 'scale' },
-    { label: 'Margin', value: pct(h.gross_margin, 2), icon: 'pct' },
+    { label: 'Break-even Load Factor', value: h.breakEvenLF != null ? pct(h.breakEvenLF, 1) : '—', icon: 'scale',
+      note: '单班次现金成本 ÷ 满座收入（全网 ASK 加权）；与「运力指引」固定成本口径不同' },
+    { label: 'Margin', value: pct(h.gross_margin, 2), icon: 'pct',
+      note: '按已结算季度收入计；亏损季固定成本照常计提 → 结构性为负' },
     { label: 'Closing Cash', value: money(h.cash_end), icon: 'bank' },
   ]);
   costSummaryChart(root, h, g);
@@ -576,7 +580,7 @@ export function renderOpsViews(root, g) {
 }
 
 /* U5：席位显示名（沙盘席位名） */
-const SEAT_NAME_CN = { CA: '首都', AB: '弹道', VA: '愿景' };
+const SEAT_NAME_CN = { CA: '首都航空', AB: '弹道航空', VA: '愿景航空' };   /* ★ 与 server.mjs 的席位名同口径 */
 function schedulerView(root, g) { renderGantt(root, { [g.seat || 'seat']: g }); }
 /**
  * 票价矩阵改「网格」形态（官方界面-3 / Role Guide p11）：行=市场、列=各航司，格内=该航司报价

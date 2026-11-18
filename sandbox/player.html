@@ -302,6 +302,8 @@ setInterval(function () {
         <b>现金口径盈亏平衡 LF</b>（主指标，只含利息与租金，不含折旧）→ 低于它必须减班次；
         <b>全成本口径</b>（再加折旧）→ 低于它时扩张属「战略性亏损扩张」，是规模摊薄固定成本的必经阶段。
         运价越低 → 两者都越高；低票价机型必须换来更高客座率。
+        <br>⚠ 本表两个 LF = <b>固定成本</b> ÷ (季座位 × 运价)（不含变动成本）；报表「Break-even Load Factor」
+        = <b>单班次现金成本</b> ÷ 单班次满座收入（全网 ASK 加权）—— 两者口径不同，数值不可直接比较。
       </div>
       <div id="demandHint"></div>
       <div id="turnHint" class="small" style="margin-top:6px"></div>
@@ -892,7 +894,9 @@ function scoreTbl() {
   for (const [n, tgt, act_] of rows) {
     const isPct = tgt < 1;
     const row = el('tr');
-    row.appendChild(el('td', null, n));
+    const _td0 = el('td', null, n);
+    if (n === '毛利率') _td0.title = '按已结算季度收入计；亏损季固定成本照常计提 → 结构性为负';
+    row.appendChild(_td0);
     row.appendChild(el('td', null, isPct ? pct(tgt) : money(tgt)));
     row.appendChild(el('td', null, isPct ? pct(act_) : money(act_)));
     const met = act_ >= tgt;
@@ -914,7 +918,9 @@ function prevTbl() {
   ];
   for (const [n, v, k] of rows) {
     const row = el('tr');
-    row.appendChild(el('td', null, n));
+    const _td0 = el('td', null, n);
+    if (n === '毛利率') _td0.title = '按本回合预测收入计；亏损季固定成本照常计提 → 结构性为负';
+    row.appendChild(_td0);
     const c = el('td', null, k === 'pct' ? pct(v) : money(v));
     if (n === '经营利润' || n === '期末现金') c.className = v >= 0 ? 'ok' : 'bad';
     row.appendChild(c); t.appendChild(row);
@@ -928,7 +934,7 @@ function hist() {
   const h = g.history[histSel];
   let html = '<table><tr><th>航线</th><th>频次</th><th>ASK</th><th>旅客</th><th>客座率</th><th>中转</th><th>收入</th><th>经营利润</th></tr>';
   for (const [code, d] of Object.entries(h.detail))
-    html += `<tr><td>${d.market}</td><td>${d.freq}</td><td>${(d.ask / 1e6).toFixed(1)}</td><td>${Math.round(d.pax).toLocaleString()}</td>`
+    html += `<tr><td>${(MARKETS[code] && MARKETS[code].name_cn) || code} <span class="small">${code}</span></td><td>${d.freq}</td><td>${(d.ask / 1e6).toFixed(1)}</td><td>${Math.round(d.pax).toLocaleString()}</td>`
       + `<td>${(d.lf * 100).toFixed(1)}%</td><td>${Math.round(d.connected_pax || 0).toLocaleString()}</td>`
       + `<td>${money(d.rev['Total Revenue'])}</td><td class="${d.operating_profit >= 0 ? 'ok' : 'bad'}">${money(d.operating_profit)}</td></tr>`;
   b.innerHTML = html + '</table>';
