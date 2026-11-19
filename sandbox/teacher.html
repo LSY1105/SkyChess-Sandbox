@@ -303,13 +303,14 @@ td[data-seat="VA"]{--dot:#2f6fa8}
         <label>投资项</label>
         <select id="invItem" style="width:400px"></select>
         <button id="btnInvToggle">开放该项</button>
+        <!-- ★ 反馈**就地**放在动作按钮旁边：11-19 实测「点了没反应」= 回显离动作太远 / 太小 -->
+        <span id="invTermsMsg" class="small"></span>
       </div>
       <div class="row">
         <label>每客条款</label>
         <input id="invCost" type="number" step="0.25" placeholder="成本 $ / 旅客" style="width:140px">
         <input id="invRev" type="number" step="0.25" placeholder="收益 $ / 旅客" style="width:140px">
         <button id="btnInvTerms">议定条款</button>
-        <span id="invTermsMsg" class="small"></span>
       </div>
     </div>
 
@@ -950,7 +951,9 @@ $('#btnIntel').onclick = async () => {
      ② 投资项未开放 / 条款未定 → 「开放 / 关闭」+「议定条款」
    原版 Investment Catalogue 注明「To invest in Cabin Upgrade (Low Cost)
    you will need to speak to your GM to negotiate the terms.」→ 该项默认未开放。 */
-const INV_CATS = [['airline', '航空公司投资'], ['fleet', '机队投资'], ['route', '航线投资'], ['asset', '资产购置']];
+const INV_CAT_CN = { airline: '航空公司投资', fleet: '机队投资', route: '航线投资', asset: '资产购置' };
+/* 按**数据里实际存在的类别**分组（别写死类别表：目录只有 airline/route 两类，写死会多出空组） */
+const INV_CATS = [...new Set(INVESTMENTS.map(i => i.cat))].map(c => [c, INV_CAT_CN[c] || c]);
 $('#gmSeat').innerHTML = ['CA', 'AB', 'VA'].map(x => `<option value="${x}">${x}</option>`).join('');
 /* ★ 11-18：32 项平铺的长下拉极易误选（选项文字被 300px 截断）→ 按类别 optgroup 分组 + 文案精简 */
 $('#invItem').innerHTML = INV_CATS.map(([c, n]) => {

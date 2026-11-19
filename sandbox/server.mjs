@@ -317,6 +317,11 @@ const server = http.createServer(async (req, res) => {
     }
 
     /* ---------- 静态 ---------- */
+    /* ★ favicon 直接 204：浏览器每次开页都请求它，没有就 500 →
+       浏览器会把失败的资源请求记进自己的错误日志（每轮开页都一条噪声）。
+       注：CDP 的 Runtime.consoleAPICalled 收不到这种网络错误，
+       所以 browsertest 另用 Network.responseReceived 单独盯 4xx/5xx */
+    if (p === '/favicon.ico') { res.statusCode = 204; return res.end(); }
     let file = p === '/' ? '/index.html' : p;
     if (file === '/player.html') file = '/player.html';
     if (file === '/teacher.html') file = '/teacher.html';

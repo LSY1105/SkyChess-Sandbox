@@ -879,12 +879,18 @@ function invBody() {
       const cPax = tg.costPerPax != null ? tg.costPerPax : (i.costPerPax || 0);
       const rPax = tg.revenuePerPax != null ? tg.revenuePerPax : (i.revenuePerPax || 0);
       const row = el('tr');
-      /* ★ 裁判侧状态徽标：未开放 / 已开放 / 已议定条款 → 小组一眼看清哪一项投不了、为什么 */
-      const badge = !open
+      /* ★ 裁判侧状态徽标：**四态**（S4）—— 二值会让「裁判指定开放」看起来像「默认开放」
+         ① 裁判关闭 ② 裁判指定开放（可带已议定条款） ③ 从未谈过（按目录默认值）
+         ④ 原版要求先与 GM 谈妥条款（默认未开放） */
+      const hasTerms = tg.costPerPax != null || tg.revenuePerPax != null;
+      const badge = tg.open === false
         ? '<span class="bad">● 未开放 —— 须由裁判在「课堂调控 · 资金与投资」中开放</span>'
-        : (tg.costPerPax != null || tg.revenuePerPax != null
-          ? '<span class="ok">● 已开放 · 已议定：成本 $' + cPax + ' / 收益 $' + rPax + '（每旅客）</span>'
-          : '<span class="ok">● 已开放（按目录默认值）</span>');
+        : tg.open === true
+          ? '<span class="ok">● 已开放（裁判指定）'
+            + (hasTerms ? ' · 已议定：成本 $' + cPax + ' / 收益 $' + rPax + '（每旅客）' : '') + '</span>'
+          : (i.needNegotiation
+            ? '<span class="bad">● 未开放（原版要求先与裁判谈妥条款）</span>'
+            : '<span class="ok">● 已开放（按目录默认值）</span>');
       row.appendChild(el('td', null, `${i.name_cn || i.name}<div class="small">${i.desc_cn || i.desc || ''}</div><div class="small">${badge}</div>`));
       row.appendChild(el('td', null, i.upfront ? money(i.upfront) : '—'));
       row.appendChild(el('td', null, i.annual ? money(i.annual) : '—'));

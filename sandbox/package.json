@@ -5,6 +5,8 @@
  "main": "competitors.js",
  "scripts": {
   "server": "node server.mjs",
+  "test": "node runtests.mjs",
+  "test:browser": "node browsertest.mjs",
   "test:ui": "node uitest.mjs",
   "test:multi": "node multitest.mjs",
   "test:sim": "node sim3.js"

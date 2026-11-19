@@ -22,6 +22,8 @@ const FILES = [
   ['competitiontest.mjs', []], ['negotiationtest.mjs', []], ['proposaltest.mjs', []],
   ['investtest.mjs', []], ['ruletest.mjs', []], ['markettest.mjs', []],
   ['demandtest.mjs', []], ['routetest.mjs', []], ['timetest.mjs', []], ['cabintest.mjs', []], ['cabinmodtest.mjs', []], ['charttest.mjs', []], ['flitecontest.mjs', []],
+  /* ★ 真实浏览器护栏：jsdom 没有排版引擎 → 可见性/可读性只能靠真浏览器（11-18 ~ 11-19 返工三次的根因） */
+  ['browsertest.mjs', []],
 ];
 
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
