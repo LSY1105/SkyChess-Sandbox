@@ -526,16 +526,17 @@ async function refresh() {
   // ⑩ 分季规则开启表
   {
     const t = $('#tblRules'); if (t) {
-      t.innerHTML = '';
-      const tr = el('tr');
-      ['机制', '分组', '计划回合', '当前状态', '依据', '调整开启回合'].forEach(h => tr.appendChild(el('th', null, h)));
-      t.appendChild(tr);
       const s0 = g.seats && g.seats[0];
       let rules = g.rules || [];
       if (s0) {
         const r0 = await (await fetch('/api/seat/' + s0, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
         if (r0.game && r0.game.rules) rules = r0.game.rules;
       }
+      /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动（裁判端「整页闪动」的真元） */
+      const f = document.createDocumentFragment();
+      const tr = el('tr');
+      ['机制', '分组', '计划回合', '当前状态', '依据', '调整开启回合'].forEach(h => tr.appendChild(el('th', null, h)));
+      f.appendChild(tr);
       for (const r of rules) {
         const row = el('tr');
         row.appendChild(el('td', null, r.name));
@@ -558,22 +559,30 @@ async function refresh() {
         };
         td.appendChild(btn);
         row.appendChild(td);
-        t.appendChild(row);
+        f.appendChild(row);
       }
+      t.replaceChildren(f);
     }
   }
 
   // 席位表
-  const t = $('#tblSeats'); t.innerHTML = '';
+  const t = $('#tblSeats');
+  /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动（裁判端「整页闪动」的真元） */
+  const f = document.createDocumentFragment();
   const tr = el('tr');
   ['席位', '期间', '现金', 'QSI', '航线', '飞机', '机龄', '状态', '累计利润', '客座率', '平衡LF(现/全)', '被拒操作', ''].forEach(h => tr.appendChild(el('th', null, h)));
-  t.appendChild(tr);
+  f.appendChild(tr);
+  /* 先把三组数据全取回来，再统一建行、一次性替换（不要在等待期间把表拉空） */
+  const seatData = [];
   for (const s of g.seats) {
     const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
     if (res.error) continue;
     seatGames[s] = res.game;
+    seatData.push([s, res.game]);
+  }
+  for (const [s, gm_] of seatData) {
     /* 资产处置面板依赖 seatGames → 席位表刷新后同步重绘 */
-    const gm_ = res.game, last = gm_.history[gm_.history.length - 1];
+    const last = gm_.history[gm_.history.length - 1];   /* gm_ 由上面的取数循环带入 */
     const cum = gm_.history.reduce((a, r) => a + r.operating_profit, 0);
     const row = el('tr');
     row.appendChild(el('td', null, s));
@@ -643,9 +652,10 @@ async function refresh() {
     const td = el('td');
     const b = el('button', null, '打开');
     b.onclick = () => window.open('/player.html?seat=' + s, '_blank');
-    td.appendChild(b); row.appendChild(td);
-    t.appendChild(row);
+    row.appendChild(td);
+    f.appendChild(row);
   }
+  t.replaceChildren(f);
 
   // 事件列表
   $('#evList').innerHTML = gm.events.length
@@ -842,7 +852,9 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
   // ── 小组提案（小组只能发起，批准后方生效）──
   const pl = $('#propList');
   const seatSel = $('#propSeat').value;
-  pl.innerHTML = '';
+  /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动（裁判端「整页闪动」的真元） */
+  const pf = document.createDocumentFragment();
+  let pn = 0;
   for (const s of (gm.seats || [])) {
     const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
     const ps = (res.game && res.game.proposals) || [];
@@ -885,10 +897,11 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
         inp.appendChild(okb); inp.appendChild(nob);
       }
       box.appendChild(inp);
-      pl.appendChild(box);
+      pf.appendChild(box); pn++;
     }
   }
-  if (!pl.children.length) pl.innerHTML = '<span class="small">（该组暂无提案）</span>';
+  if (!pn) pf.appendChild(el('span', 'small', '（该组暂无提案）'));
+  pl.replaceChildren(pf);
   $('#propSeat').onchange = refresh;
 
   const seats = gm.terms || {};
@@ -1313,13 +1326,14 @@ async function renderStyleAndHack() {
   srow.appendChild(el('span', 'small', '· 该组经营定位即生效：过站谈判档位、起始机队/现金定位与自动演练的定价系数随之变化；过站基线统一 60 分钟，差异需裁判逐组谈定'));
   // 网络攻击处理
   const hp = __DOC.getElementById('hackPanel'); if (!hp) return;
-  hp.innerHTML = '';
+  /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动（裁判端「整页闪动」的真元） */
   const hacked = [];
   for (const s of (gm.seats || [])) {
     const d = await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
     if (d && d.game && d.game.hacked && !d.game.hacked.resolved) hacked.push({ s, h: d.game.hacked, d: d });
   }
-  if (!hacked.length) { hp.appendChild(el('div', 'small', '当前无处于被攻击状态的航司。')); return; }
+  const hf = document.createDocumentFragment();
+  if (!hacked.length) { hf.appendChild(el('div', 'small', '当前无处于被攻击状态的航司。')); hp.replaceChildren(hf); return; }
   for (const x of hacked) {
     const row = el('div', 'row');
     row.appendChild(el('span', null, x.s + ' 面板被勒索覆盖，无法操作'));
@@ -1346,8 +1360,9 @@ async function renderStyleAndHack() {
       if (r.result !== 'ok') alert(r.result);
     };
     row.appendChild(inp); row.appendChild(b1); row.appendChild(b2);
-    hp.appendChild(row);
+    hf.appendChild(row);
   }
+  hp.replaceChildren(hf);
 }
 setInterval(renderStyleAndHack, 6000);
 

@@ -438,6 +438,38 @@ await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => 
   });
 }
 
+/* ────────────────────────── 裁判端闪动护栏：面板不得出现「被画成空的状态」
+   ★ 判据用**可见文本**是否为空（不用 childElementCount）—— 日志只有 1 条时没有 <br>，
+     子元素数为 0 但文字还在 → 人眼看得到，不算空。
+   ★ “由非空变空”才算闪动：只有就是空的卡片不算（没有内容的卡片本来就应该紧缩）。
+   ★ 修法（11-20）：裁判端 4 处「先清空 → await → 再填」改为「先取数 → 后一次性替换」
+     （#tblRules / #tblSeats / #propList / #hackPanel）。 */
+{
+  await withPage(`${BASE}/teacher.html?key=${KEYS.teacher}`, async cdp => {
+    await cdp.until(() => { const e = document.getElementById('tblSeats'); return !!e && e.textContent.trim().length > 0; });
+    await cdp.call(() => {
+      window.__empty = [];
+      const ids = [...document.querySelectorAll('[id]')].map(e => e.id);
+      const was = {};
+      const frame = () => {
+        for (const id of ids) {
+          const el = document.getElementById(id); if (!el) continue;
+          const empty = (el.textContent || '').trim() === '' && el.children.length === 0;
+          if (was[id] === undefined) { was[id] = empty; continue; }
+          if (empty && !was[id]) window.__empty.push({ id, t: Date.now() % 100000 });
+          was[id] = empty;
+        }
+        requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    });
+    await api('/api/gm', { type: 'grantCash', seat: 'CA', amount: 123456 }, KEYS.teacher);
+    await sleep(6000);
+    const empty = await cdp.call(() => window.__empty);
+    ok(!empty.length, '裁判端状态变化后不得出现被画成空的面板' + (empty.length ? ': ' + JSON.stringify(empty.slice(0, 5)) : ''));
+  });
+}
+
 console.log('\n' + '='.repeat(60));
 console.log(`真实浏览器护栏：${pass} 通过 / ${fail} 失败 / 共 ${pass + fail}`);
 process.exit(fail ? 1 : 0);
