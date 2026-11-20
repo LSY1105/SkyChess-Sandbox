@@ -5,6 +5,7 @@
    ============================================================ */
 import http from 'node:http';
 import { readFileSync } from 'fs';
+import * as GE from './game.js';
 import { isAbsolute } from 'path';
 
 const BASE = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
@@ -170,6 +171,49 @@ await step('回程落地后必须过完过站时间才能再飞', async () => {
   ok(early.result !== 'ok', '13:30 飞（落地后仅 26 分钟，过站不够）必须被拒', String(early.result));
   const okTime = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '14:04' }, 'CA');
   ok(okTime.result === 'ok', '14:04 飞（落地 + 过站 60 分钟）应允许', String(okTime.result));
+});
+
+
+/* ★ 11-20：裁判谈定的过站档位必须**真的生效**（原实现要求 >= 基线，导致 30/45 分钟裁判谈了等于没谈）；
+   且 30 分钟档的代价是**放弃运货**（否则就是白送） */
+await step('裁判谈定的过站档位真正生效（45 分钟）', async () => {
+  await req('/api/gm', { type: 'negotiate', seat: 'CA', item: 'turnaroundMin', value: 45 }, 'teacher');
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const used = new Set((gh.game.schedules || []).map(s => s.acId));
+  const ac = gh.game.aircraft.find(a => !used.has(a.id)) || gh.game.aircraft[0];
+  for (let i = (gh.game.schedules || []).length - 1; i >= 0; i--) {
+    if (gh.game.schedules[i].acId === ac.id) await req('/api/seat/CA', { type: 'removeFlight', index: i }, 'CA');
+  }
+  const a1 = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '09:00' }, 'CA');
+  ok(a1.result === 'ok', '排班成功', String(a1.result));
+  const g2 = await req('/api/seat/CA', null, 'CA');
+  const sc = (g2.game.schedules || []).find(s => s.acId === ac.id);
+  ok(sc && sc.turnaround === 45, `排班实际使用的过站 = ${sc && sc.turnaround} 分钟（谈判 45 应生效）`);
+  await req('/api/gm', { type: 'negotiate', seat: 'CA', item: 'turnaroundMin', value: 60 }, 'teacher');
+});
+
+await step('过站 30 分钟档须放弃运货（45 档保留）', async () => {
+  const neg = async (v) => {
+    await req('/api/gm', { type: 'negotiate', seat: 'CA', item: 'turnaroundMin', value: v }, 'teacher');
+    const g = await req('/api/seat/CA', null, 'CA');
+    return g.game;
+  };
+  /* ★ 单元断言：Number(null)===0 的陷阱——未谈判时不得被当成 30 分钟档 */
+  ok(GE.cargoAllowed({}), '无 negotiation → 保留运货');
+  ok(GE.cargoAllowed({ negotiation: { turnaroundMin: null } }), 'turnaroundMin=null → 保留运货（Number(null)===0 的陷阱）');
+  ok(GE.cargoAllowed({ negotiation: { turnaroundMin: 60 } }), '60 分钟档 → 保留运货');
+  ok(!GE.cargoAllowed({ negotiation: { turnaroundMin: 30 } }), '30 分钟档 → 放弃运货');
+  const g45 = await neg(45);
+  ok(GE.cargoAllowed(g45), '45 分钟档保留运货');
+  const g30 = await neg(30);
+  ok(!GE.cargoAllowed(g30), '30 分钟档放弃运货（代价实现）');
+  /* ★ 裁判把输入框清空 → 回到基线（不得报「档位不适用」） */
+  const clr = await req('/api/gm', { type: 'negotiate', seat: 'CA', item: 'turnaroundMin', value: '' }, 'teacher');
+  ok(clr.result === 'ok', '清空过站档位应成功', String(clr.result));
+  const gClr = await req('/api/seat/CA', null, 'CA');
+  ok(gClr.game.negotiation.turnaroundMin == null, '清空后回到基线（null）',
+     String(gClr.game.negotiation.turnaroundMin));
+  await neg(60);
 });
 
 console.log();

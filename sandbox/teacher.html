@@ -771,7 +771,14 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
   const inputs = {};
   for (const row of MATRIX) {
     const tr = el('tr');
-    tr.appendChild(el('td', null, row.label));
+    const lab = el('td', null, row.label);
+    /* ★ 过站时间档位的代价必须写清楚（否则裁判谈了不知道吃了什么常） */
+    if (row.k === 'turnaroundMin') {
+      const hint = el('div', 'small', '45 免费保留运货；30 须放弃运货（该组不再载货）；长程机型固定 120 不可谈');
+      hint.style.whiteSpace = 'normal';
+      lab.appendChild(hint);
+    }
+    tr.appendChild(lab);
     inputs[row.k] = {};
     for (const sc of ['CA','AB','VA']) {
       const td = el('td');

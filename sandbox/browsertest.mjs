@@ -357,6 +357,10 @@ await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => 
   });
   ok(!!rep, '点「投资报表」后报表停在 Investments 页签且含投资数据' + (rep ? ': ' + rep : ''));
 
+  /* ★ 11-20：排班表要告诉学员「这架飞机最早何时能再排班」（回程落地 + 过站） */
+  ok(!!(await cdp.until(() => [...document.querySelectorAll('#tblSched th')].some(t => t.textContent.indexOf('可再排班') >= 0))),
+    '排班表有「可再排班」列（该机最早可再排班珰刻）');
+
   /* ★ 页面无横向溢出（宽表被裁 = 学员看不到列） */
   /* ★ 未结算时学员默认落在 Summary 页签，该页签整页都是「—」
      → 人眼会判成「报表无任何数据」。必须给诚「尚未结算」的醒目提示。 */

@@ -762,10 +762,10 @@ function acSelFill() {
 function sched() {
   const t = $('#tblSched'); t.innerHTML = '';
   const tr = el('tr');
-  ['飞机', '航班', '起飞', '到达', '过站时间', '回程起飞', '回程到达', '市场', '货量', '操作'].forEach(h => tr.appendChild(el('th', null, h)));
+  ['飞机', '航班', '起飞', '到达', '过站时间', '回程起飞', '回程到达', '可再排班', '市场', '货量', '操作'].forEach(h => tr.appendChild(el('th', null, h)));
   t.appendChild(el('tr'));
   const tip = el('td', 'small');
-  tip.colSpan = 14;
+  tip.colSpan = 11;
   tip.innerHTML = '★ 时刻占用规则：<b>上季未调整的时刻本季继续占飞</b>；<b>删除某个时刻 = 释放该时刻航线</b>'
     + '（其他航司会从甘特图看到变化并抢占）→ 调整航线前请先删除要改的时刻，只删一个不影响其他时刻。';
   t.appendChild(tip);
@@ -794,11 +794,15 @@ function sched() {
     const readyCell = el('td', null, _ready);                                            // 过站时间 = 到达 + 下客/清洁/上客
     {
       const parts = (GM.style_turnaround_parts || {})[g.style || 'Hybrid'] || { deplane: 0, clean: 0, board: 0 };
-      readyCell.title = '过站时间 = 到达 + 下客 ' + parts.deplane + ' 分 + 清洁 ' + parts.clean + ' 分 + 上客 ' + parts.board + ' 分（共 ' + _turn + ' 分）｜回程起飞不得早于此时刻；下一班起点可再晚 2–4 小时（联程中转窗口）';
+      readyCell.title = '过站时间 = 到达 + 下客 ' + parts.deplane + ' 分 + 清洁 ' + parts.clean + ' 分 + 上客 ' + parts.board + ' 分（共 ' + _turn + ' 分）｜回程起飞不得早于此时刻；回程落地后还要再等一个过站才能给同一架飞机排下一班（见「可再排班」列）';
     }
     row.appendChild(readyCell);
     row.appendChild(el('td', null, s.returnDeparture || '待设定'));                          // 回程起飞（学员设定）
     row.appendChild(el('td', null, s.returnArrival || '待设定'));                            // 回程到达（系统推导）
+    /* ★ 该机最早可再排班时刻 = 回程到达 + 过站（落地后还要下客+清洁+上客） */
+    const _freeCell = el('td', null, _hhmm(_toMin(_retArr) + _turn));
+    _freeCell.title = '落地后还要一个过站（' + _turn + ' 分钟）；此后才能给这架飞机排下一班';
+    row.appendChild(_freeCell);
     row.appendChild(el('td', null, `${m.name_cn} (${m.sector_km}km)`));
     row.appendChild(el('td', null, (s.cargoCap || 0).toFixed(1)));
     const td = el('td');
@@ -1104,7 +1108,8 @@ function renderTips() {
   const box = $('#tipsBox'); if (!box) return;
   const cyber = (GM.cyber_service_price || 250000).toLocaleString();
   const maxFare = GM.max_fare_multiple || 3;
-  const turn = (GM.style_turnaround || {})[g.style || 'Hybrid'] || 45;
+  const turn = (g.negotiation && g.negotiation.turnaroundMin != null) ? g.negotiation.turnaroundMin
+    : ((GM.style_turnaround || {})[g.style || 'Hybrid'] || 45);   /* ★ 含裁判谈定档位 */
   box.innerHTML =
     '<div><b>被网络攻击 → 面板全屏不可操作</b>：两条解法 —— 付裁判赎金，或购买网络安全服务 $' + cyber + '/季（cyberService 规则）。'
     + '攻击不是"裁判给的困难"，而是事件导致的经营中断。</div>'

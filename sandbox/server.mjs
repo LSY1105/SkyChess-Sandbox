@@ -96,7 +96,7 @@ const NEGOTIABLE = {
   marketDemand:   { label: '市场级需求倍数',       type: 'perMarket' },
   fuelHedge:      { label: '燃油套保（两档固定方案）', type: 'hedge' },
   buyback:        { label: '飞机回购报价',         type: 'perAc' },
-  turnaroundMin:  { label: '短程过站时间（分钟，15 的倍数）', type: 'num', min: 30, max: 60, step: 15 },
+  turnaroundMin:  { label: '短程过站时间（分钟，15 的倍数）', type: 'num', min: 30, max: 90, step: 15 },
   leaseType:      { label: '租赁方式（dry/wet）', type: 'leaseType' },
   leaseDiscount:  { label: '租赁折扣（0~1，如 0.20）', type: 'num', min: 0, max: 0.6, step: 0.05 },
   heavyCheck:     { label: '飞机大修（半 BH 限制 + 出售溢价）', type: 'heavyCheck' },
@@ -1244,12 +1244,16 @@ function applyGMAction(a) {
         const v = a.value;
         // ★ 过站时间档位按经营定位强约束（低于基线或不在允许档位 → 拒绝）
         if (item === 'turnaroundMin') {
-          const st = g.style || 'Hybrid';
-          const base = (D.GM.style_turnaround || {})[st] || 60;
-          const opts = (D.GM.style_turnaround_options || {})[st] || [60];
-          const num = Number(v);
-          if (!opts.includes(num))   /* 基准 60；低于基准属裁判特批（裁判即设定者） */
-            return `过站时间档位不适用于 ${st}（基线 ${base} 分钟，可选 ${opts.join('/')}）`;
+          /* ★ 允许清空（回到基线）：裁判把输入框清空就应回基线，而不是报「档位不适用」
+             （Number(null)===0 会被档位校验拒绝） */
+          if (v !== null && v !== '') {
+            const st = g.style || 'Hybrid';
+            const base = (D.GM.style_turnaround || {})[st] || 60;
+            const opts = (D.GM.style_turnaround_options || {})[st] || [60];
+            const num = Number(v);
+            if (!opts.includes(num))   /* 基准 60；低于基线须裁判特批（谈判时逐组差异化） */
+              return `过站时间档位不适用于 ${st}（基线 ${base} 分钟，可选 ${opts.join('/')}）`;
+          }
         }
         if (spec.type === 'perMarket') {
           const code = a.code;

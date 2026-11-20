@@ -649,8 +649,22 @@ export function turnaroundFor(ac, code, g = null) {
   const base = (GM.style_turnaround && GM.style_turnaround[style]) || GM.sh_turnaround;
   const opts = (GM.style_turnaround_options && GM.style_turnaround_options[style]) || [GM.sh_turnaround, 60];
   const neg = g && g.negotiation ? g.negotiation.turnaroundMin : null;
-  if (neg != null && opts.includes(Number(neg)) && Number(neg) >= base) return Number(neg);
+  /* ★ 11-20 修：原条件还要求 `>= base`，导致裁判谈了 30/45 分却被静默忽略（谈了等于没谈，
+     而服务端却照收不误）→ 改为：任一允许档位均生效（低于基线的档位是裁判特批，
+     但必须付对应代价：30 分钟档→放弃运货，见 cargoAllowed） */
+  if (neg != null && opts.includes(Number(neg))) return Number(neg);
   return base;
+}
+
+/* ★ 过站 30 分钟档的代价：**放弃运货**（该组不再载货）
+   —— 谈判档位 45 免费保留运货；30 若不收这个代价，裁判谈 30 等于白送 */
+export function cargoAllowed(g) {
+  /* ★ ⚠ 不能直接 Number(null)：Number(null) === 0 → 未谈判的组会被误判为「30 分钟档」（否则全场运货归零）
+     → 必须先判 null/空字符串，再转数 */
+  const raw = g && g.negotiation ? g.negotiation.turnaroundMin : null;
+  if (raw == null || raw === '') return true;
+  const neg = Number(raw);
+  return !(Number.isFinite(neg) && neg <= 30);
 }
 
 /* ★ 同机占用区间校验（**唯一真源**，canAddFlight 与 setReturnFlight 共用）：
@@ -1384,12 +1398,13 @@ export function computeTurn(g, per) {
     const ask = offeredSeats * m.sector_km;
     const rpk = E.rpkAbs(pax, m.sector_km);
     const lf = E.loadFactor(rpk, ask);
-    const cargoCap = fl.reduce((a, s) => a + (s.cargoCap || 0), 0) * freq;
+    const _cargoBlocked = !cargoAllowed(g);            /* ★ 过站 30 分钟档→放弃运货 */
+    const cargoCap = _cargoBlocked ? 0 : fl.reduce((a, s) => a + (s.cargoCap || 0), 0) * freq;
     const cargoDemand = m.cargo_demand * DAYS_PER_QUARTER * (m.cargo_demand > 30 ? 0.25 : 1);
     /* ★ 载重平衡：座位多、客座率高 → 客舱重量大 → 货舱可载货少（甚至不载）
        裁判可对某航线（或全局）关闭载货 → cargoPolicy[code].open === false */
     const flightsN = Math.max(1, fl.length * freq);
-    const ratedPerFlight = fl.reduce((a, s) => a + (s.cargoCap || 0), 0) / Math.max(1, fl.length);
+    const ratedPerFlight = _cargoBlocked ? 0 : fl.reduce((a, s) => a + (s.cargoCap || 0), 0) / Math.max(1, fl.length);
     const paxPerFlight = pax / flightsN;
     const cargoPolicy = (g.cargoPolicy || {})[route.code] || (g.cargoPolicy || {})['*'] || {};
     const cargoOpen = cargoPolicy.open !== false;
