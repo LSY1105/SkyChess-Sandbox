@@ -5,9 +5,14 @@
    ============================================================ */
 import http from 'node:http';
 import { readFileSync } from 'fs';
+import { isAbsolute } from 'path';
 
 const BASE = process.env.SANDBOX_BASE || 'http://127.0.0.1:8765';
-const KEYS = JSON.parse(readFileSync(new URL(process.env.SANDBOX_KEY_FILE || './.sandbox-keys.json', import.meta.url), 'utf8'));
+/* ★ 密钥文件：相对路径按模块解析，**绝对路径直接用**（new URL('C:\...') 会变成 c: 协议而拿不到） */
+const _KF = process.env.SANDBOX_KEY_FILE
+  ? (isAbsolute(process.env.SANDBOX_KEY_FILE) ? process.env.SANDBOX_KEY_FILE : new URL(process.env.SANDBOX_KEY_FILE, import.meta.url))
+  : new URL('./.sandbox-keys.json', import.meta.url);
+const KEYS = JSON.parse(readFileSync(_KF, 'utf8'));
 const H = (seat) => ({ 'Content-Type': 'application/json', 'x-sandbox-key': seat === 'teacher' ? KEYS.teacher : KEYS.seats[seat] });
 
 function req(path, body, seat) {
@@ -97,6 +102,44 @@ await step('缺分钟时刻不污染整季（结算后报表各项为有限数�
   ok(Number.isFinite(gh.game.cash), '组现金被污染: ' + JSON.stringify(gh.game.cash));
   ok(h.revenue > 0, '收入为 0');
   return 'revenue=' + Math.round(h.revenue) + ' LF=' + (h.load_factor * 100).toFixed(1) + '% cash=' + Math.round(gh.game.cash);
+});
+
+
+/* ★ 11-20 回归（用户实测）：同一架飞机的回程路上，却能再排一班去程
+   原因：占用判定只比「两个起飞时刻之差」，且用的 minGap 只有「单程 + 过站」
+   → 上一班还在回程航段（11:32→13:04）就能排 12:00 的去程 → 同机同时出现在两地
+   现模型：每班占用 [起点, 回程到达]，回程落地后即可再推 */
+await step('同机回程路上不得再排去程（占用区间重叠）', async () => {
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const cnt = (id) => (gh.game.schedules || []).filter(s => s.acId === id).length;
+  const ac = gh.game.aircraft.slice().sort((a, b) => cnt(a.id) - cnt(b.id))[0];
+  for (let i = (gh.game.schedules || []).length - 1; i >= 0; i--) {
+    if (gh.game.schedules[i].acId === ac.id) await req('/api/seat/CA', { type: 'removeFlight', index: i }, 'CA');
+  }
+  const a1 = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '09:00' }, 'CA');
+  ok(a1.result === 'ok', '09:00 去程排班成功', String(a1.result));
+  const g2 = await req('/api/seat/CA', null, 'CA');
+  const sc = (g2.game.schedules || []).find(s => s.acId === ac.id);
+  ok(!!sc && sc.returnArrival === '13:04', `默认回程落地 = ${sc && sc.returnArrival}（应为 13:04）`);
+  const a2 = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '12:00' }, 'CA');
+  ok(a2.result !== 'ok', '回程路上（12:00）再排去程必须被拒', String(a2.result));
+  const a3 = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '14:30' }, 'CA');
+  ok(a3.result === 'ok', '回程落地（13:04）之后（14:30）可再排班', String(a3.result));
+});
+
+await step('回程时刻拖晚撞下一班必须被拒', async () => {
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const cnt = (id) => (gh.game.schedules || []).filter(s => s.acId === id).length;
+  const ac = gh.game.aircraft.slice().sort((a, b) => cnt(a.id) - cnt(b.id))[0];
+  for (let i = (gh.game.schedules || []).length - 1; i >= 0; i--) {
+    if (gh.game.schedules[i].acId === ac.id) await req('/api/seat/CA', { type: 'removeFlight', index: i }, 'CA');
+  }
+  await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '09:00' }, 'CA');
+  await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '16:00' }, 'CA');
+  const g2 = await req('/api/seat/CA', null, 'CA');
+  const idx = g2.game.schedules.findIndex(s => s.acId === ac.id && s.departure === '09:00');
+  const bad = await req('/api/seat/CA', { type: 'setReturnFlight', index: idx, departure: '15:00' }, 'CA');
+  ok(bad.result !== 'ok', '把回程拖到 15:00（落地 16:32）撞上 16:00 那班 → 必须被拒', String(bad.result));
 });
 
 console.log();

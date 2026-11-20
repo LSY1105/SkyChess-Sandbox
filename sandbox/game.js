@@ -653,6 +653,27 @@ export function turnaroundFor(ac, code, g = null) {
   return base;
 }
 
+/* ★ 同机占用区间校验（**唯一真源**，canAddFlight 与 setReturnFlight 共用）：
+     每班占用 [起点, 回程到达]（机回到廊桥才算归位），两班之间至少留一个过站时间。
+   ★ 11-20 修：原实现只比**两个起飞时刻之差**，且 minGap 只用了「单程 + 过站」（注释写的是「去-回-周转」全轮，代码遗漏了一条），
+     漏判「上一班还在回程路上就又排了去程」→ 同机同时出现在两地
+     （实测：回程 11:32→13:04，12:00 的去程竟被放行）。 */
+export function checkOccupancy(g, ac, sStart, sEnd, sCode, exclude) {
+  for (const x of (g.schedules || [])) {
+    if (x.acId !== ac.id) continue;
+    if (exclude && x === exclude) continue;
+    const xStart = hhmmToMin(x.departure);
+    const xEnd = hhmmToMin(x.returnArrival || x.arrival || x.departure);
+    /* 两个占用区间不得重叠 */
+    if (!(sEnd <= xStart || xEnd <= sStart)) {
+      return { ok: false, why: `与该机已有班次时间重叠（${x.code} ${x.departure}→${x.returnArrival || x.arrival}，该机在航/回程路上）` };
+    }
+    /* 衔接：上一班回程落地后即可再推（模型意图：「去-回-周转」整轮往返时长已含在占用区间里，
+       因此不再重复加一次过站）—— 重叠则必须拒绝 */
+  }
+  return { ok: true };
+}
+
 export function canAddFlight(g, ac, code, departure = '09:00') {
   const m = MARKETS[code];
   if (!m) return { ok: false, why: '未知市场' };
@@ -708,12 +729,10 @@ const turn = turnaroundFor(ac, code, g);
   const taxiOut = GM.taxi_out_min || 0, taxiIn = GM.taxi_in_min || 0;
   /* ★ 学员填的是**起点**（撤轮档完成、开始滑行）→ 到达(廊桥) = 起点 + 滑行 + 飞行 + 滑行到廊桥
      两班起点间隔 = (滑行 + 飞行 + 滑行到廊桥) + 清洁保障 */
-  const minGap = taxiOut + bhMin + taxiIn + turn;
-  for (const s of g.schedules.filter(x => x.acId === ac.id)) {
-    if (Math.abs(depNew - hhmmToMin(s.departure)) < minGap) {
-      return { ok: false, why: `过站时间不足 ${Math.round(minGap)} 分钟` };
-    }
-  }
+  /* ★ 同机占用区间：[起点, 回程到达]（机回到廊桥才算归位），两班之间至少留一个过站时间 */
+  const endNew = depNew + taxiOut + bhMin + taxiIn + turn + taxiOut + bhMin + taxiIn;
+  const occ = checkOccupancy(g, ac, depNew, endNew, code, null);
+  if (!occ.ok) return occ;
   return { ok: true, bh };
 }
 

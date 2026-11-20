@@ -609,7 +609,9 @@ function applyActionRaw(g, a) {
       const retOffMin = retDepMin + taxiOut;
       const retOnMin = retOffMin + bhMin;
       const retArrMin = retOnMin + taxiIn;
-      const blkMin = retDepMin;   // ★ 下一班可开始 = 到达 + 清洁保障（即回程起飞）
+      /* ★ 下一班可开始 = 回程到达 + 过站（机回到廊桥才算归位）
+         ★ 11-20 修：原取「回程起飞」（retDepMin）→ 机器在回程航段就被当作已释放 → 同机可能同时出现在两地 */
+      const blkMin = retArrMin + turnMin;
       g.schedules.push({
         acId: ac.id, code: a.code, ac, seats: ac.seats, bh: chk.bh, cargoCap: (ac.cargo ?? 0),
         departure: dep0,
@@ -680,9 +682,14 @@ function applyActionRaw(g, a) {
       if (retDep + (D.GM.taxi_out_min || 0) + Math.round((m ? m.bh : 1.5) * 60) + (D.GM.taxi_in_min || 0) > 22 * 60)
         return '回程到达过晚（须在 22:00 前回到廊桥）';
       const hhmm = (v) => String(Math.floor((v % 1440) / 60)).padStart(2, '0') + ':' + String(Math.round(v % 60)).padStart(2, '0');
+      const retArrMin = retDep + (D.GM.taxi_out_min || 0) + Math.round((m ? m.bh : 1.5) * 60) + (D.GM.taxi_in_min || 0);
+      /* ★ 回程时刻改动后必须重新校验同机其它班次（否则回程会与下一班重叠） */
+      const occ = G.checkOccupancy(g, sc.ac || { long: false }, toMin(sc.departure), retArrMin, sc.code, sc);
+      if (!occ.ok) return occ.why;
       sc.returnDeparture = hhmm(retDep);
       sc.returnOffBlocks = hhmm(retDep + (D.GM.taxi_out_min || 0));
-      sc.returnArrival = hhmm(retDep + (D.GM.taxi_out_min || 0) + Math.round((m ? m.bh : 1.5) * 60) + (D.GM.taxi_in_min || 0));
+      sc.returnArrival = hhmm(retArrMin);
+      sc.blockUntil = hhmm(retArrMin + turn);
       g.log.push('设定回程：' + sc.code + ' 回程起飞 ' + dep0 + ' → 到达 ' + sc.returnArrival);
       return 'ok';
     }
