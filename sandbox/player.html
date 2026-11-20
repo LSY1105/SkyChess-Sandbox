@@ -127,20 +127,6 @@ window.addEventListener('error', function (e) {
   b.textContent = '页面错误：' + (e.message || e.error) + ' @' + (e.lineno || '?');
 });
 </script>
-<script>
-/* 小组端轮询：与裁判端对称，保证「裁判批准开线 / 参数下发 / 回合推进」能及时反映到小组端
-   ★ 用户正在输入（焦点在表单控件）或悬停按钮时跳过刷新，避免打断操作 */
-setInterval(function () {
-  /* ★ 静态预览模式 ?static=1：暂停轮询（用于截图比对与课堂投影，避免持续请求） */
-  if (location.search.indexOf('static=1') >= 0) return;
-  if (document.visibilityState !== 'visible') return;
-  var a = document.activeElement;
-  if (a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return;
-  if (document.querySelector('button:hover')) return;
-  if (typeof _busy !== 'undefined' && _busy) return;   // ★ 提交中 → 不重绘
-  try { refresh(); } catch (e) { /* 刷新失败不阻断 */ }
-}, 4000);
-</script>
 </head>
 <body>
 <header>
@@ -733,11 +719,19 @@ function renderRouteHint() {
   box.innerHTML = parts.join(' ');
 }
 /* 分时定价设置 */
+/* ★ 重绘时**不要重建下拉框**：重建会把用户已选项打回第一项、并关掉正在展开的下拉列表
+   （学员报「点击下拉框无反应 / 再点没反应」）。选项集没变 → 原样保留；变了才重建并尽量保留原值。 */
+function fillSel(sel, html) {
+  if (!sel) return;
+  const prev = sel.value;
+  if (sel.dataset.filled !== html) { sel.innerHTML = html; sel.dataset.filled = html; }
+  if (prev && [...sel.options].some(o => o.value === prev)) sel.value = prev;
+}
 function bandSelFill() {
   const s = $('#selBandMkt'); if (!s) return;
   const opened = g.routes.map(r => r.code);
-  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
-    || '<option value="">（无已开通航线）</option>';
+  fillSel(s, opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
+    || '<option value="">（无已开通航线）</option>');
 }
 $('#btnBand') && ($('#btnBand').onclick = async () => {
   const code = $('#selBandMkt').value;
@@ -748,14 +742,14 @@ $('#btnBand') && ($('#btnBand').onclick = async () => {
 function mktSelFill() {
   const s = $('#selMkt');
   const opened = g.routes.map(r => r.code);
-  s.innerHTML = opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
-    || '<option value="">（先开通航线）</option>';
+  fillSel(s, opened.map(c => `<option value="${c}">${MARKETS[c]?.name_cn || c} (${c})</option>`).join('')
+    || '<option value="">（先开通航线）</option>');
 }
 /* 大修标记：运力减半（BH 上限）提示 */
 /* 机龄提示：G160 初始机龄 18 年（机龄过大）→ 何时大修由裁判决定，处置与否由团队自决 */
 function acSelFill() {
   const s = $('#selAc');
-  s.innerHTML = g.aircraft.map(a => {
+  fillSel(s, g.aircraft.map(a => {
     const cap = G.acCapacity(g, a);
     const used = G.acUsedBH(g, a.id);
     const t = AIRCRAFT.find(x => x.name === a.type);
@@ -763,7 +757,7 @@ function acSelFill() {
     const lease = (g.leases || []).find(l => String(l.acId) === String(a.id));
     const own = a.owned ? '自有' : `租赁(季租$${Math.round((lease && lease.quarterlyRent) || 0).toLocaleString()})`;
     return `<option value="${a.id}">${a.type} · ${own} · ${used.toFixed(0)}/${cap} BH · ${t.seats}座</option>`;
-  }).join('');
+  }).join(''));
 }
 function sched() {
   const t = $('#tblSched'); t.innerHTML = '';
@@ -1676,6 +1670,26 @@ load();
 const PKEY2 = new URLSearchParams(location.search).get("key") || "";
 async function seatClockTick(){var txt=__DOC.getElementById("seatClock"),bar=__DOC.getElementById("seatClockBar"),sub=__DOC.getElementById("seatClockSub");if(!txt||!bar)return;var d=await fetch("/api/seat/"+seat,{headers:{"x-sandbox-key":PKEY}}).then(function(r){return r.json()}).catch(function(){return null});if(!d||!d.game)return;var tm=(d.game.seatTimer&&d.game.seatTimer[d.game.seat])||null;var total=d.game.roundSeconds||3600;if(tm&&tm.remaining!=null){var m=Math.floor(tm.remaining/60),s=tm.remaining%60;txt.textContent="本季剩余 "+m+":"+(s<10?"0":"")+s;bar.style.width=Math.min(100,100*(1-tm.remaining/total))+"%";bar.style.background=tm.remaining<300?"#cf222e":"#1f6feb";sub.textContent=tm.submitted?"✅ 本组已交卷——等待裁判结算":"⏳ 本组未交卷（到时由裁判自动结算）";}else{txt.textContent="未开始计时";bar.style.width="0%";sub.textContent="等待裁判开始本季计时";}}
 setInterval(seatClockTick,2000);seatClockTick();
+
+/* ★ 小组端轮询（与裁判端对称）—— 裁判端改参数 / 放资金 / 开关投资 / 结算，学员端必须自动跟上
+   ★ 11-20 修复：这段此前写在**经典内联 <script>** 里并调用 refresh()，而 player.html 全文
+     没有 refresh()（真实函数是本模块的 load()）→ ReferenceError 被 try/catch 静默吞掉 →
+     轮询从未执行过一次 → 小组端与裁判端**永久不同步**，学员只能手动刷新页面
+     （表现为「点了没反应 / 数据不更新 / 报表无数据」）。 */
+let _pollBusy = false;
+async function poll() {
+  if (location.search.indexOf('static=1') >= 0) return;      // 静态预览：不轮询
+  if (document.visibilityState !== 'visible') return;
+  if (typeof _busy !== 'undefined' && _busy) return;         // 提交中 → 不重绘
+  const a = document.activeElement;
+  if (a && /^(INPUT|TEXTAREA)$/.test(a.tagName)) return;       // 正在打字 → 本次不重绘（下个 tick 自动重试）
+  if (document.querySelector('button:active')) return;         // 正在按下的按钮 → 本次不重绘（重绘会换掉按钮导致点击落空）
+  if (_pollBusy) return;
+  _pollBusy = true;
+  try { await load(); } finally { _pollBusy = false; }
+}
+setInterval(poll, 2000);
+
 
 /* ★ 削减固定成本（学员自救）：退还租赁 / 卖出该机
    —— 独立卡片，不改动既有卡片结构（零破坏风险）

@@ -64,7 +64,7 @@ async function freePort() {
 
 /** 极简 CDP 客户端：一条 WebSocket，按 id 配对回包 */
 class CDP {
-  constructor(ws) { this.ws = ws; this.id = 0; this.waiting = new Map(); this.errors = []; }
+  constructor(ws) { this.ws = ws; this.id = 0; this.waiting = new Map(); this.errors = []; this.navs = 0; }
   static async attach(wsUrl) {
     const ws = new WebSocket(wsUrl);
     await new Promise((res, rej) => { ws.onopen = res; ws.onerror = () => rej(new Error('ws 连接失败')); });
@@ -81,6 +81,8 @@ class CDP {
       } else if (m.method === 'Network.responseReceived') {
         const rs = m.params.response || {};
         if (rs.status >= 400) c.errors.push(`HTTP ${rs.status} ${rs.url}`);
+      } else if (m.method === 'Page.frameNavigated') {
+        c.navs++;                       /* 页面是否被重新导航（裁判端「闪动」的关键判据） */
       } else if (m.method === 'Page.javascriptDialogOpening') {
         /* S7：结果不能只靠 alert() 呈现 → 命中即记为违规，同时放行避免页面卡死 */
         c.errors.push('alert(): ' + (m.params.message || '') + '（违反 CODING_STANDARDS S7）');
@@ -129,6 +131,11 @@ async function withPage(url, fn) {
   const proc = spawn(CHROME, [
     '--headless=new', '--remote-debugging-port=' + port, '--user-data-dir=' + profile,
     '--no-first-run', '--no-default-browser-check', '--disable-extensions', '--disable-gpu',
+    /* headless 会把页面判为「被遮挡/后台」→ 定时器被节流到 1 次/分钟，
+       页面里的轮询 setInterval 几乎不会执行 → 无法验证「外部变化自动同步」
+       类缺陷（11-20 因此而漏测）。这四个参数是自动化标准参数。 */
+    '--disable-background-timer-throttling', '--disable-backgrounding-occluded-windows',
+    '--disable-renderer-backgrounding', '--disable-features=CalculateNativeWinOcclusion',
     '--window-size=1366,768', 'about:blank',   // 笔记本/投影仪尺寸：更贴近真实课堂
   ], { stdio: 'ignore' });
   try {
@@ -177,16 +184,34 @@ await withPage(`${BASE}/teacher.html?key=${KEYS.teacher}`, async cdp => {
     '裁判端状态回显已加载');
   console.log('\n[裁判端]');
 
-  const st = await cdp.callSrc(visibleOf('invState'));
-  ok(!!st.text && st.h > 8, `状态回显有内容且有高度（h=${Math.round(st.h)}）: ${st.text.slice(0, 60)}`);
+  /* ★ 页面可能在轮询/重置的瞬间被重建（元素瞬时为 null）→ 先等关键元素就位，否则下面探针会抛异常而拉崩整条护栏 */
+  const ready = await cdp.until(() => {
+    const a = document.getElementById('invItem'), b = document.getElementById('invState');
+    const c = document.getElementById('btnInvToggle'), d = document.getElementById('invTermsMsg');
+    return (a && a.options.length && b && c && d) ? true : null;
+  }, 8000, 200);
+  ok(!!ready, '裁判端投资控制卡元素就位（页面重建中的空白期）');
+  console.log('  · [诊断] 裁判端页面导航次数 = ' + cdp.navs + '（超过 1 说明页面被重导航）');
+
+  /* ★ 状态行可能在裁判端轮询重绘的瞬间为空 → 先等它稳定有内容再断言
+     （不等就断言，会在机器负载高时随机失败） */
+  let st = null;
+  for (let i = 0; i < 30; i++) {
+    st = await cdp.callSrc(visibleOf('invState'));
+    if (st && st.text && st.h > 8) break;
+    await sleep(200);
+  }
+  ok(!!st && st.text && st.h > 8, `状态回显有内容且有高度（h=${Math.round((st || {}).h || 0)}）: ${((st || {}).text || '').slice(0, 60)}`);
 
   /* ★ 状态行**人眼看得见**的三条可算判据（11-18 ② 的真凶：11px 灰字 / 埋在离动作很远的地方）
      ⚠ 位置判据必须**同卡片内**比对：整页首屏判据会假红（状态行本来就在长页面里） */
   const vis = await cdp.call(() => {
     const el = document.getElementById('invState');
-    const card = el.closest('.card');
+    const card = el && el.closest('.card');
     const btn = document.getElementById('btnInvToggle');
     const msg = document.getElementById('invTermsMsg');
+    /* 元素瞬时不存在 → 返回零值让断言失败，而不是把整条护栏拉崩 */
+    if (!el || !card || !btn || !msg) return { fontSize: 0, ratio: 0, topGap: 999, msgDist: 999, msgSameRow: false };
     const cs = getComputedStyle(el);
     const lum = (c) => { const m = c.match(/[\d.]+/g).map(Number);
       const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
@@ -210,6 +235,7 @@ await withPage(`${BASE}/teacher.html?key=${KEYS.teacher}`, async cdp => {
      ⚠ 不能用 select.scrollWidth/clientWidth：Chrome 关闭态是**裁剪**不是溢出 → 永远相等 → 断言恒真 */
   const clip = await cdp.call(() => {
     const s = document.getElementById('invItem');
+    if (!s || !s.options || !s.options.length) return { widest: 0, cw: 0, n: 0, groups: 0 };
     const ctx = document.createElement('canvas').getContext('2d');
     ctx.font = getComputedStyle(s).font || '13px sans-serif';
     let widest = 0;
@@ -332,6 +358,19 @@ await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => 
   ok(!!rep, '点「投资报表」后报表停在 Investments 页签且含投资数据' + (rep ? ': ' + rep : ''));
 
   /* ★ 页面无横向溢出（宽表被裁 = 学员看不到列） */
+  /* ★ 未结算时学员默认落在 Summary 页签，该页签整页都是「—」
+     → 人眼会判成「报表无任何数据」。必须给诚「尚未结算」的醒目提示。 */
+  const sumTab = await cdp.call(() => {
+    const b = document.getElementById('repBody'); if (!b) return null;
+    const t = [...b.querySelectorAll('.tabs button')].find(x => /Summary/.test(x.textContent));
+    if (!t) return null; t.click();
+    const nb = [...b.querySelectorAll('div')].find(d => /\u672c\u5b63\u5c1a\u672a\u7ed3\u7b97/.test(d.textContent || '') && d.children.length === 0);
+    const cs = nb ? getComputedStyle(nb) : null;
+    return { found: !!nb, fs: cs ? parseFloat(cs.fontSize) : 0, color: cs ? cs.color : '' };
+  });
+  ok(!!sumTab && sumTab.found, '未结算时报表给出「本季尚未结算」提示（否则整页「—」→ 学员误判为报表坏了）');
+  ok(!!sumTab && sumTab.fs >= 13, `「本季尚未结算」提示字号 ≥13px（实得 ${sumTab.fs}px），不能是 11px 的 .small 小字`);
+
   const ovf = await cdp.call(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
   ok(ovf.sw <= ovf.cw + 4, `页面无横向溢出（scrollWidth ${ovf.sw} ≤ clientWidth ${ovf.cw}）`);
 
@@ -350,6 +389,54 @@ await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => 
 
   ok(cdp.errors.length === 0, '小组端无 JS 报错 / 网络错误 / alert()' + (cdp.errors.length ? ': ' + cdp.errors.slice(0, 2).join(' | ') : ''));
 });
+
+/* ─────────── 结算后：报表「投资」页签仍有数据（人工复验漏测的一段） ───────────
+   ★ 原护栏只验证「投完**立刻**看报表」，而课堂真实顺序是 投资 → 裁判结算 → 学员再看报表。 */
+{
+  const gh = await api('/api/seat/CA', null, KEYS.seats.CA);
+  const acId = gh.game.aircraft[0].id;
+  await api('/api/seat/CA', { type: 'addFlight', acId, code: 'SIM', departure: '07:00' }, KEYS.seats.CA);
+  const adv = await api('/api/seat/CA', { type: 'advance' }, KEYS.seats.CA);
+  ok(!!(adv.game && adv.game.history && adv.game.history.length), '结算未产生历史报告');
+  await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => {
+    await cdp.until(() => document.getElementById('repBody'));
+    await cdp.call(() => { document.getElementById('btnInvReport').click(); return true; });
+    const rep = await cdp.until(() => {
+      const b = document.getElementById('repBody'); if (!b) return null;
+      const on = [...b.querySelectorAll('.tabs button')].find(x => /Investments/.test(x.textContent) && x.className.includes('on'));
+      return (on && (b.textContent || '').includes('客舱升级')) ? b.textContent.replace(/\s+/g, ' ').slice(0, 80) : null;
+    });
+    ok(!!rep, '结算后点「投资报表」仍有数据（结算不得清空投资/条款）' + (rep ? ': ' + rep : ''));
+    const txt = await cdp.call(() => (document.getElementById('repBody').textContent || ''));
+    ok(/1\.50/.test(txt) && /2\.00/.test(txt), '结算后报表未显示议定后的每客成本/收益');
+  });
+}
+
+/* ── 同步护栏：裁判端改参数 → 小组端必须自动跟上
+   ★ 11-20 实测：player.html 的轮询写在**经典内联 script** 里并调用 refresh()，
+     而 refresh 在 player.html 全文不存在（真实函数是本模块的 load()）→ ReferenceError 被 try/catch 静默吞掉 →
+     小组端轮询**从未成功执行过一次**，裁判端的一切变化都不同步，学员只能手动刷新页面。 */
+{
+  await withPage(`${BASE}/player.html?seat=CA&key=${KEYS.seats.CA}`, async cdp => {
+    await cdp.until(() => document.getElementById('hCash') && document.getElementById('hCash').textContent.includes('$'));
+    const before = await cdp.call(() => document.getElementById('hCash').textContent);
+    await api('/api/gm', { type: 'grantCash', seat: 'CA', amount: 123456 }, KEYS.teacher);
+    /* ★ 不能用 cdp.until：它把 fn 序列化后在页面里求值 → 闭包变量全部失效 → 每次都抛错。
+       改用 cdp.call(fn, arg) 显式传参。 */
+    let after = null;
+    const __t0 = Date.now();
+    while (Date.now() - __t0 < 12000) {
+      const t = await cdp.call((b) => {
+        const e = document.getElementById('hCash'); const v = e ? e.textContent : '';
+        return v && v !== b ? v : null;
+      }, before);
+      if (t) { after = t; break; }
+      await sleep(300);
+    }
+    const st = await cdp.call(() => ({ load: window.__loadDbg || null, render: window.__renderDbg || null, poll: window.__pollDbg || null }));
+    ok(!!after, `裁判端注资后小组端顶栏未自动同步（${before} → ${after || '未变'}） ` + JSON.stringify(st));
+  });
+}
 
 console.log('\n' + '='.repeat(60));
 console.log(`真实浏览器护栏：${pass} 通过 / ${fail} 失败 / 共 ${pass + fail}`);

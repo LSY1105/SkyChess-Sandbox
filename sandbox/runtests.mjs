@@ -44,8 +44,15 @@ async function startInstance(port, keyfile) {
       await wait(150);
       if (dead) { if (/EADDRINUSE/.test(err)) break; throw new Error('实例启动失败: ' + err.slice(0, 200)); }
       try {
-        const r = await fetch(`http://127.0.0.1:${p}/`, { headers: { 'x-sandbox-key': 'x' } });
-        if (r.status) return { proc, port: p, base: `http://127.0.0.1:${p}` };
+        /* ★ 必须确认这端口真的是**我们的**实例：环境里有代理（系统代理 127.0.0.1:7890）
+           会拦截**某些 localhost 端口**并返回它自己的 JSON 错误页（HTTP 200/404 都可能）。
+           只看 status 会把「代理页」当成「实例就绪」→ 后面浏览器拿到代理错误页 → 整条护栏误判。
+           实例统一在 /player.html 里放一个标识字（SkyChess），代理页里不会有。 */
+        const r = await fetch(`http://127.0.0.1:${p}/player.html?key=probe`);
+        if (r.status === 200) {
+          const t = await r.text();
+          if (t.includes('SkyChess')) return { proc, port: p, base: `http://127.0.0.1:${p}` };
+        }
       } catch { /* retry */ }
     }
     proc.kill();
@@ -84,7 +91,7 @@ for (const [file, args] of FILES) {
   const bad = r.code !== 0
     || /(\d+)\s*失败/.test(r.out) && [...r.out.matchAll(/(\d+)\s*失败/g)].some(m => +m[1] > 0)
     || /^\s*✗/m.test(r.out);
-  if (bad) { failed++; console.log(`  ✗ ${label}\n      ${tail}`); }
+  if (bad) { failed++; console.log(`  ✗ ${label}`); console.log(lines.slice(-40).map(l => '      | ' + l).join('\n')); }
   else console.log(`  ✓ ${label}  ${tail}`);
 }
 console.log(failed ? `\n${failed} 个测试文件未通过` : '\n全部测试通过');

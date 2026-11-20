@@ -112,7 +112,11 @@ export function renderReports(root, g, opts = {}) {
     const keepScroll = body.scrollTop;
     body.innerHTML = '';
     const h0 = pickReport(g, sel);
-    if (!h0) body.appendChild(el('div', 'small', '本季尚未结算（由裁判结算后生成盈利与历史报告）—— 下方为当前已能取得的即时数据；**投资**页签始终显示已投放的投资。'));
+    if (!h0) {
+      const nb = el('div', 'warn', '⚠ 本季尚未结算 · 盈利与历史报告将在裁判结算本组后生成。下表为当前已取得的即时数据；「投资」页签始终显示已投放的投资。');
+      nb.style.cssText = 'background:#241f14;border:1px solid #5a4a22;border-radius:8px;padding:9px 11px;margin-bottom:12px;font-size:13px;line-height:1.6';
+      body.appendChild(nb);
+    }
     /* ★ 无历史报告时仍渲染页签骨架（否则点页签只是重复同一句提示 → 用户觉为「按钮无反应」） */
     const h = h0 || { period: (g.period && g.period.label) || '—', detail: {}, revenue: null, cost: null, operating_profit: null,
       oneoff: null, financing: null, cash_end: g.cash, load_factor: null, gross_margin: null,

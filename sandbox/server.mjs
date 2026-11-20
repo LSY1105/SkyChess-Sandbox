@@ -201,6 +201,12 @@ const server = http.createServer(async (req, res) => {
     if (p.startsWith('/api/')) {
       const seg = p.split('/').filter(Boolean);   // api, ...
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      /* ★ 11-20 重要：API 响应必须禁止缓存。
+         否则浏览器会把「GET /api/seat/XX」的轮询响应缓存下来 → 小组端轮询拿到的永远是旧数据
+         → 数据指纹 dataSig 不变 → 不重绘 → 页面停在旧状态。
+         现象：裁判端改了参数/放资金/开关投资/结算，小组端全部不同步（形成「点了没反应」「报表无数据」）。
+         静态文件绕过的同名头（第 333 行）已有 no-store —— 这里补上 API 的。 */
+      res.setHeader('Cache-Control', 'no-store');
 
       if (seg[1] === 'seat' && seg[2]) {
         // ★ 席位授权：只允许持本席位密钥的客户端读写
