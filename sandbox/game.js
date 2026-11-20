@@ -668,8 +668,14 @@ export function checkOccupancy(g, ac, sStart, sEnd, sCode, exclude) {
     if (!(sEnd <= xStart || xEnd <= sStart)) {
       return { ok: false, why: `与该机已有班次时间重叠（${x.code} ${x.departure}→${x.returnArrival || x.arrival}，该机在航/回程路上）` };
     }
-    /* 衔接：上一班回程落地后即可再推（模型意图：「去-回-周转」整轮往返时长已含在占用区间里，
-       因此不再重复加一次过站）—— 重叠则必须拒绝 */
+    /* 衔接：上一班回程落地后还要做**过站**（下客+清洁+上客，基准 60 分钟）才能再飞
+       → 下一班起点 ≥ 上一班回程落地 + 过站时间 */
+    const mineFirst = sEnd <= xStart;
+    const gap = mineFirst ? (xStart - sEnd) : (sStart - xEnd);
+    const turn = turnaroundFor(ac, mineFirst ? sCode : x.code, g);
+    if (gap < turn) {
+      return { ok: false, why: `过站时间不足 ${Math.round(turn)} 分钟（该机 ${x.code} ${x.departure}→${x.returnArrival || x.arrival}，落地后还要下客+清洁+上客）` };
+    }
   }
   return { ok: true };
 }

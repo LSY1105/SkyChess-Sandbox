@@ -80,7 +80,16 @@ await step('FLIGHTS 页签数据源就绪（peerSchedules 含运价）', async (
    → 小组端报表整页「—」（用户报「小组页面数据显示缺失」）。 */
 await step('缺分钟时刻被归一化为 HH:MM（12 → 12:00）', async () => {
   const gh = await req('/api/seat/CA', null, 'CA');
-  const acId = gh.game.aircraft[0].id;
+  /* ★ 用一台**未排班**的飞机：旧写法能在 12:00 排班是依赖已废的占用模型
+     （同机两班必须间隔「整轮往返 + 过站」），现已改为正确拒绝 */
+  const usedIds = new Set((gh.game.schedules || []).map(s => s.acId));
+  const acFree = gh.game.aircraft.find(a => !usedIds.has(a.id)) || gh.game.aircraft[0];
+  if (acFree !== gh.game.aircraft[0]) {
+    for (let i = (gh.game.schedules || []).length - 1; i >= 0; i--) {
+      if (gh.game.schedules[i].acId === acFree.id) await req('/api/seat/CA', { type: 'removeFlight', index: i }, 'CA');
+    }
+  }
+  const acId = acFree.id;
   const add = await req('/api/seat/CA', { type: 'addFlight', acId, code: 'SIM', departure: '12' }, 'CA');
   ok(add.result === 'ok', '排班被拒: ' + add.result);
   const g2 = await req('/api/seat/CA', null, 'CA');
@@ -140,6 +149,27 @@ await step('回程时刻拖晚撞下一班必须被拒', async () => {
   const idx = g2.game.schedules.findIndex(s => s.acId === ac.id && s.departure === '09:00');
   const bad = await req('/api/seat/CA', { type: 'setReturnFlight', index: idx, departure: '15:00' }, 'CA');
   ok(bad.result !== 'ok', '把回程拖到 15:00（落地 16:32）撞上 16:00 那班 → 必须被拒', String(bad.result));
+});
+
+
+/* ★ 回程落地后还要做**过站**（下客+清洁+上客，基准 60 分钟）才能再飞 */
+await step('回程落地后必须过完过站时间才能再飞', async () => {
+  const gh = await req('/api/seat/CA', null, 'CA');
+  const cnt = (id) => (gh.game.schedules || []).filter(s => s.acId === id).length;
+  const ac = gh.game.aircraft.slice().sort((a, b) => cnt(a.id) - cnt(b.id))[0];
+  for (let i = (gh.game.schedules || []).length - 1; i >= 0; i--) {
+    if (gh.game.schedules[i].acId === ac.id) await req('/api/seat/CA', { type: 'removeFlight', index: i }, 'CA');
+  }
+  const a1 = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '09:00' }, 'CA');
+  ok(a1.result === 'ok', '09:00 排班成功', String(a1.result));
+  const g2 = await req('/api/seat/CA', null, 'CA');
+  const sc = (g2.game.schedules || []).find(s => s.acId === ac.id);
+  ok(sc && sc.returnArrival === '13:04' && sc.turnaround === 60,
+     `回程落地 ${sc && sc.returnArrival}，过站 ${sc && sc.turnaround} 分钟 → 最早可再飞 14:04`);
+  const early = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '13:30' }, 'CA');
+  ok(early.result !== 'ok', '13:30 飞（落地后仅 26 分钟，过站不够）必须被拒', String(early.result));
+  const okTime = await req('/api/seat/CA', { type: 'addFlight', acId: ac.id, code: 'SIM', departure: '14:04' }, 'CA');
+  ok(okTime.result === 'ok', '14:04 飞（落地 + 过站 60 分钟）应允许', String(okTime.result));
 });
 
 console.log();
