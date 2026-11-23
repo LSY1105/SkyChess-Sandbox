@@ -1761,7 +1761,12 @@ function rulesTbl() {
   fr.appendChild(el('td', 'small', ''));
   t.appendChild(fr);
 }
-$('#btnOpenRoute').onclick = () => act('openRoute', { code: $('#selNewRoute').value });
+$('#btnOpenRoute').onclick = async () => {
+  const res = await act('openRoute', { code: $('#selNewRoute').value });
+  /* ★ 11-23：成功回 'ok:pending' → 说人话（原来红字显示 pending，且被误记成一次「被拒」） */
+  if (res && typeof res.result === 'string' && res.result.startsWith('ok'))
+    actMsg('开线申请已提交，待裁判批准（开线费 $200,000 批准后缴纳）', 'ok');
+};
 $('#btnEtops').onclick = () => act('payEtops', { code: g.routes.find(r => !r.etopsPaid && MARKETS[r.code].etops)?.code });
 $('#btnAddFlight').onclick = () => act('addFlight', { acId: +$('#selAc').value, code: $('#selMkt').value, departure: $('#inpDep').value });
 $('#btnPropose').onclick = async () => {

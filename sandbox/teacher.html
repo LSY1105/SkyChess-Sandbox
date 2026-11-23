@@ -406,7 +406,7 @@ td>.actMsg{display:block;margin:4px 0 0;width:100%}
 
     <!-- ⑪ 航线释放与开线审批（裁判逐季释放航线；小组申请 → 裁判洽谈批准） -->
     <div class="card" style="margin-top:14px" data-grp="谈判与审批">
-      <h2>航线释放与开线审批</h2>
+      <h2>航线释放与开线审批<span class="pendBadge" id="pendRoute" hidden>待处理 0</span></h2>
       <div class="small" style="margin-bottom:8px">
         裁判按赛季逐步释放航线；小组提交开线申请后，须由裁判批准并由小组支付固定开线费 $200,000 方可开通并执行飞行。
       </div>
@@ -542,49 +542,8 @@ async function refresh() {
   $('#inFuel').value = gm.fuelPrice; $('#inCarbon').value = gm.carbonPrice;
   $('#inRate').value = gm.interestRate; $('#inConn').value = gm.connectingDemand;
 
-  // ⑪ 航线释放与开线审批
+  // ⑪ 航线释放与开线审批（开线申请表见 renderRouteReq：独立轮询 + 指纹）
   {
-    const t = $('#tblRouteReq'); if (t) {
-      t.innerHTML = '';
-      const tr = el('tr');
-      ['席位', '航线', '申请回合', '状态', '处理'].forEach(h => tr.appendChild(el('th', null, h)));
-      t.appendChild(tr);
-      let any = false;
-      for (const [seat, gm_] of Object.entries(seatGames)) {
-        for (const r of (gm_.routeRequests || [])) {
-          any = true;
-          const row = el('tr');
-          row.appendChild(el('td', null, seat));
-          row.appendChild(el('td', null, `${MARKETS[r.code]?.name_cn || r.code} (${r.code})`));
-          row.appendChild(el('td', null, 'T' + r.requestedTurn));
-          const st = el('td', null, r.status === 'pending' ? '待审批'
-            : (r.status === 'approved' ? '已批准' : '已驳回'));
-          st.className = r.status === 'pending' ? 'warn' : 'small';
-          row.appendChild(st);
-          const td = el('td');
-          if (r.status === 'pending') {
-            const okb = el('button', null, '批准开通');
-            okb.onclick = async () => {
-              await gmPost({ type: 'approveRoute', seat, code: r.code, approve: true });
-              refresh();
-            };
-            const nb = el('button', null, '驳回');
-            nb.onclick = async () => {
-              const note = prompt('驳回理由（将记入小组端）', '本季暂不放行');
-              if (note === null) return;
-              await gmPost({ type: 'approveRoute', seat, code: r.code, approve: false, note });
-              refresh();
-            };
-            td.appendChild(okb); td.appendChild(nb);
-          } else {
-            td.appendChild(el('span', 'small', r.resolvedNote || ''));
-          }
-          row.appendChild(td);
-          t.appendChild(row);
-        }
-      }
-      if (!any) t.appendChild(el('tr')).appendChild(el('td', 'small', '（暂无开线申请）'));
-    }
     // 释放时间线
     const tr2 = $('#tblRouteRelease'); if (tr2) {
       tr2.innerHTML = '';
@@ -1341,6 +1300,72 @@ async function renderPropList() {
 }
 setInterval(renderPropList, 4000); renderPropList();
 $('#propSeat').onchange = () => { propSig = ''; renderPropList(); };
+
+/* ── ⑪ 开线申请（小组提交 → 裁判批准/驳回）──
+   ★ 11-23：原来这段挂在 refresh() 里，数据源是 seatGames（本轮刚填的**旧值**），
+     且 refresh() 见 GM 状态未变就 return → 小组提交开线申请后，裁判端表格不更新，
+     批准按钮点了也像没反应（要等 GM 状态变化才重画）。
+   → 独立渲染：自己取席位与申请、自带指纹、4 秒轮询；待审批数同时喂给角标。 */
+let routeReqSig = '';
+async function renderRouteReq() {
+  const t = $('#tblRouteReq'); if (!t) return;
+  const resp = await fetch('/api/gm', { headers: { 'x-sandbox-key': TEACHER_KEY } }).then(r => r.json()).catch(() => null);
+  if (!resp) return;
+  const seats = Array.isArray(resp.seats) ? resp.seats : Object.keys(resp.seats || {});
+  const rows = [];
+  for (const seat of seats) {
+    const d = await fetch('/api/seat/' + seat, { headers: { 'x-sandbox-key': TEACHER_KEY } }).then(r => r.json()).catch(() => null);
+    if (!d || !d.game) continue;
+    for (const r of (d.game.routeRequests || [])) rows.push({ seat, r });
+  }
+  const sig = JSON.stringify(rows.map(x => [x.seat, x.r.code, x.r.status]));
+  if (sig === routeReqSig) return;
+  routeReqSig = sig;
+  /* ★ 先取数、后一次性替换（不要在等待期间把表拉空 → 闪动） */
+  const f = document.createDocumentFragment();
+  const tr = el('tr');
+  ['席位', '航线', '申请回合', '状态', '处理'].forEach(h => tr.appendChild(el('th', null, h)));
+  f.appendChild(tr);
+  let pend = 0;
+  for (const x of rows) {
+    const seat = x.seat, r = x.r;
+    if (r.status === 'pending') pend++;
+    const row = el('tr');
+    row.appendChild(el('td', null, seat));
+    row.appendChild(el('td', null, `${MARKETS[r.code]?.name_cn || r.code} (${r.code})`));
+    row.appendChild(el('td', null, 'T' + r.requestedTurn));
+    const st = el('td', null, r.status === 'pending' ? '待审批'
+      : (r.status === 'approved' ? '已批准' : '已驳回'));
+    st.className = r.status === 'pending' ? 'warn' : 'small';
+    row.appendChild(st);
+    const td = el('td');
+    if (r.status === 'pending') {
+      const okb = el('button', null, '批准开通');
+      okb.onclick = async () => {
+        const res = await gmPost({ type: 'approveRoute', seat, code: r.code, approve: true });
+        if (res && res.result && res.result !== 'ok') actMsg(res.result, 'bad');
+        routeReqSig = ''; refresh(); renderRouteReq();
+      };
+      const nb = el('button', null, '驳回');
+      nb.onclick = async () => {
+        const note = prompt('驳回理由（将记入小组端）', '本季暂不放行');
+        if (note === null) return;
+        const res = await gmPost({ type: 'approveRoute', seat, code: r.code, approve: false, note });
+        if (res && res.result && res.result !== 'ok') actMsg(res.result, 'bad');
+        routeReqSig = ''; refresh(); renderRouteReq();
+      };
+      td.appendChild(okb); td.appendChild(nb);
+    } else {
+      td.appendChild(el('span', 'small', r.resolvedNote || ''));
+    }
+    row.appendChild(td);
+    f.appendChild(row);
+  }
+  if (!rows.length) f.appendChild(el('tr')).appendChild(el('td', 'small', '（暂无开线申请）'));
+  t.replaceChildren(f);
+  setPendBadge('#pendRoute', pend, '待处理');
+}
+setInterval(renderRouteReq, 4000); renderRouteReq();
 
 async function renderNegFlow() {
   const box = __DOC.getElementById('negFlow'); if (!box) return;

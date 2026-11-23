@@ -565,7 +565,9 @@ function applyActionRaw(g, a) {
       g.routeRequests.push({ code: a.code, seat: g.seat, requestedTurn: g.turn,
                              note: a.note || '', status: 'pending', at: new Date().toISOString() });
       g.log.push(`申请开通航线 ${m.name_cn}（待裁判洽谈批准，开线费 $${D.GM.new_route_fee.toLocaleString()}）`);
-      return 'pending';
+      /* ★ 11-23 修：成功也返回字符串时必须以 'ok' 开头（applyAction 判据「非 ok 开头 = 被拒」）
+         —— 原来返回裸 'pending' → 一次成功申请被误记成「操作被拒」，客户端也显示红字 pending */
+      return 'ok:pending';
     }
     case 'payEtops': {
       const r = g.routes.find(x => x.code === a.code); if (!r) return 'no route';
