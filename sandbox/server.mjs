@@ -809,7 +809,9 @@ function applyActionRaw(g, a) {
         history: [{ turn: g.turn, by: g.seat, action: '提交申报单', note: String(a.note || '') }],
       });
       g.log.push(`提交谈判申报单 ${id}：${keys.map(k => NEGOTIABLE[k].label).join('、')}`);
-      return id;
+      /* ★ 11-23 修：成功也返回字符串时必须以 'ok' 开头 —— applyAction 用「非 'ok' 开头 = 被拒」
+         判定并记档（原来返回裸编号 'NR1-0' → 被误记成一次「操作被拒」，客户端也当成错误弹窗）。 */
+      return 'ok:' + id;
     }
     case 'withdrawNegRequest': {
       const req = (g.negRequests || []).find(r => r.id === a.id);

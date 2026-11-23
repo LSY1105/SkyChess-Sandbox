@@ -177,6 +177,12 @@ td>.actMsg{display:block;margin:4px 0 0;width:100%}
 .rejectBadge:hover{background:rgba(217,112,104,.22)}
 .rejectBadge[hidden]{display:none}
 
+
+/* ── 11-23：待办角标（裁判一眼看到有几条待处理，不用打开卡才知道）── */
+.pendBadge{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:10px;font-size:11px;font-weight:600;
+ background:rgba(216,163,63,.16);border:1px solid var(--acc);color:var(--acc);white-space:nowrap;align-self:center;letter-spacing:0}
+.pendBadge[hidden]{display:none}
+
 </style>
 </head>
 <body>
@@ -378,7 +384,7 @@ td>.actMsg{display:block;margin:4px 0 0;width:100%}
     </div>
 
     <div class="card" style="margin-top:14px" data-grp="谈判与审批">
-      <h2>小组提案审批<em>（小组只能发起，批准后方生效）</em></h2>
+      <h2>小组提案审批<em>（小组只能发起，批准后方生效）</em><span class="pendBadge" id="pendProp" hidden>待处理 0</span></h2>
       <div class="row">
         <label>查看组别</label>
         <select id="propSeat" style="width:120px">
@@ -415,7 +421,7 @@ td>.actMsg{display:block;margin:4px 0 0;width:100%}
       <div class="scroll" style="max-height:260px"><table id="tblRouteRelease"></table></div>
     </div>
     <div class="card" style="margin-top:14px" data-grp="谈判与审批">
-      <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em></h2>
+      <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em><span class="pendBadge" id="pendNeg" hidden>待处理 0</span></h2>
 <div id="negFlow"></div>
       </div>
 
@@ -947,61 +953,6 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
     refresh();
   };
 
-  // ── 小组提案（小组只能发起，批准后方生效）──
-  const pl = $('#propList');
-  const seatSel = $('#propSeat').value;
-  /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动（裁判端「整页闪动」的真元） */
-  const pf = document.createDocumentFragment();
-  let pn = 0;
-  for (const s of (gm.seats || [])) {
-    const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
-    const ps = (res.game && res.game.proposals) || [];
-    for (const pr of ps) {
-      if (s !== seatSel) continue;
-      const box = el('div');
-      box.style.cssText = 'border:1px solid #2a313a;border-radius:6px;padding:8px;margin-bottom:8px';
-      const kind = (res.game.proposalKinds && res.game.proposalKinds[pr.kind]) || pr.kind;
-      const badge = pr.status === 'pending' ? '<span class="warn">待审批</span>'
-        : (pr.status === 'approved' ? '<span class="ok">已批准</span>' : '<span class="small">已驳回</span>');
-      box.innerHTML = '<b>' + kind + '</b> ' + (pr.note || '')
-        + ' ' + badge + ' <span class="small">· ' + s + ' 组 · 第' + (pr.createdTurn + 1) + '回合</span>';
-      const inp = el('div');
-      inp.style.cssText = 'display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px';
-      const fields = (window.__PK__ && window.__PK__[pr.kind] && window.__PK__[pr.kind].fields) || [];
-      const mod = {};
-      for (const f of fields) {
-        inp.appendChild(el('span', 'small', f.k + ':'));
-        const i = el('input');
-        i.type = 'number'; i.style.width = '110px';
-        i.value = pr.payload[f.k] != null ? pr.payload[f.k] : '';
-        i.oninput = () => { mod[f.k] = i.value === '' ? null : Number(i.value); };
-        inp.appendChild(i);
-      }
-      const note = el('input');
-      note.style.width = '150px'; note.placeholder = '裁决备注';
-      inp.appendChild(note);
-      if (pr.status === 'pending') {
-        const okb = el('button', null, '批准（可改参数）');
-        okb.onclick = async () => {
-          const r = await gmPost({ type: 'resolveProposal', seat: s, id: pr.id, action: 'approve', modify: mod, note: note.value });
-          if (r.result !== 'ok') actMsg(r.result || r.error || '失败');
-          refresh();
-        };
-        const nob = el('button', null, '驳回');
-        nob.onclick = async () => {
-          await gmPost({ type: 'resolveProposal', seat: s, id: pr.id, action: 'reject', note: note.value });
-          refresh();
-        };
-        inp.appendChild(okb); inp.appendChild(nob);
-      }
-      box.appendChild(inp);
-      pf.appendChild(box); pn++;
-    }
-  }
-  if (!pn) pf.appendChild(el('span', 'small', '（该组暂无提案）'));
-  pl.replaceChildren(pf);
-  $('#propSeat').onchange = refresh;
-
   const seats = gm.terms || {};
   $('#negSummary').innerHTML = Object.keys(seats).length
     ? Object.entries(seats).map(([s, v]) => `<b>${s}</b>: ${v}`).join('<br>')
@@ -1306,6 +1257,91 @@ function actMsg(msg, kind, origin) {
   return box;
 }
 
+
+/* ══ 11-23：待办角标 ══
+   ★ 裁判端原来只能**打开卡**才知道有没有待批的事（谈判记录/流转台空着时正文只有 8 个字）。
+   → 卡片标题上挂一枚「待处理 N」角标：N>0 才出现，0 条时不打扰。 */
+function setPendBadge(sel, n, label) {
+  const b = __DOC.querySelector(sel); if (!b) return;
+  b.textContent = (label || '待处理') + ' ' + n;
+  b.hidden = !n;
+}
+
+/* ── 小组提案（小组只能发起，批准后方生效）──
+   ★ 11-23 修 BUG：这段原来挂在 refresh() 里，而 refresh() 见到 **GM 状态未变** 就提前 return
+     → 小组提交提案**不会**改变 GM 载荷 → 裁判端审批队列永远停在「该组暂无提案」。
+     → 拆成独立渲染函数：自带指纹 + 4 秒轮询，GM 状态变不变都更新；待审批数同时喂给角标。 */
+let propSig = '';
+async function renderPropList() {
+  const pl = $('#propList'); if (!pl) return;
+  /* ★ 席位列表取 /api/gm **响应的顶层 seats**（gm.gm 是全局状态，里面没有 seats —— 旧代码正是在
+     refresh() 里用了 gm.seats（= g.gm.seats）→ 恒为空 → 审批面板永远「该组暂无提案」） */
+  const resp = await fetch('/api/gm', { headers: { 'x-sandbox-key': TEACHER_KEY } }).then(r => r.json()).catch(() => null);
+  if (!resp) return;
+  const seats = Array.isArray(resp.seats) ? resp.seats : Object.keys(resp.seats || {});
+  const seatSel = $('#propSeat').value;
+  const collected = [];
+  for (const s of seats) {
+    const res = await (await fetch('/api/seat/' + s, { headers: { 'x-sandbox-key': TEACHER_KEY } })).json();
+    const ps = (res.game && res.game.proposals) || [];
+    for (const pr of ps) collected.push({ seat: s, res, pr });
+  }
+  const sig = seatSel + '|' + JSON.stringify(collected.map(x => [x.seat, x.pr.id, x.pr.status]));
+  if (sig === propSig) return;
+  propSig = sig;
+  /* ★ 先取数、后一次性替换：原「先清空 → await → 再填」会让面板在等待期间空着 → 被浏览器画出来 = 闪动 */
+  const pf = document.createDocumentFragment();
+  let pn = 0, pendProp = 0;
+  for (const x of collected) {
+    const pr = x.pr, res = x.res, s = x.seat;
+    if (pr.status === 'pending') pendProp++;   /* ★ 三组合计待审批数（角标） */
+    if (s !== seatSel) continue;
+    const box = el('div');
+    box.style.cssText = 'border:1px solid #2a313a;border-radius:6px;padding:8px;margin-bottom:8px';
+    const kind = (res.game.proposalKinds && res.game.proposalKinds[pr.kind]) || pr.kind;
+    const badge = pr.status === 'pending' ? '<span class="warn">待审批</span>'
+      : (pr.status === 'approved' ? '<span class="ok">已批准</span>' : '<span class="small">已驳回</span>');
+    box.innerHTML = '<b>' + kind + '</b> ' + (pr.note || '')
+      + ' ' + badge + ' <span class="small">· ' + s + ' 组 · 第' + (pr.createdTurn + 1) + '回合</span>';
+    const inp = el('div');
+    inp.style.cssText = 'display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px';
+    const fields = (window.__PK__ && window.__PK__[pr.kind] && window.__PK__[pr.kind].fields) || [];
+    const mod = {};
+    for (const f of fields) {
+      inp.appendChild(el('span', 'small', f.k + ':'));
+      const i = el('input');
+      i.type = 'number'; i.style.width = '110px';
+      i.value = pr.payload[f.k] != null ? pr.payload[f.k] : '';
+      i.oninput = () => { mod[f.k] = i.value === '' ? null : Number(i.value); };
+      inp.appendChild(i);
+    }
+    const note = el('input');
+    note.style.width = '150px'; note.placeholder = '裁决备注';
+    inp.appendChild(note);
+    if (pr.status === 'pending') {
+      const okb = el('button', null, '批准（可改参数）');
+      okb.onclick = async () => {
+        const r = await gmPost({ type: 'resolveProposal', seat: s, id: pr.id, action: 'approve', modify: mod, note: note.value });
+        if (r.result !== 'ok') actMsg(r.result || r.error || '失败');
+        propSig = ''; refresh(); renderPropList();
+      };
+      const nob = el('button', null, '驳回');
+      nob.onclick = async () => {
+        await gmPost({ type: 'resolveProposal', seat: s, id: pr.id, action: 'reject', note: note.value });
+        propSig = ''; refresh(); renderPropList();
+      };
+      inp.appendChild(okb); inp.appendChild(nob);
+    }
+    box.appendChild(inp);
+    pf.appendChild(box); pn++;
+  }
+  if (!pn) pf.appendChild(el('span', 'small', '（该组暂无提案）'));
+  pl.replaceChildren(pf);
+  setPendBadge('#pendProp', pendProp, '待审批');
+}
+setInterval(renderPropList, 4000); renderPropList();
+$('#propSeat').onchange = () => { propSig = ''; renderPropList(); };
+
 async function renderNegFlow() {
   const box = __DOC.getElementById('negFlow'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
@@ -1317,6 +1353,9 @@ async function renderNegFlow() {
     const cat = d.game.negCatalog || {};
     for (const r of (d.game.negRequests || [])) rows.push({ seat: s, cat, r });
   }
+  /* ★ 待处理 = 裁判能受理/还价/驳回的三种状态（与表格里的操作按钮同口径） */
+  const pend = rows.filter(x => ['submitted', 'under_review', 'countered'].includes(x.r.status)).length;
+  setPendBadge('#pendNeg', pend, '待处理');
   const sig = JSON.stringify(rows.map(x => [x.seat, x.r.id, x.r.status, x.r.updatedTurn]));
   if (sig === negSig) return; negSig = sig;
   box.innerHTML = '';

@@ -545,8 +545,10 @@ async function act(type, extra = {}, noRender) {
     const res = await api('/api/seat/' + seat, { type, ...extra });
     /* ★ 11-23：失败原因**就地写在触发控件旁边**（不再 alert 弹窗），且失败不重绘整页
        —— 重绘会把就地提示冲掉；被拒清单与角标单独刷新。 */
+    /* ★ 'ok' 开头的字符串 = 成功并带负载（如 'ok:NR1-0'）；只有既不是 'ok'、也不是对象 .why 的才是失败 */
     const why = (res.result && typeof res.result === 'object' && res.result.why) ? res.result.why
-      : (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') ? res.result : null;
+      : (typeof res.result === 'string' && res.result !== 'ok' && !res.result.startsWith('ok')
+         && res.result !== 'unknown action') ? res.result : null;
     _loadSeq++;                      // ★ 作废在途的轮询响应（防止旧数据覆盖本次提交）
     g = res.game; gmState = res.gm;
     if (why) {
@@ -1287,8 +1289,9 @@ function renderNegReqs() {
   box.appendChild(t);
 }
 async function act2(act, id) {
-  const r = await fetch('/api/seat/' + g.seat, { method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ type: act, id }) }).then(x => x.json());
+  /* ★ 11-23 修 BUG：原用裸 fetch（**没带 x-sandbox-key**）→ 服务端 401 → 提案撤回/受理永远失败。
+     改走 api() 助手（统一带密钥 + 统一 401 提示）。 */
+  const r = await api('/api/seat/' + g.seat, { type: act, id });
   return r.result;
 }
 $('#btnNegReq') && ($('#btnNegReq').onclick = async () => {
@@ -1300,10 +1303,14 @@ $('#btnNegReq') && ($('#btnNegReq').onclick = async () => {
   try { val = (cat.type === 'perMarket' || cat.type === 'perAc' || cat.type === 'invest') ? JSON.parse(raw) : Number(raw); }
   catch (e) { val = raw; }
   const items = {}; items[item] = val;
-  const res = await fetch('/api/seat/' + g.seat, { method: 'POST', headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ type: 'submitNegRequest', title: $('#nrTitle').value, note: $('#nrNote').value, items }) }).then(x => x.json());
-  if (res.result && res.result !== 'ok') actMsg(res.result, 'bad');
-  else { $('#nrTitle').value = ''; $('#nrVal').value = ''; $('#nrNote').value = ''; render(); }
+  /* ★ 11-23 修 BUG：同上（裸 fetch 无密钥 → 401 → 申报单永远提交不上去） */
+  const res = await api('/api/seat/' + g.seat, { type: 'submitNegRequest', title: $('#nrTitle').value, note: $('#nrNote').value, items });
+  /* ★ 成功时服务端回 'ok:<编号>' → 说人话 + 清空输入；失败才显示原因 */
+  const nrOk = res && typeof res.result === 'string' && res.result.startsWith('ok');
+  if (nrOk) {
+    actMsg('申报单已提交（编号 ' + res.result.slice(3) + '），等裁判受理', 'ok');
+    $('#nrTitle').value = ''; $('#nrVal').value = ''; $('#nrNote').value = ''; render();
+  } else if (res && res.result) actMsg(res.result, 'bad');
 });
 /* 考核目标：第 3 季（turn>=2）前不显示任何目标数值 */
 /* ★ 网络攻击遮罩：被勒索时全屏覆盖，功能完全不可操作（困难由事件导致，非裁判"给予"） */
