@@ -116,6 +116,41 @@ td[data-seat="VA"]{--dot:#2f6fa8}
 .topmore[open]>summary{border-color:var(--acc);color:var(--tx)}
 .topmore>.kv{display:inline-flex;margin:8px 16px 0 0}
 
+
+/* ── 11-23 unslop：暗色滚动条（浏览器默认浅色滚动条在深色页面上极其扎眼） ── */
+*{scrollbar-width:thin;scrollbar-color:#3a4149 transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#343b43;border-radius:6px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#4a535d}
+
+/* ── 11-23 unslop：吸顶目录条改两级（分组标签 + 当前组条目） ── */
+.jb-nav{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.jb-groups{display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;align-items:center}
+.jb-group{display:inline-flex;align-items:baseline;gap:6px;height:26px;padding:0 10px;font-size:12px;
+ color:var(--tx2);background:transparent;border:1px solid var(--line);white-space:nowrap}
+.jb-group:hover{color:var(--tx);border-color:var(--dim)}
+.jb-group[aria-pressed="true"]{color:var(--acc);border-color:var(--acc);background:rgba(216,163,63,.10);font-weight:600}
+.jb-gcount{font-variant-numeric:tabular-nums;font-weight:400;color:var(--dim)}
+.jb-group[aria-pressed="true"] .jb-gcount{color:var(--acc);opacity:.7}
+.jb-items{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;align-items:center}
+.jb-item{height:26px;padding:0 10px;font-size:12px;color:var(--tx2);white-space:nowrap}
+.jb-item:hover{color:var(--tx)}
+.jb-item[hidden]{display:none}
+
+/* ── 11-23 unslop：宽表首列吸附 —— 横向滚动时不再「丢失」席位列 ── */
+.card>table td:first-child,.card>table th:first-child,
+.card>.scroll>table td:first-child,.card>.scroll>table th:first-child{
+ position:sticky;left:0;background:var(--surface)}
+.card>table th:first-child,.card>.scroll>table th:first-child{z-index:4}
+.card>.scroll>table th{position:sticky;top:0;background:var(--surface);z-index:2}
+
+/* ── 11-23 unslop：卡片标题下的一条发丝线 —— 密集页面给「区块」一个明确起点 ── */
+.card>h2{padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:14px}
+
+/* ── 11-23 unslop：超宽屏收口 —— 两列不再无限拉宽 ── */
+main{max-width:1680px;margin:0 auto}
+
 </style>
 <script>
 /* 页面级错误可见化：真实课堂里不能只留在控制台 */
@@ -141,13 +176,12 @@ window.addEventListener('error', function (e) {
   <div class="kv"><b id="hBudget">—</b><span>谈判额度</span></div>
   <div class="kv"><b id="hScenario">—</b><span>场景</span></div>
   <div style="flex:1"></div>
-  <button id="btnJumpReport" style="align-self:center" title="跳到本组的报表（Summary / 航线经济 / 航班 / 需求）">📄 报表</button>
+  <button id="btnJumpReport" style="align-self:center" title="跳到本组的报表（Summary / 航线经济 / 航班 / 需求）">报表</button>
   <select id="seatSel"></select>
 </header>
 
 <main>
-  <div>
-    <div class="card">
+<div class="card widecard" data-grp="经营决策" data-grp="经营决策">
       <h2>航线与运价</h2>
       <div class="row">
         <label>申请开通航线</label><select id="selNewRoute" style="width:170px"></select>
@@ -182,8 +216,7 @@ window.addEventListener('error', function (e) {
       </div>
       <div id="intelWarn" class="small"></div>
     </div>
-
-    <div class="card" style="margin-top:14px">
+<div class="card widecard" data-grp="经营决策" style="margin-top:14px" data-grp="经营决策">
       <h2>航班排班<em>（每班 = 每日 1 班）</em></h2>
       <div class="row">
         <label>飞机</label><select id="selAc" style="width:225px"></select>
@@ -208,7 +241,7 @@ window.addEventListener('error', function (e) {
         <span class="small">一键把未设定的回程起飞设为「到达 + 过站时间」；已设定的不覆盖</span>
       </div>
       <div id="retBox"></div>
-      <div class="card" style="margin-top:14px">
+      <div class="card" style="margin-top:14px" data-grp="经营决策">
         <h2>三家排班<em>（DAILY SCHEDULE · 公开信息 · 谁占了哪些时刻）</em></h2>
         <div class="small" style="margin-bottom:8px">
           行＝每架飞机，块＝航班，块宽＝占用时长，深色＝去程、淡色＝回程；块内为航线名。
@@ -222,27 +255,31 @@ window.addEventListener('error', function (e) {
         <div id="routeDemandBox"></div>
       </div>
     </div>
+  <div>
+    
 
-    <div class="card" style="margin-top:14px">
+    
+
+    <div class="card" style="margin-top:14px" data-grp="资产与扩张">
       <h2>投资与资产</h2>
       <div class="row" style="margin-bottom:8px">
         <div id="invSummary" class="small" style="flex:1"></div>
-        <button id="btnInvReport" title="跳到报表的「投资」页签">📄 投资报表</button>
+        <button id="btnInvReport" title="跳到报表的「投资」页签">投资报表</button>
       </div>
       <div class="tabs" id="tabsInv"></div>
       <div id="invBody" class="scroll"></div>
     </div>
-    <div class="card" style="margin-top:14px">
-      <h2>考核目标<em>（Low-Cost Carrier）</em></h2>
+    <div class="card" style="margin-top:14px" data-grp="资产与扩张">
+      <h2>经营评分表<em>（Low-Cost Carrier）</em></h2>
       <table id="tblScore"></table>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>本回合预览</h2>
       <table id="tblPrev"></table>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="资产与扩张">
       <h2>扩张测算器<em>（拟增几架 → 收入/成本/盈亏平衡 LF）</em></h2>
       <div class="row" style="margin-bottom:6px">
         <label>拟增飞机</label><input id="scN" type="number" min="0" max="20" value="2" style="width:80px"> 架
@@ -253,7 +290,7 @@ window.addEventListener('error', function (e) {
     </div>
 
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>运力指引<em>（先算盈亏平衡，再定班次）</em></h2>
       <div class="small" style="margin-bottom:6px">
         <b>现金口径盈亏平衡 LF</b>（主指标，只含利息与租金，不含折旧）→ 低于它必须减班次；
@@ -267,7 +304,7 @@ window.addEventListener('error', function (e) {
     </div>
 
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>联程设置<em>（中转）</em></h2>
       <div class="small" style="margin-bottom:6px">
         联程（转机）＝旅客在 2–4 小时内转乘你的下一班飞机。承接率由裁判设定的中转强度决定（10%/20%/32%）。
@@ -277,20 +314,24 @@ window.addEventListener('error', function (e) {
     </div>
 
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="资产与扩张">
       <h2>处置飞机指引<em>（团队自决）</em></h2>
       <div id="sellHint"></div>
     </div>
 
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
+      <h2>本组考核目标<em>（裁判于第 3 季公布）</em></h2>
+      <div id="targetBox"></div>
+    </div>
   </div>
 
   <div>
-    <div class="card">
+    <div class="card" data-grp="经营决策">
       <h2>本季开放的新机制<em>（循序渐进）</em></h2>
       <div id="newRules" class="small"></div>
       <table id="tblLoan" style="margin-top:8px"></table>
     </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与沟通">
       <h2>提案<em>（须裁判确认后生效）</em></h2>
       <div class="row">
         <label>提案类型</label>
@@ -310,28 +351,28 @@ window.addEventListener('error', function (e) {
       <div id="propList" class="scroll small" style="margin-top:6px"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="分析与报表">
       <h2>历史报告</h2>
       <div class="tabs" id="tabsHist"></div>
       <div id="histBody" class="scroll"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>航线经济性速览<em>（每班次成本 · 盈亏平衡 LF）</em></h2>
       <div id="econBox"><div class="small">加载中…</div></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>经营要点<em>（课堂三条铁律）</em></h2>
       <div id="tipsBox" class="small"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="经营决策">
       <h2>上次操作的被拒原因<em>（排班/投资没成功时看这里）</em></h2>
       <div id="rejectBox"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与沟通">
       <h2>谈判申报单<em>（提交 → 裁判受理 / 还价 → 达成生效）</em></h2>
       <div class="row" style="margin-bottom:8px">
         <input id="nrTitle" type="text" placeholder="标题（如 Q3 燃油与运价诉求）" style="width:230px">
@@ -343,28 +384,25 @@ window.addEventListener('error', function (e) {
       <div id="negReqs"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="分析与报表">
       <h2>运营视图<em>（Fare Matrix / Live Schedules / Fleet Plans）</em></h2>
       <div id="opsBody"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
-      <h2>考核目标<em>（裁判于第 3 季公布）</em></h2>
-      <div id="targetBox"></div>
-    </div>
+    
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与沟通">
       <h2>消息板<em>（裁判公告与规则更新）</em></h2>
       <div id="msgBoard"></div>
     </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="分析与报表">
       <h2>日志</h2>
       <div id="log"></div>
     </div>
   </div>
 
   <!-- 报表：整宽跨两列（阅读型内容给足宽度；默认只露 4 个高频页签） -->
-  <div class="card widecard" id="repCard">
+  <div class="card widecard" id="repCard" data-grp="分析与报表">
     <h2>报表<em>（Reports · <span id="repTabCount">—</span> 个页签 + 历史季度）</em></h2>
     <div class="row" style="margin-bottom:8px">
       <button id="btnExpSum">导出 汇总 CSV</button>
@@ -1705,9 +1743,11 @@ setInterval(poll, 2000);
   function build() {
     const main = D.querySelector('main'); if (!main) return;
     if (D.getElementById('p-costcut')) return;
-    const cols = main.querySelectorAll(':scope > div'); if (!cols.length) return;
+    /* ★ 11-23：main 下多了整宽卡（widecard 也是 div）→ 只认**栏容器**，否则动态卡会被塞进整宽卡里 */
+    const cols = [...main.querySelectorAll(':scope > div')].filter(d => !d.classList.contains('card'));
+    if (!cols.length) return;
     const card = D.createElement('div');
-    card.className = 'card'; card.id = 'p-costcut';
+    card.className = 'card'; card.id = 'p-costcut'; card.setAttribute('data-grp', '资产与扩张');
     card.innerHTML = '<h2>削减固定成本<em>（现金为负时的自救手段 · 自主决策）</em></h2>'
       + '<div class="row">'
       + '<label>所选飞机</label>'

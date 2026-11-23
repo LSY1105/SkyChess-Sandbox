@@ -744,7 +744,10 @@ function charts(root, h, g) {
 /* ─────────────── U5：FLIGHT INFORMATION 弹窗 ─────────────── */
 
 
-/** 吸顶锚点条（11-17 critique P2）：页面 5000px、27 个同级标题、零导航 → 把卡片目录化
+/** 吸顶目录条（11-17 critique P2 → 11-23 unslop 重做）：页面 5000px、27 个同级标题、零导航 → 把卡片目录化
+ *  ★ 11-23：18 个平铺锚点会横向溢出（后半截被切掉，学生看不到）→ 改为**两级目录**：
+ *    上排分组标签（组名 + 条目数），下排**当前组**的条目；切换分组只换下排可见项，DOM 位置不动。
+ *    卡片分组来自卡片的 data-grp 属性（未标注的归「全部」→ 退化成原来的一排）。
  *  集合变化才重建按钮（否则轮询会替换掉用户刚点的锚点 → 点击落空） */
 export function mountJumpBar(main) {
   if (!main) return;
@@ -753,7 +756,7 @@ export function mountJumpBar(main) {
     bar = el('div'); bar.id = 'jumpBar';
     /* ★ 必须显式 flex-direction:row —— main>div 的 column 规则会把锚点条竖排成一列 */
     bar.style.cssText = 'grid-column:1 / -1;position:sticky;top:58px;z-index:9;display:flex;flex-direction:row;'
-      + 'flex-wrap:nowrap;align-items:center;gap:6px;overflow-x:auto;padding:8px 0;'
+      + 'align-items:center;gap:0;padding:8px 0;'
       + 'background:var(--bg);border-bottom:1px solid var(--hair)';
     main.insertBefore(bar, main.firstChild);
   }
@@ -763,17 +766,63 @@ export function mountJumpBar(main) {
     if (!card || card.contains(bar)) return;
     const name = ((h.childNodes[0] && h.childNodes[0].nodeValue) || '').trim() || (h.textContent || '').trim();
     if (!name || seen[name]) return;
-    seen[name] = 1; items.push({ name, card });
+    seen[name] = 1;
+    const grp = (card.getAttribute('data-grp') || '全部').trim() || '全部';
+    items.push({ name, card, grp });
   });
-  const sig = items.map(x => x.name).join('|');
+  const sig = items.map(x => x.grp + ':' + x.name).join('|');
   if (bar.__sig === sig) return;
   bar.__sig = sig;
-  bar.innerHTML = '';
+
+  const groups = [];
   for (const it of items) {
-    const b = el('button', '', it.name);
-    b.style.cssText = 'white-space:nowrap;font-size:12px;height:26px;padding:0 10px';
-    b.onclick = () => it.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    bar.appendChild(b);
+    let g = groups.find(x => x.name === it.grp);
+    if (!g) { g = { name: it.grp, items: [] }; groups.push(g); }
+    g.items.push(it);
+  }
+  const prev = bar.dataset.active;
+  const active = groups.some(g => g.name === prev) ? prev : groups[0].name;
+
+  bar.innerHTML = '';
+  const nav = el('div', 'jb-nav');
+  const gwrap = el('div', 'jb-groups');
+  const iwrap = el('div', 'jb-items');
+  function setActive(name) {
+    bar.dataset.active = name;
+    gwrap.querySelectorAll('.jb-group').forEach(b =>
+      b.setAttribute('aria-pressed', b.dataset.grp === name ? 'true' : 'false'));
+    iwrap.querySelectorAll('.jb-item').forEach(b => { b.hidden = b.dataset.grp !== name; });
+  }
+  for (const g of groups) {
+    const gb = el('button', 'jb-group');
+    gb.type = 'button';
+    gb.dataset.grp = g.name;
+    gb.appendChild(el('span', 'jb-gname', g.name));
+    gb.appendChild(el('span', 'jb-gcount', String(g.items.length)));
+    gb.onclick = () => setActive(g.name);
+    gwrap.appendChild(gb);
+  }
+  for (const g of groups) {
+    for (const it of g.items) {
+      const b = el('button', 'jb-item', it.name);
+      b.type = 'button';
+      b.dataset.grp = g.name;
+      b.onclick = () => it.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      iwrap.appendChild(b);
+    }
+  }
+  if (groups.length > 1) nav.appendChild(gwrap);
+  nav.appendChild(iwrap);
+  bar.appendChild(nav);
+  setActive(active);
+
+  /* ★ 目录条吸顶位置跟随顶栏实际高度（顶栏高度随折行变化，固定 58px 会压住标题） */
+  const hdr = document.querySelector('header');
+  const syncTop = () => { if (hdr) bar.style.top = hdr.offsetHeight + 'px'; };
+  syncTop();
+  if (!bar.__synced) {
+    bar.__synced = 1;
+    window.addEventListener('resize', syncTop);
   }
 }
 

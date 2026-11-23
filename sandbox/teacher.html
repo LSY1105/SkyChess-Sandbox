@@ -122,6 +122,44 @@ td[data-seat="VA"]{--dot:#2f6fa8}
 .negcash::after{content:' 减负';font-size:11px;font-weight:400;color:var(--dim);
  border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:6px}
 
+
+/* ── 11-23 unslop：暗色滚动条（浏览器默认浅色滚动条在深色页面上极其扎眼） ── */
+*{scrollbar-width:thin;scrollbar-color:#3a4149 transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#343b43;border-radius:6px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#4a535d}
+
+/* ── 11-23 unslop：吸顶目录条改两级（分组标签 + 当前组条目） ── */
+.jb-nav{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.jb-groups{display:flex;flex-direction:row;gap:6px;flex-wrap:wrap;align-items:center}
+.jb-group{display:inline-flex;align-items:baseline;gap:6px;height:26px;padding:0 10px;font-size:12px;
+ color:var(--tx2);background:transparent;border:1px solid var(--line);white-space:nowrap}
+.jb-group:hover{color:var(--tx);border-color:var(--dim)}
+.jb-group[aria-pressed="true"]{color:var(--acc);border-color:var(--acc);background:rgba(216,163,63,.10);font-weight:600}
+.jb-gcount{font-variant-numeric:tabular-nums;font-weight:400;color:var(--dim)}
+.jb-group[aria-pressed="true"] .jb-gcount{color:var(--acc);opacity:.7}
+.jb-items{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;align-items:center}
+.jb-item{height:26px;padding:0 10px;font-size:12px;color:var(--tx2);white-space:nowrap}
+.jb-item:hover{color:var(--tx)}
+.jb-item[hidden]{display:none}
+
+/* ── 11-23 unslop：宽表首列吸附 —— 横向滚动时不再「丢失」席位列 ── */
+.card>table td:first-child,.card>table th:first-child,
+.card>.scroll>table td:first-child,.card>.scroll>table th:first-child{
+ position:sticky;left:0;background:var(--surface)}
+.card>table th:first-child,.card>.scroll>table th:first-child{z-index:4}
+.card>.scroll>table th{position:sticky;top:0;background:var(--surface);z-index:2}
+
+/* ── 11-23 unslop：卡片标题下的一条发丝线 —— 密集页面给「区块」一个明确起点 ── */
+.card>h2{padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:14px}
+
+/* ── 11-23 unslop：超宽屏收口 —— 两列不再无限拉宽 ── */
+main{max-width:1680px;margin:0 auto}
+
+/* ── 裁判端：整宽卡片（观察与沟通）跨两列 ── */
+main>div.widecard{display:block;grid-column:1 / -1;margin:16px 0 0;padding:20px}
+
 </style>
 </head>
 <body>
@@ -139,7 +177,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
 
 <main>
   <div>
-      <div class="card" style="margin-top:14px" id="clockCard">
+      <div class="card" style="margin-top:14px" id="clockCard" data-grp="赛季与全局">
     <h2>赛季计时<em>（每季 1 小时 · 到时自动结算）</em></h2>
     <div class="row" style="margin-bottom:8px">
       <button id="btnStartRound">开始本季计时</button>
@@ -156,7 +194,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
     </div>
   </div>
 
-<div class="card">
+<div class="card" data-grp="赛季与全局">
       <h2>经济参数设定<em>（全局生效）</em></h2>
       <div class="row">
         <label>燃油价格</label>
@@ -184,7 +222,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       </div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="赛季与全局">
       <h2>事件触发</h2>
       <div class="row">
         <label>事件</label><select id="selEvent" style="width:170px"></select>
@@ -199,19 +237,19 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <div id="evList" class="scroll small"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="赛季与全局">
       <h2>市场开放</h2>
       <div id="mktList" class="scroll small"></div>
     </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="赛季与全局">
       <h2>载货策略<em>（座位多→客舱重→货舱可载少；裁判可关闭载货）</em></h2>
 <div class="row"><span id="cargoPolicyRow"></span></div>
       </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="赛季与全局">
       <h2>大修触发<em>（由裁判决定触发季；是否卖出由团队自决）</em></h2>
 <div id="hcPanel"></div>
       </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="教学节奏">
       <h2>经营模式设定<em>（开局与三家协商确定）</em>· ⑲ 网络攻击处理</h2>
 <div class="row" style="margin-bottom:8px">
       <span class="small">经营模式（开局确定后锁定）：</span>
@@ -219,14 +257,14 @@ td[data-seat="VA"]{--dot:#2f6fa8}
     </div>
     <div id="hackPanel"></div>
       </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="教学节奏">
       <h2>考核目标<em>（第 3 季起由裁判询问并设定；前两季不开放）</em></h2>
 <div id="targetPanel"></div>
       </div>
 
 
     <!-- ⑩ 分季规则开启表：原版是「循序渐进」的教学设计，每季引入新机制 -->
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="教学节奏">
       <h2>分季规则开启表<em>（循序渐进 · 教学节奏可调）</em></h2>
       <div class="small" style="margin-bottom:8px">
         每条机制按计划回合逐季引入；学生先掌握基础经营，再逐季接触套保 → 碳与合规 → 新市场 → SAF。
@@ -238,18 +276,8 @@ td[data-seat="VA"]{--dot:#2f6fa8}
   </div>
 
   <div>
-    <div class="card">
-      <h2>各席位经营状况</h2>
-      <table id="tblSeats"></table>
-      <h3 style="margin-top:16px">资产处置与减负<em>（退租赁 / 卖机 · 小组自主决策，裁判只审计）</em></h3>
-      <div id="assetPanel" class="small">加载中…</div>
-      <div class="row" style="margin-top:10px">
-        <a href="/player.html?seat=CA" target="_blank"><button>打开 CA 面板</button></a>
-        <a href="/player.html?seat=AB" target="_blank"><button>打开 AB 面板</button></a>
-        <a href="/player.html?seat=VA" target="_blank"><button>打开 VA 面板</button></a>
-      </div>
-    </div>
-    <div class="card" style="margin-top:14px">
+    
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>谈判工作台<em>（逐组商谈）</em></h2>
       <div class="row">
         <label>谈判对象</label>
@@ -283,7 +311,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <div id="negSummary" class="small"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>课堂调控 · 资金与投资<em>（逐组注资 · 投资开放与议价）</em></h2>
       <div class="small" style="margin-bottom:8px">
         小组现金为负时，投资 / 还贷 / 采购会被服务端拒绝 → 用<b>「发放资金」</b>救场；
@@ -314,7 +342,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       </div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>分组配置矩阵<em>（逐组填值 · 批量下发）</em></h2>
       <div class="row">
         <label>场景包</label>
@@ -332,7 +360,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <div id="matrix" class="scroll"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>小组提案审批<em>（小组只能发起，批准后方生效）</em></h2>
       <div class="row">
         <label>查看组别</label>
@@ -346,7 +374,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <div id="propList" class="scroll"></div>
     </div>
 
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>谈判记录<em>（可审计）</em></h2>
       <div id="negLog" class="scroll small"></div>
     </div>
@@ -354,7 +382,7 @@ td[data-seat="VA"]{--dot:#2f6fa8}
 
 
     <!-- ⑪ 航线释放与开线审批（裁判逐季释放航线；小组申请 → 裁判洽谈批准） -->
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>航线释放与开线审批</h2>
       <div class="small" style="margin-bottom:8px">
         裁判按赛季逐步释放航线；小组提交开线申请后，须由裁判批准并由小组支付固定开线费 $200,000 方可开通并执行飞行。
@@ -369,12 +397,57 @@ td[data-seat="VA"]{--dot:#2f6fa8}
       <h3 style="margin-top:14px">航线释放时间线（裁判可提前/延后）</h3>
       <div class="scroll" style="max-height:260px"><table id="tblRouteRelease"></table></div>
     </div>
-    <div class="card" style="margin-top:14px">
+    <div class="card" style="margin-top:14px" data-grp="谈判与审批">
       <h2>谈判流转台<em>（小组申报单 → 受理 / 还价 / 达成）</em></h2>
 <div id="negFlow"></div>
       </div>
 
   </div>
+
+<div class="card widecard" data-grp="席位监控">
+      <h2>各席位经营状况</h2>
+      <table id="tblSeats"></table>
+      <h3 style="margin-top:16px">资产处置与减负<em>（退租赁 / 卖机 · 小组自主决策，裁判只审计）</em></h3>
+      <div id="assetPanel" class="small">加载中…</div>
+      <div class="row" style="margin-top:10px">
+        <a href="/player.html?seat=CA" target="_blank"><button>打开 CA 面板</button></a>
+        <a href="/player.html?seat=AB" target="_blank"><button>打开 AB 面板</button></a>
+        <a href="/player.html?seat=VA" target="_blank"><button>打开 VA 面板</button></a>
+      </div>
+    </div>
+<div class="card widecard" data-grp="观察与报表">
+  <h2>观察与沟通<em>（报表 · 甘特图 · 需求图 · 日志 · 消息板）</em></h2>
+  <div class="tabs" id="obsTabs">
+    <button data-p="rep" class="on">报表与运营视图</button>
+    <button data-p="gantt">三家日程甘特图</button>
+    <button data-p="demand">航线需求图</button>
+    <button data-p="log">全局日志</button>
+    <button data-p="msg">消息板与导出</button>
+  </div>
+  <div id="obsPanes">
+    <div class="pane on" data-p="rep"><h3>报表与运营视图</h3><div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
+  <div id="repBody"></div><div id="opsBody" style="margin-top:12px"></div>
+</div>
+    <div class="pane" data-p="gantt"><h3>三家日程甘特图 · 块宽=占用时长 · 悬停看详情</h3><div id="ganttAll"></div>
+  </div>
+    <div class="pane" data-p="demand"><h3>航线需求图<em>（ROUTE DEMAND · 需求线：红=非枢纽高峰时段，绿=枢纽高峰时段 · 底纹=枢纽高峰时段）</em></h3><div id="routeDemand"></div>
+  </div>
+    <div class="pane" data-p="log"><h3>全局日志</h3><div id="log" class="scroll small"></div></div>
+    <div class="pane" data-p="msg"><h3>消息板与导出</h3><div class="row" style="margin-bottom:8px">
+      <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
+      <input id="msgBody" type="text" placeholder="正文" style="width:280px">
+      <select id="msgKind" style="width:100px"><option value="notice">公告</option><option value="rule">规则更新</option><option value="task">任务</option></select>
+      <label>截止日期</label><input id="msgDue" type="date">
+      <label><input id="msgPin" type="checkbox"> 置顶</label>
+      <button id="btnPostMsg">发布</button>
+    </div>
+    <div class="row" style="margin-bottom:8px"><span class="small">导出（所选席位）：</span>
+      <button id="btnTExpSum">汇总 CSV</button><button id="btnTExpRoute">航线 CSV</button>
+      <button id="btnTExpSched">班次 CSV</button><button id="btnTExpInv">投资 CSV</button></div>
+    <div id="msgList"></div>
+  </div>
+  </div>
+</div>
 </main>
 
 <script type="module">
@@ -1537,41 +1610,11 @@ setInterval(renderCargoPolicy, 6000); renderCargoPolicy();
   });
 })();
 
-</script>
 
-<div class="card" style="margin-top:14px">
-  <h2>观察与沟通<em>（报表 · 甘特图 · 需求图 · 日志 · 消息板）</em></h2>
-  <div class="tabs" id="obsTabs">
-    <button data-p="rep" class="on">报表与运营视图</button>
-    <button data-p="gantt">三家日程甘特图</button>
-    <button data-p="demand">航线需求图</button>
-    <button data-p="log">全局日志</button>
-    <button data-p="msg">消息板与导出</button>
-  </div>
-  <div id="obsPanes">
-    <div class="pane on" data-p="rep"><h3>报表与运营视图</h3><div class="row" style="margin-bottom:8px"><label>查看席位</label><select id="repSeat" style="width:120px"></select></div>
-  <div id="repBody"></div><div id="opsBody" style="margin-top:12px"></div>
-</div>
-    <div class="pane" data-p="gantt"><h3>三家日程甘特图 · 块宽=占用时长 · 悬停看详情</h3><div id="ganttAll"></div>
-  </div>
-    <div class="pane" data-p="demand"><h3>航线需求图<em>（ROUTE DEMAND · 需求线：红=非枢纽高峰时段，绿=枢纽高峰时段 · 底纹=枢纽高峰时段）</em></h3><div id="routeDemand"></div>
-  </div>
-    <div class="pane" data-p="log"><h3>全局日志</h3><div id="log" class="scroll small"></div></div>
-    <div class="pane" data-p="msg"><h3>消息板与导出</h3><div class="row" style="margin-bottom:8px">
-      <input id="msgTitle" type="text" placeholder="标题（如 Q3 油价规则更新）" style="width:230px">
-      <input id="msgBody" type="text" placeholder="正文" style="width:280px">
-      <select id="msgKind" style="width:100px"><option value="notice">公告</option><option value="rule">规则更新</option><option value="task">任务</option></select>
-      <label>截止日期</label><input id="msgDue" type="date">
-      <label><input id="msgPin" type="checkbox"> 置顶</label>
-      <button id="btnPostMsg">发布</button>
-    </div>
-    <div class="row" style="margin-bottom:8px"><span class="small">导出（所选席位）：</span>
-      <button id="btnTExpSum">汇总 CSV</button><button id="btnTExpRoute">航线 CSV</button>
-      <button id="btnTExpSched">班次 CSV</button><button id="btnTExpInv">投资 CSV</button></div>
-    <div id="msgList"></div>
-  </div>
-  </div>
-</div>
+/* ★ 11-23 unslop：吸顶分组目录条（裁判端 19 张卡平铺在两根长滚动条上 → 分组目录） */
+R.mountJumpBar(__DOC.querySelector('main'));
+
+</script>
 
 </body>
 </html>
