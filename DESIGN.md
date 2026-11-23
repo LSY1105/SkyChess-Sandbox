@@ -195,7 +195,7 @@ components:
 
 ### Inputs / Fields
 - **Style:** 页面底 `#15171a` + 1px 实边 `#2b3036`，8px 圆角，高 32px，内边距 `0 10px`。
-- **Focus:** 去掉默认 outline，边框转为金色 `#d8a33f`。
+- **Focus:** 去掉默认 outline，边框转为金色 `#d8a33f`，**并补 2px 金色 outline + 1px 偏移**（11-23：只改 1px 边框的焦点态在投影上几乎看不见）。
 - **Type:** 原生控件优先（`type="time"` / `type="number"` / `type="date"`），不用自定义选择器。
 
 ### Tables
@@ -230,9 +230,12 @@ components:
 ```
 
 - **分组来源**：卡片上的 `data-grp` 属性（裁判端 5 组 / 小组端 4 组）；未标注的归「全部」。
+- **无障碍**：分组标签 = `role="tablist"` + 每个组 `role="tab"` + `aria-selected`；条目按钮 `aria-current` 标出最近一次跳转。
 - **默认组**：DOM 顺序里的第一组；切换组只换下排可见项，**不重建 DOM**（避免轮询打断点击）。
 - **吸顶位置**：跟随顶栏实际高度（`header.offsetHeight`），顶栏折行时也不会压住标题。
 - **宽度**：条目行 `flex-wrap: wrap` —— 宁可换行，**不横向裁切**（这是旧锚点条的硬伤）。
+- **顶栏瘦身**：小组端顶栏曾高 149px（时钟卡以「卡片」塞在 header 里，1280×720 投影占 20%）。现在时钟降级为**内联条**、「报表直达 + 席位切换」搬进目录条右侧 → 顶栏 69px 一行放得下。
+- **吸顶跟随**：`top` 取 `header.offsetHeight` 并用 `ResizeObserver` 跟随；**每次调用都要同步**（集合未变直接 return 也会漏同步 → 顶栏变高后目录条钻到顶栏底下）。
 
 ### 整宽卡（widecard · 11-23）
 

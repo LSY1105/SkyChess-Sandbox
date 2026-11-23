@@ -760,6 +760,17 @@ export function mountJumpBar(main) {
       + 'background:var(--bg);border-bottom:1px solid var(--hair)';
     main.insertBefore(bar, main.firstChild);
   }
+  /* ★ 目录条吸顶位置跟随顶栏实际高度（顶栏高度随折行变化，固定 58px 会压住标题）
+     —— 必须在「集合未变直接返回」之前同步，否则顶栏变高后目录条会钻到顶栏底下 */
+  const hdr = document.querySelector('header');
+  const syncTop = () => { if (hdr) bar.style.top = hdr.offsetHeight + 'px'; };
+  syncTop();
+  if (!bar.__synced) {
+    bar.__synced = 1;
+    window.addEventListener('resize', syncTop);
+    if (window.ResizeObserver && hdr) { try { new ResizeObserver(syncTop).observe(hdr); } catch (e) { /* 忽略 */ } }
+  }
+
   const items = [], seen = {};
   main.querySelectorAll('.card > h2').forEach(h => {
     const card = h.parentElement;
@@ -783,19 +794,28 @@ export function mountJumpBar(main) {
   const prev = bar.dataset.active;
   const active = groups.some(g => g.name === prev) ? prev : groups[0].name;
 
+  /* ★ 顶栏瘦身：把「报表直达」与「席位切换」搬进目录条右侧 → 顶栏一行放得下
+     （1280×720 投影：顶栏 149px → ~52px）。重建前先抓住引用，重建后放回。 */
+  const tools = [document.getElementById('btnJumpReport'), document.getElementById('seatSel')].filter(Boolean);
   bar.innerHTML = '';
   const nav = el('div', 'jb-nav');
   const gwrap = el('div', 'jb-groups');
   const iwrap = el('div', 'jb-items');
   function setActive(name) {
     bar.dataset.active = name;
-    gwrap.querySelectorAll('.jb-group').forEach(b =>
-      b.setAttribute('aria-pressed', b.dataset.grp === name ? 'true' : 'false'));
+    gwrap.querySelectorAll('.jb-group').forEach(b => {
+      const on = b.dataset.grp === name;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
     iwrap.querySelectorAll('.jb-item').forEach(b => { b.hidden = b.dataset.grp !== name; });
   }
+  gwrap.setAttribute('role', 'tablist');
+  gwrap.setAttribute('aria-label', '目录分组');
   for (const g of groups) {
     const gb = el('button', 'jb-group');
     gb.type = 'button';
+    gb.setAttribute('role', 'tab');
     gb.dataset.grp = g.name;
     gb.appendChild(el('span', 'jb-gname', g.name));
     gb.appendChild(el('span', 'jb-gcount', String(g.items.length)));
@@ -807,23 +827,25 @@ export function mountJumpBar(main) {
       const b = el('button', 'jb-item', it.name);
       b.type = 'button';
       b.dataset.grp = g.name;
-      b.onclick = () => it.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      b.setAttribute('aria-current', 'false');
+      b.onclick = () => {
+        iwrap.querySelectorAll('.jb-item').forEach(x => x.setAttribute('aria-current', 'false'));
+        b.setAttribute('aria-current', 'true');
+        it.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
       iwrap.appendChild(b);
     }
   }
-  if (groups.length > 1) nav.appendChild(gwrap);
+  if (groups.length > 1 || tools.length) nav.appendChild(gwrap);
+  if (tools.length) {
+    const tw = el('div', 'jb-tools');
+    tools.forEach(t => tw.appendChild(t));
+    gwrap.appendChild(tw);
+  }
   nav.appendChild(iwrap);
   bar.appendChild(nav);
   setActive(active);
 
-  /* ★ 目录条吸顶位置跟随顶栏实际高度（顶栏高度随折行变化，固定 58px 会压住标题） */
-  const hdr = document.querySelector('header');
-  const syncTop = () => { if (hdr) bar.style.top = hdr.offsetHeight + 'px'; };
-  syncTop();
-  if (!bar.__synced) {
-    bar.__synced = 1;
-    window.addEventListener('resize', syncTop);
-  }
 }
 
 /** 取某航线在指定季度的结算明细（当期 = lastDetail，历史季 = history[i].detail）
