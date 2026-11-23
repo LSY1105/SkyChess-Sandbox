@@ -163,6 +163,20 @@ main{max-width:1680px;margin:0 auto}
 /* ── 裁判端：整宽卡片（观察与沟通）跨两列 ── */
 main>div.widecard{display:block;grid-column:1 / -1;margin:16px 0 0;padding:20px}
 
+
+/* ── 11-23：动作反馈就地化（S7：结果不能只靠 alert 弹窗）+ 被拒角标 ── */
+.actMsg{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:6px;font-size:12px;line-height:1.6;
+ border:1px solid rgba(217,112,104,.55);background:rgba(217,112,104,.14);color:#f2b0aa;white-space:normal;vertical-align:middle}
+.actMsg.ok{border-color:rgba(76,154,95,.55);background:rgba(76,154,95,.14);color:#8ed3a0}
+.actMsg.info{border-color:var(--line);background:var(--raised);color:var(--tx2)}
+.actMsg .x{background:none;border:none;color:inherit;cursor:pointer;font:inherit;font-size:12px;padding:0 0 0 6px;opacity:.75}
+.actMsg .x:hover{opacity:1}
+td>.actMsg{display:block;margin:4px 0 0;width:100%}
+.rejectBadge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:8px;font-size:12px;
+ border:1px solid rgba(217,112,104,.55);background:rgba(217,112,104,.14);color:#f2b0aa;cursor:pointer;white-space:nowrap}
+.rejectBadge:hover{background:rgba(217,112,104,.22)}
+.rejectBadge[hidden]{display:none}
+
 </style>
 </head>
 <body>
@@ -751,6 +765,7 @@ async function refresh() {
 /* ★ 资产处置与减负：把三组的机队、租赁与减负动作显式摆到裁判面前
    教学意义：租赁/买机/卖机由团队自主决策（裁判不能替航司改变资产），
    裁判的职责是**看得见**（可审计、可点评），而不是替他们决定。 */
+
 function renderAssetPanel() {
   const box = $('#assetPanel'); if (!box) return;
   const rows = [];
@@ -792,7 +807,7 @@ function renderAssetPanel() {
       const seat = inp.dataset.seatRate;
       const rate = Math.max(0, Math.min(1, Number(inp.value) || 0));
       const res = await (await fetch('/api/seat/' + seat, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-sandbox-key': TEACHER_KEY }, body: JSON.stringify({ type: 'setAssetRate', rate }) })).json();
-      if (res && res.result && res.result !== 'ok') { alert(res.result); renderAssetPanel(); return; }
+      if (res && res.result && res.result !== 'ok') { actMsg(res.result); renderAssetPanel(); return; }
       inp.value = rate.toFixed(2);
     };
   });
@@ -899,7 +914,7 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
     if (!confirm('套用场景「' + s.name + '」到全部组？')) return;
     const r = await gmPost({ type: 'applyScenario',
       scenario: { name: s.name, scenarioId: s.id, params: s.params, events: s.events } });
-    if (String(r.result || '').indexOf('ok') !== 0) alert(r.result || '失败');
+    if (String(r.result || '').indexOf('ok') !== 0) actMsg(r.result || '失败');
     if (s.budgetLimit != null) await gmPost({ type: 'budgetLimit', limit: s.budgetLimit });
     refresh();
   };
@@ -969,7 +984,7 @@ const SEATN = { CA:'首都航空', AB:'弹道航空', VA:'愿景航空' };
         const okb = el('button', null, '批准（可改参数）');
         okb.onclick = async () => {
           const r = await gmPost({ type: 'resolveProposal', seat: s, id: pr.id, action: 'approve', modify: mod, note: note.value });
-          if (r.result !== 'ok') alert(r.result || r.error || '失败');
+          if (r.result !== 'ok') actMsg(r.result || r.error || '失败');
           refresh();
         };
         const nob = el('button', null, '驳回');
@@ -1021,7 +1036,7 @@ $('#btnNeg').onclick = async () => {
     note: $('#negNote').value };
   if (spec[2] === 'perMarket') body.code = $('#negCode').value;
   const r = await gmPost(body);
-  if (r.result !== 'ok') alert(r.result || r.error || '失败');
+  if (r.result !== 'ok') actMsg(r.result || r.error || '失败');
   else { $('#negNote').value = ''; refresh(); }
 };
 $('#btnNegClear').onclick = async () => {
@@ -1033,12 +1048,12 @@ $('#btnHedge').onclick = async () => {
   const r = await gmPost({ type: 'negotiate', seat: $('#negSeat').value, item: 'fuelHedge',
     price: Number($('#negHP').value), share: Number($('#negHS').value),
     quarters: Number($('#negHQ').value), note: '燃油套保' });
-  if (r.result !== 'ok') alert(r.result || '失败'); else refresh();
+  if (r.result !== 'ok') actMsg(r.result || '失败'); else refresh();
 };
 $('#btnIntel').onclick = async () => {
   const r = await gmPost({ type: 'intelPrice', seat: $('#negSeat').value,
     code: $('#intelCode').value, price: Number($('#intelPrice').value) });
-  if (r.result !== 'ok') alert(r.result || '失败'); else refresh();
+  if (r.result !== 'ok') actMsg(r.result || '失败'); else refresh();
 };
 
 /* ── 课堂调控 · 资金与投资（裁判端）────────────────────────────
@@ -1119,9 +1134,9 @@ function renderInvList() {
 }
 $('#btnGrant').onclick = async () => {
   const amt = Number($('#grantAmt').value);
-  if (!Number.isFinite(amt) || amt === 0) return alert('请输入有效金额');
+  if (!Number.isFinite(amt) || amt === 0) return actMsg('请输入有效金额');
   const r = await gmPost({ type: 'grantCash', seat: $('#gmSeat').value, amount: amt });
-  if (r.result !== 'ok') return alert(r.result || '失败');
+  if (r.result !== 'ok') return actMsg(r.result || '失败');
   $('#grantAmt').value = '';
   $('#invTermsMsg').textContent = '✔ 已发放资金';
   refresh(); loadInvTerms(false);
@@ -1133,18 +1148,18 @@ $('#btnInvToggle').onclick = async () => {
   const cur = _invTerms[id] || {};
   const open = cur.open != null ? !!cur.open : !def.needNegotiation;
   const r = await gmPost({ type: 'negotiate', seat: $('#gmSeat').value, item: 'investTerms', invId: id, open: !open });
-  if (r.result !== 'ok') return alert(r.result || '失败');
+  if (r.result !== 'ok') return actMsg(r.result || '失败');
   $('#invTermsMsg').textContent = '✔ 已' + (open ? '关闭' : '开放') + '：' + (def.name_cn || id);
   refresh(); loadInvTerms(false);
 };
 $('#btnInvTerms').onclick = async () => {
   const c = $('#invCost').value, v = $('#invRev').value;
-  if (c === '' && v === '') return alert('请填写每客成本或收益');
+  if (c === '' && v === '') return actMsg('请填写每客成本或收益');
   const body = { type: 'negotiate', seat: $('#gmSeat').value, item: 'investTerms', invId: $('#invItem').value };
   if (c !== '') body.costPerPax = Number(c);
   if (v !== '') body.revenuePerPax = Number(v);
   const r = await gmPost(body);
-  if (r.result !== 'ok') return alert(r.result || '失败');
+  if (r.result !== 'ok') return actMsg(r.result || '失败');
   $('#invTermsMsg').textContent = '✔ 条款已议定';
   refresh(); loadInvTerms(false);
 };
@@ -1170,7 +1185,7 @@ $('#selSeat').onchange = fillTargets;
 
 $('#btnReleaseNow').onclick = async () => {
   const r = await gmPost({ type: 'releaseRoutes', codes: $('#inReleaseNow').value });
-  if (r.result !== 'ok') alert(r.result || '失败'); else refresh();
+  if (r.result !== 'ok') actMsg(r.result || '失败'); else refresh();
 };
 $('#btnFuel').onclick = async () => { await gmPost({ type: 'setFuel', value: +$('#inFuel').value }); refresh(); };
 $('#btnCarbon').onclick = async () => { await gmPost({ type: 'setCarbon', value: +$('#inCarbon').value }); refresh(); };
@@ -1194,7 +1209,7 @@ $('#btnNewSeat').onclick = async () => {
 };
 $('#btnEvent').onclick = async () => {
   const res = await gmPost({ type: 'triggerEvent', eventId: $('#selEvent').value, target: $('#selTarget').value, seat: $('#selSeat').value });
-  if (res.result !== 'ok') alert(res.result);
+  if (res.result !== 'ok') actMsg(res.result);
   refresh();
 };
 $('#btnAdvanceAll').onclick = async () => {
@@ -1243,7 +1258,7 @@ if (bStart) bStart.onclick = async () => {
   const min = Number((__DOC.getElementById('inRoundMin') || {}).value || 60);
   const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': CLOCK_KEY },
     body: JSON.stringify({ type: 'startRound', seconds: min * 60 }) }).then(x => x.json());
-  if (r.result !== 'ok') alert(r.result);
+  if (r.result !== 'ok') actMsg(r.result);
   updateClock();
 };
 const bSettle = __DOC.getElementById('btnSettleNow');
@@ -1251,7 +1266,7 @@ if (bSettle) bSettle.onclick = async () => {
   if (!confirm('立即结算所有未提交小组？')) return;
   const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': CLOCK_KEY },
     body: JSON.stringify({ type: 'settleNow' }) }).then(x => x.json());
-  if (r.result !== 'ok') alert(r.result);
+  if (r.result !== 'ok') actMsg(r.result);
   updateClock();
 };
 setInterval(updateClock, 2000); updateClock();
@@ -1260,6 +1275,37 @@ setInterval(updateClock, 2000); updateClock();
 const GKEY = new URLSearchParams(location.search).get('key') || '';
 const NLB = { draft:'草稿', submitted:'已提交', under_review:'裁判受理', countered:'待小组确认还价', agreed:'已达成', effective:'已生效', rejected:'已驳回', withdrawn:'已撤回' };
 let negSig = '';
+/* ══ 11-23：动作反馈就地化 ══
+   ★ S7（项目规��）：关键操作的结果要**就地可见**，不要只靠 alert 弹窗。
+   做法：记住最近点击的控件 → 失败/成功信息写在它旁边（同一容器只留一条，可手动 × 关掉）。
+   失败路径**不重绘整页**（重绘会把就地提示冲掉），只刷新被拒清单与角标。 */
+let __lastActEl = null;
+__DOC.addEventListener('click', (e) => {
+  const hit = e.target && e.target.closest ? e.target.closest('button, a, input, select, textarea') : null;
+  if (hit) __lastActEl = hit;
+}, true);
+function actMsg(msg, kind, origin) {
+  /* ★ 参数名别叫 el —— 会遮蔽模块级的 el() 建元素助手 */
+  const target = origin || __lastActEl;
+  let raw = msg;
+  if (raw && typeof raw === 'object') raw = raw.why || raw.error || raw.result || raw.message || '';
+  const t = String(raw == null ? '' : raw).trim();
+  if (!t) return null;
+  const cell = target && target.closest ? target.closest('td') : null;
+  const host = cell || (target && target.parentElement) || null;
+  if (host) host.querySelectorAll(':scope > .actMsg').forEach(n => n.remove());
+  const box = el('span', 'actMsg' + (kind === 'ok' ? ' ok' : kind === 'info' ? ' info' : ''));
+  box.textContent = t;   /* 用 textContent：服务端文案不当 HTML 解析 */
+  const x = el('button', 'x', '×');
+  x.type = 'button'; x.title = '关闭';
+  x.onclick = (ev) => { ev.stopPropagation(); if (box.parentNode) box.parentNode.removeChild(box); };
+  box.appendChild(x);
+  if (cell) cell.appendChild(box);
+  else if (target && target.insertAdjacentElement) target.insertAdjacentElement('afterend', box);
+  else __DOC.body.appendChild(box);
+  return box;
+}
+
 async function renderNegFlow() {
   const box = __DOC.getElementById('negFlow'); if (!box) return;
   const gm = await fetch('/api/gm', { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
@@ -1297,7 +1343,7 @@ async function renderNegFlow() {
           const note = prompt('备注（可留空）', '') || '';
           const res = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
             body: JSON.stringify({ type: 'reviewNegRequest', seat: r.seat, id: r.id, action: act, items, note }) }).then(x => x.json());
-          if (res.result && res.result !== 'ok') alert(res.result);
+          if (res.result && res.result !== 'ok') actMsg(res.result);
           negSig = ''; renderNegFlow();
         };
         return b; };
@@ -1372,7 +1418,7 @@ async function renderTargetPanel() {
       const nt = __DOC.getElementById('tgNt_' + s).value.trim();
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'setTarget', seat: s, lf: lf === '' ? null : Number(lf) / 100, profit: pf === '' ? null : Number(pf), share: sh === '' ? null : Number(sh) / 100, note: nt }) }).then(x => x.json());
-      if (r.result !== 'ok') alert(r.result);
+      if (r.result !== 'ok') actMsg(r.result);
     };
     td.appendChild(b); tr.appendChild(td); t2.appendChild(tr);
   }
@@ -1398,7 +1444,7 @@ async function renderStyleAndHack() {
     b.onclick = async () => {
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'setSeatStyle', seat: s, style: sel.value }) }).then(x => x.json());
-      if (r.result !== 'ok') { alert(r.result); return; }
+      if (r.result !== 'ok') { actMsg(r.result); return; }
       /* ★ 立即可见确认（否则要等下一次轮询才看得出，且按钮/下拉会被整块重建 → 误以为没生效） */
       b.textContent = '已确定 ✓';
       setTimeout(() => { if (b.isConnected) b.textContent = '确定'; }, 1500);
@@ -1434,13 +1480,13 @@ async function renderStyleAndHack() {
     b1.onclick = async () => {
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'setRansom', seat: x.s, amount: Number(inp.value || 0) }) }).then(x => x.json());
-      if (r.result !== 'ok') alert(r.result);
+      if (r.result !== 'ok') actMsg(r.result);
     };
     const b2 = el('button', null, '标记已处理');
     b2.onclick = async () => {
       const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
         body: JSON.stringify({ type: 'resolveHack', seat: x.s }) }).then(x => x.json());
-      if (r.result !== 'ok') alert(r.result);
+      if (r.result !== 'ok') actMsg(r.result);
     };
     row.appendChild(inp); row.appendChild(b1); row.appendChild(b2);
     hf.appendChild(row);
@@ -1472,11 +1518,11 @@ async function renderHcPanel() {
   sSel.onchange = fillAc; fillAc();
   const b = el('button', null, '触发大修');
   b.onclick = async () => {
-    if (!aSel.value) return alert('请选择飞机');
+    if (!aSel.value) return actMsg('请选择飞机');
     const r = await fetch('/api/gm', { method: 'POST', headers: { 'content-type': 'application/json', 'x-sandbox-key': GKEY },
       body: JSON.stringify({ type: 'triggerHeavyCheck', seat: sSel.value, acId: Number(aSel.value) }) }).then(x => x.json());
-    if (r.result !== 'ok') alert(r.result);
-    else alert('已触发大修：该机本季运力减半；是否卖出由团队自行决定（可与裁判谈价或卖给其他航司）');
+    if (r.result !== 'ok') actMsg(r.result);
+    else actMsg('已触发大修：该机本季运力减半；是否卖出由团队自行决定（可与裁判谈价或卖给其他航司）', 'ok');
   };
   row.appendChild(el('span', null, '席位')); row.appendChild(sSel);
   row.appendChild(el('span', null, '飞机')); row.appendChild(aSel);
@@ -1522,7 +1568,7 @@ if (bPost) bPost.onclick = async () => {
       body: __DOC.getElementById('msgBody').value, kind: __DOC.getElementById('msgKind').value,
       due: __DOC.getElementById('msgDue').value,
       pinned: __DOC.getElementById('msgPin').checked }) }).then(x => x.json());
-  if (res.result && res.result.indexOf('MSG') !== 0) alert(res.result);
+  if (res.result && res.result.indexOf('MSG') !== 0) actMsg(res.result);
   __DOC.getElementById('msgTitle').value = ''; __DOC.getElementById('msgBody').value = ''; __DOC.getElementById('msgDue').value = '';
   renderMsgList();
 };
@@ -1531,7 +1577,7 @@ setInterval(renderMsgList, 5000); renderMsgList();
   const b = __DOC.getElementById(id); if (!b) return;
   b.onclick = async () => {
     const sel = __DOC.getElementById('repSeat');
-    if (!sel || !sel.value) return alert('先在 ⑫ 区选择席位');
+    if (!sel || !sel.value) return actMsg('先在 ⑫ 区选择席位');
     const d = await fetch('/api/seat/' + sel.value, { headers: { 'x-sandbox-key': GKEY } }).then(r => r.json()).catch(() => null);
     if (!d || !d.game) return;
     const g2 = d.game, p = sel.value;

@@ -158,6 +158,20 @@ td[data-seat="VA"]{--dot:#2f6fa8}
 /* ── 11-23 unslop：超宽屏收口 —— 两列不再无限拉宽 ── */
 main{max-width:1680px;margin:0 auto}
 
+
+/* ── 11-23：动作反馈就地化（S7：结果不能只靠 alert 弹窗）+ 被拒角标 ── */
+.actMsg{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:6px;font-size:12px;line-height:1.6;
+ border:1px solid rgba(217,112,104,.55);background:rgba(217,112,104,.14);color:#f2b0aa;white-space:normal;vertical-align:middle}
+.actMsg.ok{border-color:rgba(76,154,95,.55);background:rgba(76,154,95,.14);color:#8ed3a0}
+.actMsg.info{border-color:var(--line);background:var(--raised);color:var(--tx2)}
+.actMsg .x{background:none;border:none;color:inherit;cursor:pointer;font:inherit;font-size:12px;padding:0 0 0 6px;opacity:.75}
+.actMsg .x:hover{opacity:1}
+td>.actMsg{display:block;margin:4px 0 0;width:100%}
+.rejectBadge{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:8px;font-size:12px;
+ border:1px solid rgba(217,112,104,.55);background:rgba(217,112,104,.14);color:#f2b0aa;cursor:pointer;white-space:nowrap}
+.rejectBadge:hover{background:rgba(217,112,104,.22)}
+.rejectBadge[hidden]{display:none}
+
 </style>
 <script>
 /* 页面级错误可见化：真实课堂里不能只留在控制台 */
@@ -174,6 +188,7 @@ window.addEventListener('error', function (e) {
 <header>
   <h1>SkyChess 沙盘</h1>
   <div class="card" id="seatClockCard" style="padding:8px 12px;margin-bottom:10px"><div class="row" style="margin-bottom:6px"><span id="seatClock" style="font-weight:600"></span> <span id="seatClockSub" class="small" title="本季计时与结算由裁判控制（本组不能推进回合）">计时与结算由裁判控制</span></div><div style="background:#eaeef2;border-radius:6px;height:12px;overflow:hidden"><div id="seatClockBar" style="height:100%;width:0;background:#1f6feb;transition:width .5s"></div></div></div><span id="seatBadge" class="badge">—</span>
+  <span id="rejectBadge" class="rejectBadge" hidden title="上次操作被拒原因（点击查看）">被拒 0</span>
   <div class="kv"><b id="hPeriod">—</b><span>当前期间</span></div>
   <div class="kv"><b id="hCash">—</b><span>现金</span></div>
   <div class="kv"><b id="hQsi">—</b><span>QSI</span></div>
@@ -492,16 +507,56 @@ async function api(path, body) {
 /* ★ 提交锁：提交进行中时，轮询不得重绘（否则用户刚勾选/刚输入的状态会被旧数据覆盖，
    表现为「联程复选弹回」「回程时间改了又变回去」） */
 let _busy = false;
+
+/* ══ 11-23：动作反馈就地化 ══
+   ★ S7（项目规��）：关键操作的结果要**就地可见**，不要只靠 alert 弹窗。
+   做法：记住最近点击的控件 → 失败/成功信息写在它旁边（同一容器只留一条，可手动 × 关掉）。
+   失败路径**不重绘整页**（重绘会把就地提示冲掉），只刷新被拒清单与角标。 */
+let __lastActEl = null;
+__DOC.addEventListener('click', (e) => {
+  const hit = e.target && e.target.closest ? e.target.closest('button, a, input, select, textarea') : null;
+  if (hit) __lastActEl = hit;
+}, true);
+function actMsg(msg, kind, origin) {
+  /* ★ 参数名别叫 el —— 会遮蔽模块级的 el() 建元素助手 */
+  const target = origin || __lastActEl;
+  let raw = msg;
+  if (raw && typeof raw === 'object') raw = raw.why || raw.error || raw.result || raw.message || '';
+  const t = String(raw == null ? '' : raw).trim();
+  if (!t) return null;
+  const cell = target && target.closest ? target.closest('td') : null;
+  const host = cell || (target && target.parentElement) || null;
+  if (host) host.querySelectorAll(':scope > .actMsg').forEach(n => n.remove());
+  const box = el('span', 'actMsg' + (kind === 'ok' ? ' ok' : kind === 'info' ? ' info' : ''));
+  box.textContent = t;   /* 用 textContent：服务端文案不当 HTML 解析 */
+  const x = el('button', 'x', '×');
+  x.type = 'button'; x.title = '关闭';
+  x.onclick = (ev) => { ev.stopPropagation(); if (box.parentNode) box.parentNode.removeChild(box); };
+  box.appendChild(x);
+  if (cell) cell.appendChild(box);
+  else if (target && target.insertAdjacentElement) target.insertAdjacentElement('afterend', box);
+  else __DOC.body.appendChild(box);
+  return box;
+}
+
 async function act(type, extra = {}, noRender) {
   _busy = true;
   try {
     const res = await api('/api/seat/' + seat, { type, ...extra });
-    if (res.result && typeof res.result === 'object' && res.result.why) alert(res.result.why);
-    else if (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') alert(res.result);
+    /* ★ 11-23：失败原因**就地写在触发控件旁边**（不再 alert 弹窗），且失败不重绘整页
+       —— 重绘会把就地提示冲掉；被拒清单与角标单独刷新。 */
+    const why = (res.result && typeof res.result === 'object' && res.result.why) ? res.result.why
+      : (typeof res.result === 'string' && res.result !== 'ok' && res.result !== 'unknown action') ? res.result : null;
     _loadSeq++;                      // ★ 作废在途的轮询响应（防止旧数据覆盖本次提交）
     g = res.game; gmState = res.gm;
+    if (why) {
+      actMsg(why, 'bad');
+      renderRejects(); updateRejectBadge();
+      return res;
+    }
     /* ★ noRender：只读测算类动作不重绘全页（否则 render() → renderScaleBox() → act() → render() 无限递归） */
     if (!noRender) render();
+    updateRejectBadge();
     return res;
   } finally { _busy = false; }
 }
@@ -663,7 +718,7 @@ function routes() {
     row.appendChild(lfc);
     const tdA = el('td');
     const b1 = el('button', null, '最优价');
-    b1.onclick = () => alert(`${m.name_cn || m.code || r.code} 最优运价 ≈ $${E.optimalFare(m.name, fl.length * 90, Math.max(seats, 1)).toFixed(0)}`);
+    b1.onclick = () => actMsg(`${m.name_cn || m.code || r.code} 最优运价 ≈ $${E.optimalFare(m.name, fl.length * 90, Math.max(seats, 1)).toFixed(0)}`, 'info');
     tdA.appendChild(b1);
     if (m.etops && !r.etopsPaid) {
       const b2 = el('button', null, '购ETOPS');
@@ -782,7 +837,7 @@ $('#btnBand') && ($('#btnBand').onclick = async () => {
   const code = $('#selBandMkt').value;
   if (!code) return;
   const res = await act('setFareBands', { code, peak: Number($('#inPeak').value), offPeak: Number($('#inOff').value) });
-  if (res === 'ok') alert('已设定 ' + code + ' 的分时定价');
+  if (res === 'ok') actMsg('已设定 ' + code + ' 的分时定价', 'ok');
 });
 function mktSelFill() {
   const s = $('#selMkt');
@@ -1172,6 +1227,16 @@ function renderTurnHint() {
   box.textContent = `本组定位 ${st}：过站时间基线 ${base} 分钟（可选档位 ${opts}）｜当前生效 ${cur} 分钟`
     + `　→ 过站时间越长，同机每日可飞班次越少（基线统一 60 分钟，档位由裁判谈定）`;
 }
+function updateRejectBadge() {
+  const b = $('#rejectBadge'); if (!b) return;
+  const n = (g && g.rejects && g.rejects.length) || 0;
+  b.textContent = '被拒 ' + n;
+  b.hidden = n === 0;
+  b.onclick = () => {
+    const box = $('#rejectBox');
+    if (box && box.closest('.card')) box.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+}
 function renderRejects() {
   const box = $('#rejectBox'); if (!box) return;
   box.innerHTML = '';
@@ -1208,7 +1273,7 @@ function renderNegReqs() {
     const tdOp = el('td');
     const mk = (label, act) => { const b = el('button', null, label); b.onclick = async () => {
       const res = await act2(act, r.id);
-      if (res && res !== 'ok') alert(res); else render();
+      if (res && res !== 'ok') actMsg(res, 'bad'); else render();
     }; return b; };
     if (r.status === 'submitted') tdOp.appendChild(mk('撤回', 'withdrawNegRequest'));
     if (r.status === 'countered') { tdOp.appendChild(mk('接受还价', 'acceptCounter')); tdOp.appendChild(mk('拒绝还价', 'rejectCounter')); }
@@ -1237,7 +1302,7 @@ $('#btnNegReq') && ($('#btnNegReq').onclick = async () => {
   const items = {}; items[item] = val;
   const res = await fetch('/api/seat/' + g.seat, { method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ type: 'submitNegRequest', title: $('#nrTitle').value, note: $('#nrNote').value, items }) }).then(x => x.json());
-  if (res.result && res.result !== 'ok') alert(res.result);
+  if (res.result && res.result !== 'ok') actMsg(res.result, 'bad');
   else { $('#nrTitle').value = ''; $('#nrVal').value = ''; $('#nrNote').value = ''; render(); }
 });
 /* 考核目标：第 3 季（turn>=2）前不显示任何目标数值 */
@@ -1270,12 +1335,12 @@ function renderHackOverlay() {
   btn2.style.marginLeft = '10px';
   btn2.onclick = async () => {
     const res = await act('buyCyberService', {});
-    if (res && res !== 'ok') alert(res); else render();
+    if (res && res !== 'ok') actMsg(res, 'bad'); else render();
   };
   const btn = el('button', null, '支付赎金');
   btn.onclick = async () => {
     const res = await act('payRansom', {});
-    if (res && res !== 'ok') alert(res); else render();
+    if (res && res !== 'ok') actMsg(res, 'bad'); else render();
   };
   bar.appendChild(amt); bar.appendChild(btn); bar.appendChild(btn2);
   ov.appendChild(bar);
@@ -1327,7 +1392,7 @@ function autoFillReturns() {
       const res = await act('setReturnFlight', { index: i, departure: dep });
       if (res && res.result === 'ok') n++;
     }
-    alert(n ? `已自动填入 ${n} 班回程（到达 + 过站时间）` : '没有需要填入的回程（可能都已设定）');
+    actMsg(n ? `已自动填入 ${n} 班回程（到达 + 过站时间）` : '没有需要填入的回程（可能都已设定）', n ? 'ok' : 'info');
     render();
   })();
 }
@@ -1363,7 +1428,7 @@ function renderRetBox() {
       const res = await act('setReturnFlight', { index: i, departure: inp.value });
       /* ★ act() 返回 {ok, result} → 必须取 .result，否则永远判为失败（并弹出 [object Object]） */
       const rr = (res && typeof res === 'object') ? res.result : res;
-      if (rr && rr !== 'ok') alert(rr); else render();
+      if (rr && rr !== 'ok') actMsg(rr, 'bad'); else render();
     };
     td2.appendChild(btn); row.appendChild(td2);
     tb.appendChild(row);
@@ -1610,7 +1675,7 @@ function render() {
   if (!$('#repBody').children.length) R.renderReports($('#repBody'), g);
   else R.renderReports($('#repBody'), g);
   R.renderOpsViews($('#opsBody'), g);
-  renderNegReqs(); renderMsgBoard(); renderRejects(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay;
+  renderNegReqs(); renderMsgBoard(); renderRejects(); updateRejectBadge(); renderDemandHint(); renderTurnHint(); renderTarget(); renderHackOverlay(); renderBankruptOverlay;
   /* ★ 吸顶锚点条 + 空态卡收紧（11-17 critique P2：页面 5000px、零导航；空卡各占一屏高度） */
   R.mountJumpBar(__DOC.querySelector('main'));
   foldEmptyCards(); renderSellHint(); renderEconBox(); renderScaleBox(); renderConnBox(); renderRetBox(); renderTips();
@@ -1765,17 +1830,17 @@ setInterval(poll, 2000);
     cols[0].appendChild(card);
     card.querySelector('#btnReturnLease').addEventListener('click', async () => {
       const s = D.getElementById('selAc'); const id = s ? s.value : '';
-      if (!id) return alert('请先在排班区选择飞机');
+      if (!id) { actMsg('请先在排班区选择飞机', 'bad'); return; }
       const r = await act('returnLease', { acId: id });
-      if (r && r.result && r.result !== 'ok') alert(r.result);
+      if (r && r.result && r.result !== 'ok') actMsg(r.result, 'bad');
     });
     card.querySelector('#btnSellAc').addEventListener('click', async () => {
       const s = D.getElementById('selAc'); const id = s ? s.value : '';
-      if (!id) return alert('请先在排班区选择飞机');
+      if (!id) { actMsg('请先在排班区选择飞机', 'bad'); return; }
       const offer = prompt('请输入出售报价（美元）', '20000000');
       if (!offer) return;
       const r = await act('sellAircraft', { acId: id, offer: Number(offer) });
-      if (r && r.result && r.result !== 'ok') alert(r.result);
+      if (r && r.result && r.result !== 'ok') actMsg(r.result, 'bad');
     });
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', build);
